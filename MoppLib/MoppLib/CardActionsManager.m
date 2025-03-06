@@ -28,9 +28,7 @@
 #import "Idemia.h"
 #import "MoppLibCardReaderManager.h"
 
-@implementation CardActionsManager {
-    id<CardCommands> _cardCommandHandler;
-}
+@implementation CardActionsManager
 
 + (CardActionsManager *)sharedInstance {
     static CardActionsManager *sharedInstance = nil;
@@ -41,66 +39,66 @@
 }
 
 - (void)cardPersonalDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure {
-    [self executeAction:^(id<CardCommands> handler, FailureBlock failure) {
+    [self executeAction:^(id<CardCommands> handler) {
         [handler readPublicDataWithSuccess:success failure:failure];
     } failure:failure];
 }
 
 - (void)signingCertWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
-    [self executeAction:^(id<CardCommands> handler, FailureBlock failure) {
+    [self executeAction:^(id<CardCommands> handler) {
         [handler readSignatureCertificateWithSuccess:success failure:failure];
     } failure:failure];
 }
 
 - (void)authenticationCertWithSuccess:(DataSuccessBlock)success failure:(FailureBlock)failure {
-    [self executeAction:^(id<CardCommands> handler, FailureBlock failure) {
+    [self executeAction:^(id<CardCommands> handler) {
         [handler readAuthenticationCertificateWithSuccess:success failure:failure];
     } failure:failure];
 }
 
 - (void)changeCode:(CodeType)type withVerifyCode:(NSString *)verify to:(NSString *)newCode success:(VoidBlock)success failure:(FailureBlock)failure {
-    [self executeAction:^(id<CardCommands> handler, FailureBlock failure) {
+    [self executeAction:^(id<CardCommands> handler) {
         [handler changeCode:type to:newCode withVerifyCode:verify withSuccess:success failure:failure];
     } failure:failure];
 }
 
 - (void)changePin:(CodeType)type withPuk:(NSString *)puk to:(NSString *)newPin success:(VoidBlock)success failure:(FailureBlock)failure {
-    [self executeAction:^(id<CardCommands> handler, FailureBlock failure) {
+    [self executeAction:^(id<CardCommands> handler) {
         [handler unblockCode:type withPuk:puk newCode:newPin success:success failure:failure];
     } failure:failure];
 }
 
 - (void)unblockCode:(CodeType)type withPuk:(NSString *)puk newCode:(NSString *)newCode success:(VoidBlock)success failure:(FailureBlock)failure {
-    [self executeAction:^(id<CardCommands> handler, FailureBlock failure) {
+    [self executeAction:^(id<CardCommands> handler) {
         [handler unblockCode:type withPuk:puk newCode:newCode success:success failure:failure];
     } failure:failure];
 }
 
 - (void)code:(CodeType)type retryCountWithSuccess:(void (^)(NSNumber *))success failure:(FailureBlock)failure {
-    [self executeAction:^(id<CardCommands> handler, FailureBlock failure) {
+    [self executeAction:^(id<CardCommands> handler) {
         [handler readCodeCounterRecord:type withSuccess:success failure:failure];
     } failure:failure];
 }
 
 - (void)authenticateFor:(NSData *)hash pin1:(NSString *)pin1 success:(DataSuccessBlock)success failure:(FailureBlock)failure {
-    [self executeAction:^(id<CardCommands> handler, FailureBlock failure) {
+    [self executeAction:^(id<CardCommands> handler) {
         [handler authenticateFor:hash withPin1:pin1 success:success failure:failure];
     } failure:failure];
 }
 
 - (void)calculateSignatureFor:(NSData *)hash pin2:(NSString *)pin2 success:(DataSuccessBlock)success failure:(FailureBlock)failure {
-    [self executeAction:^(id<CardCommands> handler, FailureBlock failure) {
+    [self executeAction:^(id<CardCommands> handler) {
         [handler calculateSignatureFor:hash withPin2:pin2 success:success failure:failure];
     } failure:failure];
 }
 
 - (void)decryptData:(NSData *)hash pin1:(NSString *)pin1 success:(DataSuccessBlock)success failure:(FailureBlock)failure {
-    [self executeAction:^(id<CardCommands> handler, FailureBlock failure) {
+    [self executeAction:^(id<CardCommands> handler) {
         [handler decryptData:hash withPin1:pin1 success:success failure:failure];
     } failure:failure];
 }
 
-- (void)executeAction:(void (^)(id<CardCommands>, FailureBlock))action failure:(FailureBlock)failure {
+- (void)executeAction:(void (^)(id<CardCommands>))action failure:(FailureBlock)failure {
     printLog(@"ID-CARD: EXECUTE ACTION");
     if (self.reader == nil || ![self.reader isConnected]) {
         printLog(@"ID-CARD: READER IS NOT CONNECTED");
@@ -108,20 +106,20 @@
         failure([MoppLibError readerNotFoundError]);
     } else if (![self.reader isCardInserted]) {
         MLLog(@"ID-CARD: Card not inserted");
+        self.cardCommandHandler = nil;
         failure([MoppLibError cardNotFoundError]);
-    } else if([self.reader isCardPoweredOn]) {
+    } else if([self.reader isCardPoweredOn] && self.cardCommandHandler != nil) {
         printLog(@"---| EXECUTE ACTION |---");
-        action(_cardCommandHandler, failure);
+        action(self.cardCommandHandler);
     } else {
-        [_reader powerOnCard:^(NSData* atr) {
-            static const NSString *idemiaAtr = @"3B DB 96 00 80 B1 FE 45 1F 83 00 12 23 3F 53 65 49 44 0F 90 00 F1";
-            if([atr isEqualToData:[idemiaAtr toHexData]]) {
-                self->_cardCommandHandler = [[Idemia alloc] initWithReader:self->_reader];
-                printLog(@"---| EXECUTE ACTION |---");
-                action(self->_cardCommandHandler, failure);
-            } else {
+        [self.reader powerOnCard:^(NSData* atr) {
+            self.cardCommandHandler = [[Idemia alloc] initWithCardReader:self.reader atrData:atr];
+            if (self.cardCommandHandler == nil) {
                 MLLog(@"ID-CARD: Unable to determine card version");
                 failure([MoppLibError cardVersionUnknownError]);
+            } else {
+                printLog(@"---| EXECUTE ACTION |---");
+                action(self.cardCommandHandler);
             }
         } failure:^(NSError *error) {
             MLLog(@"Unable to power on card");

@@ -38,20 +38,4 @@
     }
     return hexString;
 }
-
-- (UInt16)sw {
-    UInt16 value = 0;
-    if (self.length < 2)
-        return value;
-    [self getBytes:&value range:NSMakeRange(self.length - 2, 2)];
-    return CFSwapInt16BigToHost(value);
-}
-
-- (NSData *)trailingTwoBytesTrimmed {
-  if (self.length < 2)
-    return nil;
-    
-  return  [self subdataWithRange:NSMakeRange(0, self.length - 2)];
-}
-
 @end

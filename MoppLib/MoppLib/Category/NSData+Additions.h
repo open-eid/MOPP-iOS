@@ -25,6 +25,4 @@
 
 @interface NSData (Additions)
 - (NSString *)hexString;
-- (NSData *)trailingTwoBytesTrimmed;
-- (UInt16)sw;
 @end

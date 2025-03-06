@@ -195,7 +195,6 @@ extension MyeIDViewController: MyeIDInfoManagerDelegate {
             }
             printLog("ID-CARD: My eID. Restarting reader")
             didRestartReader = true
-            MoppLibCardReaderManager.sharedInstance().stopDiscoveringReaders()
             MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
         }
     }

@@ -28,6 +28,20 @@
 #import "MoppLibError.h"
 #import "ReaderInterface.h"
 
+@implementation NSMutableData (CardReaderiR301)
+
+- (UInt16)takeSW {
+    UInt16 value = 0;
+    if (self.length < 2)
+        return value;
+    [self getBytes:&value range:NSMakeRange(self.length - 2, 2)];
+    [self setLength:self.length - 2];
+    return CFSwapInt16BigToHost(value);
+}
+
+@end
+
+
 @implementation CardReaderiR301 {
     SCARDCONTEXT contextHandle;
     SCARDHANDLE cardHandle;
@@ -41,13 +55,22 @@
 }
 
 -(id)initWithContextHandle:(SCARDCONTEXT)_contextHandle {
+    //assert(_contextHandle);
+    if (!_contextHandle) {
+        printLog(@"ID-CARD: Invalid context handle: %x", _contextHandle);
+        return nil;
+    }
+
     char modelNameBuf[100];
     unsigned int modelNameLength = sizeof(modelNameBuf);
-    FtGetAccessoryModelName(_contextHandle, &modelNameLength, modelNameBuf);
+    if (FtGetAccessoryModelName(_contextHandle, &modelNameLength, modelNameBuf) != 0) {
+        printLog(@"ID-CARD: Failed to identify reader");
+        return nil;
+    }
     modelNameBuf[modelNameLength] = '\0';
     NSString *modelName = [NSString stringWithUTF8String:modelNameBuf];
 
-    printLog(@"ID-CARD: Checking if card reader is supported");
+    printLog(@"ID-CARD: Checking if card reader is supported: %s", modelNameBuf);
     if (![modelName hasPrefix:@"iR301"]) {
         printLog(@"ID-CARD: Unsupported reader: %@", modelName);
         return nil;
@@ -61,7 +84,7 @@
     return self;
 }
 
-- (NSData*)transmitCommand:(const NSData *)apdu {
+- (NSMutableData*)transmitCommand:(const NSData *)apdu {
     printLog(@"ID-CARD: Transmitting APDU data %@", [apdu hexString]);
     NSMutableData *response = [NSMutableData dataWithLength:512];
     NSUInteger responseSize = response.length;
@@ -81,16 +104,16 @@
 
 #pragma mark - CardReaderWrapper
 
-- (void)transmitCommand:(const NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure {
+- (void)transmitCommand:(const NSString *)commandHex success:(SCDataSuccessBlock)success failure:(FailureBlock)failure {
     printLog(@"ID-CARD: CardReaderiR301. transmitCommand.");
 
     NSData *apdu = [commandHex toHexData];
-    NSData *response = [self transmitCommand:apdu];
+    NSMutableData *response = [self transmitCommand:apdu];
     if (response == nil) {
         return failure([MoppLibError readerProcessFailedError]);
     }
 
-    UInt16 sw = [response sw];
+    UInt16 sw = [response takeSW];
     if ((sw & 0xFF00) == 0x6C00) {
         NSMutableData *mutableApdu = [apdu mutableCopy];
         ((UInt8*)mutableApdu.mutableBytes)[apdu.length - 1] = (UInt8)sw; // set new Le byte
@@ -98,26 +121,34 @@
         if(response == nil) {
             return failure([MoppLibError readerProcessFailedError]);
         }
-        sw = [response sw];
+        sw = [response takeSW];
     }
 
-    NSMutableData *data = [NSMutableData data];
     // While there is additional response data in the chip card: 61 XX
     // where XX defines the size of additional data in bytes)
     unsigned char getResponseApdu[5] = { 0x00, 0xC0, 0x00, 0x00, 0x00 };
     while ((sw & 0xFF00) == 0x6100) {
         getResponseApdu[4] = (UInt8)sw;
-        [data appendData:[response trailingTwoBytesTrimmed]];
         // Set the size of additional data to get from the chip
-        response = [self transmitCommand:[NSData dataWithBytesNoCopy:getResponseApdu length:sizeof(getResponseApdu) freeWhenDone:NO]];
-        if(response == nil) {
+        NSMutableData *data = [self transmitCommand:[NSData dataWithBytesNoCopy:getResponseApdu length:sizeof(getResponseApdu) freeWhenDone:NO]];
+        if(data == nil) {
             return failure([MoppLibError readerProcessFailedError]);
         }
-        sw = response.sw;
+        sw = [data takeSW];
+        [response appendData:data];
     }
 
-    [data appendData:response];
-    success(data);
+    success(response, sw);
+}
+
+- (void)transmitCommandChecked:(const NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure {
+    [self transmitCommand:commandHex success:^(NSData *responseData, UInt16 sw) {
+        if (sw == 0x9000) {
+            success(responseData);
+        } else {
+            failure([MoppLibError generalError]);
+        }
+    } failure:failure];
 }
 
 - (void)powerOnCard:(DataSuccessBlock)success failure:(FailureBlock)failure {

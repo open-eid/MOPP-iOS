@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, CodeType) {
 
 @protocol CardCommands <NSObject>
 
-- (instancetype)initWithReader:(id<CardReaderWrapper>)reader;
+- (instancetype)initWithCardReader:(id<CardReaderWrapper>)reader atrData:(NSData*)atr;
 
 /**
  * Reads public data from card.

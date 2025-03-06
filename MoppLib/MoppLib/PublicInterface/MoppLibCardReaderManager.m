@@ -24,12 +24,38 @@
 #import "MoppLibCardReaderManager.h"
 #import "CardActionsManager.h"
 #import "CardReaderiR301.h"
-#import "NSString+Additions.h"
 #import "ReaderInterface.h"
 
-@interface MoppLibCardReaderManager()<ReaderInterfaceDelegate>
+@interface MoppLibCardReaderManagerContext : NSObject
+@property (nonatomic) SCARDCONTEXT handle;
+@end
 
-@property (nonatomic) SCARDCONTEXT contextHandle;
+@implementation MoppLibCardReaderManagerContext
+
+-(instancetype)init {
+    if (self = [super init]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            SCardEstablishContext(SCARD_SCOPE_SYSTEM, NULL, NULL, &self->_handle);
+            printLog(@"ID-CARD: Started reader discovery: %x", self.handle);
+        });
+    }
+    return self;
+}
+
+-(void)dealloc {
+    SCARDCONTEXT copy = self.handle;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        FtDidEnterBackground(1);
+        SCardCancel(copy);
+        SCardReleaseContext(copy);
+        printLog(@"ID-CARD: Stopped reader discovery with status: %x", copy);
+    });
+}
+
+@end
+
+@interface MoppLibCardReaderManager()<ReaderInterfaceDelegate>
+@property (nonatomic, strong) MoppLibCardReaderManagerContext *context;
 @property (nonatomic, strong) ReaderInterface *readerInterface;
 @property (nonatomic) MoppLibCardReaderStatus status;
 @end
@@ -51,12 +77,7 @@
 - (void)startDiscoveringReaders {
     printLog(@"ID-CARD: Starting reader discovery");
     [self updateStatus:_status == Initial ? Initial : ReaderRestarted];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if(self->_contextHandle) {
-            SCardReleaseContext(self->_contextHandle);
-        }
-        SCardEstablishContext(SCARD_SCOPE_SYSTEM, NULL, NULL, &self->_contextHandle);
-    });
+    self.context = [MoppLibCardReaderManagerContext new];
 }
 
 - (void)stopDiscoveringReaders {
@@ -67,12 +88,7 @@
     printLog(@"ID-CARD: Stopping reader discovery with status %lu", (unsigned long)status);
     CardActionsManager.sharedInstance.reader = nil;
     _status = status;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        FtDidEnterBackground(1);
-        SCardCancel(self->_contextHandle);
-        SCardReleaseContext(self->_contextHandle);
-        self->_contextHandle = 0;
-    });
+    self.context = nil;
 }
 
 - (void)updateStatus:(MoppLibCardReaderStatus)status {
@@ -82,84 +98,35 @@
 
     _status = status;
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (self->_delegate)
-            [self->_delegate moppLibCardReaderStatusDidChange:status];
+        if (self.delegate)
+            [self.delegate moppLibCardReaderStatusDidChange:status];
     });
 }
 
 #pragma mark - ReaderInterfaceDelegate
 
-- (void) readerInterfaceDidChange:(BOOL)attached bluetoothID:(NSString *)bluetoothID {
+- (void)readerInterfaceDidChange:(BOOL)attached bluetoothID:(NSString *)bluetoothID {
     printLog(@"ID-CARD attached: %d", attached);
-    if (attached) {
+    if (!attached) {
+        CardActionsManager.sharedInstance.reader = nil;
+        return [self updateStatus:Initial];
+    }
+    CardActionsManager.sharedInstance.reader = [[CardReaderiR301 alloc] initWithContextHandle:self.context.handle];
+    if (CardActionsManager.sharedInstance.reader != nil) {
         [self updateStatus:ReaderConnected];
-    } else {
-        [[CardActionsManager sharedInstance] setReader:nil];
-        [self updateStatus:Initial];
     }
 }
 
 - (void)cardInterfaceDidDetach:(BOOL)attached {
     printLog(@"ID-CARD: Card (interface) attached: %d", attached);
-    if (!attached) {
-        [[CardActionsManager sharedInstance] setReader:nil];
-        return [self updateStatus:ReaderConnected];
-    }
-
-    DWORD dwState;
-    LONG ret = SCardStatus(_contextHandle, NULL, NULL, &dwState, NULL, NULL, NULL);
-    if (ret != SCARD_S_SUCCESS) {
-        ret = SCardStatus(_contextHandle, NULL, NULL, &dwState, NULL, NULL, NULL);
-        if (ret != SCARD_S_SUCCESS) {
-            // No luck on getting card status. Reconnect the reader.
-            [self updateStatus:ReaderNotConnected];
-            return;
-        }
-    }
-
-    switch (dwState) {
-        // There is no card in the reader.
-        case SCARD_ABSENT:
-            [self updateStatus:ReaderConnected];
-
-        // There is a card in the reader, but it has not been moved into position for use.
-        case SCARD_PRESENT:
-            break;
-
-        // There is a card in the reader in position for use. The card is not powered.
-        case SCARD_SWALLOWED:
-            if (CardActionsManager.sharedInstance.reader == nil) {
-                id cardReader = [[CardReaderiR301 alloc] initWithContextHandle:_contextHandle];
-                if (cardReader != nil) {
-                    CardActionsManager.sharedInstance.reader = cardReader;
-                    [self updateStatus:CardConnected];
-                }
-            }
-            break;
-
-        // Power is being provided to the card, but the reader driver is unaware of the mode of the card.
-        case SCARD_POWERED:
-            break;
-
-        // The card has been reset and is awaiting PTS negotiation.
-        case SCARD_NEGOTIABLE:
-            break;
-
-        // The card has been reset and specific communication protocols have been established.
-        case SCARD_SPECIFIC:
-            break;
-    }
+    [self updateStatus:attached ? CardConnected : ReaderConnected];
 }
-
 
 - (void)didGetBattery:(NSInteger)battery {
-    
 }
-
 
 - (void)findPeripheralReader:(NSString *)readerName {
     printLog(@"ID-CARD: Reader name: %@", readerName);
 }
-
 
 @end

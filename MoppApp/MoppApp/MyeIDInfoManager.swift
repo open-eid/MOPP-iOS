@@ -180,9 +180,9 @@ class MyeIDInfoManager {
         let failureClosure = { [weak self] in
             self?.delegate?.didCompleteInformationRequest(success: false)
         }
-        
-        MoppLibCardActions.cardPersonalData(success: { moppLibPersonalData in
-            MoppLibCardActions.authenticationCertificate(success: { moppLibAuthCertData in
+
+        MoppLibCardActions.cardPersonalData(success: { [weak self] moppLibPersonalData in
+            MoppLibCardActions.authenticationCertificate(success: { [weak self] moppLibAuthCertData in
                 MoppLibCardActions.signingCertificate(success: { [weak self] moppLibSignCertData in
                     self?.requestRetryCounts(with: viewController, success: { [weak self] (pin1RetryCount, pin2RetryCount, pukRetryCount) in
                         guard let strongSelf = self else { return }
@@ -195,7 +195,7 @@ class MyeIDInfoManager {
                         strongSelf.setup()
                         strongSelf.createCertInfoAttributedString(kind: .pin1)
                         strongSelf.createCertInfoAttributedString(kind: .pin2)
-                        self?.delegate?.didCompleteInformationRequest(success: true)
+                        strongSelf.delegate?.didCompleteInformationRequest(success: true)
                     }, failure: {_ in failureClosure() })
                 }, failure: {_ in failureClosure() })
             }, failure: {_ in failureClosure() })

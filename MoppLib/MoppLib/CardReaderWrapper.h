@@ -23,6 +23,7 @@
 
 #import "MoppLibConstants.h"
 
+typedef void (^SCDataSuccessBlock)(NSData *responseData, UInt16 sw);
 @protocol CardReaderWrapper <NSObject>
 
 /**
@@ -32,7 +33,16 @@
  * @param success   block to be called when card action is completed successfully
  * @param failure   block to be called when executing card action fails
  */
-- (void)transmitCommand:(const NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure;
+- (void)transmitCommand:(const NSString *)commandHex success:(SCDataSuccessBlock)success failure:(FailureBlock)failure;
+
+/**
+ * Transmits command and gets response from card, additionally checks if result is 9000
+ *
+ * @param commandHex    command in hex
+ * @param success   block to be called when card action is completed successfully
+ * @param failure   block to be called when executing card action fails
+ */
+- (void)transmitCommandChecked:(const NSString *)commandHex success:(DataSuccessBlock)success failure:(FailureBlock)failure;
 
 /**
  * Powers on card

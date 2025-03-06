@@ -125,7 +125,7 @@
     return [[MoppLibDigidocManager sharedInstance] isContainerFileSaveable:containerPath saveDataFile:fileName];
 }
 
-- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(void(^)(MoppLibContainer *container, BOOL signatureWasAdded))success failure:(FailureBlock)failure {
+- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(void(^)(MoppLibContainer *container))success failure:(FailureBlock)failure {
   
   Reachability *reachability = [Reachability reachabilityForInternetConnection];
   NetworkStatus networkStatus = [reachability currentReachabilityStatus];
@@ -139,7 +139,7 @@
             if (count.intValue > 0) {
                 [CardActionsManager.sharedInstance signingCertWithSuccess:^(NSData *certData) {
                     [[MoppLibDigidocManager sharedInstance] addSignature:containerPath pin2:pin2 cert:certData roleData:roleData success:^(MoppLibContainer *container) {
-                        success(container, YES);
+                        success(container);
                     } andFailure:failure];
                 } failure:failure];
             } else {

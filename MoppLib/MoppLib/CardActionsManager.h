@@ -25,11 +25,13 @@
 
 typedef NS_ENUM(NSUInteger, CodeType);
 @protocol CardReaderWrapper;
+@protocol CardCommands;
 
 @interface CardActionsManager : NSObject
 + (CardActionsManager *)sharedInstance;
 
 @property (nonatomic, strong) id<CardReaderWrapper> reader;
+@property (nonatomic, strong) id<CardCommands> cardCommandHandler;
 
 - (void)cardPersonalDataWithSuccess:(PersonalDataBlock)success failure:(FailureBlock)failure;
 

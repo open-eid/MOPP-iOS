@@ -11,13 +11,13 @@ typedef enum FTREADERTYPE{
     READER_bR301B, //bR301 C63
     READER_bR301BLE,
     READER_bR500
-}FTREADERTYPE;
+} FTREADERTYPE;
 
 typedef enum FTDEVICETYPE{
-    EMPTY_DEVICE = 0,
-    IR301_AND_BR301 = 1,
-    BR301BLE_AND_BR500 = 2,
-}FTDEVICETYPE;
+    EMPTY_DEVICE = 0x00,
+    IR301_AND_BR301 = 0x01,
+    BR301BLE_AND_BR500 = 0x02,
+} FTDEVICETYPE;
 
 @protocol ReaderInterfaceDelegate<NSObject>
 @required
@@ -35,6 +35,7 @@ typedef enum FTDEVICETYPE{
 - (void) cardInterfaceDidDetach:(BOOL)attached;
 
 - (void) didGetBattery:(NSInteger)battery;
+
 @end
 
 
@@ -101,6 +102,8 @@ typedef enum FTDEVICETYPE{
  *  @param deviceType is the type you will use. Now it supports IR301 and BR301.
  */
 +(void)setDeviceType:(FTDEVICETYPE) deviceType;
+
+
 
 /**
  *  Get the device type which you are using now.
