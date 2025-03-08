@@ -26,6 +26,12 @@ import Security
 import ASN1Decoder
 import CommonCrypto
 
+private extension DataProtocol {
+    func hexString() -> String {
+        return self.map { String(format: "%02X", $0) }.joined(separator: " ")
+    }
+}
+
 class SignatureDetailsViewController: MoppViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -105,7 +111,7 @@ class SignatureDetailsViewController: MoppViewController {
         }
         signatureDetails.append(SignatureDetail(title: L(.signatureTimestampLabel), value: MoppDateFormatter().getDateTimeInCurrentTimeZone(dateString: moppLibSignature?.signatureTimestamp ?? "")))
         signatureDetails.append(SignatureDetail(title: L(.signatureTimestampUtcLabel), value: MoppDateFormatter().getDateTimeInUTCTimeZone(dateString: moppLibSignature?.signatureTimestampUTC ?? "")))
-        signatureDetails.append(SignatureDetail(title: L(.hashValueOfSignatureLabel), value: moppLibSignature?.hashValueOfSignature ?? ""))
+        signatureDetails.append(SignatureDetail(title: L(.hashValueOfSignatureLabel), value: moppLibSignature?.hashValueOfSignature.hexString() ?? ""))
         signatureDetails.append(SignatureDetail(title: L(.tsCertificateIssuerLabel), value: moppLibSignature?.tsCertificateIssuer ?? ""))
         
         signatureDetails.append(

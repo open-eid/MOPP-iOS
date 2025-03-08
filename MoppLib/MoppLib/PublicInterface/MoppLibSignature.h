@@ -43,7 +43,7 @@
 @property (assign, nonatomic) NSInteger signedFileCount;
 @property (strong, nonatomic) NSString *signatureTimestamp;
 @property (strong, nonatomic) NSString *signatureTimestampUTC;
-@property (strong, nonatomic) NSString *hashValueOfSignature;
+@property (strong, nonatomic) NSData *hashValueOfSignature;
 @property (strong, nonatomic) NSString *tsCertificateIssuer;
 @property (strong, nonatomic) NSData *tsCertificate;
 @property (strong, nonatomic) NSString *ocspCertificateIssuer;

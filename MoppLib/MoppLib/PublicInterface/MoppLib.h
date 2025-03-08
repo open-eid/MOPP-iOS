@@ -34,12 +34,9 @@ FOUNDATION_EXPORT const unsigned char MoppLibVersionString[];
 #import <MoppLib/MoppLibConfiguration.h>
 #import <MoppLib/MoppLibContainerActions.h>
 #import <MoppLib/MoppLibCryptoActions.h>
-#import <MoppLib/MoppLibCardActions.h>
-#import <MoppLib/MoppLibPinActions.h>
 #import <MoppLib/MoppLibConstants.h>
 #import <MoppLib/MoppLibContainer.h>
 #import <MoppLib/MoppLibDataFile.h>
 #import <MoppLib/MoppLibSignature.h>
-#import <MoppLib/MoppLibCardReaderManager.h>
 #import <MoppLib/MoppLibDigidocValidateOnline.h>
 #import <MoppLib/MoppLibProxyConfiguration.h>

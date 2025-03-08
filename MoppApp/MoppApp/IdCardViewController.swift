@@ -84,7 +84,7 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        MoppLibCardReaderManager.sharedInstance().delegate = self
+        MoppLibCardReaderManager.shared.delegate = self
 
         cancelButton.setTitle(L(.actionCancel).uppercased())
         cancelButton.accessibilityLabel = L(.actionCancel).lowercased()
@@ -179,7 +179,6 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
 
         // Application will resign active
         NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: OperationQueue.main) {_ in
-            MoppLibCardReaderManager.sharedInstance().stopDiscoveringReaders()
             UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: self.titleLabel)
         }
         // PIN2 keyboard will appear
@@ -193,13 +192,13 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
         
         NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboardAccessibility), name: .focusedAccessibilityElement, object: nil)
 
-        MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
+        MoppLibCardReaderManager.shared.startDiscoveringReaders()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        MoppLibCardReaderManager.sharedInstance().stopDiscoveringReaders()
+        MoppLibCardReaderManager.shared.stopDiscoveringReaders()
         NotificationCenter.default.removeObserver(self)
     }
 
@@ -571,24 +570,24 @@ extension IdCardViewController : MoppLibCardReaderManagerDelegate {
             state = .idCardConnected
 
             // Give some time for UI to update before executing data requests
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
-                guard let strongSelf = self else { return }
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 MoppLibCardActions.cardPersonalData(success: { [weak self] moppLibPersonalData in
                     DispatchQueue.main.async {
                         self?.idCardPersonalData = moppLibPersonalData
                         self?.state = .readyForTokenAction
                     }
                 }, failure: { [weak self] error in
-                    guard let error = error as NSError? else { strongSelf.state = .readerProcessFailed; return }
-                    if error.code == 10026 {
-                        strongSelf.state = .readerProcessFailed
-                        return
+                    DispatchQueue.main.async {
+                        guard let error = error as NSError? else { self?.state = .readerProcessFailed; return }
+                        if error.code == 10026 {
+                            self?.state = .readerProcessFailed
+                            return
+                        }
+                        self?.state = .readerNotFound
                     }
-                    strongSelf.state = .readerNotFound
                 })
-            })
+            }
 
-        
         case .ReaderProcessFailed:
             state = .readerProcessFailed
         @unknown default:

@@ -187,8 +187,8 @@ class MyeIDInfoManager {
                     self?.requestRetryCounts(with: viewController, success: { [weak self] (pin1RetryCount, pin2RetryCount, pukRetryCount) in
                         guard let strongSelf = self else { return }
                         strongSelf.personalData = moppLibPersonalData
-                        strongSelf.authCertData = try? X509Certificate(der: moppLibAuthCertData ?? Data())
-                        strongSelf.signCertData = try? X509Certificate(der: moppLibSignCertData ?? Data())
+                        strongSelf.authCertData = try? X509Certificate(der: moppLibAuthCertData)
+                        strongSelf.signCertData = try? X509Certificate(der: moppLibSignCertData)
                         strongSelf.retryCounts.pin1 = pin1RetryCount
                         strongSelf.retryCounts.pin2 = pin2RetryCount
                         strongSelf.retryCounts.puk  = pukRetryCount
@@ -203,16 +203,10 @@ class MyeIDInfoManager {
     }
     
     func requestRetryCounts(with viewController: UIViewController, success:@escaping (_ pin1RetryCount:Int, _ pin2RetryCount:Int, _ pukRetryCount:Int)->Void, failure:@escaping (Error?)->Void) {
-        var pin1RetryCount:Int = 0
-        var pin2RetryCount:Int = 0
-        var pukRetryCount:Int = 0
-        MoppLibCardActions.pin1RetryCount(success: { number in
-            pin1RetryCount = number?.intValue ?? 0
-            MoppLibCardActions.pin2RetryCount(success: { number in
-                pin2RetryCount = number?.intValue ?? 0
-                MoppLibCardActions.pukRetryCount(success: { number in
-                    pukRetryCount = number?.intValue ?? 0
-                    success(pin1RetryCount, pin2RetryCount, pukRetryCount)
+        MoppLibCardActions.pin1RetryCount(success: { pin1RetryCount in
+            MoppLibCardActions.pin2RetryCount(success: { pin2RetryCount in
+                MoppLibCardActions.pukRetryCount(success: { pukRetryCount in
+                    success(pin1RetryCount.intValue, pin2RetryCount.intValue, pukRetryCount.intValue)
                 }, failure: failure)
             }, failure: failure)
         }, failure: failure)

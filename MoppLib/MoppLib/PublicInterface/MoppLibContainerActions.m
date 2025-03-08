@@ -23,10 +23,8 @@
 
 #import "MoppLibContainerActions.h"
 #import "MoppLibDigidocManager.h"
-#import "CardActionsManager.h"
-#import "CardCommands.h"
 #import "Reachability.h"
-#import "MoppLibError.h"
+#import <MoppLib/MoppLib-Swift.h>
 
 @implementation MoppLibContainerActions
 
@@ -135,16 +133,13 @@
   }
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [CardActionsManager.sharedInstance code:CodeTypePin2 retryCountWithSuccess:^(NSNumber *count) {
-            if (count.intValue > 0) {
-                [CardActionsManager.sharedInstance signingCertWithSuccess:^(NSData *certData) {
-                    [[MoppLibDigidocManager sharedInstance] addSignature:containerPath pin2:pin2 cert:certData roleData:roleData success:^(MoppLibContainer *container) {
-                        success(container);
-                    } andFailure:failure];
-                } failure:failure];
-            } else {
-                failure([MoppLibError pinBlockedError]);
+        [MoppLibCardActions pin2RetryCountWithSuccess:^(NSNumber *count) {
+            if (count == 0) {
+                return failure([MoppLibError pinBlockedError]);
             }
+            [MoppLibCardActions signingCertificateWithSuccess:^(NSData *certData) {
+                [[MoppLibDigidocManager sharedInstance] addSignature:containerPath pin2:pin2 cert:certData roleData:roleData success:success andFailure:failure];
+            } failure:failure];
         } failure:failure];
     });
 }

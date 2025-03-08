@@ -23,7 +23,6 @@
 
 import Foundation
 
-@objcMembers
 public class MoppLibPersonalData: NSObject {
 
     public var givenNames: String = ""

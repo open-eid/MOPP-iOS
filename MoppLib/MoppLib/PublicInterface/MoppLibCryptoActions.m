@@ -22,19 +22,12 @@
  */
 
 #import "MoppLibCryptoActions.h"
-#import "MoppLibError.h"
-#import "CryptoLib/Addressee.h"
-#import "CryptoLib/CryptoDataFile.h"
-#import "CryptoLib/Encrypt.h"
-#import "CryptoLib/Decrypt.h"
-#import "CryptoLib/CdocParser.h"
+#import <MoppLib/MoppLib-Swift.h>
+
+#import <CryptoLib/Encrypt.h>
+#import <CryptoLib/Decrypt.h>
+#import <CryptoLib/CdocParser.h>
 #import <CryptoLib/CryptoLib-Swift.h>
-#import "CryptoLib/CdocInfo.h"
-#import "SmartToken.h"
-#include <stdio.h>
-#import "NSData+Additions.h"
-#include "MoppLibDigidocMAnager.h"
-#import "MoppLibManager.h"
 
 @implementation MoppLibCryptoActions
 
@@ -49,16 +42,10 @@
 
 - (void)parseCdocInfo:(NSString *)fullPath success:(CdocContainerBlock)success failure:(FailureBlock)failure {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSError *error;
-        CdocInfo *response;
-        @try {
-            CdocParser *cdocParser = [CdocParser new];
-            response = [cdocParser parseCdocInfo:fullPath];
-            if (response.addressees == nil || response.dataFiles == nil) {
-                error = [MoppLibError generalError];
-            }
-        }
-        @catch (...) {
+        NSError *error = nil;
+        CdocParser *cdocParser = [CdocParser new];
+        CdocInfo *response = [cdocParser parseCdocInfo:fullPath];
+        if (response.addressees == nil || response.dataFiles == nil) {
             error = [MoppLibError generalError];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -69,32 +56,11 @@
 
 - (void)decryptData:(NSString *)fullPath withPin1:(NSString*)pin1 success:(DecryptedDataBlock)success failure:(FailureBlock)failure {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSError *error;
-        NSMutableDictionary *response;
-        @try {
-            Decrypt *decrypter = [Decrypt new];
-            SmartToken *smartToken = [SmartToken new];
-            response = [decrypter decryptFile:fullPath withPin:pin1 withToken:smartToken];
-            if (response.count==0) {
-                error = [MoppLibError generalError];
-            }
-        }
-        @catch (NSException *exception) {
-            if([[exception name] hasPrefix:@"wrong_pin"]) {
-                // Last character of wrong_pin shows retry count
-                NSString *retryCount = [[exception name] substringFromIndex: [[exception name] length] - 1];
-                if ([retryCount intValue] < 1) {
-                    error = [MoppLibError pinBlockedError];
-                } else {
-                    error = [MoppLibError wrongPinErrorWithRetryCount:[retryCount intValue]];
-                }
-            } else if ([[exception name] isEqualToString:@"pin_blocked"]) {
-                error = [MoppLibError pinBlockedError];
-            } else {
-                error = [MoppLibError generalError];
-            }
-        }
-        @catch (...) {
+        Decrypt *decrypter = [Decrypt new];
+        SmartToken *smartToken = [SmartToken new];
+        NSError *error = nil;
+        NSMutableDictionary *response = [decrypter decryptFile:fullPath withPin:pin1 withToken:smartToken error:&error];
+        if(error == nil && response.count == 0) {
             error = [MoppLibError generalError];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -106,12 +72,9 @@
 - (void)encryptData:(NSString *)fullPath withDataFiles:(NSArray*)dataFiles withAddressees:(NSArray*)addressees success:(VoidBlock)success failure:(FailureBlock)failure {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSError *error;
-        @try {
-            Encrypt *encrypter = [[Encrypt alloc] init];
-            [encrypter encryptFile:fullPath withDataFiles:dataFiles withAddressees:addressees];
-        }
-        @catch (...) {
+        Encrypt *encrypter = [[Encrypt alloc] init];
+        NSError *error = nil;
+        if (![encrypter encryptFile:fullPath withDataFiles:dataFiles withAddressees:addressees]) {
             error = [MoppLibError generalError];
         }
         dispatch_async(dispatch_get_main_queue(), ^{

@@ -36,8 +36,8 @@ class MyeIDViewController : MoppViewController {
         let statusVC = createStatusViewController()
         _ = showViewController(statusVC)
         
-        MoppLibCardReaderManager.sharedInstance().delegate = self
-        
+        MoppLibCardReaderManager.shared.delegate = self
+
         menuButton.accessibilityLabel = L(.menuButton)
     }
     
@@ -54,14 +54,16 @@ class MyeIDViewController : MoppViewController {
             let statusVC = children.first as? MyeIDStatusViewController
                 statusVC?.state = .readerNotFound
 
-            MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
+            MoppLibCardReaderManager.shared.startDiscoveringReaders()
+        } else {
+            changingCodesVCPresented = false
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if !changingCodesVCPresented {
-            MoppLibCardReaderManager.sharedInstance().stopDiscoveringReaders()
+            MoppLibCardReaderManager.shared.stopDiscoveringReaders()
         }
     }
     
@@ -195,7 +197,8 @@ extension MyeIDViewController: MyeIDInfoManagerDelegate {
             }
             printLog("ID-CARD: My eID. Restarting reader")
             didRestartReader = true
-            MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
+            MoppLibCardReaderManager.shared.stopDiscoveringReaders(with: .ReaderRestarted)
+            MoppLibCardReaderManager.shared.startDiscoveringReaders()
         }
     }
     

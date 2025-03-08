@@ -418,6 +418,7 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         MoppFileManager.shared.removeFilesFromSharedFolder()
+        MoppLibCardReaderManager.shared.stopDiscoveringReaders(with: .ReaderRestarted)
     }
 
 
@@ -441,7 +442,31 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
             }
         }
 
-        restartIdCardDiscovering()
+        if let topController = topViewController() {
+            if topController is IdCardViewController || topController is MyeIDInfoViewController || topController is MyeIDStatusViewController {
+                MoppLibCardReaderManager.shared.startDiscoveringReaders()
+            }
+        }
+    }
+
+    func topViewController(base: UIViewController? = UIApplication.shared.connectedScenes
+        .compactMap { ($0 as? UIWindowScene)?.keyWindow }
+        .first??.rootViewController) -> UIViewController? {
+        if let nav = base as? UINavigationController {
+            return topViewController(base: nav.visibleViewController)
+        }
+        if let tab = base as? UITabBarController, let selected = tab.selectedViewController {
+            return topViewController(base: selected)
+        }
+        if let presented = base?.presentedViewController {
+            return topViewController(base: presented)
+        }
+        for child in base?.children ?? [] {
+            if child.viewIfLoaded?.window != nil {
+                return topViewController(base: child)
+            }
+        }
+        return base
     }
 
     func willTerminate() {
@@ -518,18 +543,6 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     
     @objc private func handleScreenRecording() -> Void {
         ScreenDisguise.shared.handleScreenRecordingPrevention()
-    }
-
-    private func restartIdCardDiscovering() {
-        DispatchQueue.main.async {
-            let topViewController = UIViewController().getTopViewController()
-
-            for childViewController in topViewController.children {
-                if childViewController is IdCardViewController {
-                    MoppLibCardReaderManager.sharedInstance().startDiscoveringReaders()
-                }
-            }
-        }
     }
 
     private func setDebugMode(value: Bool) -> Void {

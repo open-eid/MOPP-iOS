@@ -1,5 +1,5 @@
 //
-//  SmartToken.h
+//  AbstractSmartToken.swift
 //  CryptoLib
 /*
  * Copyright 2017 - 2024 Riigi Infosüsteemi Amet
@@ -20,7 +20,10 @@
  *
  */
 
-#import <CryptoLib/AbstractSmartToken.h>
+import Foundation
 
-@interface SmartToken : NSObject<AbstractSmartToken>
-@end
+@objc public protocol AbstractSmartToken {
+    func getCertificate() throws -> Data
+    func decrypt(_ data: Data, pin1: String) throws -> Data
+    func derive(_ data: Data, pin1: String) throws -> Data
+}

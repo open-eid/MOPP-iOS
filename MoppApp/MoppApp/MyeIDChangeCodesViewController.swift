@@ -78,7 +78,7 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
             var errorMessage = L(.genericErrorMessage)
             if let nsError = error as NSError? {
                 let actionType = strongSelf.model.actionType
-                var errorCode:UInt = UInt(nsError.code)
+                var errorCode = nsError.code
                 
                 let retryCount = (nsError.userInfo[kMoppLibUserInfoRetryCount] as? NSNumber)?.intValue ?? 0
                 if errorCode == MoppLibErrorCode.moppLibErrorWrongPin.rawValue && retryCount == 0 {
@@ -172,35 +172,20 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
 
         let oldCode = ui.firstCodeTextField.text ?? String()
         let newCode = ui.secondCodeTextField.text ?? String()
-        let pukCode = oldCode
-        
+
         present(loadingViewController, animated: false) { [weak self] in
             guard let strongSelf = self else { return }
             switch strongSelf.model.actionType {
             case .changePin1:
-                MoppLibPinActions.changePin1(to: newCode, withOldPin1: oldCode, success: {
-                    commonSuccessClosure()
-                }, failure: failureClosure)
-                
+                MoppLibPinActions.changePin1(to: newCode, oldPin1: oldCode, success: commonSuccessClosure, failure: failureClosure)
             case .changePin2:
-                MoppLibPinActions.changePin2(to: newCode, withOldPin2: oldCode, success: {
-                    commonSuccessClosure()
-                }, failure: failureClosure)
-                
+                MoppLibPinActions.changePin2(to: newCode, oldPin2: oldCode, success: commonSuccessClosure, failure: failureClosure)
             case .unblockPin1:
-                MoppLibPinActions.changePin1(to: newCode, withPuk: pukCode, success: {
-                    commonSuccessClosure()
-                }, failure: failureClosure)
-                
+                MoppLibPinActions.unblockPin1(usingPuk: oldCode, newPin1: newCode, success: commonSuccessClosure, failure: failureClosure)
             case .unblockPin2:
-                MoppLibPinActions.changePin2(to: newCode, withPuk: pukCode, success: {
-                    commonSuccessClosure()
-                }, failure: failureClosure)
-                
+                MoppLibPinActions.unblockPin2(usingPuk: oldCode, newPin2: newCode, success: commonSuccessClosure, failure: failureClosure)
             case .changePuk:
-                MoppLibPinActions.changePuk(to: newCode, withOldPuk: oldCode, success: {
-                    commonSuccessClosure()
-                }, failure: failureClosure)
+                MoppLibPinActions.changePuk(to: newCode, oldPuk: oldCode, success: commonSuccessClosure, failure: failureClosure)
             }
         }
     }

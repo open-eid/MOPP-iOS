@@ -21,25 +21,24 @@
  */
 
 #import "Decrypt.h"
-#import "cdoc/CdocReader.h"
-#import "cdoc/Token.h"
-#import "AbstractSmartToken.h"
 #import "SmartCardTokenWrapper.h"
 #import "DdocParserDelegate.h"
 
+#import <cdoc/CdocReader.h>
+#import <cdoc/Token.h>
+
 @implementation Decrypt
 
-- (NSMutableDictionary *)decryptFile:(NSString *)fullPath withPin:(NSString *)pin withToken:(id<AbstractSmartToken>)smartToken {
+- (NSMutableDictionary *)decryptFile:(NSString *)fullPath withPin:(NSString *)pin withToken:(id<AbstractSmartToken>)smartToken error:(NSError**)error {
 
     std::string encodedFullPath = std::string([fullPath UTF8String]);
     std::string encodedPin = std::string([pin UTF8String]);
     CDOCReader cdocReader(encodedFullPath);
-    std::unique_ptr<SmartCardTokenWrapper> smartCardWrapper = std::make_unique<SmartCardTokenWrapper>(encodedPin, smartToken);
+    SmartCardTokenWrapper token(encodedPin, smartToken);
 
-    Token *token;
-    token = smartCardWrapper.get();
     NSMutableDictionary *response = [NSMutableDictionary new];
-    std::vector<unsigned char> decryptedData = cdocReader.decryptData(token);
+    std::vector<unsigned char> decryptedData = cdocReader.decryptData(&token);
+    *error = token.lastError();
     if (decryptedData.empty()){
         return response;
     }
