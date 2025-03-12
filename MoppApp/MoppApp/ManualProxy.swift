@@ -40,8 +40,8 @@ public class ManualProxy {
         let manualProxy = ManualProxy.getManualProxyConfiguration()
         if manualProxy.setting == .systemProxy {
             let systemProxySettings = ProxyUtil.getSystemProxySettings()
-            return MoppLibProxyConfiguration(configuration: systemProxySettings.setting.rawValue, host: systemProxySettings.host, port: NSNumber(value: systemProxySettings.port), username: systemProxySettings.username, password: systemProxySettings.password)
+            return MoppLibProxyConfiguration(username: systemProxySettings.username, password: systemProxySettings.password)
         }
-        return MoppLibProxyConfiguration(configuration: manualProxy.setting.rawValue, host: manualProxy.host, port: NSNumber(value: manualProxy.port), username: manualProxy.username, password: manualProxy.password)
+        return MoppLibProxyConfiguration(username: manualProxy.username, password: manualProxy.password)
     }
 }

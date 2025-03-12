@@ -21,8 +21,6 @@
  *
  */
 
-import UIKit
-import CryptoLib
 class RecentContainersViewController : MoppModalViewController {
     var requestCloseSearch: (() -> Void) = {}
     @IBOutlet weak var tableView: UITableView!
@@ -121,7 +119,7 @@ class RecentContainersViewController : MoppModalViewController {
                 let fileURL = URL(fileURLWithPath: fileName)
                 let pathExtension = fileURL.pathExtension
                 if !pathExtension.isEmpty {
-                    return pathExtension.isAsicContainerExtension || pathExtension.isCdocContainerExtension || pathExtension.isPdfContainerExtension
+                    return pathExtension.isAsicContainerExtension || pathExtension.isCryptoContainerExtension || pathExtension.isPdfContainerExtension
                 }
                 
                 return false
@@ -225,33 +223,17 @@ extension RecentContainersViewController : UITableViewDelegate {
                         self.openContainer(containerPath: path.path, navController: navController, isSendingToSivaAgreed: true)
                     }
                 } else {
-                    var containerViewController: ContainerViewController
                     LandingViewController.shared.containerType = .cdoc
-                    containerViewController = CryptoContainerViewController.instantiate()
-                    containerViewController.containerPath = path.path
-
-                    let container = CryptoContainer(filename: path.lastPathComponent as NSString, filePath: path.path as NSString)
-
-                    MoppLibCryptoActions.sharedInstance().parseCdocInfo(
-                        path.path as String?,
-                        success: {(_ cdocInfo: CdocInfo?) -> Void in
-                            guard let strongCdocInfo = cdocInfo else { return }
-                            let cryptoContainer = (containerViewController as! CryptoContainerViewController)
-                            container.addressees = strongCdocInfo.addressees as? [Addressee] ?? []
-                            container.dataFiles = strongCdocInfo.dataFiles
-                            cryptoContainer.containerPath = path.path as String?
-                            cryptoContainer.state = .opened
-
-                            cryptoContainer.container = container
-                            cryptoContainer.isContainerEncrypted = true
-
-                            navController = (LandingViewController.shared.viewController(for: .cryptoTab) as? UINavigationController)!
-                            navController.pushViewController(cryptoContainer, animated: true)
-                    },
-                        failure: { _ in
-                            failure()
-                        }
-                    )
+                    Decrypt.parseCdocInfo(withFullPath: path.path) { cdocInfo in
+                        guard let strongCdocInfo = cdocInfo else { return failure() }
+                        let cryptoContainer = CryptoContainerViewController.instantiate()
+                        cryptoContainer.containerPath = path.path
+                        cryptoContainer.container = CryptoContainer(filename: path.lastPathComponent, filePath: path.path, cdocInfo: strongCdocInfo)
+                        cryptoContainer.state = .opened
+                        cryptoContainer.isContainerEncrypted = true
+                        navController = (LandingViewController.shared.viewController(for: .cryptoTab) as? UINavigationController)!
+                        navController.pushViewController(cryptoContainer, animated: true)
+                    }
                 }
 
             })

@@ -35,9 +35,7 @@ protocol SigningActions {
 extension SigningActions where Self: SigningContainerViewController {
     
     func removeContainerSignature(signatureIndex: Int) {
-        guard let signature = container.signatures[signatureIndex] as? MoppLibSignature else {
-            return
-        }
+        let signature = container.signatures[signatureIndex]
         confirmDeleteAlert(
             message: L(.signatureRemoveConfirmMessage),
             confirmCallback: { [weak self] (alertAction) in
@@ -116,11 +114,11 @@ extension SigningActions where Self: SigningContainerViewController {
     }
     
     func sortSignatures() {
-        container.signatures.sort { (sig1: Any, sig2: Any) -> Bool in
-            let signatureStatusValue1 = (sig1 as! MoppLibSignature).status.rawValue
-            let signatureStatusValue2 = (sig2 as! MoppLibSignature).status.rawValue
+        container.signatures.sort { (sig1: MoppLibSignature, sig2: MoppLibSignature) -> Bool in
+            let signatureStatusValue1 = sig1.status.rawValue
+            let signatureStatusValue2 = sig2.status.rawValue
             if signatureStatusValue1 == signatureStatusValue2 {
-                return (sig1 as! MoppLibSignature).timestamp < (sig2 as! MoppLibSignature).timestamp
+                return sig1.timestamp < sig2.timestamp
             }
             return signatureStatusValue1 > signatureStatusValue2
             

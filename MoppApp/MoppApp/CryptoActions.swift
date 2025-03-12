@@ -20,8 +20,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
 import Foundation
-import CryptoLib
 
 protocol CryptoActions {
     func startEncryptingProcess()
@@ -31,36 +31,31 @@ protocol CryptoActions {
 extension CryptoActions where Self: CryptoContainerViewController {
     
     func startEncryptingProcess() {
-        if container.addressees.count > 0 {
-            MoppLibCryptoActions.sharedInstance().encryptData(
-                container.filePath as String?,
-                withDataFiles: container.dataFiles as? [Any],
-                withAddressees: container.addressees,
-                success: {
-                    self.isCreated = false
-                    self.isForPreview = false
-                    self.isContainerEncrypted = true
-                    self.state = .loading
-                    self.containerViewDelegate.openContainer(afterSignatureCreated: true)
-                    UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: L(.cryptoEncryptionSuccess))
-                    let encryptionSuccess = NotificationMessage(isSuccess: true, text: L(.cryptoEncryptionSuccess))
-                    if !self.notifications.contains(where: { $0 == encryptionSuccess }) {
-                        self.notifications.append(encryptionSuccess)
-                    }
-                    self.reloadCryptoData()
-
-                    MoppFileManager.removeFiles()
-                    
-            },
-                failure: { _ in
-                    DispatchQueue.main.async {
-                        self.infoAlert(message: L(.cryptoEncryptionErrorText))
-                    }
-                }
-            )
-        } else {
-            self.infoAlert(message: L(.cryptoNoAddresseesWarning))
+        guard container.addressees.count > 0 else {
+            return self.infoAlert(message: L(.cryptoNoAddresseesWarning))
         }
+        Encrypt.encryptFile(container.filePath,
+                            with: container.dataFiles,
+                            with: container.addressees,
+            success: {
+                self.isCreated = false
+                self.isForPreview = false
+                self.isContainerEncrypted = true
+                self.state = .loading
+                self.containerViewDelegate.openContainer(afterSignatureCreated: true)
+                UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: L(.cryptoEncryptionSuccess))
+                let encryptionSuccess = NotificationMessage(isSuccess: true, text: L(.cryptoEncryptionSuccess))
+                if !self.notifications.contains(where: { $0 == encryptionSuccess }) {
+                    self.notifications.append(encryptionSuccess)
+                }
+                self.reloadCryptoData()
+
+                MoppFileManager.removeFiles()
+            },
+            failure: {
+                self.infoAlert(message: L(.cryptoEncryptionErrorText))
+            }
+        )
     }
     func startDecryptingProcess() {
         let decryptSelectionVC = UIStoryboard.tokenFlow.instantiateViewController(of: TokenFlowSelectionViewController.self)
@@ -75,21 +70,18 @@ extension CryptoActions where Self: CryptoContainerViewController {
 
 extension CryptoContainerViewController : IdCardDecryptViewControllerDelegate {
     
-    func idCardDecryptDidFinished(cancelled: Bool, success: Bool, dataFiles: NSMutableDictionary, error: Error?) {
+    func idCardDecryptDidFinished(cancelled: Bool, success: Bool, dataFiles: [String: Data], error: Error?) {
         if !cancelled {
             if success {
-                container.dataFiles.removeAllObjects()
+                container.dataFiles.removeAll()
                 for dataFile in dataFiles {
-                    let cryptoDataFile = CryptoDataFile()
-                    cryptoDataFile.filename = dataFile.key as? String
-                    guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: cryptoDataFile.filename) else {
+                    guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: dataFile.key) else {
                         dismiss(animated: false)
                         infoAlert(message: L(.decryptionErrorMessage))
                         return
                     }
-                    cryptoDataFile.filePath = destinationPath
-                    container.dataFiles.add(cryptoDataFile)
-                    MoppFileManager.shared.createFile(atPath: destinationPath, contents: dataFile.value as! Data)
+                    container.dataFiles.append(CryptoDataFile(filename: dataFile.key, filePath: destinationPath))
+                    MoppFileManager.shared.createFile(atPath: destinationPath, contents: dataFile.value)
                 }
                 
                 self.isCreated = false

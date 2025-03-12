@@ -22,7 +22,6 @@
  */
 
 import Foundation
-import CryptoLib
 
 class ContainerAddAllButtonCell: UITableViewCell {
     

@@ -23,6 +23,7 @@
 
 import Foundation
 import SkSigningLib
+import MoppUI
 
 let ContainerFormatAdoc = "adoc"
 let ContainerFormatBdoc = "bdoc"
@@ -34,6 +35,7 @@ let ContainerFormatAsics = "asics"
 let ContainerFormatAsicsShort = "scs"
 let ContainerFormatPDF  = "pdf"
 let ContainerFormatCdoc = "cdoc"
+let ContainerFormatCdoc2 = "cdoc2"
 let ContainerFormatP12d = "p12d"
 let FileFormatXml = "xml"
 
@@ -388,6 +390,15 @@ class DefaultsHelper
         }
         get {
             return UserDefaults.standard.bool(forKey: kNfcShowCanMessage)
+        }
+    }
+
+    class var useCDoc2Encryption: Bool {
+        set {
+            UserDefaults.standard.set(newValue, forKey: kUseCDoc2Encryption)
+        }
+        get {
+            return UserDefaults.standard.bool(forKey: kUseCDoc2Encryption)
         }
     }
 }

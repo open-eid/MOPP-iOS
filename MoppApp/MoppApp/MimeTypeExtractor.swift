@@ -255,7 +255,7 @@ class MimeTypeExtractor {
             var isCdoc: Bool = false
             
             MimeTypeDecoder().getMimeType(fileString: fileDataAscii ?? "") { (containerExtension) in
-                if containerExtension == ContainerFormatCdoc {
+                if containerExtension.isCryptoContainerExtension {
                     isCdoc = true
                 }
             }

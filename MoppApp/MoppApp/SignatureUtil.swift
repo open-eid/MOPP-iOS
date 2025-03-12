@@ -26,22 +26,15 @@ import MoppLib
 
 class SignatureUtil {
 
-    static func isCades(signatures: [Any]) -> Bool {
-        for signature in signatures {
-            guard let sig = signature as? MoppLibSignature else { return false }
-            
-            return sig.signatureFormat.lowercased().contains("cades")
+    static func isCades(signatures: [MoppLibSignature]) -> Bool {
+        signatures.contains { signature in
+            return signature.signatureFormat.lowercased().contains("cades")
         }
-        
-        return false
     }
     
-    static func isXades(signatures: [Any]) -> Bool {
+    static func isXades(signatures: [MoppLibSignature]) -> Bool {
         return signatures.contains { signature in
-            if let sig = signature as? MoppLibSignature {
-                return sig.signatureFormat.lowercased().contains("bes")
-            }
-            return false
+            return signature.signatureFormat.lowercased().contains("bes")
         }
     }
     
