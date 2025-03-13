@@ -20,23 +20,8 @@
  *
  */
 
-
-#ifndef CdocWriter_h
-#define CdocWriter_h
-
-
-#endif /* CdocWriter_h */
-
 #import <Foundation/Foundation.h>
 
-#if __cplusplus
-#import "cdoc/CdocWriter.h"
-#endif
 @interface Encrypt : NSObject
-- (void)encryptFile: (NSString *)fullPath withDataFiles :(NSArray *) dataFiles withAddressees: (NSArray *) addressees;
+- (BOOL)encryptFile: (NSString *)fullPath withDataFiles :(NSArray *) dataFiles withAddressees: (NSArray *) addressees;
 @end
-
-
-
-
-

@@ -33,7 +33,7 @@ typedef NS_ENUM(int, MoppLibSignatureStatus) {
 
 // Mopp Lib error codes
 
-typedef NS_ENUM(NSUInteger, MoppLibErrorCode) {
+typedef NS_ENUM(NSInteger, MoppLibErrorCode) {
   
   moppLibErrorReaderNotFound = 10001, // Reader is not connected to phone
   moppLibErrorCardNotFound = 10002, // Reader is connected, but card is not detected
@@ -67,16 +67,12 @@ typedef NS_ENUM(NSUInteger, MoppLibErrorCode) {
 
 extern NSString *const kMoppLibUserInfoRetryCount;
 
-@class MoppLibPersonalData;
 @class MoppLibContainer;
 @class CdocInfo;
 
-typedef void (^DataSuccessBlock)(NSData *responseData);
 typedef void (^FailureBlock)(NSError *error);
-typedef void (^PersonalDataBlock)(MoppLibPersonalData *personalData);
 typedef void (^ContainerBlock)(MoppLibContainer *container);
 typedef void (^CdocContainerBlock)(CdocInfo *cdocInfo);
 typedef void (^DecryptedDataBlock)(NSMutableDictionary *decryptedData);
 typedef void (^VoidBlock)(void);
 typedef void (^BoolBlock)(BOOL);
-typedef void (^NumberBlock)(NSNumber*);

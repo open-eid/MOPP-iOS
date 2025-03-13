@@ -24,17 +24,17 @@
 #import "Encrypt.h"
 #import "Addressee.h"
 #import "CryptoDataFile.h"
-#import "cdoc/CdocWriter.h"
 
+#import <cdoc/CdocWriter.h>
 
 @implementation Encrypt
 
-- (void)encryptFile: (NSString *)fullPath withDataFiles :(NSArray *) dataFiles withAddressees: (NSArray *) addressees {
-    
+- (BOOL)encryptFile: (NSString *)fullPath withDataFiles :(NSArray *) dataFiles withAddressees: (NSArray *) addressees {
+
     std::string encodedFullPath = std::string([fullPath UTF8String]);
-    
+
     CDOCWriter cdocWriter(encodedFullPath, "http://www.w3.org/2009/xmlenc11#aes256-gcm");
-    
+
     for (CryptoDataFile *dataFile in dataFiles) {
         std::string encodedDataFilePath = std::string([dataFile.filePath UTF8String]);
         std::string encodedFilename = std::string([dataFile.filename UTF8String]);
@@ -47,9 +47,8 @@
         
         cdocWriter.addRecipient(std::move(result));
     }
-    
-    cdocWriter.encrypt();
 
+    return cdocWriter.encrypt();
 }
 
 @end

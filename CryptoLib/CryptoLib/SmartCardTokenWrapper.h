@@ -35,11 +35,11 @@ class SmartCardTokenWrapper: public Token
 public:
     SmartCardTokenWrapper(const std::string &password, id<AbstractSmartToken> smartToken);
     ~SmartCardTokenWrapper() noexcept;
-    virtual std::vector<uchar> cert() const override;
-    virtual std::vector<uchar> decrypt(const std::vector<uchar> &data) const override;
-    virtual std::vector<uchar> derive(const std::vector<uchar> &publicKey) const override;
+    std::vector<uchar> cert() const final;
+    std::vector<uchar> decrypt(const std::vector<uchar> &data) const final;
+    std::vector<uchar> derive(const std::vector<uchar> &publicKey) const final;
 
-    Token* selfPtr() { return this; }
+    NSError* lastError() const;
 
 private:
     class Private;

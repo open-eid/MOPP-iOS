@@ -26,14 +26,13 @@
 #import "MoppLibContainer.h"
 #import "MoppLibDataFile.h"
 #import "MoppLibDigidocValidateOnline.h"
-#import "MoppLibError.h"
 #import "MoppLibManager.h"
 #import "MoppLibProxyConfiguration.h"
 #import "MoppLibRoleAddressData.h"
 #import "MoppLibSignature.h"
-#import "CardActionsManager.h"
 #import "MLFileManager.h"
-#import "NSData+Additions.h"
+#import <CryptoLib/CryptoLib-Swift.h>
+#import <MoppLib/MoppLib-Swift.h>
 
 #include <digidocpp/Container.h>
 #include <digidocpp/DataFile.h>
@@ -336,9 +335,8 @@ static std::unique_ptr<digidoc::Signer> signer{};
         return failure(signatureError);
     }
 
-    NSString *timeStampTime = [NSString stringWithUTF8String:signature->TimeStampTime().c_str()];
-    if ([timeStampTime length] != 0) {
-        printLog(@"\nSignature already validated at %@\n", timeStampTime);
+    if (auto timeStampTime = signature->TimeStampTime(); !timeStampTime.empty()) {
+        printLog(@"\nSignature already validated at %s\n", timeStampTime.c_str());
         success(true);
     }
 
@@ -456,8 +454,7 @@ static std::unique_ptr<digidoc::Signer> signer{};
       if (e.code() == 63) {
           *error = [MoppLibError fileNameTooLongError];
       } else if (e.code() == digidoc::Exception::NetworkError) {
-          NSString *message = [NSString stringWithUTF8String:e.msg().c_str()];
-          if ([message hasPrefix:@"Failed to create ssl connection with host"]) {
+          if (e.msg().starts_with("Failed to create ssl connection with host")) {
               *error = [MoppLibError sslHandshakeError];
           } else {
               *error = [MoppLibError noInternetConnectionError];
@@ -503,7 +500,7 @@ static std::unique_ptr<digidoc::Signer> signer{};
   }
 }
 
-- (MoppLibSignature *)getSignatureData:(const digidoc::X509Cert&)cert signature:(digidoc::Signature *)signature mediaType:(std::string)mediaType dataFileCount:(NSInteger)dataFileCount {
+- (MoppLibSignature *)getSignatureData:(const digidoc::X509Cert&)cert signature:(digidoc::Signature *)signature mediaType:(const std::string&)mediaType dataFileCount:(NSInteger)dataFileCount {
 
     digidoc::X509Cert signingCert = signature->signingCertificate();
     digidoc::X509Cert ocspCert = signature->OCSPCertificate();
@@ -532,7 +529,7 @@ static std::unique_ptr<digidoc::Signer> signer{};
     moppLibSignature.signedFileCount = dataFileCount;
     moppLibSignature.signatureTimestamp = [self getDateTimeInCurrentTimeZoneFromDateString:[NSString stringWithUTF8String:signature->TimeStampTime().c_str()]];
     moppLibSignature.signatureTimestampUTC = [NSString stringWithUTF8String:signature->TimeStampTime().c_str()];
-    moppLibSignature.hashValueOfSignature = [self getHexStringFromVectorData:signature->messageImprint()];
+    moppLibSignature.hashValueOfSignature = [self getNSDataFromVector:signature->messageImprint()];
     moppLibSignature.tsCertificateIssuer = [NSString stringWithUTF8String:timestampCert.issuerName("CN").c_str()];
     moppLibSignature.tsCertificate = [self getCertDataFromX509:timestampCert];
     moppLibSignature.ocspCertificateIssuer = [NSString stringWithUTF8String:ocspCert.issuerName("CN").c_str()];
@@ -616,9 +613,8 @@ static std::unique_ptr<digidoc::Signer> signer{};
     return dateStringSystemTimeZone;
 }
 
-- (NSString *)getHexStringFromVectorData:(std::vector<unsigned char>)vectorData {
-    NSData *data = [NSData dataWithBytes:vectorData.data() length:vectorData.size()];
-    return data.hexString;
+- (NSData *)getNSDataFromVector:(std::vector<unsigned char>)vectorData {
+    return [NSData dataWithBytes:vectorData.data() length:vectorData.size()];
 }
 
 - (MoppLibSignatureStatus)determineSignatureStatus:(int) status{
@@ -743,79 +739,59 @@ void parseException(const digidoc::Exception &e) {
     BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
     MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
     // Create unique_ptr that manages a container in this scope
-    auto managedContainer = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
-    auto signer = std::make_unique<WebSigner>([MoppLibDigidocManager getCertFromData:cert]);
+    auto container = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
+    WebSigner signer([MoppLibDigidocManager getCertFromData:cert]);
 
     NSLog(@"\nSetting profile info...\n");
     NSLog(@"Role data - roles: %@, city: %@, state: %@, zip: %@, country: %@", roleData.ROLES, roleData.CITY, roleData.STATE, roleData.ZIP, roleData.COUNTRY);
-    signer->setProfile("time-stamp");
-    signer->setSignatureProductionPlace(std::string([roleData.CITY UTF8String] ?: ""), std::string([roleData.STATE UTF8String] ?: ""), std::string([roleData.ZIP UTF8String] ?: ""), std::string([roleData.COUNTRY UTF8String] ?: ""));
-    signer->setUserAgent(std::string([[MoppLibManager.sharedInstance userAgent:true] UTF8String]));
-  
+    signer.setProfile("time-stamp");
+    signer.setSignatureProductionPlace(std::string([roleData.CITY UTF8String] ?: ""), std::string([roleData.STATE UTF8String] ?: ""), std::string([roleData.ZIP UTF8String] ?: ""), std::string([roleData.COUNTRY UTF8String] ?: ""));
+    signer.setUserAgent(std::string([[MoppLibManager.sharedInstance userAgent:true] UTF8String]));
+
     std::vector<std::string> roles;
     for (NSString *role in roleData.ROLES) {
         if (role != (id)[NSNull null] && [role length] != 0) {
             roles.push_back(std::string([role UTF8String] ?: ""));
         }
     }
-    signer->setSignerRoles(roles);
+    signer.setSignerRoles(roles);
 
     digidoc::Signature *signature;
     try {
-        signature = managedContainer->prepareSignature(signer.get());
+        signature = container->prepareSignature(&signer);
     } catch (const digidoc::Exception &e) {
         parseException(e);
-        failure([MoppLibError generalError]);
+        return failure([MoppLibError generalError]);
     }
 
+    NSError *error = nil;
     std::vector<unsigned char> dataToSign = signature->dataToSign();
+    NSData *calculatedSignature = [MoppLibCardActions calculateSignatureForData:[NSData dataWithBytes:dataToSign.data() length:dataToSign.size()] pin2:pin2 error:&error];
+    if (error != nil) {
+      return failure(error);
+    }
 
-    // Release the container from the unique_ptr and obtain the raw pointer for the callback
-    digidoc::Container * const unmanagedContainerPointer = managedContainer.release();
-      
-    WebSigner * const unmanagedSignerPointer = signer.release();
+    unsigned char *buffer = (unsigned char *)[calculatedSignature bytes];
+    std::vector<unsigned char> vec(buffer, buffer + calculatedSignature.length);
 
-    [[CardActionsManager sharedInstance] calculateSignatureFor:[NSData dataWithBytes:dataToSign.data() length:dataToSign.size()] pin2:pin2 success:^(NSData *calculatedSignature) {
-
-        // Wrap the raw container pointer into a local unique_ptr as the first thing to do
-        std::unique_ptr<digidoc::Container> successManagedContainer(unmanagedContainerPointer);
-        std::unique_ptr<WebSigner> successManagedSigner(unmanagedSignerPointer);
-
-      try {
-        unsigned char *buffer = (unsigned char *)[calculatedSignature bytes];
-        std::vector<unsigned char>::size_type size = calculatedSignature.length;
-        std::vector<unsigned char> vec(buffer, buffer + size);
-          
-        signature->setSignatureValue(vec);
-        signature->extendSignatureProfile(successManagedSigner.get());
-        signature->validate();
-          successManagedContainer->save();
-        NSError *error;
-        MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
-        success(moppLibContainer);
-      } catch(const digidoc::Exception &e) {
-        parseException(e);
-        if (e.code() == 18) {
-            failure([MoppLibError tooManyRequests]);
-        } else if (e.code() == digidoc::Exception::ExceptionCode::OCSPTimeSlot) {
-            failure([MoppLibError ocspTimeSlotError]);
-        } else if (e.code() == digidoc::Exception::ExceptionCode::NetworkError && ([[NSString stringWithUTF8String:e.msg().c_str()] hasPrefix:@"Failed to create proxy connection with host"] || [[NSString stringWithUTF8String:e.msg().c_str()] hasPrefix:@"Failed to connect to host"])) {
-            failure([MoppLibError invalidProxySettingsError]);
-        } else {
-            NSError *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:@{}];
-            failure(error);
-        }
-      }
-    } failure:^(NSError *error) {
-      std::unique_ptr<digidoc::Container> failureManagedContainer(unmanagedContainerPointer);
-      failure(error);
-    }];
-
-
+    signature->setSignatureValue(vec);
+    signature->extendSignatureProfile(&signer);
+    signature->validate();
+    container->save();
+    MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
+    success(moppLibContainer);
   } catch(const digidoc::Exception &e) {
     parseException(e);
-    NSError *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:@{}];
-    failure(error);
+    if (e.code() == 18) {
+        failure([MoppLibError tooManyRequests]);
+    } else if (e.code() == digidoc::Exception::ExceptionCode::OCSPTimeSlot) {
+        failure([MoppLibError ocspTimeSlotError]);
+    } else if (e.code() == digidoc::Exception::ExceptionCode::NetworkError && (e.msg().starts_with("Failed to create proxy connection with host") || e.msg().starts_with("Failed to connect to host"))) {
+        failure([MoppLibError invalidProxySettingsError]);
+    } else {
+        NSError *error = [NSError errorWithDomain:[NSString stringWithUTF8String:e.msg().c_str()] code:e.code() userInfo:@{}];
+        failure(error);
+    }
   }
 }
 

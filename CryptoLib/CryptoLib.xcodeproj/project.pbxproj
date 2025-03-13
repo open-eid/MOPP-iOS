@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		39231FAF20AB1C6C00E1E2B4 /* CryptoLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 39231FAD20AB1C6C00E1E2B4 /* CryptoLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39266A5120CFBDF8002E3F23 /* SmartCardTokenWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5020CFBDF8002E3F23 /* SmartCardTokenWrapper.mm */; };
-		39266A5A20CFD956002E3F23 /* AbstractSmartToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 39266A5920CFD93E002E3F23 /* AbstractSmartToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39266A5D20CFDC59002E3F23 /* CdocParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5C20CFDC59002E3F23 /* CdocParser.m */; };
 		39266A5F20CFDCB9002E3F23 /* CdocInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5E20CFDCB9002E3F23 /* CdocInfo.m */; };
 		39266A6320CFE3D4002E3F23 /* CdocParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 39266A6220CFE3D4002E3F23 /* CdocParserDelegate.m */; };
@@ -32,6 +31,7 @@
 		4E3681DB2D40EAE800D76DAB /* MoppLdapConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3681DA2D40EAE800D76DAB /* MoppLdapConfiguration.swift */; };
 		4E8990862D710DC50010CA1F /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8990852D710DBC0010CA1F /* libxml2.tbd */; };
 		4EAC69122D481D1C00A53079 /* ASN1Decoder in Frameworks */ = {isa = PBXBuildFile; productRef = 4EAC69112D481D1C00A53079 /* ASN1Decoder */; };
+		4EEE43222D7CF3C9003D0112 /* AbstractSmartToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5920CFD93E002E3F23 /* AbstractSmartToken.swift */; };
 		DFA40D2F2ADF635F003EF945 /* 3513523f.0 in Resources */ = {isa = PBXBuildFile; fileRef = DFA40D2E2ADF635F003EF945 /* 3513523f.0 */; };
 		DFC7CA452AE010C9009D85FF /* 9f4c149e.0 in Resources */ = {isa = PBXBuildFile; fileRef = DFC7CA442AE010C9009D85FF /* 9f4c149e.0 */; };
 /* End PBXBuildFile section */
@@ -57,7 +57,7 @@
 		39231FAA20AB1C6C00E1E2B4 /* CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		39231FAD20AB1C6C00E1E2B4 /* CryptoLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptoLib.h; sourceTree = "<group>"; };
 		39266A5020CFBDF8002E3F23 /* SmartCardTokenWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SmartCardTokenWrapper.mm; sourceTree = "<group>"; };
-		39266A5920CFD93E002E3F23 /* AbstractSmartToken.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AbstractSmartToken.h; sourceTree = "<group>"; };
+		39266A5920CFD93E002E3F23 /* AbstractSmartToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractSmartToken.swift; sourceTree = "<group>"; };
 		39266A5B20CFDC41002E3F23 /* CdocParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CdocParser.h; sourceTree = "<group>"; };
 		39266A5C20CFDC59002E3F23 /* CdocParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CdocParser.m; sourceTree = "<group>"; };
 		39266A5E20CFDCB9002E3F23 /* CdocInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CdocInfo.m; sourceTree = "<group>"; };
@@ -137,7 +137,7 @@
 				39266A5B20CFDC41002E3F23 /* CdocParser.h */,
 				39266A5C20CFDC59002E3F23 /* CdocParser.m */,
 				39231FAD20AB1C6C00E1E2B4 /* CryptoLib.h */,
-				39266A5920CFD93E002E3F23 /* AbstractSmartToken.h */,
+				39266A5920CFD93E002E3F23 /* AbstractSmartToken.swift */,
 				39E2B4D520AD7A3400CA74A8 /* Addressee.h */,
 				39E2B4CF20AD7A3400CA74A8 /* Addressee.m */,
 				3960E50320C02DA400D4D2FC /* CryptoDataFile.h */,
@@ -193,7 +193,6 @@
 				39E2B4DF20AD7A3400CA74A8 /* Addressee.h in Headers */,
 				3960E50620C044EE00D4D2FC /* CryptoDataFile.h in Headers */,
 				39266A6520CFE643002E3F23 /* CdocInfo.h in Headers */,
-				39266A5A20CFD956002E3F23 /* AbstractSmartToken.h in Headers */,
 				39266A6420CFE63D002E3F23 /* CdocParser.h in Headers */,
 				39231FAF20AB1C6C00E1E2B4 /* CryptoLib.h in Headers */,
 			);
@@ -311,6 +310,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EEE43222D7CF3C9003D0112 /* AbstractSmartToken.swift in Sources */,
 				39266A5F20CFDCB9002E3F23 /* CdocInfo.m in Sources */,
 				39266A6320CFE3D4002E3F23 /* CdocParserDelegate.m in Sources */,
 				39266A5D20CFDC59002E3F23 /* CdocParser.m in Sources */,

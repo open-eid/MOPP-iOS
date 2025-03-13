@@ -23,12 +23,13 @@
 
 #include "SmartCardTokenWrapper.h"
 
-#import <CryptoLib/AbstractSmartToken.h>
+#import <CryptoLib/CryptoLib-Swift.h>
 
 class SmartCardTokenWrapper::Private{
 public:
     id<AbstractSmartToken> smartTokenClass;
     NSString *pin1;
+    NSError *error = nil;
 };
 
 
@@ -40,18 +41,31 @@ SmartCardTokenWrapper::SmartCardTokenWrapper(const std::string &password, id<Abs
 
 SmartCardTokenWrapper::~SmartCardTokenWrapper() noexcept = default;
 
+NSError* SmartCardTokenWrapper::lastError() const {
+    return token->error;
+}
+
 std::vector<uchar> SmartCardTokenWrapper::cert() const {
-    return encodeData([token->smartTokenClass getCertificate]);
+    NSError *error;
+    auto result = encodeData([token->smartTokenClass getCertificateAndReturnError:&error]);
+    token->error = error;
+    return result;
 }
 
 std::vector<uchar> SmartCardTokenWrapper::decrypt(const std::vector<uchar> &data) const {
     NSMutableData *nsdata = [NSMutableData dataWithBytesNoCopy:(void *)data.data() length:data.size() freeWhenDone:0];
-    return encodeData([token->smartTokenClass decrypt:nsdata pin1:token->pin1]);
+    NSError *error;
+    auto result = encodeData([token->smartTokenClass decrypt:nsdata pin1:token->pin1 error:&error]);
+    token->error = error;
+    return result;
 }
 
 std::vector<uchar> SmartCardTokenWrapper::derive(const std::vector<uchar> &publicKey) const {
     NSMutableData *nsdata = [NSMutableData dataWithBytesNoCopy:(void *)publicKey.data() length:publicKey.size() freeWhenDone:0];
-    return encodeData([token->smartTokenClass derive:nsdata pin1:token->pin1]);
+    NSError *error;
+    auto result = encodeData([token->smartTokenClass derive:nsdata pin1:token->pin1 error:&error]);
+    token->error = error;
+    return result;
 }
 
 std::vector<uchar> SmartCardTokenWrapper::encodeData(const NSData *dataBlock) {
