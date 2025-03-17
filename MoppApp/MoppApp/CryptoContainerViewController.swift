@@ -62,7 +62,6 @@ class CryptoContainerViewController : ContainerViewController, CryptoActions {
     deinit {
         NotificationCenter.default.removeObserver(self)
         printLog("Deinit CryptoContainerViewController")
-        MoppFileManager.removeFiles()
     }
 }
 

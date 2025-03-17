@@ -85,7 +85,8 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var isAsicsInitialLoadingDone = false
     var isLoadingNestedAsicsDone = false
     var isSendingToSivaAgreed = true
-    
+    var isNestedContainer = false
+
     private var isFileSaveableCache: [IndexPath: Bool] = [:]
     private var isDatafileReloaded = false
 
@@ -174,7 +175,9 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         isDatafileReloaded = false
         clearIsSaveableCache()
         NotificationCenter.default.removeObserver(self)
-        MoppFileManager.removeFiles()
+        if !isNestedContainer {
+            MoppFileManager.removeFiles()
+        }
     }
 
     @objc func signatureCreatedFinished() {
@@ -220,6 +223,11 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
 
     func updateState(_ newState: ContainerState) {
         showLoading(show: newState == .loading)
+        if isForPreview {
+            isNestedContainer = true
+        } else {
+            isNestedContainer = false
+        }
         switch newState {
             case .loading:
                 if isForPreview {
@@ -231,6 +239,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                 if isAsicContainer {
                     setupNavigationItemForPushedViewController(title: L(.containerSignTitle))
                     LandingViewController.shared.presentButtons(isForPreview ? [] : [.signButton])
+
                 }else{
                     setupNavigationItemForPushedViewController(title: L(.containerEncryptionTitle))
                     LandingViewController.shared.presentButtons(isForPreview ? [] : [.encryptButton])
@@ -274,6 +283,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                 LandingViewController.shared.presentButtons(tabButtons)
 
             case .preview:
+                isNestedContainer = true
                 let containerUrl = URL(fileURLWithPath: containerPath!)
                 let (filename, ext) = containerUrl.lastPathComponent.filenameComponents()
                 LandingViewController.shared.presentButtons([])
@@ -778,6 +788,7 @@ extension ContainerViewController : UITableViewDataSource {
                     self.navigationController?.viewControllers.last!.present(alert, animated: true)
                     return
                 } else {
+                    self.asicsNestedContainerPath = ""
                     self.isLoadingNestedAsicsDone = true
                     self.isSendingToSivaAgreed = false
                     self.reloadContainer()
