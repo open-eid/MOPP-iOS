@@ -26,9 +26,22 @@
 #import "MoppLibConstants.h"
 #import "MoppLibRoleAddressData.h"
 
+@class MoppLibConfiguration;
+@class MoppLibProxyConfiguration;
+
 @interface MoppLibContainerActions : NSObject
 
 + (MoppLibContainerActions *)sharedInstance;
+
++ (NSString *)libdigidocppVersion;
+
+/**
+ * Prepares library for operations with containers. Setup must be completed before any container action is carried out. It is recommended, that you initiate setup at earliest opportunity.
+ *
+ * @param success       Block to be called on successful completion of action.
+ * @param failure       Block to be called when action fails. Includes error.
+ */
++ (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure withMoppConfiguration:(MoppLibConfiguration *)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration;
 
 /**
  * Opens container at specified path.
@@ -79,16 +92,6 @@
 - (void)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex success:(ContainerBlock)success failure:(FailureBlock)failure;
 
 /**
- * Gets available containers.
- *
- * @param success       Block to be called on successful completion of action. Includes container data as array of MoppLibContainer.
- * @param failure       Block to be called when action fails. Includes error.
- */
-- (void)getContainersWithSuccess:(void(^)(NSArray *containers))success failure:(FailureBlock)failure;
-
-
-
-/**
  * Removes signature from container.
  *
  * @param moppSignature   Signature that will be removed.
@@ -126,6 +129,7 @@
  */
 - (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(ContainerBlock)success failure:(FailureBlock)failure;
 
-
++ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData;
++ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(VoidBlock)success failure:(FailureBlock)failure;
 
 @end

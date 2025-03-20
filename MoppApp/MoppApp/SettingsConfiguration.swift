@@ -229,7 +229,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
 
         let urlSession = URLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
         
-        let userAgent = MoppLibManager.sharedInstance().userAgent()
+        let userAgent = MoppLibManager.userAgent()
         
         var request = URLRequest(url: url)
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
@@ -349,18 +349,12 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     }
 
     private func reloadDigiDocConf() {
-        #if USE_TEST_DDS
-            let useTestDDS = true
-        #else
-            let useTestDDS = false
-        #endif
-
-        MoppLibManager.sharedInstance()?.setup(success: {
+        MoppLibContainerActions.setup(success: {
             printLog("Successfully reloaded DigiDocConf")
         }, andFailure: { error in
             printLog("Failed to reload DigiDocConf")
             fatalError("Failed to reload DigiDocConf")
-        }, usingTestDigiDocService: useTestDDS, andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaurl,
+        },
            withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration(),
            andProxyConfiguration: ManualProxy.getMoppLibProxyConfiguration())
     }

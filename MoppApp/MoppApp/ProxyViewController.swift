@@ -200,7 +200,7 @@ class ProxyViewController: MoppViewController, URLSessionDelegate {
         
         let manualProxyConf = ManualProxy.getManualProxyConfiguration()
         
-        let userAgent = MoppLibManager.sharedInstance().userAgent()
+        let userAgent = MoppLibManager.userAgent()
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")

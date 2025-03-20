@@ -236,7 +236,7 @@ class MobileIDSignature {
             "\tCert: \(cert)\n" +
             "\tSignature value: \(signatureValue)\n"
         )
-        MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue, success: {
+        MoppLibContainerActions.isSignatureValid(cert, signatureValue: signatureValue, success: {
             printLog("\nRIA.MobileID - Successfully validated signature!\n")
             DispatchQueue.main.async {
                 NotificationCenter.default.post(
@@ -287,7 +287,7 @@ class MobileIDSignature {
     
     // MARK: Get hash
     private func getHash(cert: Data, containerPath: String, roleData: MoppLibRoleAddressData?) -> Data? {
-        guard let hash = MoppLibManager.prepareSignature(cert, containerPath: containerPath, roleData: roleData) else {
+        guard let hash = MoppLibContainerActions.prepareSignature(cert, containerPath: containerPath, roleData: roleData) else {
             printLog("RIA.MobileID - Failed to get hash:\n" +
                 "\tCert: \(cert)\n" +
                 "\tContainer path: \(containerPath)\n"
