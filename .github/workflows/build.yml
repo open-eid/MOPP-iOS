@@ -17,7 +17,7 @@ jobs:
         DEFAULT_CENTRAL_CONFIGURATION_URL: "https://id.eesti.ee"
         DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL: 4
         DEFAULT_CENTRAL_CONFIGURATION_TSL_URL: "https://ec.europa.eu/tools/lotl/eu-lotl.xml"
-        
+
         TEMP_KEYCHAIN_PATH: "$RUNNER_TEMP/ios-github-actions.keychain-db"
     steps:
     - name: Checkout
