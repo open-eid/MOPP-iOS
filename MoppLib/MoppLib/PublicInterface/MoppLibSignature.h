@@ -23,6 +23,14 @@
 
 #import "MoppLibConstants.h"
 
+typedef NS_ENUM(int, MoppLibSignatureStatus) {
+    Valid,
+    Warning,
+    NonQSCD,
+    Invalid,
+    UnknownStatus
+};
+
 @class MoppLibRoleAddressData;
 
 @interface MoppLibSignature : NSObject

@@ -171,7 +171,7 @@ class SmartIDSignature {
     
     private func validateSignature(cert: Data, signatureValue: Data) -> Void {
         printLog("\nRIA.SmartID - Validating signature...\n")
-        MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue, success: { (_) in
+        MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue, success: {
             printLog("\nRIA.SmartID - Successfully validated signature!\n")
             DispatchQueue.main.async {
                 NotificationCenter.default.post(
