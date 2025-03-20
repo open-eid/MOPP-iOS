@@ -28,17 +28,10 @@
 @class MoppLibRoleAddressData;
 @class MoppLibSignature;
 
-typedef enum {
-    Unspecified,
-    TimeStamp,
-    TimeMark
-} SigningProfileType;
-
 @interface MoppLibDigidocManager : NSObject
 
-@property (readonly) BOOL useTestDigiDocService;
 + (MoppLibDigidocManager *)sharedInstance;
-- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString*)tsUrl withMoppConfiguration:(MoppLibConfiguration*)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration;
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure andTSUrl:(NSString*)tsUrl withMoppConfiguration:(MoppLibConfiguration*)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration;
 
 - (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath error:(NSError **)error;
 - (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths error:(NSError **)error;
@@ -51,9 +44,4 @@ typedef enum {
 - (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath error:(NSError **)error;
 - (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure;
 - (BOOL)isContainerFileSaveable:(NSString *)containerPath saveDataFile:(NSString *)fileName;
-- (NSString *)digidocVersion;
-- (NSString *)moppAppVersion;
-- (NSString *)iOSVersion;
-- (NSString *)userAgent;
-- (NSString *)userAgent:(BOOL)shouldIncludeDevices;
 @end
