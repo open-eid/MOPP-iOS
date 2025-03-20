@@ -42,17 +42,7 @@ public class MoppLibPersonalData: NSObject {
     //public var notes4: String = ""
 
     /// Returns the full name of the card owner.
-    public func fullName() -> String {
-        var nameComponents: [String] = []
-
-        if !givenNames.isEmpty {
-            nameComponents.append(givenNames)
-        }
-        if !surname.isEmpty {
-            nameComponents.append(surname)
-        }
-
-        return nameComponents.joined(separator: " ")
+    public var fullName: String {
+        return [givenNames, surname].filter { !$0.isEmpty }.joined(separator: " ")
     }
 }
-

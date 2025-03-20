@@ -31,42 +31,6 @@ typedef NS_ENUM(int, MoppLibSignatureStatus) {
     UnknownStatus
 };
 
-// Mopp Lib error codes
-
-typedef NS_ENUM(NSInteger, MoppLibErrorCode) {
-  
-  moppLibErrorReaderNotFound = 10001, // Reader is not connected to phone
-  moppLibErrorCardNotFound = 10002, // Reader is connected, but card is not detected
-  moppLibErrorCardVersionUnknown = 10003, //
-  moppLibErrorWrongPin = 10004, // Provided pin is wrong
-  moppLibErrorGeneral = 10005,
-  moppLibErrorInvalidPin = 10006, // New pin does not apply to rules
-  moppLibErrorPinMatchesVerificationCode = 10007, // New pin must be different from old pin or puk
-  moppLibErrorIncorrectPinLength = 10008, // New pin is too short or too long
-  moppLibErrorPinTooEasy = 10009,// New pin is too easy
-  moppLibErrorPinContainsInvalidCharacters = 10010, // Pin contains invalid characters. Only numbers are allowed
-  moppLibErrorUrlSessionCanceled = 10012, // NSURLErrorCanceled occured when connecting to external service.
-  moppLibErrorXmlParsingError = 10013, // AEXMLDocument loadXml failed to parse data to XML.
-  MoppLibErrorDDSError = 10014, // Error from DDS
-  moppLibErrorPinNotProvided = 10015, // User did not provide pin for action that required authentication
-  moppLibErrorPinBlocked = 10016, // User did not provide pin for action that required authentication
-  moppLibErrorFileNameTooLong = 10017, // File name too long
-  moppLibErrorNoInternetConnection = 10018, // No internet connection
-  moppLibErrorPinMatchesOldCode = 10019, // New pin must be different from old pin or puk
-  moppLibErrorReaderSelectionCanceled = 10020, // User canceled card reader selection
-  moppLibErrorRestrictedApi = 10021, // Restricted API. Some functionality is not available for third-party apps
-  moppLibErrorLdapResponseNotFound = 10022, // Ldap response not found
-  moppLibErrorDuplicatedFilename = 10023, // Filename already exists
-  moppLibErrorTooManyRequests = 10024, // Too many requests
-  moppLibErrorOCSPTimeSlot = 10025, // Invalid OCSP time slot
-  moppLibErrorReaderProcessFailed = 10026, // Reader process failed
-  moppLibErrorSslHandshakeFailed = 10027, // SSL handshake failed
-  moppLibErrorInvalidProxySettings = 10028, // Connecting with current proxy settings failed
-
-};
-
-extern NSString *const kMoppLibUserInfoRetryCount;
-
 @class MoppLibContainer;
 @class CdocInfo;
 
@@ -75,4 +39,3 @@ typedef void (^ContainerBlock)(MoppLibContainer *container);
 typedef void (^CdocContainerBlock)(CdocInfo *cdocInfo);
 typedef void (^DecryptedDataBlock)(NSMutableDictionary *decryptedData);
 typedef void (^VoidBlock)(void);
-typedef void (^BoolBlock)(BOOL);

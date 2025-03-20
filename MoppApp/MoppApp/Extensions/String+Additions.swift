@@ -219,9 +219,25 @@ extension String {
     }
     
     func sanitize() -> String {
-        let normalizedName = FileUtil.getFileName(currentFileName: self)
-        return MoppLibManager.sanitize(normalizedName)
+        var normalizedName = FileUtil.getFileName(currentFileName: self)
             .removeForbiddenCharacters().trimWhitespacesAndNewlines()
+
+        var characterSet = CharacterSet.illegalCharacters
+        characterSet.insert(charactersIn: "@%:^?[]'\"”’{}#&`\\~«»/´")
+        let rtlChars = ["\u{200E}", "\u{200F}", "\u{202E}", "\u{202A}", "\u{202B}"]
+        for rtlChar in rtlChars {
+            characterSet.insert(charactersIn: rtlChar)
+        }
+
+        while normalizedName.hasPrefix(".") {
+            if normalizedName.count > 1 {
+                normalizedName.removeFirst()
+            } else {
+                normalizedName = normalizedName.replacingOccurrences(of: ".", with: "_")
+            }
+        }
+
+        return normalizedName.components(separatedBy: characterSet).joined()
     }
 
     func lowercasedStart() -> String {

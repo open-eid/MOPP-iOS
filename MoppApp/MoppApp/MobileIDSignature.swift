@@ -236,7 +236,7 @@ class MobileIDSignature {
             "\tCert: \(cert)\n" +
             "\tSignature value: \(signatureValue)\n"
         )
-        MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue, success: { (_) in
+        MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue, success: {
             printLog("\nRIA.MobileID - Successfully validated signature!\n")
             DispatchQueue.main.async {
                 NotificationCenter.default.post(

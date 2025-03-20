@@ -78,24 +78,13 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
             var errorMessage = L(.genericErrorMessage)
             if let nsError = error as NSError? {
                 let actionType = strongSelf.model.actionType
-                var errorCode = nsError.code
-                
-                let retryCount = (nsError.userInfo[kMoppLibUserInfoRetryCount] as? NSNumber)?.intValue ?? 0
-                if errorCode == MoppLibErrorCode.moppLibErrorWrongPin.rawValue && retryCount == 0 {
-                    errorCode = MoppLibErrorCode.moppLibErrorPinBlocked.rawValue
-                }
+                let errorCode = nsError.code
                 
                 if errorCode == MoppLibErrorCode.moppLibErrorWrongPin.rawValue {
-                    let retryCount = (nsError.userInfo[kMoppLibUserInfoRetryCount] as? NSNumber)?.intValue ?? 0
+                    let retryCount = (nsError.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as? NSNumber)?.intValue ?? 0
                     strongSelf.infoManager.retryCounts.setRetryCount(for: actionType, with: retryCount)
-                    if retryCount == 1 {
-                        errorMessage = L(.myEidWrongCodeMessageSingular, [actionType.codeDisplayNameForWrongOrBlocked])
-                        showErrorInline = true
-                    }
-                    else {
-                        errorMessage = L(.myEidWrongCodeMessage, [actionType.codeDisplayNameForWrongOrBlocked])
-                        showErrorInline = true
-                    }
+                    errorMessage = L(retryCount == 1 ? .myEidWrongCodeMessageSingular : .myEidWrongCodeMessage, [actionType.codeDisplayNameForWrongOrBlocked])
+                    showErrorInline = true
                     ui.setViewBorder(view: ui.firstCodeTextField)
                 }
                 else if errorCode == MoppLibErrorCode.moppLibErrorPinBlocked.rawValue {

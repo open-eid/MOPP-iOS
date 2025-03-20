@@ -126,57 +126,24 @@ class MyeIDViewController : MoppViewController {
 
 extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
     func moppLibCardReaderStatusDidChange(_ readerStatus: MoppLibCardReaderStatus) {
+        popChangeCodesViewControllerIfPushed()
+        var statusVC = children.first as? MyeIDStatusViewController
+        if statusVC == nil {
+            statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
+        }
         switch readerStatus {
-        case .Initial:
-            popChangeCodesViewControllerIfPushed()
-            var statusVC = children.first as? MyeIDStatusViewController
-            if statusVC == nil {
-                statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
-            }
-            statusVC?.state = .initial
-        case .ReaderNotConnected:
-            popChangeCodesViewControllerIfPushed()
-            var statusVC = children.first as? MyeIDStatusViewController
-            if statusVC == nil {
-                statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
-            }
-            statusVC?.state = .readerNotFound
-        case .ReaderRestarted:
-            popChangeCodesViewControllerIfPushed()
-            var statusVC = children.first as? MyeIDStatusViewController
-            if statusVC == nil {
-                statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
-            }
-            statusVC?.state = .readerRestarted
-        case .ReaderConnected:
-            popChangeCodesViewControllerIfPushed()
-            var statusVC = children.first as? MyeIDStatusViewController
-            if statusVC == nil {
-                statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
-            }
-            statusVC?.state = .idCardNotFound
+        case .Initial: statusVC?.state = .initial
+        case .ReaderNotConnected: statusVC?.state = .readerNotFound
+        case .ReaderRestarted: statusVC?.state = .readerRestarted
+        case .ReaderConnected: statusVC?.state = .idCardNotFound
         case .CardConnected:
-            popChangeCodesViewControllerIfPushed()
-            var statusVC = children.first as? MyeIDStatusViewController
-            if statusVC == nil {
-                statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
-            }
             statusVC?.state = .requestingData
-            
             // Give some time for status textfield to update before executing data requests
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
                 guard let strongSelf = self else { return }
                 strongSelf.infoManager.requestInformation(with: strongSelf)
             })
-        case .ReaderProcessFailed:
-            popChangeCodesViewControllerIfPushed()
-            var statusVC = children.first as? MyeIDStatusViewController
-            if statusVC == nil {
-                statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
-            }
-            statusVC?.state = .readerProcessFailed
-        @unknown default:
-            break
+        case .ReaderProcessFailed: statusVC?.state = .readerProcessFailed
         }
     }
 }

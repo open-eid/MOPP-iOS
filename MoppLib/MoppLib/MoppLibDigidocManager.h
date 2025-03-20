@@ -46,7 +46,7 @@ typedef enum {
 - (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex error:(NSError **)error;
 - (NSArray *)getContainers;
 + (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData;
-+ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure;
++ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(VoidBlock)success failure:(FailureBlock)failure;
 - (void)addSignature:(NSString *)containerPath pin2:(NSString *)pin2 cert:(NSData *)cert roleData:(MoppLibRoleAddressData *)roleData success:(ContainerBlock)success andFailure:(FailureBlock)failure;
 - (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath error:(NSError **)error;
 - (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure;
@@ -56,5 +56,4 @@ typedef enum {
 - (NSString *)iOSVersion;
 - (NSString *)userAgent;
 - (NSString *)userAgent:(BOOL)shouldIncludeDevices;
-+ (NSString *)sanitize:(NSString *)text;
 @end

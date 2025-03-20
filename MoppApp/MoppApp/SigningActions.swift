@@ -200,28 +200,25 @@ extension SigningContainerViewController : IdCardSignViewControllerDelegate {
                     userInfo: nil)
             } else {
                 guard let nsError = error as NSError? else { return }
-                if nsError.code == Int(MoppLibErrorCode.moppLibErrorPinBlocked.rawValue) {
+                switch nsError.code {
+                case MoppLibErrorCode.moppLibErrorPinBlocked.rawValue:
                     ErrorUtil.generateError(signingError: L(.pin2BlockedAlert))
-                } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorTooManyRequests.rawValue) {
+                case MoppLibErrorCode.moppLibErrorTooManyRequests.rawValue:
                     ErrorUtil.generateError(signingError: .tooManyRequests(signingMethod: SigningType.idCard.rawValue))
-                } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
+                case MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue:
                     ErrorUtil.generateError(signingError: .noResponseError)
-                } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorOCSPTimeSlot.rawValue) {
+                case MoppLibErrorCode.moppLibErrorOCSPTimeSlot.rawValue:
                     ErrorUtil.generateError(signingError: .ocspInvalidTimeSlot)
-                } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorSslHandshakeFailed.rawValue) {
+                case MoppLibErrorCode.moppLibErrorSslHandshakeFailed.rawValue:
                     ErrorUtil.generateError(signingError: .invalidSSLCert)
-                } else if nsError.code == Int(MoppLibErrorCode.moppLibErrorInvalidProxySettings.rawValue) {
+                case MoppLibErrorCode.moppLibErrorInvalidProxySettings.rawValue:
                     ErrorUtil.generateError(signingError: .invalidProxySettings)
-                } else {
+                default:
                     ErrorUtil.generateError(signingError: .empty, details: MessageUtil.errorMessageWithDetails(details: nsError.localizedDescription))
                 }
             }
-        } else {
-            if let error = error as? IdCardActionError {
-                if error == .actionCancelled {
-                    ErrorUtil.generateError(signingError: L(.signingAbortedMessage))
-                }
-            }
+        } else if let error = error as? IdCardActionError, error == .actionCancelled {
+            ErrorUtil.generateError(signingError: L(.signingAbortedMessage))
         }
     }
 }
