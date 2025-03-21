@@ -132,14 +132,19 @@
   }
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [MoppLibCardActions pin2RetryCountWithSuccess:^(NSNumber *count) {
-            if (count == 0) {
-                return failure([MoppLibError pinBlockedError]);
-            }
-            [MoppLibCardActions signingCertificateWithSuccess:^(NSData *certData) {
-                [[MoppLibDigidocManager sharedInstance] addSignature:containerPath pin2:pin2 cert:certData roleData:roleData success:success andFailure:failure];
-            } failure:failure];
-        } failure:failure];
+        NSError *error = nil;
+        NSNumber *count = [MoppLibCardActions pin2RetryCountAndReturnError:&error];
+        if (error != nil) {
+            return failure(error);
+        }
+        if (count == 0) {
+            return failure([MoppLibError pinBlockedError]);
+        }
+        NSData *certData = [MoppLibCardActions signingCertificateAndReturnError:&error];
+        if (error != nil) {
+            return failure(error);
+        }
+        [[MoppLibDigidocManager sharedInstance] addSignature:containerPath pin2:pin2 cert:certData roleData:roleData success:success andFailure:failure];
     });
 }
 

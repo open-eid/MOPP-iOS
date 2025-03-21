@@ -27,32 +27,71 @@ typealias Bytes = [UInt8]
 
 protocol CardReaderWrapper {
     /**
-     * Sends a command to the card and retrieves the response.
+     * Sends an APDU (Application Protocol Data Unit) command to the smart card and retrieves the response.
      *
-     * - Parameters:
-     *   - commandHex: The command.
-     *   - sw: A pointer to a `UInt16` variable that stores the status word (SW) from the card.
-     * - Throws: An error if the transmission fails.
-     * - Returns: The response data from the card.
+     * - Parameter apdu: The APDU command to be sent.
+     * - Throws: An error if communication with the card fails.
+     * - Returns: A tuple containing:
+     *   - The response data from the card.
+     *   - The status word (SW), which indicates the processing status of the command.
      */
-    func transmitCommand(_ apdu: Bytes) throws -> (Bytes,UInt16)
+    func transmit(_ apdu: Bytes) throws -> (Bytes, UInt16)
 
     /**
-     * Sends a command to the card, retrieves the response, and verifies that the result is `0x9000` (success status).
+     * Powers on the smart card and retrieves its initial response (ATR - Answer to Reset).
      *
-     * - Parameters:
-     *   - commandHex: The command.
-     *   - sw: A pointer to a `UInt16` variable that stores the status word (SW) from the card.
-     * - Throws: An error if the transmission fails or if the response status word is not `0x9000`.
-     * - Returns: The response data from the card.
-     */
-    func transmitCommandChecked(_ apdu: Bytes) throws -> Bytes
-
-    /**
-     * Powers on the card and retrieves the initial response.
-     *
-     * - Throws: An error if powering on the card fails.
-     * - Returns: The response data from the card after power-on.
+     * - Throws: An error if the card fails to power on.
+     * - Returns: The ATR (Answer to Reset) response data from the card.
      */
     func powerOnCard() throws -> Bytes
 }
+
+extension CardReaderWrapper {
+    /**
+     * Sends an APDU command to the card and retrieves the response, handling special status words (`0x6C00` and `0x6100`).
+     *
+     * - If the response status word is `0x6CXX`, the function resends the command with the correct length.
+     * - If the response status word is `0x61XX`, the function retrieves additional response data.
+     *
+     * - Parameter apdu: The APDU command to be transmitted.
+     * - Throws: An error if communication with the card fails.
+     * - Returns: A tuple containing:
+     *   - The full response data from the card.
+     *   - The final status word (SW) from the card.
+     */
+    func transmitCommand(_ apdu: Bytes) throws -> (Bytes, UInt16) {
+        var (response, sw) = try transmit(apdu)
+
+        // Handle SW 6CXX (Wrong length, correct length provided in SW2)
+        if (sw & 0xFF00) == 0x6C00 {
+            var modifiedApdu = apdu
+            modifiedApdu[apdu.count - 1] = UInt8(truncatingIfNeeded: sw)
+            (response, sw) = try transmit(modifiedApdu)
+        }
+
+        // Handle SW 61XX (More data available, use GET RESPONSE command)
+        while (sw & 0xFF00) == 0x6100 {
+            let (additionalData, newSW) = try transmit([0x00, 0xC0, 0x00, 0x00, UInt8(truncatingIfNeeded: sw)])
+            response.append(contentsOf: additionalData)
+            sw = newSW
+        }
+
+        return (response, sw)
+    }
+
+    /**
+     * Sends an APDU command to the card, retrieves the response, and ensures the operation was successful (`SW = 0x9000`).
+     *
+     * - Parameter apdu: The APDU command to be sent.
+     * - Throws: An error if communication with the card fails or if the response status word is not `0x9000`.
+     * - Returns: The response data from the card.
+     */
+    func transmitCommandChecked(_ apdu: Bytes) throws -> Bytes {
+        let (result, sw) = try transmitCommand(apdu)
+        guard sw == 0x9000 else {
+            throw MoppLibError.generalError()
+        }
+        return result
+    }
+}
+

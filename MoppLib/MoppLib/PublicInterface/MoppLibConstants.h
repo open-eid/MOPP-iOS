@@ -24,10 +24,7 @@
 #import <Foundation/Foundation.h>
 
 @class MoppLibContainer;
-@class CdocInfo;
 
 typedef void (^FailureBlock)(NSError *error);
 typedef void (^ContainerBlock)(MoppLibContainer *container);
-typedef void (^CdocContainerBlock)(CdocInfo *cdocInfo);
-typedef void (^DecryptedDataBlock)(NSMutableDictionary *decryptedData);
 typedef void (^VoidBlock)(void);
