@@ -25,6 +25,9 @@
 #import "MoppLibDigidocManager.h"
 #import "../Reachability/Reachability.h"
 
+#import <ExternalAccessory/ExternalAccessory.h>
+#import <UIKit/UIDevice.h>
+
 @implementation MoppLibManager
 
 + (MoppLibManager *)sharedInstance {
@@ -36,16 +39,8 @@
   return sharedInstance;
 }
 
-- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString *)tsUrl withMoppConfiguration:(MoppLibConfiguration *)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration {
-    [[MoppLibDigidocManager sharedInstance] setupWithSuccess:success andFailure:failure usingTestDigiDocService:useTestDDS andTSUrl:tsUrl withMoppConfiguration: moppConfiguration andProxyConfiguration: proxyConfiguration];
-}
-
-+ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData {
-    return [MoppLibDigidocManager prepareSignature:cert containerPath:containerPath roleData:roleData];
-}
-
-+ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure {
-    return [MoppLibDigidocManager isSignatureValid:cert signatureValue:signatureValue success:success failure:failure];
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure andTSUrl:(NSString *)tsUrl withMoppConfiguration:(MoppLibConfiguration *)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration {
+    [[MoppLibDigidocManager sharedInstance] setupWithSuccess:success andFailure:failure andTSUrl:tsUrl withMoppConfiguration: moppConfiguration andProxyConfiguration: proxyConfiguration];
 }
 
 - (NSString *)libdigidocppVersion {
@@ -57,24 +52,43 @@
     return [reachability currentReachabilityStatus] != NotReachable;
 }
 
-- (NSString *)appVersion {
-  return [[MoppLibDigidocManager sharedInstance] moppAppVersion];
+- (NSArray *)connectedDevices {
+    EAAccessoryManager* accessoryManager = [EAAccessoryManager sharedAccessoryManager];
+    NSMutableArray *devices = [NSMutableArray new];
+    if (accessoryManager) {
+        for (EAAccessory *device in [accessoryManager connectedAccessories]) {
+            [devices addObject:[NSString stringWithFormat:@"%@ %@ (%@)", device.manufacturer, device.name, device.modelNumber]];
+        }
+    }
+    return devices;
 }
 
-- (NSString *)iOSVersion {
-    return [[MoppLibDigidocManager sharedInstance] iOSVersion];
+- (NSString *)moppAppVersion {
+    NSString * version = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+    NSString * build = [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
+    return [NSString stringWithFormat:@"%@.%@", version, build];
 }
 
-- (NSString *)userAgent:(BOOL)shouldIncludeDevices {
-    return [[MoppLibDigidocManager sharedInstance] userAgent:shouldIncludeDevices];
+- (NSString *)appLanguage {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *language = [defaults stringForKey:@"kMoppLanguage"];
+    return [language length] != 0 ? [NSString stringWithFormat:@"%@", language] : [NSString stringWithFormat:@"%s", "N/A"];
 }
 
 - (NSString *)userAgent {
-    return [[MoppLibDigidocManager sharedInstance] userAgent:false];
+    return [self userAgent:false];
 }
 
-+ (NSString *)sanitize:(NSString *)text {
-    return [MoppLibDigidocManager sanitize:text];
+- (NSString *)userAgent:(BOOL)shouldIncludeDevices {
+    NSString *appInfo = [NSString stringWithFormat:@"%s/%@ (iOS %@) Lang: %@", "riadigidoc", [self moppAppVersion],
+                         UIDevice.currentDevice.systemVersion, [self appLanguage]];
+    if (shouldIncludeDevices) {
+        NSArray *connectedDevices = [self connectedDevices];
+        if (connectedDevices.count > 0) {
+            appInfo = [NSString stringWithFormat:@"%@ Devices: %@", appInfo, [connectedDevices componentsJoinedByString:@", "]];
+        }
+    }
+    return appInfo;
 }
 
 @end

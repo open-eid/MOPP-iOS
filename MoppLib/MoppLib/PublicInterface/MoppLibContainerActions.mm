@@ -23,10 +23,20 @@
 
 #import "MoppLibContainerActions.h"
 #import "MoppLibDigidocManager.h"
-#import "Reachability.h"
+#import <CryptoLib/CryptoLib-Swift.h>
 #import <MoppLib/MoppLib-Swift.h>
 
+#include <digidocpp/Container.h>
+
 @implementation MoppLibContainerActions
+
++ (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure andTSUrl:(NSString *)tsUrl withMoppConfiguration:(MoppLibConfiguration *)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration {
+    [[MoppLibDigidocManager sharedInstance] setupWithSuccess:success andFailure:failure andTSUrl:tsUrl withMoppConfiguration: moppConfiguration andProxyConfiguration: proxyConfiguration];
+}
+
++ (NSString *)libdigidocppVersion {
+    return [NSString stringWithUTF8String:digidoc::version().c_str()];
+}
 
 + (MoppLibContainerActions *)sharedInstance {
   static dispatch_once_t pred;
@@ -38,7 +48,7 @@
 }
 
 - (void)openContainerWithPath:(NSString *)containerPath success:(ContainerBlock)success failure:(FailureBlock)failure {
-  
+
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     NSError *error;
     MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] getContainerWithPath:containerPath error:&error];
@@ -48,7 +58,7 @@
   });
 }
 
-- (MoppLibContainer *)openContainerWithPath:(NSString *)containerPath error:(NSError **)error {
+- (MoppLibContainer *)openContainerWithPath:(NSString * _Nonnull)containerPath error:(NSError **)error {
     return [[MoppLibDigidocManager sharedInstance] getContainerWithPath:containerPath error:error];
 }
 
@@ -85,9 +95,9 @@
   
 }
 
-- (void)getContainersWithSuccess:(void(^)(NSArray *containers))success failure:(FailureBlock)failure {
+- (void)getContainersWithSuccess:(void(^)(NSArray<MoppLibContainer*> *containers))success failure:(FailureBlock)failure {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    NSArray *containers = [[MoppLibDigidocManager sharedInstance] getContainers];
+    NSArray<MoppLibContainer*> *containers = [[MoppLibDigidocManager sharedInstance] getContainers];
     dispatch_async(dispatch_get_main_queue(), ^{
       success(containers);
     });
@@ -104,7 +114,7 @@
   });
 }
 
-- (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure {
+- (void)container:(NSString * _Nonnull)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
       [[MoppLibDigidocManager sharedInstance] container:containerPath saveDataFile:fileName to:path success:^{
           dispatch_async(dispatch_get_main_queue(), ^{
@@ -123,11 +133,9 @@
     return [[MoppLibDigidocManager sharedInstance] isContainerFileSaveable:containerPath saveDataFile:fileName];
 }
 
-- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(void(^)(MoppLibContainer *container))success failure:(FailureBlock)failure {
+- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(ContainerBlock)success failure:(FailureBlock)failure {
   
-  Reachability *reachability = [Reachability reachabilityForInternetConnection];
-  NetworkStatus networkStatus = [reachability currentReachabilityStatus];
-  if (networkStatus == NotReachable) {
+  if (!MoppLibManager.shared.isConnected) {
     failure([MoppLibError noInternetConnectionError]);
     return;
   }
@@ -142,6 +150,14 @@
             } failure:failure];
         } failure:failure];
     });
+}
+
++ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData {
+    return [MoppLibDigidocManager prepareSignature:cert containerPath:containerPath roleData:roleData];
+}
+
++ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(VoidBlock)success failure:(FailureBlock)failure {
+    return [MoppLibDigidocManager isSignatureValid:cert signatureValue:signatureValue success:success failure:failure];
 }
 
 @end

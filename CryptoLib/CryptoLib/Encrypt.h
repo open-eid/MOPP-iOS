@@ -22,6 +22,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Encrypt : NSObject
-- (BOOL)encryptFile: (NSString *)fullPath withDataFiles :(NSArray *) dataFiles withAddressees: (NSArray *) addressees;
+@class Addressee;
+@class CryptoDataFile;
+
+@interface Encrypt: NSObject
+
++ (void)encryptFile:(NSString *)fullPath withDataFiles:(NSArray<CryptoDataFile*> *)dataFiles
+     withAddressees:(NSArray<Addressee*> *)addressees success:(void (^)(void))success failure:(void (^)(void))failure;
+
 @end

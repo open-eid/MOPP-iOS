@@ -1,7 +1,6 @@
 //
-//  MoppLibDataFile.h
-//  MoppLib
-//
+//  CdocInfo.swift
+//  CryptoLib
 /*
  * Copyright 2017 - 2024 Riigi Infosüsteemi Amet
  *
@@ -21,13 +20,19 @@
  *
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-@interface MoppLibDataFile : NSObject
+public class CdocInfo: NSObject {
+    public let addressees: [Addressee]
+    public let dataFiles: [CryptoDataFile]
 
-@property (strong, nonatomic) NSString *mediaType;
-@property (strong, nonatomic) NSString *fileId;
-@property (strong, nonatomic) NSString *fileName;
-@property (assign, nonatomic) long fileSize;
+    @objc public init(addressees: [Addressee] = []) {
+        self.addressees = addressees
+        self.dataFiles = []
+    }
 
-@end
+    @objc public init(addressees: [Addressee] = [], dataFiles: [CryptoDataFile] = []) {
+        self.addressees = addressees
+        self.dataFiles = dataFiles
+    }
+}

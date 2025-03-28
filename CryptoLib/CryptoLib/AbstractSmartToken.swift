@@ -26,4 +26,5 @@ import Foundation
     func getCertificate() throws -> Data
     func decrypt(_ data: Data, pin1: String) throws -> Data
     func derive(_ data: Data, pin1: String) throws -> Data
+    func authenticate(_ data: Data, pin1: String) throws -> Data
 }

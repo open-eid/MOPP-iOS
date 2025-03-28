@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>RIA DigiDoc</string>
 	<key>CFBundleDocumentTypes</key>
@@ -81,6 +81,21 @@
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>ee.ria.digidoc-cdoc</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>DigiDoc file cdoc2</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>ee.ria.digidoc-cdoc2</string>
 			</array>
 		</dict>
 		<dict>
@@ -183,6 +198,21 @@
 				<string>public.data</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>DigiDoc file cdoc2</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>ee.ria.digidoc-cdoc2</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
@@ -219,8 +249,6 @@
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
-	<key>NFCReaderUsageDescription</key>
-	<string>This app uses NFC to scan ID-cards</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -237,6 +265,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NFCReaderUsageDescription</key>
+	<string>This app uses NFC to scan ID-cards</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Bluetooth card reader is used to read data from ID card</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
@@ -271,7 +301,7 @@
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
-		<string>armv7</string>
+		<string>arm64</string>
 	</array>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleDarkContent</string>
@@ -436,6 +466,35 @@
 				<key>public.mime-type</key>
 				<array>
 					<string>application/x-cdoc</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DigiDoc Container cdoc2</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc-cdoc2</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>cdoc2</string>
+					<string>CDOC2</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-cdoc2</string>
 				</array>
 			</dict>
 		</dict>
@@ -669,6 +728,35 @@
 				</array>
 			</dict>
 		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>DigiDoc Container cdoc2</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc-cdoc2</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>cdoc2</string>
+					<string>CDOC2</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-cdoc2</string>
+				</array>
+			</dict>
+		</dict>
 	</array>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
@@ -765,6 +853,36 @@
 				<key>public.mime-type</key>
 				<array>
 					<string>application/x-cdoc</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.cdoc2</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Digidoc Container cdoc2</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>cdoc2</string>
+					<string>CDOC2</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-cdoc2</string>
 				</array>
 			</dict>
 		</dict>
@@ -1018,6 +1136,36 @@
 				<key>public.mime-type</key>
 				<array>
 					<string>application/x-zip</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>digidoc_76.png</string>
+				<string>digidoc_1024.png</string>
+			</array>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.cdoc2</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Digidoc Container cdoc2</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>ee.ria.digidoc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>cdoc2</string>
+					<string>CDOC2</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>application/x-cdoc2</string>
 				</array>
 			</dict>
 		</dict>

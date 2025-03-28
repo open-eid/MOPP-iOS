@@ -1,5 +1,5 @@
 //
-//  MoppLibDigidocValidateOnline.h
+//  MoppLibDigidocValidateOnline.swift
 //  MoppLib
 //
 /*
@@ -21,13 +21,10 @@
  *
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-@interface MoppLibDigidocValidateOnline : NSObject
-
-@property(nonatomic, assign) BOOL validateOnline;
-
-+ (MoppLibDigidocValidateOnline *)sharedInstance;
-
-@end
-
+@objcMembers
+public class MoppLibDigidocValidateOnline: NSObject {
+    static public let shared = MoppLibDigidocValidateOnline()
+    public var validateOnline = true
+}

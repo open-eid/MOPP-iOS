@@ -30,12 +30,15 @@
 		4E0F09ED2D76F6C0003F24B9 /* MoppLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF15038F2AC5CFFA007222B2 /* MoppLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E0F09EE2D76F6C4003F24B9 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF1503A02AC5D01A007222B2 /* SkSigningLib.framework */; };
 		4E0F09EF2D76F6C4003F24B9 /* SkSigningLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF1503A02AC5D01A007222B2 /* SkSigningLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E0F0A1C2D76F87D003F24B9 /* SettingsEncryptingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F0A192D76F87D003F24B9 /* SettingsEncryptingView.swift */; };
+		4E0F0A1D2D76F87D003F24B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0F0A1A2D76F87D003F24B9 /* ViewController.swift */; };
 		4E167D872B6D346F001B74A1 /* digidocpp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E167D862B6D346F001B74A1 /* digidocpp.framework */; };
 		4E167D882B6D346F001B74A1 /* digidocpp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E167D862B6D346F001B74A1 /* digidocpp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E59080024B0F914001B23A6 /* SmartIDEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5907FF24B0F914001B23A6 /* SmartIDEditViewController.swift */; };
 		4E59080224B258C7001B23A6 /* SmartIDChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59080124B258C6001B23A6 /* SmartIDChallengeViewController.swift */; };
 		4E59080424B2E295001B23A6 /* SmartIDSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59080324B2E295001B23A6 /* SmartIDSignature.swift */; };
 		4E6E1D9B2AAB493A008B3E74 /* NFCEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E1D9A2AAB493A008B3E74 /* NFCEditViewController.swift */; };
+		4EE43A752D515048002773BB /* libMoppUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EE43A652D514E3C002773BB /* libMoppUI.a */; };
 		4EE56D232AB0561C002648EE /* NFCSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE56D222AB0561C002648EE /* NFCSignature.swift */; };
 		4EE56D272AB058A6002648EE /* SwiftECC in Frameworks */ = {isa = PBXBuildFile; productRef = 4EE56D262AB058A6002648EE /* SwiftECC */; };
 		540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.swift */; };
@@ -44,7 +47,7 @@
 		54825EF81E1D270F00253FF0 /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF71E1D270F00253FF0 /* String+Additions.swift */; };
 		54825EFB1E1D28E900253FF0 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54825EFA1E1D28E900253FF0 /* UIColor+Additions.swift */; };
 		54A4182B1E83FAD200559E2B /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54A418291E83FAD200559E2B /* MainInterface.storyboard */; };
-		54A4182F1E83FAD200559E2B /* shareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 54A418241E83FAD200559E2B /* shareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		54A4182F1E83FAD200559E2B /* shareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 54A418241E83FAD200559E2B /* shareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		54A5729F1E82AC760099BFAF /* AppStore.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54A5729E1E82AC760099BFAF /* AppStore.plist */; };
 		54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */; };
 		C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C506EC7B1FB9CBFD00E07226 /* Constants.swift */; };
@@ -283,6 +286,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4EE43A762D515048002773BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4250CBB1E0968D200530370 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4EE43A642D514E3C002773BB;
+			remoteInfo = MoppUI;
+		};
 		54A4182D1E83FAD200559E2B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E4250CBB1E0968D200530370 /* Project object */;
@@ -321,15 +331,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		54A418331E83FAD200559E2B /* Embed App Extensions */ = {
+		54A418331E83FAD200559E2B /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				54A4182F1E83FAD200559E2B /* shareExtension.appex in Embed App Extensions */,
+				54A4182F1E83FAD200559E2B /* shareExtension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		E4250D081E0A911100530370 /* Embed Frameworks */ = {
@@ -367,11 +377,14 @@
 		39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Crypto.storyboard; sourceTree = "<group>"; };
 		39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoViewController.swift; sourceTree = "<group>"; };
 		39F8EFE620D263B5001BCF73 /* TokenFlow.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TokenFlow.storyboard; sourceTree = "<group>"; };
+		4E0F0A192D76F87D003F24B9 /* SettingsEncryptingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsEncryptingView.swift; sourceTree = "<group>"; };
+		4E0F0A1A2D76F87D003F24B9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4E167D862B6D346F001B74A1 /* digidocpp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = digidocpp.framework; path = "${DIGIDOCPP_PATH}/lib/digidocpp.framework"; sourceTree = "<absolute>"; };
 		4E5907FF24B0F914001B23A6 /* SmartIDEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartIDEditViewController.swift; sourceTree = "<group>"; };
 		4E59080124B258C6001B23A6 /* SmartIDChallengeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartIDChallengeViewController.swift; sourceTree = "<group>"; };
 		4E59080324B2E295001B23A6 /* SmartIDSignature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartIDSignature.swift; sourceTree = "<group>"; };
 		4E6E1D9A2AAB493A008B3E74 /* NFCEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFCEditViewController.swift; sourceTree = "<group>"; };
+		4EE43A652D514E3C002773BB /* libMoppUI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMoppUI.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EE56D222AB0561C002648EE /* NFCSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCSignature.swift; sourceTree = "<group>"; };
 		540786E81E1A76640016ABA7 /* UITextView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Additions.swift"; sourceTree = "<group>"; };
 		54825EF41E1CFE9600253FF0 /* Date+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Additions.swift"; sourceTree = "<group>"; };
@@ -649,6 +662,7 @@
 				4E0F09EE2D76F6C4003F24B9 /* SkSigningLib.framework in Frameworks */,
 				DF1503AB2AC5D1E5007222B2 /* ZIPFoundation in Frameworks */,
 				4EE56D272AB058A6002648EE /* SwiftECC in Frameworks */,
+				4EE43A752D515048002773BB /* libMoppUI.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,6 +708,22 @@
 				DFEFF8DC2AD6DCE3003D452B /* TokenFlowSigning.swift */,
 			);
 			name = "Token flow";
+			sourceTree = "<group>";
+		};
+		4E0F0A1B2D76F87D003F24B9 /* MoppUI */ = {
+			isa = PBXGroup;
+			children = (
+				4E0F0A192D76F87D003F24B9 /* SettingsEncryptingView.swift */,
+				4E0F0A1A2D76F87D003F24B9 /* ViewController.swift */,
+			);
+			path = MoppUI;
+			sourceTree = "<group>";
+		};
+		4E8483B42D4F672B00C31A75 /* Encrypting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Encrypting;
 			sourceTree = "<group>";
 		};
 		540786E61E1A76280016ABA7 /* Extensions */ = {
@@ -933,6 +963,7 @@
 		C593D9E6208F1972000B3BF6 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				4E8483B42D4F672B00C31A75 /* Encrypting */,
 				DF716E932B45CFD60004DCB6 /* Signing */,
 				C55BB1C82090BF4A00618AC4 /* About */,
 				DFC2ADBF29437778008A1CD2 /* Accessibility */,
@@ -1108,6 +1139,7 @@
 				E4250CC51E0968D200530370 /* MoppApp */,
 				54A418251E83FAD200559E2B /* shareExtension */,
 				DFF6A54E27E14C180055F8D5 /* MoppAppTests */,
+				4E0F0A1B2D76F87D003F24B9 /* MoppUI */,
 				E4250CC41E0968D200530370 /* Products */,
 				F9074FEF4DC2DB83A60B75B9 /* Frameworks */,
 			);
@@ -1118,6 +1150,7 @@
 			children = (
 				E4250CC31E0968D200530370 /* MoppApp.app */,
 				54A418241E83FAD200559E2B /* shareExtension.appex */,
+				4EE43A652D514E3C002773BB /* libMoppUI.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1266,6 +1299,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4EE43A642D514E3C002773BB /* MoppUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4EE43A712D514E3C002773BB /* Build configuration list for PBXNativeTarget "MoppUI" */;
+			buildPhases = (
+				4EE43A612D514E3C002773BB /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MoppUI;
+			packageProductDependencies = (
+			);
+			productName = MoppUI;
+			productReference = 4EE43A652D514E3C002773BB /* libMoppUI.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		54A418231E83FAD200559E2B /* shareExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 54A418321E83FAD200559E2B /* Build configuration list for PBXNativeTarget "shareExtension" */;
@@ -1294,13 +1344,14 @@
 				E4250CC01E0968D200530370 /* Frameworks */,
 				E4250CC11E0968D200530370 /* Resources */,
 				E4250D081E0A911100530370 /* Embed Frameworks */,
-				54A418331E83FAD200559E2B /* Embed App Extensions */,
+				54A418331E83FAD200559E2B /* Embed Foundation Extensions */,
 				DF4FC5552AC5D3EE00910E4B /* Setup Firebase Crashlytics */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				54A4182E1E83FAD200559E2B /* PBXTargetDependency */,
+				4EE43A772D515048002773BB /* PBXTargetDependency */,
 			);
 			name = MoppApp;
 			packageProductDependencies = (
@@ -1320,10 +1371,14 @@
 		E4250CBB1E0968D200530370 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1250;
+				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
 				ORGANIZATIONNAME = "Riigi Infosüsteemi Amet";
 				TargetAttributes = {
+					4EE43A642D514E3C002773BB = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					54A418231E83FAD200559E2B = {
 						CreatedOnToolsVersion = 8.2.1;
 						LastSwiftMigration = 0900;
@@ -1346,10 +1401,9 @@
 			};
 			buildConfigurationList = E4250CBE1E0968D200530370 /* Build configuration list for PBXProject "MoppApp" */;
 			compatibilityVersion = "Xcode 15.0";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 				et,
@@ -1383,6 +1437,7 @@
 			targets = (
 				E4250CC21E0968D200530370 /* MoppApp */,
 				54A418231E83FAD200559E2B /* shareExtension */,
+				4EE43A642D514E3C002773BB /* MoppUI */,
 			);
 		};
 /* End PBXProject section */
@@ -1575,6 +1630,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4EE43A612D514E3C002773BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E0F0A1C2D76F87D003F24B9 /* SettingsEncryptingView.swift in Sources */,
+				4E0F0A1D2D76F87D003F24B9 /* ViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		54A418201E83FAD200559E2B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1788,6 +1852,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4EE43A772D515048002773BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4EE43A642D514E3C002773BB /* MoppUI */;
+			targetProxy = 4EE43A762D515048002773BB /* PBXContainerItemProxy */;
+		};
 		54A4182E1E83FAD200559E2B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 54A418231E83FAD200559E2B /* shareExtension */;
@@ -1817,6 +1886,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4EE43A692D514E3C002773BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4EE43A6A2D514E3C002773BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		54A418301E83FAD200559E2B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1877,11 +1986,10 @@
 		E4250CD81E0968D200530370 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1912,9 +2020,10 @@
 				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
+				ENABLE_MODULE_VERIFIER = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1930,6 +2039,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 2.8.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1939,11 +2049,10 @@
 		E4250CD91E0968D200530370 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1974,9 +2083,10 @@
 				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
+				ENABLE_MODULE_VERIFIER = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1986,6 +2096,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 2.8.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -2010,6 +2121,7 @@
 				DEVELOPMENT_TEAM = ET847QJV9F;
 				DIGIDOCPP_PATH = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
 				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
+				ENABLE_MODULE_VERIFIER = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DIGIDOCPP_PATH)/lib",
@@ -2021,17 +2133,16 @@
 					"DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL=$(DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL)",
 				);
 				GOOGLE_CONF_REQUIRED = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MoppApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = $APP_PROVISIONING_PROFILE;
@@ -2059,6 +2170,7 @@
 				DEVELOPMENT_TEAM = ET847QJV9F;
 				DIGIDOCPP_PATH = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
 				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
+				ENABLE_MODULE_VERIFIER = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DIGIDOCPP_PATH)/lib",
@@ -2070,17 +2182,16 @@
 					"DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL=$(DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL)",
 				);
 				GOOGLE_CONF_REQUIRED = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MoppApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = $APP_PROVISIONING_PROFILE;
@@ -2094,6 +2205,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4EE43A712D514E3C002773BB /* Build configuration list for PBXNativeTarget "MoppUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4EE43A692D514E3C002773BB /* Debug */,
+				4EE43A6A2D514E3C002773BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		54A418321E83FAD200559E2B /* Build configuration list for PBXNativeTarget "shareExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

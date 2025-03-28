@@ -77,11 +77,12 @@ extension String {
     var isPdfContainerExtension: Bool {
         return self.lowercased() == ContainerFormatPDF
     }
-    
-    var isCdocContainerExtension: Bool {
-        return self.lowercased() == ContainerFormatCdoc
+
+    var isCryptoContainerExtension: Bool {
+        return caseInsensitiveCompare(ContainerFormatCdoc) == .orderedSame ||
+            caseInsensitiveCompare(ContainerFormatCdoc2) == .orderedSame
     }
-    
+
     var isXmlFileExtension: Bool {
         return self.lowercased() == FileFormatXml
     }
@@ -219,9 +220,25 @@ extension String {
     }
     
     func sanitize() -> String {
-        let normalizedName = FileUtil.getFileName(currentFileName: self)
-        return MoppLibManager.sanitize(normalizedName)
+        var normalizedName = FileUtil.getFileName(currentFileName: self)
             .removeForbiddenCharacters().trimWhitespacesAndNewlines()
+
+        var characterSet = CharacterSet.illegalCharacters
+        characterSet.insert(charactersIn: "@%:^?[]'\"”’{}#&`\\~«»/´")
+        let rtlChars = ["\u{200E}", "\u{200F}", "\u{202E}", "\u{202A}", "\u{202B}"]
+        for rtlChar in rtlChars {
+            characterSet.insert(charactersIn: rtlChar)
+        }
+
+        while normalizedName.hasPrefix(".") {
+            if normalizedName.count > 1 {
+                normalizedName.removeFirst()
+            } else {
+                normalizedName = normalizedName.replacingOccurrences(of: ".", with: "_")
+            }
+        }
+
+        return normalizedName.components(separatedBy: characterSet).joined()
     }
 
     func lowercasedStart() -> String {
@@ -234,9 +251,6 @@ extension String {
 
 extension Optional where Wrapped == String {
     var isNilOrEmpty:Bool {
-        if let value = self, !value.isEmpty {
-            return false
-        }
-        return true
+        return self?.isEmpty ?? true
     }
 }

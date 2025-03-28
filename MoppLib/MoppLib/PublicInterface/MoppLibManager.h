@@ -37,17 +37,11 @@
  * @param success       Block to be called on successful completion of action.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString *)tsUrl withMoppConfiguration:(MoppLibConfiguration *)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration;
-
-+ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData;
-+ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure;
+- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure andTSUrl:(NSString *)tsUrl withMoppConfiguration:(MoppLibConfiguration *)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration;
 
 - (NSString *)libdigidocppVersion;
 - (BOOL)isConnected;
-- (NSString *)appVersion;
-- (NSString *)iOSVersion;
 - (NSString *)userAgent;
 - (NSString *)userAgent:(BOOL)shouldIncludeDevices;
-+ (NSString *)sanitize:(NSString *)text;
 
 @end

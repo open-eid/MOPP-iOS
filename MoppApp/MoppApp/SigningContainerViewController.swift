@@ -31,12 +31,12 @@ class SigningContainerViewController : ContainerViewController, SigningActions {
     var notificationMessages: [NotificationMessage] = []
     var invalidSignaturesCount: Int {
         if container == nil { return 0 }
-        return (container.signatures as! [MoppLibSignature]).filter { (MoppLibSignatureStatus.Invalid == $0.status) }.count
+        return container.signatures.filter { (MoppLibSignatureStatus.Invalid == $0.status) }.count
     }
     
     var unknownSignaturesCount: Int {
         if container == nil { return 0 }
-        return (container.signatures as! [MoppLibSignature]).filter { (MoppLibSignatureStatus.UnknownStatus == $0.status) }.count
+        return container.signatures.filter { (MoppLibSignatureStatus.UnknownStatus == $0.status) }.count
     }
     
    override class func instantiate() -> SigningContainerViewController {
@@ -97,11 +97,11 @@ extension SigningContainerViewController : SigningContainerViewControllerDelegat
         removeContainerSignature(signatureIndex: index)
     }
     
-    func getSignature(index: Int) -> Any {
+    func getSignature(index: Int) -> MoppLibSignature? {
         return container.signatures[index]
     }
     
-    func getTimestampToken(index: Int) -> Any {
+    func getTimestampToken(index: Int) -> MoppLibSignature? {
         return container.timestampTokens[index]
     }
     
@@ -219,10 +219,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
     }
     
     func getDataFileDisplayName(index: Int) -> String? {
-        guard let dataFile = container.dataFiles[index] as? MoppLibDataFile else {
-            return nil
-        }
-        return (dataFile.fileName as String)
+        return container.dataFiles[index].fileName
     }
     
     func getContainer() -> MoppLibContainer {
@@ -234,7 +231,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
     }
     
     func getDataFileRelativePath(index: Int) -> String {
-        return (container.dataFiles as! [MoppLibDataFile])[index].fileName
+        return container.dataFiles[index].fileName
     }
     
     func getDataFileCount() -> Int {
@@ -257,12 +254,9 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
         let isPDF = containerPath.filenameComponents().ext.lowercased() == ContainerFormatPDF
         forcePDFContentPreview = isPDF
         MoppLibContainerActions.sharedInstance().openContainer(withPath: containerPath, success: { [weak self] container in
-            guard let container = container else {
-                return
-            }
             
             guard let strongSelf = self else { return }
-            
+
             strongSelf.notificationMessages = []
             
             if afterSignatureCreated && container.isSignable() && !strongSelf.isForPreview {
@@ -304,14 +298,16 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
             
             }, failure: { [weak self] error in
                 
-                let nserror = error! as NSError
+                let nserror = error as NSError
                 var message = nserror.domain
-                if nserror.code == Int(MoppLibErrorCode.moppLibErrorGeneral.rawValue) {
+                switch nserror.code {
+                case MoppLibErrorCode.moppLibErrorGeneral.rawValue:
                     message = L(.fileImportOpenExistingFailedAlertMessage, [self?.containerPath.substr(fromLast: "/") ?? String()])
-                } else if nserror.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
+                case MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue:
                     message = L(.noConnectionMessage)
-                } else if nserror.code == Int(MoppLibErrorCode.moppLibErrorInvalidProxySettings.rawValue) {
+                case MoppLibErrorCode.moppLibErrorInvalidProxySettings.rawValue:
                     message = L(.proxyUnableToConnectToService)
+                default: break
                 }
                 self?.infoAlert(message: message, dismissCallback: { _ in
                     _ = self?.navigationController?.popViewController(animated: true)

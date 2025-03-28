@@ -99,8 +99,8 @@ jobs:
     - name: Set up Homebrew
       id: set-up-homebrew
       uses: Homebrew/actions/setup-homebrew@master
-    - name: Install Swift-sh
-      run: brew install swift-sh
+    - name: Install Swift-sh and FlatBuffers
+      run: brew install swift-sh flatbuffers
     - name: Build and Archive
       env:
         APP_PROVISIONING_PROFILE_UUID: ${{ secrets.APP_PROVISIONING_PROFILE_UUID }}

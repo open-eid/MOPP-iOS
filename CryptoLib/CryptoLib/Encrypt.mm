@@ -20,35 +20,83 @@
  *
  */
 
-
 #import "Encrypt.h"
-#import "Addressee.h"
-#import "CryptoDataFile.h"
+#import "Extensions.h"
 
-#import <cdoc/CdocWriter.h>
+#import <CryptoLib/CryptoLib-Swift.h>
+
+#include <cdoc/CDocWriter.h>
+#include <cdoc/Configuration.h>
+#include <cdoc/NetworkBackend.h>
+#include <cdoc/Recipient.h>
+
+struct Settings: public libcdoc::Configuration {
+    std::string getValue(std::string_view domain, std::string_view param) const final {
+        if(param == KEYSERVER_FETCH_URL)
+            return [CDoc2Settings.getFetchURL toString];
+        if(param == KEYSERVER_SEND_URL)
+            return [CDoc2Settings.getPostURL toString];
+        return {};
+    }
+};
 
 @implementation Encrypt
 
-- (BOOL)encryptFile: (NSString *)fullPath withDataFiles :(NSArray *) dataFiles withAddressees: (NSArray *) addressees {
++ (void)encryptFile:(NSString *)fullPath withDataFiles:(NSArray<CryptoDataFile*> *)dataFiles withAddressees:(NSArray<Addressee*> *)addressees
+            success:(void (^)(void))success failure:(void (^)(void))failure {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        int version = [fullPath.pathExtension caseInsensitiveCompare:@"cdoc2"] == NSOrderedSame ? 2 : 1;
+        Settings conf;
+        libcdoc::NetworkBackend network;
+        std::unique_ptr<libcdoc::CDocWriter> writer(libcdoc::CDocWriter::createWriter(version, fullPath.UTF8String, &conf, nullptr, &network));
 
-    std::string encodedFullPath = std::string([fullPath UTF8String]);
+        if (!writer) {
+            return dispatch_async(dispatch_get_main_queue(), failure);
+        }
 
-    CDOCWriter cdocWriter(encodedFullPath, "http://www.w3.org/2009/xmlenc11#aes256-gcm");
+        if (version == 2 && CDoc2Settings.isOnlineEncryptionEnabled) {
+            NSString *server_id = CDoc2Settings.getSelectedService;
+            for (Addressee *addressee in addressees) {
+                if (writer->addRecipient(libcdoc::Recipient::makeEIDServer([addressee.data toVector], [server_id toString])) != 0) {
+                    return dispatch_async(dispatch_get_main_queue(), failure);
+                }
+            }
+        } else {
+            for (Addressee *addressee in addressees) {
+                if (writer->addRecipient(libcdoc::Recipient::makeEID([addressee.data toVector])) != 0) {
+                    return dispatch_async(dispatch_get_main_queue(), failure);
+                }
+            }
+        }
 
-    for (CryptoDataFile *dataFile in dataFiles) {
-        std::string encodedDataFilePath = std::string([dataFile.filePath UTF8String]);
-        std::string encodedFilename = std::string([dataFile.filename UTF8String]);
-        cdocWriter.addFile(encodedFilename, "application/octet-stream", encodedDataFilePath);
-    }
-    for (Addressee *addressee in addressees) {
-        NSData *cert = addressee.cert;
-        unsigned char *buffer = reinterpret_cast<unsigned char*>(const_cast<void*>(cert.bytes));
-        std::vector<unsigned char> result = std::vector<unsigned char>(buffer, buffer + cert.length);
-        
-        cdocWriter.addRecipient(std::move(result));
-    }
+        if (writer->beginEncryption() != 0) {
+            return dispatch_async(dispatch_get_main_queue(), failure);
+        }
 
-    return cdocWriter.encrypt();
+        for (CryptoDataFile *dataFile in dataFiles) {
+            NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:dataFile.filePath];
+            if (!fileHandle) {
+                NSLog(@"Failed to open file at path: %@", dataFile.filePath);
+                return dispatch_async(dispatch_get_main_queue(), failure);
+            }
+
+            if (writer->addFile(dataFile.filename.UTF8String, [fileHandle seekToEndOfFile]) != 0) {
+                return dispatch_async(dispatch_get_main_queue(), failure);
+            }
+            [fileHandle seekToFileOffset:0];
+
+            NSUInteger blockSize = 1024 * 16;
+            NSData *data;
+            while ((data = [fileHandle readDataOfLength:blockSize]) && data.length > 0) {
+                if (writer->writeData(reinterpret_cast<const uint8_t*>(data.bytes), data.length) != 0) {
+                    return dispatch_async(dispatch_get_main_queue(), failure);
+                }
+            }
+            [fileHandle closeFile];
+        }
+        bool result = writer->finishEncryption() == 0;
+        dispatch_async(dispatch_get_main_queue(), result ? success : failure);
+    });
 }
 
 @end

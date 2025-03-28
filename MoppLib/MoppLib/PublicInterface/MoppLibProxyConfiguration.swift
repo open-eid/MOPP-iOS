@@ -1,9 +1,9 @@
 //
-//  MoppLibDataFile.m
+//  MoppLibProxyConfiguration.swift
 //  MoppLib
 //
 /*
- * Copyright 2017 - 2024 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2023 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,9 +21,16 @@
  *
  */
 
-#import "MoppLibDataFile.h"
-#import <CommonCrypto/CommonCrypto.h>
+import Foundation
 
-@implementation MoppLibDataFile
+@objcMembers
+public class MoppLibProxyConfiguration: NSObject {
 
-@end
+    public let username: String
+    public let password: String
+
+    public init(username: String, password: String) {
+        self.username = username
+        self.password = password
+    }
+}

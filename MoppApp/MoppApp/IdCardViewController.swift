@@ -34,7 +34,7 @@ protocol IdCardSignViewControllerDelegate : AnyObject {
 }
 
 protocol IdCardDecryptViewControllerDelegate : AnyObject {
-    func idCardDecryptDidFinished(cancelled: Bool, success: Bool, dataFiles: NSMutableDictionary, error: Error?)
+    func idCardDecryptDidFinished(cancelled: Bool, success: Bool, dataFiles: [String: Data], error: Error?)
 }
 
 class IdCardViewController : MoppViewController, TokenFlowSigning {
@@ -291,7 +291,7 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
         case .readyForTokenAction:
             // Give VoiceOver time to announce "ID-card found"
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                let fullname = self.idCardPersonalData?.fullName() ?? String()
+                let fullname = self.idCardPersonalData?.fullName ?? String()
                 let personalCode = self.idCardPersonalData?.personalIdentificationCode ?? String()
                 if self.isActionDecryption {
                     self.titleLabel.text = L(.cardReaderStateReadyForPin1, [fullname, personalCode])
@@ -340,7 +340,7 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
                 UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
             }
         case .wrongPin:
-            let fullname = idCardPersonalData?.fullName() ?? String()
+            let fullname = idCardPersonalData?.fullName ?? String()
             let personalCode = idCardPersonalData?.personalIdentificationCode ?? String()
             if isActionDecryption {
                 titleLabel.text = L(.cardReaderStateReadyForPin1, [fullname, personalCode])
@@ -437,47 +437,39 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
 
         state = .tokenActionInProcess
         if isActionDecryption {
-            MoppLibCryptoActions.sharedInstance().decryptData(containerPath, withPin1: pin,
-                success: {(_ decryptedData: NSMutableDictionary?) -> Void in
-                    guard let strongDecryptedData = decryptedData else { return }
-                    self.decryptDelegate?.idCardDecryptDidFinished(cancelled: false, success: true,  dataFiles: strongDecryptedData, error: nil)
-            },
-                failure: { [weak self] error in
-                    guard let nsError = error as NSError? else { return }
-                    if nsError.code == Int(MoppLibErrorCode.moppLibErrorWrongPin.rawValue) { // Wrong PIN1 error
-                        DispatchQueue.main.async {
-                            self?.pinAttemptsLeft = (nsError.userInfo[kMoppLibUserInfoRetryCount] as? NSNumber)?.uintValue ?? 0
-                            self?.state = .wrongPin
-                        }
+            Task {
+                do {
+                    let decryptedData = try await MoppLibCryptoActions.decryptData(fullPath: containerPath, pin1: pin)
+                    self.decryptDelegate?.idCardDecryptDidFinished(cancelled: false, success: true,  dataFiles: decryptedData, error: nil)
+                } catch {
+                    if let nsError = error as NSError?,
+                       nsError.code == MoppLibErrorCode.moppLibErrorWrongPin.rawValue { // Wrong PIN1 error
+                        self.pinAttemptsLeft = (nsError.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as? NSNumber)?.uintValue ?? 0
+                        self.state = .wrongPin
                     } else {
-                        DispatchQueue.main.async {
-                            self?.dismiss(animated: false, completion: {
-                                self?.decryptDelegate?.idCardDecryptDidFinished(cancelled: false, success: false, dataFiles: NSMutableDictionary(), error: error)
-                            })
-                        }
+                        self.dismiss(animated: false, completion: {
+                            self.decryptDelegate?.idCardDecryptDidFinished(cancelled: false, success: false, dataFiles: [:], error: error)
+                        })
                     }
                 }
-            )
-
-        } else {
-            if DefaultsHelper.isRoleAndAddressEnabled {
-                let roleAndAddressView = UIStoryboard.tokenFlow.instantiateViewController(of: RoleAndAddressViewController.self)
-                roleAndAddressView.modalPresentationStyle = .overCurrentContext
-                roleAndAddressView.modalTransitionStyle = .crossDissolve
-                roleAndAddressView.viewController = self
-                if !savePin(pin: pin) {
-                    showPinSaveError()
-                    return
-                }
-                present(roleAndAddressView, animated: true)
-            } else {
-                if !savePin(pin: pin) {
-                    showPinSaveError()
-                    return
-                }
-                
-                self.sign(pin)
             }
+        } else if DefaultsHelper.isRoleAndAddressEnabled {
+            let roleAndAddressView = UIStoryboard.tokenFlow.instantiateViewController(of: RoleAndAddressViewController.self)
+            roleAndAddressView.modalPresentationStyle = .overCurrentContext
+            roleAndAddressView.modalTransitionStyle = .crossDissolve
+            roleAndAddressView.viewController = self
+            if !savePin(pin: pin) {
+                showPinSaveError()
+                return
+            }
+            present(roleAndAddressView, animated: true)
+        } else {
+            if !savePin(pin: pin) {
+                showPinSaveError()
+                return
+            }
+
+            self.sign(pin)
         }
     }
     
@@ -506,9 +498,9 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
                     })
                 }
             case .failure(let error):
-                if error.code == Int(MoppLibErrorCode.moppLibErrorWrongPin.rawValue) { // Wrong PIN2 error
+                if error.code == MoppLibErrorCode.moppLibErrorWrongPin.rawValue {
                     DispatchQueue.main.async {
-                        self?.pinAttemptsLeft = (error.userInfo[kMoppLibUserInfoRetryCount] as? NSNumber)?.uintValue ?? 0
+                        self?.pinAttemptsLeft = (error.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as? NSNumber)?.uintValue ?? 0
                         self?.state = .wrongPin
                     }
                 } else {
@@ -579,7 +571,7 @@ extension IdCardViewController : MoppLibCardReaderManagerDelegate {
                 }, failure: { [weak self] error in
                     DispatchQueue.main.async {
                         guard let error = error as NSError? else { self?.state = .readerProcessFailed; return }
-                        if error.code == 10026 {
+                        if error.code == MoppLibErrorCode.moppLibErrorReaderProcessFailed.rawValue {
                             self?.state = .readerProcessFailed
                             return
                         }

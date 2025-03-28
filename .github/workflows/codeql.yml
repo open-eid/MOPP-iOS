@@ -26,6 +26,9 @@ jobs:
       with:
         submodules: recursive
         
+    - name: Install FlatBuffers
+      run: brew install flatbuffers
+
     # Creating sample files needed to build, but not needed for CodeQL.
     # .plist files need a sample structure to avoid error: "unable to read input file as a property list"
     - name: Create sample files

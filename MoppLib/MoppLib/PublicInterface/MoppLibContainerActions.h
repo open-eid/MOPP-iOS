@@ -21,14 +21,28 @@
  *
  */
 
-#import "MoppLibContainer.h"
-#import "MoppLibSignature.h"
 #import "MoppLibConstants.h"
-#import "MoppLibRoleAddressData.h"
+
+@class MoppLibContainer;
+@class MoppLibSignature;
+@class MoppLibRoleAddressData;
+
+@class MoppLibConfiguration;
+@class MoppLibProxyConfiguration;
 
 @interface MoppLibContainerActions : NSObject
 
 + (MoppLibContainerActions *)sharedInstance;
+
++ (NSString *)libdigidocppVersion;
+
+/**
+ * Prepares library for operations with containers. Setup must be completed before any container action is carried out. It is recommended, that you initiate setup at earliest opportunity.
+ *
+ * @param success       Block to be called on successful completion of action.
+ * @param failure       Block to be called when action fails. Includes error.
+ */
++ (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure andTSUrl:(NSString *)tsUrl withMoppConfiguration:(MoppLibConfiguration *)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration;
 
 /**
  * Opens container at specified path.
@@ -37,7 +51,7 @@
  * @param success       Block to be called on successful completion of action. Includes container data as MoppLibContainer.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)openContainerWithPath:(NSString *)containerPath success:(ContainerBlock)success failure:(FailureBlock)failure;
+- (void)openContainerWithPath:(NSString * _Nonnull)containerPath success:(ContainerBlock)success failure:(FailureBlock)failure;
 
 /**
  * Opens container at specified path.
@@ -46,7 +60,7 @@
  * @return MoppLibContainer      Successful completion of action. Includes container data as MoppLibContainer.
  * @param error                          Error when opening container.
  */
-- (MoppLibContainer *)openContainerWithPath:(NSString *)containerPath error:(NSError **)error;
+- (MoppLibContainer *)openContainerWithPath:(NSString * _Nonnull)containerPath error:(NSError **)error;
 
 /**
  * Creates container on specified path.
@@ -84,7 +98,7 @@
  * @param success       Block to be called on successful completion of action. Includes container data as array of MoppLibContainer.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)getContainersWithSuccess:(void(^)(NSArray *containers))success failure:(FailureBlock)failure;
+- (void)getContainersWithSuccess:(void(^)(NSArray<MoppLibContainer*> *containers))success failure:(FailureBlock)failure;
 
 
 
@@ -106,7 +120,7 @@
  * @param success       Block to be called on successful completion of action.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure;
+- (void)container:(NSString * _Nonnull)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure;
 
 /**
  * Specifies if datafile in container is saveable.
@@ -126,6 +140,7 @@
  */
 - (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(ContainerBlock)success failure:(FailureBlock)failure;
 
-
++ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData;
++ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(VoidBlock)success failure:(FailureBlock)failure;
 
 @end

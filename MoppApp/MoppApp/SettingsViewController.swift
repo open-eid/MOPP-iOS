@@ -22,6 +22,7 @@
  */
 
 import UIKit
+import MoppUI
 
 class SettingsViewController: MoppViewController {
     
@@ -30,7 +31,11 @@ class SettingsViewController: MoppViewController {
     @IBAction func openSigningCategory(_ sender: ScaledButton) {
         openSigningCategoryView()
     }
-    
+
+    @IBAction func openEncryptingCategory(_ sender: ScaledButton) {
+        openEncryptingCategoryView()
+    }
+
     enum Section {
         case header
         case fields
@@ -38,6 +43,7 @@ class SettingsViewController: MoppViewController {
     
     enum FieldId {
         case signingCategory
+        case encryptingCategory
         case resetSettings
     }
     
@@ -57,6 +63,10 @@ class SettingsViewController: MoppViewController {
         Field(
             id: .signingCategory,
             title: L(.containerSignTitle)
+        ),
+        Field(
+            id: .encryptingCategory,
+            title: L(.containerEncryptionTitle)
         ),
         Field(
             id: .resetSettings,
@@ -168,6 +178,10 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
                 let signingCategoryCell = tableView.dequeueReusableCell(withType: SigningCategoryCell.self, for: indexPath)!
                 signingCategoryCell.populate(with: field.title)
                 return signingCategoryCell
+            case .encryptingCategory:
+                let encryptingCategoryCell = tableView.dequeueReusableCell(withType: EncryptingCategoryCell.self, for: indexPath)!
+                encryptingCategoryCell.populate(with: field.title)
+                return encryptingCategoryCell
             case .resetSettings:
                 let resetCell = tableView.dequeueReusableCell(withType: SettingsResetCell.self, for: indexPath)!
                 resetCell.delegate = self
@@ -194,6 +208,9 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             case .signingCategory:
                 openSigningCategoryView()
                 break
+            case .encryptingCategory:
+                openEncryptingCategoryView()
+                break
             case .resetSettings:
                 resetSettings()
                 break
@@ -205,6 +222,12 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         let signingCategoryViewController = UIStoryboard.settings.instantiateViewController(of: SigningCategoryViewController.self)
         signingCategoryViewController.modalPresentationStyle = .fullScreen
         present(signingCategoryViewController, animated: true)
+    }
+
+    private func openEncryptingCategoryView() {
+        let encryptingCategoryViewController = UIStoryboard.settings.instantiateViewController(of: SettingsEncryptingViewController.self)
+        encryptingCategoryViewController.modalPresentationStyle = .fullScreen
+        present(encryptingCategoryViewController, animated: true)
     }
 }
 

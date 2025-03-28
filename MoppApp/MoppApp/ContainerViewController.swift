@@ -22,8 +22,6 @@
  */
 
 import Foundation
-import MoppLib
-import CryptoLib
 
 protocol ContainerViewControllerDelegate: AnyObject {
     func getDataFileCount() -> Int
@@ -42,8 +40,8 @@ protocol SigningContainerViewControllerDelegate: AnyObject {
     func startSigning()
     func getSignaturesCount() -> Int
     func getTimestampTokensCount() -> Int
-    func getSignature(index: Int) -> Any
-    func getTimestampToken(index: Int) -> Any
+    func getSignature(index: Int) -> MoppLibSignature?
+    func getTimestampToken(index: Int) -> MoppLibSignature?
     func removeSignature(index: Int)
     func isContainerSignable() -> Bool
     func isCades() -> Bool
@@ -51,7 +49,7 @@ protocol SigningContainerViewControllerDelegate: AnyObject {
 
 protocol CryptoContainerViewControllerDelegate: AnyObject {
     func addAddressees()
-    func getAddressee(index: Int) -> Any
+    func getAddressee(index: Int) -> Addressee
     func getAddresseeCount() -> Int
     func removeSelectedAddressee(index: Int)
     func getContainer() -> CryptoContainer
@@ -192,7 +190,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         
         let containerExtension = URL(fileURLWithPath: containerPath).pathExtension
         
-        LandingViewController.shared.containerType = containerExtension.isCdocContainerExtension ? .cdoc : .asic
+        LandingViewController.shared.containerType = containerExtension.isCryptoContainerExtension ? .cdoc : .asic
         
         landingViewController.tabButtonsDelegate = self
 
@@ -337,8 +335,7 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         if let dataFiles = asicContainer?.dataFiles, !isEmptyFileWarningSet {
             var isEmptyFileInContainer = false
             for dataFile in dataFiles {
-                guard let dataFile = dataFile as? MoppLibDataFile,
-                      dataFile.fileSize == 0 else { continue }
+                guard dataFile.fileSize == 0 else { continue }
                 isEmptyFileInContainer = true
                 break
             }
@@ -376,12 +373,9 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
         }
     }
     
-    static func isXades(signatures: [Any]) -> Bool {
+    static func isXades(signatures: [MoppLibSignature]) -> Bool {
         return signatures.contains { signature in
-            if let sig = signature as? MoppLibSignature {
-                return sig.signatureFormat.lowercased().contains("bes")
-            }
-            return false
+            return signature.signatureFormat.lowercased().contains("bes")
         }
     }
 
@@ -506,10 +500,8 @@ extension ContainerViewController : UITableViewDataSource {
         guard let calendarDate = calendar.date(from: dateComponents) else { printLog("Unable to get date from calendar components"); DefaultsHelper.isTimestampedDdoc = false; return }
         
         if signingContainer.isAsics(), signingContainer.dataFiles.count == 1, signingContainer.signatures.count == 1,
-           let singleFile: MoppLibDataFile = signingContainer.dataFiles[0] as? MoppLibDataFile,
-           singleFile.fileName.hasSuffix(ContainerFormatDdoc),
-           let singleSignature: MoppLibSignature = signingContainer.signatures[0] as? MoppLibSignature,
-           let timestamp = ISO8601DateFormatter().date(from: singleSignature.timestamp) {
+           signingContainer.dataFiles[0].fileName.hasSuffix(ContainerFormatDdoc),
+           let timestamp = ISO8601DateFormatter().date(from: signingContainer.signatures[0].timestamp) {
             DefaultsHelper.isTimestampedDdoc = !timestamp.isAfter(anotherDate: calendarDate)
             return
         } else if signingContainer.isDdoc(), state != .preview {
@@ -540,7 +532,7 @@ extension ContainerViewController : UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
                 cell.delegate = self
             cell.accessibilityUserInputLabels = ["\(L(.voiceControlSignature)) \(row + 1)"]
-            var signature = asicsSignatures.isEmpty ? (signingContainerViewDelegate.getSignature(index: indexPath.row) as? MoppLibSignature) : asicsSignatures[indexPath.row]
+            var signature = asicsSignatures.isEmpty ? signingContainerViewDelegate.getSignature(index: indexPath.row) : asicsSignatures[indexPath.row]
             if isAsicsContainer() && !asicsSignatures.isEmpty && signingContainerViewDelegate.getTimestampTokensCount() > 0 && asicsSignatures.count >= indexPath.row {
                 signature = asicsSignatures[indexPath.row]
                 let containerExtension: String = URL(fileURLWithPath: containerPath).pathExtension
@@ -592,7 +584,7 @@ extension ContainerViewController : UITableViewDataSource {
             var tapGesture: UITapGestureRecognizer?
 
             if isAsicsContainer() && !asicsDataFiles.isEmpty && asicsDataFiles.count >= indexPath.row {
-                dataFileName = asicsDataFiles[indexPath.row].fileName ?? unnamedDataFile
+                dataFileName = asicsDataFiles[indexPath.row].fileName
                 tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: asicsNestedContainerPath, isShareButtonNeeded: isDecrypted)
             } else {
                 dataFileName = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) ?? unnamedDataFile
@@ -674,7 +666,7 @@ extension ContainerViewController : UITableViewDataSource {
             cell.delegate = self
             let isStatePreviewOrOpened = state == .opened || state == .preview
             let isRemoveButtonHidden = !isAsicContainer && isStatePreviewOrOpened
-            cell.populate(addressee: cryptoContainerViewDelegate.getAddressee(index: indexPath.row) as! Addressee,
+            cell.populate(addressee: cryptoContainerViewDelegate.getAddressee(index: indexPath.row),
                           index: row,
                           showRemoveButton: !isRemoveButtonHidden)
             cell.accessibilityUserInputLabels = [""]
@@ -690,9 +682,9 @@ extension ContainerViewController : UITableViewDataSource {
         case .containerTimestamps:
             let cell = tableView.dequeueReusableCell(withType: ContainerSignatureCell.self, for: indexPath)!
             cell.accessibilityUserInputLabels = ["\(L(.voiceControlContainerTimestamp)) \(row + 1)"]
-            var timestampToken: MoppLibSignature = MoppLibSignature()
+            var timestampToken = MoppLibSignature()
             if signingContainerViewDelegate.getTimestampTokensCount() >= indexPath.row {
-                timestampToken = signingContainerViewDelegate.getTimestampToken(index: indexPath.row) as? MoppLibSignature ?? MoppLibSignature()
+                timestampToken = signingContainerViewDelegate.getTimestampToken(index: indexPath.row) ?? MoppLibSignature()
 
                 if (containerViewDelegate.getDataFileCount() == 1 && isSendingToSivaAgreed && 
                     !isLoadingNestedAsicsDone && !MimeTypeExtractor.isCadesContainer(filePath: URL(fileURLWithPath: containerViewDelegate.getContainerPath()))) {
@@ -700,7 +692,7 @@ extension ContainerViewController : UITableViewDataSource {
                     let dataFile = containerViewDelegate.getDataFileDisplayName(index: 0) ?? ""
                     let containerFilePath = containerViewDelegate.getContainerPath()
                     let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: dataFile)
-                    self.openNestedContainer(containerFilePath: containerFilePath, dataFile: dataFile, destinationPath: destinationPath)
+                    self.openNestedContainer(containerFilePath: containerFilePath, dataFile: dataFile, destinationPath: destinationPath ?? "")
                 } else if (!isLoadingNestedAsicsDone) {
                     cell.populate(
                         with: timestampToken,
@@ -746,22 +738,18 @@ extension ContainerViewController : UITableViewDataSource {
         tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 
-    private func openNestedContainer(containerFilePath: String, dataFile: String, destinationPath: String?) {
+    private func openNestedContainer(containerFilePath: String, dataFile: String, destinationPath: String) {
         MoppLibContainerActions.sharedInstance().container(containerFilePath, saveDataFile: dataFile, to: destinationPath) {
             MoppLibContainerActions.sharedInstance().openContainer(withPath: destinationPath) { container in
-                if let signatures = container?.signatures {
-                    for signature in signatures {
-                        self.asicsSignatures.append(signature as? MoppLibSignature ?? MoppLibSignature())
-                    }
+                for signature in container.signatures {
+                    self.asicsSignatures.append(signature)
                 }
 
-                if let dataFiles = container?.dataFiles {
-                    for dataFile in dataFiles {
-                        self.asicsDataFiles.append(dataFile as? MoppLibDataFile ?? MoppLibDataFile())
-                    }
+                for dataFile in container.dataFiles {
+                    self.asicsDataFiles.append(dataFile)
                 }
 
-                self.asicsNestedContainerPath = destinationPath ?? ""
+                self.asicsNestedContainerPath = destinationPath
 
                 self.isLoadingNestedAsicsDone = true
 
@@ -772,7 +760,7 @@ extension ContainerViewController : UITableViewDataSource {
                     return
                 }
 
-                if nsError.code == 10027 {
+                if nsError.code == MoppLibErrorCode.moppLibErrorSslHandshakeFailed.rawValue {
                     let alert = AlertUtil.messageAlert(message: L(.sslHandshakeMessage), alertAction: nil)
                     self.navigationController?.popViewController(animated: true)
                     self.navigationController?.viewControllers.last!.present(alert, animated: true)
@@ -786,9 +774,9 @@ extension ContainerViewController : UITableViewDataSource {
             }
 
         } failure: { error in
-            printLog("Unable to get file from container \(error?.localizedDescription ?? "Unable to get error description")")
+            printLog("Unable to get file from container \(error.localizedDescription)")
             let nserror = error as NSError?
-            if nserror != nil && nserror?.code == Int(MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue) {
+            if nserror != nil && nserror?.code == MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue {
                 let pathExtension = URL(string: containerFilePath)?.pathExtension
                 let asicContainer: MoppLibContainer? = self.containerViewDelegate?.getContainer()
                 if (pathExtension == "asics" || pathExtension == "scs") && !ContainerViewController.isXades(signatures: asicContainer?.signatures ?? []) {
@@ -813,8 +801,10 @@ extension ContainerViewController : UITableViewDataSource {
     }
     
     func isRoleDetailsEmpty(signatureIndex: Int) -> Bool {
-        let roleDetails = getRoleDetails(signatureIndex: signatureIndex)
-        return roleDetails?.roles.isEmpty ?? true && roleDetails?.city.isNilOrEmpty ?? true && roleDetails?.state.isNilOrEmpty ?? true && roleDetails?.country.isNilOrEmpty ?? true && roleDetails?.zip.isNilOrEmpty ?? true
+        if let roleDetails = getRoleDetails(signatureIndex: signatureIndex) {
+            return roleDetails.roles.isEmpty && roleDetails.city.isEmpty && roleDetails.state.isEmpty && roleDetails.country.isEmpty && roleDetails.zip.isEmpty
+        }
+        return true
     }
     
     @objc private func openPreview(_ sender: PreviewFileTapGestureRecognizer) {
@@ -858,10 +848,9 @@ extension ContainerViewController : ContainerFileDelegate {
 extension ContainerViewController : ContainerHeaderDelegate {
 
     private func asicContainerExists(container: MoppLibContainer?) -> Bool {
-        guard let signingContainer: MoppLibContainer = container,
-              let signingContainerFilePath = signingContainer.filePath,
-              !(signingContainerFilePath as String).isEmpty,
-              URL(fileURLWithPath: signingContainerFilePath).pathExtension != ContainerFormatCdoc else {
+        guard let signingContainer = container,
+              !signingContainer.filePath.isEmpty,
+              !URL(fileURLWithPath: signingContainer.filePath).pathExtension.isCryptoContainerExtension else {
             return false
         }
 
@@ -869,10 +858,9 @@ extension ContainerViewController : ContainerHeaderDelegate {
     }
 
     private func cdocContainerExists(container: CryptoContainer?) -> Bool {
-        guard let cryptoContainer: CryptoContainer = container,
-              let cryptoContainerFilePath = cryptoContainer.filePath,
-              !(cryptoContainerFilePath as String).isEmpty,
-              URL(fileURLWithPath: cryptoContainerFilePath as String).pathExtension == ContainerFormatCdoc else {
+        guard let cryptoContainer = container,
+              !cryptoContainer.filePath.isEmpty,
+              URL(fileURLWithPath: cryptoContainer.filePath).pathExtension.isCryptoContainerExtension else {
             return false
         }
 
@@ -931,7 +919,7 @@ extension ContainerViewController : ContainerHeaderDelegate {
                 return
             }
 
-            let isContainerCdoc: Bool = containerExtension == ContainerFormatCdoc
+            let isContainerCdoc: Bool = containerExtension.isCryptoContainerExtension
 
             guard let newContainerPath: URL = self.getNewContainerUrlPath(isContainerCdoc: isContainerCdoc, asicContainer: asicContainer, cdocContainer: cdocContainer, newContainerName: textFieldText, containerExtension: containerExtension), newContainerPath.isFileURL else {
                 printLog("Failed to get container path")
@@ -961,8 +949,8 @@ extension ContainerViewController : ContainerHeaderDelegate {
                     self.infoAlert(message: L(.containerErrorMessageFailedContainerNameChange))
                     return
                 }
-                cryptoContainer.filename = newContainerPath.lastPathComponent as NSString
-                cryptoContainer.filePath = newContainerPath.path as NSString
+                cryptoContainer.filename = newContainerPath.lastPathComponent
+                cryptoContainer.filePath = newContainerPath.path
             }
 
             printLog("File renaming successful")
@@ -1169,11 +1157,11 @@ extension ContainerViewController : UITableViewDelegate {
         if !asicsSignatures.isEmpty && asicsSignatures.indices.contains(indexPathRow) {
             return asicsSignatures[indexPathRow]
         }
-        return signingContainerViewDelegate.getSignature(index: indexPathRow) as? MoppLibSignature
+        return signingContainerViewDelegate.getSignature(index: indexPathRow)
     }
     
     private func getTimestampToken(indexPathRow: Int) -> MoppLibSignature? {
-        return signingContainerViewDelegate.getTimestampToken(index: indexPathRow) as? MoppLibSignature
+        return signingContainerViewDelegate.getTimestampToken(index: indexPathRow)
     }
     
     private func isCades() -> Bool {
