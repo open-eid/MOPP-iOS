@@ -228,10 +228,6 @@
 		DFBA32A629A5A64000788A87 /* CancelUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBA32A529A5A64000788A87 /* CancelUtil.swift */; };
 		DFBDF1F227D79B8B00A5CF3C /* SettingsRoleAndAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1F127D79B8B00A5CF3C /* SettingsRoleAndAddressCell.swift */; };
 		DFBDF1F427D8DD4100A5CF3C /* RoleAndAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1F327D8DD4100A5CF3C /* RoleAndAddressViewController.swift */; };
-		DFBDF1FC27DF6BA800A5CF3C /* MobileIDParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1FB27DF6BA800A5CF3C /* MobileIDParameters.swift */; };
-		DFBDF1FE27DF6D3B00A5CF3C /* SmartIDParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1FD27DF6D3B00A5CF3C /* SmartIDParameters.swift */; };
-		DFBDF20027DF764400A5CF3C /* IDCardParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1FF27DF764400A5CF3C /* IDCardParameters.swift */; };
-		DFBDF20227DF7ED700A5CF3C /* IDCardSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF20127DF7ED700A5CF3C /* IDCardSignature.swift */; };
 		DFBDF20427DF89A100A5CF3C /* RoleAndAddressUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF20327DF89A100A5CF3C /* RoleAndAddressUtil.swift */; };
 		DFBDF20627E0AC7D00A5CF3C /* RoleDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF20527E0AC7D00A5CF3C /* RoleDetailsViewController.swift */; };
 		DFBEF9452434DD0C007A6762 /* UIAlertAction+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEF9442434DD0C007A6762 /* UIAlertAction+Additions.swift */; };
@@ -255,7 +251,6 @@
 		DFDF02C0241EC72D006CF443 /* SessionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDF02BF241EC72C006CF443 /* SessionStatus.swift */; };
 		DFDF02C4241ED0CA006CF443 /* MobileIDSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDF02C3241ED0CA006CF443 /* MobileIDSignature.swift */; };
 		DFEE73042A151423003428E4 /* ScaledTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEE73032A151423003428E4 /* ScaledTextView.swift */; };
-		DFEFF8DD2AD6DCE3003D452B /* TokenFlowSigning.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEFF8DC2AD6DCE3003D452B /* TokenFlowSigning.swift */; };
 		DFF3C3AE233231190079458A /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3AC233231180079458A /* Configuration.swift */; };
 		DFF3C3AF233231190079458A /* SettingsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3AD233231190079458A /* SettingsConfiguration.swift */; };
 		DFF3C3B22332314A0079458A /* RuntimeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3B02332314A0079458A /* RuntimeError.swift */; };
@@ -565,10 +560,6 @@
 		DFBA32A529A5A64000788A87 /* CancelUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelUtil.swift; sourceTree = "<group>"; };
 		DFBDF1F127D79B8B00A5CF3C /* SettingsRoleAndAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRoleAndAddressCell.swift; sourceTree = "<group>"; };
 		DFBDF1F327D8DD4100A5CF3C /* RoleAndAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleAndAddressViewController.swift; sourceTree = "<group>"; };
-		DFBDF1FB27DF6BA800A5CF3C /* MobileIDParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileIDParameters.swift; sourceTree = "<group>"; };
-		DFBDF1FD27DF6D3B00A5CF3C /* SmartIDParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartIDParameters.swift; sourceTree = "<group>"; };
-		DFBDF1FF27DF764400A5CF3C /* IDCardParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDCardParameters.swift; sourceTree = "<group>"; };
-		DFBDF20127DF7ED700A5CF3C /* IDCardSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDCardSignature.swift; sourceTree = "<group>"; };
 		DFBDF20327DF89A100A5CF3C /* RoleAndAddressUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleAndAddressUtil.swift; sourceTree = "<group>"; };
 		DFBDF20527E0AC7D00A5CF3C /* RoleDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleDetailsViewController.swift; sourceTree = "<group>"; };
 		DFBEF9442434DD0C007A6762 /* UIAlertAction+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Additions.swift"; sourceTree = "<group>"; };
@@ -593,7 +584,6 @@
 		DFDF02C3241ED0CA006CF443 /* MobileIDSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileIDSignature.swift; sourceTree = "<group>"; };
 		DFEE73032A151423003428E4 /* ScaledTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledTextView.swift; sourceTree = "<group>"; };
 		DFEEFCCD29AD062C0013E66B /* DiagnosticError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticError.swift; sourceTree = "<group>"; };
-		DFEFF8DC2AD6DCE3003D452B /* TokenFlowSigning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenFlowSigning.swift; sourceTree = "<group>"; };
 		DFF3C3AC233231180079458A /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		DFF3C3AD233231190079458A /* SettingsConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsConfiguration.swift; sourceTree = "<group>"; };
 		DFF3C3B02332314A0079458A /* RuntimeError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeError.swift; sourceTree = "<group>"; };
@@ -688,10 +678,6 @@
 				C50DCD1A1FD1576B00D48E16 /* SigningTableViewHeaderView.swift */,
 				C54EA6E420444EC90039AC78 /* TokenFlowSelectionViewController.swift */,
 				DFBDF1F327D8DD4100A5CF3C /* RoleAndAddressViewController.swift */,
-				DFBDF1FB27DF6BA800A5CF3C /* MobileIDParameters.swift */,
-				DFBDF1FD27DF6D3B00A5CF3C /* SmartIDParameters.swift */,
-				DFBDF1FF27DF764400A5CF3C /* IDCardParameters.swift */,
-				DFEFF8DC2AD6DCE3003D452B /* TokenFlowSigning.swift */,
 			);
 			name = "Token flow";
 			sourceTree = "<group>";
@@ -1214,7 +1200,6 @@
 				E4C53F4A1E30D03500F209BE /* DefaultsHelper.swift */,
 				DFDF02C3241ED0CA006CF443 /* MobileIDSignature.swift */,
 				4E59080324B2E295001B23A6 /* SmartIDSignature.swift */,
-				DFBDF20127DF7ED700A5CF3C /* IDCardSignature.swift */,
 				4EE56D222AB0561C002648EE /* NFCSignature.swift */,
 				DFDF02BD241EB5D3006CF443 /* SessionCertificate.swift */,
 				E4C53F4D1E30D13100F209BE /* Session.swift */,
@@ -1607,7 +1592,6 @@
 				DFA56CF22AF003F8007D7F7E /* RadioButton.swift in Sources */,
 				DF56368F2B0E63AA0098F31D /* LicensesCell.swift in Sources */,
 				C593D9F6208F39DF000B3BF6 /* SettingsChoiceButton.swift in Sources */,
-				DFEFF8DD2AD6DCE3003D452B /* TokenFlowSigning.swift in Sources */,
 				C58FCD5F20650BBE00FE3B57 /* MyeIDInfoCell.swift in Sources */,
 				C51E8A0F21A2F2AD0054662A /* SettingsTimeStampCell.swift in Sources */,
 				C5F462AA209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift in Sources */,
@@ -1635,7 +1619,6 @@
 				C50DCD191FD1542A00D48E16 /* RecentContainersNameCell.swift in Sources */,
 				C593D9F0208F1C16000B3BF6 /* SettingsFieldCell.swift in Sources */,
 				C593D9E8208F1986000B3BF6 /* SettingsViewController.swift in Sources */,
-				DFBDF20227DF7ED700A5CF3C /* IDCardSignature.swift in Sources */,
 				C54EA6E520444EC90039AC78 /* TokenFlowSelectionViewController.swift in Sources */,
 				DFF3C3B32332314A0079458A /* SignatureVerifier.swift in Sources */,
 				DF17ABCE29C0F86E009711DF /* BarButton.swift in Sources */,
@@ -1689,7 +1672,6 @@
 				DF4B8418284008CF005CB875 /* SignatureDetail.swift in Sources */,
 				DFBDF1F427D8DD4100A5CF3C /* RoleAndAddressViewController.swift in Sources */,
 				DF56368B2B0E63430098F31D /* AboutHeaderCell.swift in Sources */,
-				DFBDF1FE27DF6D3B00A5CF3C /* SmartIDParameters.swift in Sources */,
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
 				DF7F611926399B5400747B7D /* ContainerRemovalActions.swift in Sources */,
 				C55BB1CA2090C17F00618AC4 /* AboutViewController.swift in Sources */,
@@ -1723,7 +1705,6 @@
 				C5964CE820079AE0001FE732 /* TabButton.swift in Sources */,
 				3921CA9920B2F5B200BF3178 /* PreviewActions.swift in Sources */,
 				DFBA32A629A5A64000788A87 /* CancelUtil.swift in Sources */,
-				DFBDF1FC27DF6BA800A5CF3C /* MobileIDParameters.swift in Sources */,
 				C56C620F201A2B6500CCC2A5 /* RecentContainersHeaderCell.swift in Sources */,
 				DF2BCCD02C35DB5D004B95E2 /* EncryptedDataUtil.swift in Sources */,
 				C593D9F4208F3526000B3BF6 /* SettingsChoiceView.swift in Sources */,
@@ -1756,7 +1737,6 @@
 				C50DCD131FCC4D3000D48E16 /* UIView+Additions.swift in Sources */,
 				DF53DCEA2A0A9D8A00F5DAF6 /* NotificationMessage.swift in Sources */,
 				C537AE542004C29E009037E5 /* MobileIDEditViewController.swift in Sources */,
-				DFBDF20027DF764400A5CF3C /* IDCardParameters.swift in Sources */,
 				3921CAA520B5A24A00BF3178 /* CryptoContainerViewController.swift in Sources */,
 				C50DCCCB1FC32A3E00D48E16 /* SigningViewController.swift in Sources */,
 				C5FA0BE920A1930400A208E5 /* MoppApp+Jailbreak.swift in Sources */,

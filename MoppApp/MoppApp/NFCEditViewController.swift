@@ -28,7 +28,7 @@ protocol NFCEditViewControllerDelegate : AnyObject {
     func nfcEditViewControllerDidDismiss(cancelled: Bool, can: String?, pin: String?)
 }
 
-class NFCEditViewController : MoppViewController, TokenFlowSigning {
+class NFCEditViewController : MoppViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var canTextField: UITextField!
     @IBOutlet weak var pinTextField: UITextField!
@@ -141,21 +141,19 @@ class NFCEditViewController : MoppViewController, TokenFlowSigning {
             let roleAndAddressView = UIStoryboard.tokenFlow.instantiateViewController(of: RoleAndAddressViewController.self)
             roleAndAddressView.modalPresentationStyle = .overCurrentContext
             roleAndAddressView.modalTransitionStyle = .crossDissolve
-            roleAndAddressView.viewController = self
+            roleAndAddressView.onComplete = { [weak self] in self?.sign() }
             present(roleAndAddressView, animated: true)
         } else {
-            sign(nil)
+            sign()
         }
     }
 
-    func sign(_ pin: String?) {
+    func sign() {
         dismiss(animated: false) {
-            [weak self] in
-            guard let sself = self else { return }
-            sself.delegate?.nfcEditViewControllerDidDismiss(
+            self.delegate?.nfcEditViewControllerDidDismiss(
                 cancelled: false,
-                can: sself.canTextField.text,
-                pin: sself.pinTextField.text)
+                can: self.canTextField.text,
+                pin: self.pinTextField.text)
         }
     }
 

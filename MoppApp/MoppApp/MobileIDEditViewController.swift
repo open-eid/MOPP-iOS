@@ -44,7 +44,7 @@ protocol MobileIDEditViewControllerDelegate : AnyObject {
     func mobileIDEditViewControllerDidDismiss(cancelled: Bool, phoneNumber: String?, idCode: String?)
 }
 
-class MobileIDEditViewController : MoppViewController, TokenFlowSigning {
+class MobileIDEditViewController : MoppViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var idCodeTextField: PersonalCodeField!
     @IBOutlet weak var phoneTextField: UITextField!
@@ -163,15 +163,13 @@ class MobileIDEditViewController : MoppViewController, TokenFlowSigning {
             let roleAndAddressView = UIStoryboard.tokenFlow.instantiateViewController(of: RoleAndAddressViewController.self)
             roleAndAddressView.modalPresentationStyle = .overCurrentContext
             roleAndAddressView.modalTransitionStyle = .crossDissolve
-            roleAndAddressView.viewController = self
+            roleAndAddressView.onComplete = { [weak self] in self?.sign() }
             present(roleAndAddressView, animated: true)
         } else {
-            dismiss(animated: false) { [weak self] in
-                self?.sign(nil)
-            }
+            sign()
         }
     }
-    
+
     @objc func toggleRememberMe(_ sender: UISwitch) {
         if sender.isOn {
             rememberSwitch.accessibilityUserInputLabels = ["Disable remember me"]
@@ -179,15 +177,13 @@ class MobileIDEditViewController : MoppViewController, TokenFlowSigning {
             rememberSwitch.accessibilityUserInputLabels = ["Enable remember me"]
         }
     }
-    
-    func sign(_ pin: String?) {
+
+    func sign() {
         dismiss(animated: false) {
-            [weak self] in
-            guard let sself = self else { return }
-            sself.delegate?.mobileIDEditViewControllerDidDismiss(
+            self.delegate?.mobileIDEditViewControllerDidDismiss(
                 cancelled: false,
-                phoneNumber: sself.phoneTextField.text,
-                idCode: sself.idCodeTextField.text)
+                phoneNumber: self.phoneTextField.text,
+                idCode: self.idCodeTextField.text)
         }
     }
 

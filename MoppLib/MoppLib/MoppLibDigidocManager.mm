@@ -663,7 +663,7 @@ void parseException(const digidoc::Exception &e) {
   }
 }
 
-- (void)addSignature:(NSString *)containerPath pin2:(NSString *)pin2 cert:(NSData *)cert roleData:(MoppLibRoleAddressData *)roleData success:(ContainerBlock)success andFailure:(FailureBlock)failure {
+- (void)addSignature:(NSString *)containerPath pin2:(NSString *)pin2 cert:(NSData *)cert roleData:(MoppLibRoleAddressData *)roleData success:(VoidBlock)success andFailure:(FailureBlock)failure {
 
   try {
     // Load the container
@@ -708,8 +708,7 @@ void parseException(const digidoc::Exception &e) {
     signature->extendSignatureProfile(&signer);
     signature->validate();
     container->save();
-    MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
-    success(moppLibContainer);
+    success();
   } catch(const digidoc::Exception &e) {
     parseException(e);
     if (e.code() == 18) {
