@@ -49,8 +49,8 @@ class RoleAndAddressViewController : MoppViewController {
     
     var tapGR: UITapGestureRecognizer!
     
-    var viewController: TokenFlowSigning? = nil
-    
+    var onComplete: (() -> Void)?
+
     var selectedTextField = UITextField()
     var isShowingKeyboard = false
     
@@ -72,12 +72,7 @@ class RoleAndAddressViewController : MoppViewController {
         
         RoleAndAddressUtil.saveRoleInfo(roleData: roleData)
         
-        dismiss(animated: false) {
-            [weak self] in
-            guard let sself = self,
-                  let selectionVC = sself.viewController else { return }
-            selectionVC.sign(nil)
-        }
+        dismiss(animated: false, completion: onComplete)
     }
     
     @IBAction func cancelAction(_ sender: Any) {

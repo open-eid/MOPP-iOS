@@ -23,8 +23,5 @@
 
 #import <Foundation/Foundation.h>
 
-@class MoppLibContainer;
-
 typedef void (^FailureBlock)(NSError *error);
-typedef void (^ContainerBlock)(MoppLibContainer *container);
 typedef void (^VoidBlock)(void);
