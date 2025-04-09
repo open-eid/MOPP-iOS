@@ -40,7 +40,7 @@
 - (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString *)tsUrl withMoppConfiguration:(MoppLibConfiguration *)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration;
 
 + (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData;
-+ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure;
++ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(VoidBlock)success failure:(FailureBlock)failure;
 
 - (NSString *)libdigidocppVersion;
 - (BOOL)isConnected;
@@ -48,6 +48,5 @@
 - (NSString *)iOSVersion;
 - (NSString *)userAgent;
 - (NSString *)userAgent:(BOOL)shouldIncludeDevices;
-+ (NSString *)sanitize:(NSString *)text;
 
 @end

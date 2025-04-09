@@ -180,7 +180,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 _ = try await sendWrapped(tag: tag, cls: 0x00, ins: 0x20, p1: 0x00, p2: 0x85, data: pin)
                 let signatureValue = try await sendWrapped(tag: tag, cls:0x00, ins: 0x2A, p1: 0x9E, p2: 0x9A, data: Bytes(hash), le: 256);
                 printLog("\nRIA.NFC - Validating signature...\n")
-                MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue, success: { _ in
+                MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue, success: {
                     printLog("\nRIA.NFC - Successfully validated signature!\n")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         NotificationCenter.default.post(

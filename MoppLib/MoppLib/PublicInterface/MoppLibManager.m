@@ -44,7 +44,7 @@
     return [MoppLibDigidocManager prepareSignature:cert containerPath:containerPath roleData:roleData];
 }
 
-+ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(BoolBlock)success failure:(FailureBlock)failure {
++ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(VoidBlock)success failure:(FailureBlock)failure {
     return [MoppLibDigidocManager isSignatureValid:cert signatureValue:signatureValue success:success failure:failure];
 }
 
@@ -71,10 +71,6 @@
 
 - (NSString *)userAgent {
     return [[MoppLibDigidocManager sharedInstance] userAgent:false];
-}
-
-+ (NSString *)sanitize:(NSString *)text {
-    return [MoppLibDigidocManager sanitize:text];
 }
 
 @end

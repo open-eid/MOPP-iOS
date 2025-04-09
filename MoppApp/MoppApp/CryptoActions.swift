@@ -108,7 +108,7 @@ extension CryptoContainerViewController : IdCardDecryptViewControllerDelegate {
             } else {
                 self.dismiss(animated: false)
                 guard let nsError = error as NSError? else { return }
-                if nsError.code == Int(MoppLibErrorCode.moppLibErrorPinBlocked.rawValue) {
+                if nsError.code == MoppLibErrorCode.moppLibErrorPinBlocked.rawValue {
                     errorAlertWithLink(message: L(.pin1BlockedAlert))
                 } else {
                     infoAlert(message: L(.decryptionErrorMessage))

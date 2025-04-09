@@ -323,7 +323,7 @@ static std::unique_ptr<digidoc::Signer> signer{};
     return digidoc::X509Cert(reinterpret_cast<const unsigned char *>(data.bytes), data.length);
 }
 
-+ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)data success:(BoolBlock)success failure:(FailureBlock)failure {
++ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)data success:(VoidBlock)success failure:(FailureBlock)failure {
     auto *bytes = reinterpret_cast<const unsigned char*>(data.bytes);
     std::vector<unsigned char> calculatedSignatureBase64(bytes, bytes + data.length);
 
@@ -337,7 +337,7 @@ static std::unique_ptr<digidoc::Signer> signer{};
 
     if (auto timeStampTime = signature->TimeStampTime(); !timeStampTime.empty()) {
         printLog(@"\nSignature already validated at %s\n", timeStampTime.c_str());
-        success(true);
+        return success();
     }
 
     try {
@@ -352,7 +352,7 @@ static std::unique_ptr<digidoc::Signer> signer{};
         printLog(@"\nSaving container...\n");
         docContainer->save();
         printLog(@"\nSignature validated at %s!\n", signature->TimeStampTime().c_str());
-        success(true);
+        success();
     } catch(const digidoc::Exception &e) {
         parseException(e);
         NSError *error;
@@ -564,29 +564,6 @@ static std::unique_ptr<digidoc::Signer> signer{};
     }
 
     return moppLibSignature;
-}
-
-+ (NSString *)sanitize:(NSString *)text {
-    NSMutableCharacterSet *characterSet = [NSMutableCharacterSet illegalCharacterSet];
-    [characterSet addCharactersInString:@"@%:^?[]\'\"”’{}#&`\\~«»/´"];
-    NSArray* rtlChars = @[@"\u200E", @"\u200F", @"\u202E", @"\u202A", @"\u202B"];
-
-    for (int i = 0; i < [rtlChars count]; i++) {
-        [characterSet addCharactersInString:[rtlChars objectAtIndex:i]];
-    }
-
-    while ([text hasPrefix:@"."]) {
-        if ([text length] > 1) {
-            text = [text substringFromIndex:1];
-        } else {
-            NSRange replaceRange = [text rangeOfString:@"."];
-            if (replaceRange.location != NSNotFound) {
-                text = [text stringByReplacingCharactersInRange:replaceRange withString:@"_"];
-            }
-        }
-    }
-
-    return [[text componentsSeparatedByCharactersInSet:characterSet] componentsJoinedByString:@""];
 }
 
 - (std::string)getSerialNumber:(std::string)serialNumber {
