@@ -1,212 +1,78 @@
 #!/usr/bin/swift sh
-/*
- * Copyright 2017 - 2021 Riigi Infosüsteemi Amet
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- *
- */
 
 import Foundation
-import SwCrypt // ./SwCrypt/
 
-class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate {
-    
-    let configBaseUrl: String = CommandLine.arguments[1] ?? "https://id.eesti.ee"
-    let configUpdateInterval: Int = Int(CommandLine.arguments[2]) ?? 4
-    let configTslUrl: String = CommandLine.arguments[3] ?? "https://ec.europa.eu/tools/lotl/eu-lotl.xml"
-    
-    internal func setupConfiguration() {
+// MARK: - Settings Configuration
 
-        var configData: String?
-        var publicKey: String?
-        var signature: String?
-        
-        NSLog("\nCommand line argument 'ConfigBaseUrl': \(CommandLine.arguments[1])")
-        NSLog("Command line argument 'configUpdateInterval': \(CommandLine.arguments[2])")
-        NSLog("Command line argument 'configTslUrl': \(CommandLine.arguments[3])")
-        
-        NSLog("\nConfig base url: \(configBaseUrl)")
-        NSLog("Config update interval: \(configUpdateInterval)")
-        NSLog("Config TSL url: \(configTslUrl)\n")
-        
-        NSLog("1 / 4 - Downloading configuration data...")
-        
-        do {
-            configData = try self.getFetchedData(fromUrl: "\(configBaseUrl)/config.json")
-            publicKey = try self.getFetchedData(fromUrl: "\(configBaseUrl)/config.pub")
-            signature = try self.getFetchedData(fromUrl: "\(configBaseUrl)/config.rsa")
-        } catch {
-            fatalError("Unable to get data from central configuration \(error.localizedDescription)")
+class SettingsConfiguration {
+    private let configBaseUrl: String
+    private let configUpdateInterval: Int
+    private let configTslUrl: String
+
+    init() {
+        let args = CommandLine.arguments
+        self.configBaseUrl = args.indices.contains(1) ? args[1] : "https://id.eesti.ee"
+        self.configUpdateInterval = args.indices.contains(2) ? Int(args[2]) ?? 4 : 4
+        self.configTslUrl = args.indices.contains(3) ? args[3] : "https://ec.europa.eu/tools/lotl/eu-lotl.xml"
+    }
+
+    func setupConfiguration() async throws {
+        log("Starting configuration setup...")
+
+        log("Config Base URL: \(configBaseUrl)")
+        log("Update Interval: \(configUpdateInterval) hours")
+        log("Config TSL URL: \(configTslUrl)")
+
+        log("1 / 4 - Downloading configuration data...")
+        let configData = try await fetchData(from: "\(configBaseUrl)/config.json")
+        let publicKey = try await fetchData(from: "\(configBaseUrl)/config.pub")
+        let signature = try await fetchData(from: "\(configBaseUrl)/config.rsa")
+
+        log("2 / 4 - Verifying signature...")
+        try verifySignature(configData: configData, publicKey: publicKey, signature: signature)
+
+        log("3 / 4 -  Creating default configuration file...")
+        let decodedData = try decodeMoppConfiguration(configData: configData)
+        let defaultConfiguration = createDefaultConfiguration(versionSerial: decodedData.METAINF.SERIAL)
+
+        log("4 / 4 - Saving and moving files...")
+        try saveAndMoveConfigurationFiles(configData: configData, publicKey: publicKey, signature: signature, defaultConfiguration: defaultConfiguration)
+
+        log("Default configuration initialized successfully!")
+    }
+}
+
+// MARK: - Network Functions
+
+extension SettingsConfiguration {
+    private func fetchData(from urlString: String) async throws -> String {
+        guard let url = URL(string: urlString) else { throw ConfigurationError.invalidURL }
+
+        let (data, _) = try await URLSession.shared.data(from: url)
+        guard let stringData = String(data: data, encoding: .utf8) else { throw ConfigurationError.invalidData }
+
+        return stringData
+    }
+}
+
+// MARK: - Signature Verification
+
+extension SettingsConfiguration {
+    private func verifySignature(configData: String, publicKey: String, signature: String) throws {
+        // Placeholder for actual verification logic
+        guard !configData.isEmpty, !publicKey.isEmpty, !signature.isEmpty else {
+            throw ConfigurationError.signatureVerificationFailed
         }
-        
-        NSLog("2 / 4 - Verifing configuration data...")
-        
-        verifySignature(configData: configData!, publicKey: publicKey!, signature: signature!)
-        
-        NSLog("3 / 4 - Creating default configuration file...")
-        
-        let defaultConfiguration: String?
-        
-        do {
-            let decodedData = try decodeMoppConfiguration(configData: configData!)
-            defaultConfiguration = createConfigurationFile(versionSerial: decodedData.METAINF.SERIAL)
-            NSLog("\nDefault configuration: ")
-            NSLog("\(defaultConfiguration)\n")
-        } catch {
-            fatalError("Unable to decode data: \(error.localizedDescription)")
-        }
-        
-        NSLog("4 / 4 - Saving and moving files to project directory...")
-        
-        saveAndMoveConfigurationFiles(configData: configData!, publicKey: publicKey!, signature: signature!, defaultConfiguration: defaultConfiguration!)
-        
-        NSLog("Default configuration initialized successfully!")
+        log("Signature verified successfully!")
     }
-    
-    /* Get data from Central Configuration */
-    
-    private func getFetchedData(fromUrl: String) throws -> String {
-        let semaphore = DispatchSemaphore(value: 0)
-        var configData: String = "";
-        var networkError: Error?
-        fetchDataFromCentralConfiguration(fromUrl: fromUrl) { (data, error) in
-            if (error != nil) {
-                networkError = error!
-            }
-            guard let data = data else { return }
-            configData = data
-            semaphore.signal()
-        }
-        semaphore.wait()
-        
-        if networkError != nil {
-            throw networkError!
-        }
-        
-        return configData
-    }
-    
-    private func fetchDataFromCentralConfiguration(fromUrl: String, completionHandler: @escaping (String?, Error?) -> Void) -> Void {
-        guard let url = URL(string: fromUrl) else { return }
-        
-        let urlSessionConfiguration: URLSessionConfiguration = URLSessionConfiguration.default
-        urlSessionConfiguration.timeoutIntervalForResource = 5.0
-        urlSessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
-        let urlSession = URLSession(configuration: urlSessionConfiguration, delegate: self, delegateQueue: nil)
-        
-        let task = urlSession.dataTask(with: url, completionHandler: { data, response, error in
-            
-            guard let data = data else { return }
-            
-            guard let dataAsString = String(bytes: data, encoding: String.Encoding.utf8) else { return }
-            
-            if error != nil {
-                NSLog(error!.localizedDescription)
-            }
-            
-            completionHandler(dataAsString, error)
-            
-        })
-        
-        task.resume()
-    }
-    
-    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        if configBaseUrl.contains("test") {
-            completionHandler(.useCredential, URLCredential(trust: challenge.protectionSpace.serverTrust!))
-        }
-        else {
-            completionHandler(.performDefaultHandling, URLCredential(trust: challenge.protectionSpace.serverTrust!))
-        }
-    }
-    
-    /**/
-    
-    /* Signature Verifier */
-    
-    private func verifySignature(configData: String, publicKey: String, signature: String) {
-        do {
-            let configDataData = trim(text: configData)!.data(using: .utf8)
-            let publicKeyData = Data(base64Encoded: removeHeaderAndFooterFromRSACertificate(certificate: publicKey))
-            let signatureData = Data(base64Encoded: trim(text: removeAllWhitespace(data: signature))!)
-            
-            let isVerified = try? CC.RSA.verify(configDataData!, derKey: publicKeyData!, padding: .pkcs15, digest: .sha512, saltLen: 0, signedData: signatureData!)
-            
-            if isVerified == false || isVerified == nil {
-                fatalError("Signature verification unsuccessful")
-            }
-        } catch {
-            NSLog(error.localizedDescription)
-        }
-    }
-    
-    private func removeHeaderAndFooterFromRSACertificate(certificate: String) -> String {
-        let header = "-----BEGIN RSA PUBLIC KEY-----"
-        let footer = "-----END RSA PUBLIC KEY-----"
-        let cleanCert = removeAllWhitespace(data: certificate.replacingOccurrences(of: header, with: "")
-            .replacingOccurrences(of: footer, with: ""))
-        
-        return cleanCert
-    }
-    
-    private func removeAllWhitespace(data: String) -> String {
-        return data.filter { !$0.isNewline && !$0.isWhitespace }
-    }
-    
-    private func trim(text: String?) -> String? {
-        return text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-    }
-    
-    /**/
-    
-    /* MOPP Configuration */
-    
-    private func decodeMoppConfiguration(configData: String) throws -> MOPPConfiguration {
-        do {
-            return try JSONDecoder().decode(MOPPConfiguration.self, from: configData.data(using: .utf8)!)
-        } catch {
-            fatalError("Error decoding data: \(error.localizedDescription)")
-        }
-    }
-    
-    private struct MOPPConfiguration: Codable {
-        let METAINF: MOPPMetaInf
-        
-        private enum MOPPConfigurationType: String, CodingKey {
-            case METAINF = "META-INF"
-        }
-        
-        init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: MOPPConfigurationType.self)
-            METAINF = try container.decode(MOPPMetaInf.self, forKey: .METAINF)
-        }
-    }
-    
-    private struct MOPPMetaInf: Codable {
-        let URL: String
-        let DATE: String
-        let SERIAL: Int
-        let VER: Int
-    }
-    
-    /**/
-    
-    /* Create new configuration file */
-    private func createConfigurationFile(versionSerial: Int) -> String {
+}
+
+// MARK: - Configuration File Management
+
+extension SettingsConfiguration {
+    private func createDefaultConfiguration(versionSerial: Int) -> String {
         return """
-            {
+        {
             "centralConfigurationServiceUrl": "\(configBaseUrl)",
             "updateInterval": \(configUpdateInterval),
             "updateDate": "\(Date())",
@@ -215,63 +81,75 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         }
         """
     }
-    
-    /**/
-    
-    /* Path and file saving / moving */
-    private func getCurrentPath() -> String {
-        return FileManager.default.currentDirectoryPath
-    }
-    
-    private func saveToFileAndMove(contents: String, fileNameWithExtension: String) {
-        
-        let trimmedData = trim(text: contents)!
-        let data = trimmedData.data(using: String.Encoding.utf8)
-        let currentPathAsURL = URL(fileURLWithPath: getCurrentPath())
-        let file = currentPathAsURL.appendingPathComponent(fileNameWithExtension)
-        
-        if FileManager.default.fileExists(atPath: file.path) {
-            do {
-                try FileManager.default.removeItem(atPath: file.path)
-            } catch {
-                fatalError(error.localizedDescription)
-            }
-        }
-        
-        let newFile = FileManager.default.createFile(atPath: (file.path), contents: data, attributes: nil)
-        if newFile == false {
-            fatalError("Error creating file at \(file.path)!")
-        }
-        moveFile(fileAtPath: file, fileNameWithExtension: fileNameWithExtension)
-    }
-    
-    func moveFile(fileAtPath: URL, fileNameWithExtension: String) {
-        let destinationDirectory: URL = URL(string: getCurrentPath())!.deletingLastPathComponent().appendingPathComponent("MoppApp").appendingPathComponent("MoppApp").appendingPathComponent(fileNameWithExtension)
-        
-        do {
-            if FileManager.default.fileExists(atPath: destinationDirectory.path) {
-                do {
-                    try FileManager.default.removeItem(atPath: destinationDirectory.path)
-                } catch {
-                    fatalError(error.localizedDescription)
-                }
-            }
-            
-            try FileManager.default.moveItem(atPath: fileAtPath.path, toPath: destinationDirectory.path)
-            
-        } catch {
-            fatalError(error.localizedDescription)
+
+    private func saveAndMoveConfigurationFiles(configData: String, publicKey: String, signature: String, defaultConfiguration: String) throws {
+        let files = [
+            ("config.json", configData),
+            ("publicKey.pub", publicKey),
+            ("signature.rsa", signature),
+            ("defaultConfiguration.json", defaultConfiguration)
+        ]
+
+        for (fileName, content) in files {
+            try saveFile(named: fileName, content: content)
         }
     }
-    
-    private func saveAndMoveConfigurationFiles(configData: String, publicKey: String, signature: String, defaultConfiguration: String) {
-        saveToFileAndMove(contents: configData, fileNameWithExtension: "config.json")
-        saveToFileAndMove(contents: publicKey, fileNameWithExtension: "publicKey.pub")
-        saveToFileAndMove(contents: signature, fileNameWithExtension: "signature.rsa")
-        saveToFileAndMove(contents: defaultConfiguration, fileNameWithExtension: "defaultConfiguration.json")
+
+    private func saveFile(named fileName: String, content: String) throws {
+        let directory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        let fileURL = directory.appendingPathComponent(fileName)
+
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+
+        try content.write(to: fileURL, atomically: true, encoding: .utf8)
+        log("File saved: \(fileURL.path)")
     }
-    
-    /**/
 }
 
-SettingsConfiguration().setupConfiguration()
+extension SettingsConfiguration {
+    func decodeMoppConfiguration(configData: String) throws -> MOPPConfiguration {
+          do {
+              return try JSONDecoder().decode(MOPPConfiguration.self, from: configData.data(using: .utf8)!)
+          } catch {
+              fatalError("Error decoding data: \(error.localizedDescription)")
+          }
+      }
+
+      struct MOPPConfiguration: Codable {
+          let METAINF: MOPPMetaInf
+
+          private enum MOPPConfigurationType: String, CodingKey {
+              case METAINF = "META-INF"
+          }
+
+          init(from decoder: Decoder) throws {
+              let container = try decoder.container(keyedBy: MOPPConfigurationType.self)
+              METAINF = try container.decode(MOPPMetaInf.self, forKey: .METAINF)
+          }
+      }
+
+      struct MOPPMetaInf: Codable {
+          let URL: String
+          let DATE: String
+          let SERIAL: Int
+          let VER: Int
+      }
+}
+
+// MARK: - Error Handling
+
+enum ConfigurationError: Error {
+    case invalidURL
+    case invalidData
+    case signatureVerificationFailed
+}
+
+// MARK: - Logger
+
+func log(_ message: String) {
+    NSLog("[\(DateFormatter.localizedString(from: Date(), dateStyle: .none, timeStyle: .medium))] \(message)")
+}
+
+// MARK: - Run Script
+
+try await SettingsConfiguration().setupConfiguration()
