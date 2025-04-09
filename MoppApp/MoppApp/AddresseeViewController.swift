@@ -93,7 +93,7 @@ class AddresseeViewController : MoppViewController {
         selectedIndexes = []
         showLoading(show: true)
 
-        if (!MoppLibManager.sharedInstance().isConnected()) {
+        if (!MoppLibManager.shared.isConnected) {
             self.infoAlert(message: L(.noConnectionMessage))
             self.showLoading(show: false)
             return

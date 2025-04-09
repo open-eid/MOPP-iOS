@@ -60,34 +60,6 @@ class CardReaderiR301: CardReaderWrapper {
         self.contextHandle = contextHandle
     }
 
-    func transmitCommand(_ apdu: Bytes) throws -> (Bytes,UInt16) {
-        print("ID-CARD: CardReaderiR301. transmitCommand.")
-        var (response, sw) = try transmit(apdu)
-        if (sw & 0xFF00) == 0x6C00 {
-            var mutableApdu = apdu
-            mutableApdu[apdu.count - 1] = UInt8(truncatingIfNeeded: sw)
-            let (newResponse, newSW) = try transmit(mutableApdu)
-            response = newResponse
-            sw = newSW
-        }
-
-        while (sw & 0xFF00) == 0x6100 {
-            let (data, newSW) = try transmit([0x00, 0xC0, 0x00, 0x00, UInt8(truncatingIfNeeded: sw)])
-            sw = newSW
-            response.append(contentsOf: data)
-        }
-
-        return (response,sw)
-    }
-
-    func transmitCommandChecked(_ apdu: Bytes) throws -> Bytes {
-        let (result,sw) = try transmitCommand(apdu)
-        guard sw == 0x9000 else {
-            throw MoppLibError.generalError()
-        }
-        return result
-    }
-
     func powerOnCard() throws -> Bytes {
         var dwReaders: DWORD = 128
         let mszReaders = try String(unsafeUninitializedCapacity: Int(dwReaders)) { buffer in
@@ -124,7 +96,7 @@ class CardReaderiR301: CardReaderWrapper {
         }
     }
 
-    private func transmit(_ apdu: Bytes) throws -> (Bytes, UInt16) {
+    func transmit(_ apdu: Bytes) throws -> (Bytes, UInt16) {
         print("ID-CARD: Transmitting APDU data \(apdu.hexString())")
         var responseSize: DWORD = 512
         var response = try Bytes(unsafeUninitializedCapacity: Int(responseSize)) { buffer, initializedCount in

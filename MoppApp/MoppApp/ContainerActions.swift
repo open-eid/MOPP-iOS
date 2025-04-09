@@ -184,12 +184,11 @@ extension ContainerActions where Self: UIViewController {
             let containerViewController = CryptoContainerViewController.instantiate()
             let container = CryptoContainer(filename: fileName as NSString, filePath: newFilePath as NSString)
 
-            MoppLibCryptoActions.sharedInstance().parseCdocInfo(
+            MoppLibCryptoActions.parseCdocInfo(
                 newFilePath as String?,
-                success: {(_ cdocInfo: CdocInfo?) -> Void in
-                    guard let strongCdocInfo = cdocInfo else { return }
-                    container.addressees = strongCdocInfo.addressees as? [Addressee] ?? []
-                    container.dataFiles = strongCdocInfo.dataFiles
+                success: { cdocInfo in
+                    container.addressees = cdocInfo.addressees as? [Addressee] ?? []
+                    container.dataFiles = cdocInfo.dataFiles
                     containerViewController.containerPath = newFilePath
                     containerViewController.state = .opened
                     containerViewController.container = container

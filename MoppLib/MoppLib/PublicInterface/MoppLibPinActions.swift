@@ -117,7 +117,7 @@ public class MoppLibPinActions {
             return failure(MoppLibError.tooEasyPinError())
         default: break
         }
-        guard let handler = CardActionsManager.shared.cardCommandHandler else {
+        guard let handler = MoppLibCardReaderManager.shared.cardCommandHandler else {
             return failure(MoppLibError.cardNotFoundError())
         }
         do {

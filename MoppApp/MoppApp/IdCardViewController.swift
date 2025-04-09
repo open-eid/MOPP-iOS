@@ -34,7 +34,7 @@ protocol IdCardSignViewControllerDelegate : AnyObject {
 }
 
 protocol IdCardDecryptViewControllerDelegate : AnyObject {
-    func idCardDecryptDidFinished(cancelled: Bool, success: Bool, dataFiles: NSMutableDictionary, error: Error?)
+    func idCardDecryptDidFinished(cancelled: Bool, success: Bool, dataFiles: [String:Data], error: Error?)
 }
 
 class IdCardViewController : MoppViewController, TokenFlowSigning {
@@ -437,11 +437,10 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
 
         state = .tokenActionInProcess
         if isActionDecryption {
-            MoppLibCryptoActions.sharedInstance().decryptData(containerPath, withPin1: pin,
-                success: {(_ decryptedData: NSMutableDictionary?) -> Void in
-                    guard let strongDecryptedData = decryptedData else { return }
-                    self.decryptDelegate?.idCardDecryptDidFinished(cancelled: false, success: true,  dataFiles: strongDecryptedData, error: nil)
-            },
+            MoppLibCryptoActions.decryptData(containerPath, withPin1: pin,
+                success: { decryptedData in
+                    self.decryptDelegate?.idCardDecryptDidFinished(cancelled: false, success: true,  dataFiles: decryptedData, error: nil)
+                },
                 failure: { [weak self] error in
                     guard let nsError = error as NSError? else { return }
                     if nsError.code == MoppLibErrorCode.moppLibErrorWrongPin.rawValue {
@@ -452,7 +451,7 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
                     } else {
                         DispatchQueue.main.async {
                             self?.dismiss(animated: false, completion: {
-                                self?.decryptDelegate?.idCardDecryptDidFinished(cancelled: false, success: false, dataFiles: NSMutableDictionary(), error: error)
+                                self?.decryptDelegate?.idCardDecryptDidFinished(cancelled: false, success: false, dataFiles: .init(), error: error)
                             })
                         }
                     }
@@ -569,23 +568,22 @@ extension IdCardViewController : MoppLibCardReaderManagerDelegate {
         case .CardConnected:
             state = .idCardConnected
 
-            // Give some time for UI to update before executing data requests
-            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                MoppLibCardActions.cardPersonalData(success: { [weak self] moppLibPersonalData in
-                    DispatchQueue.main.async {
-                        self?.idCardPersonalData = moppLibPersonalData
-                        self?.state = .readyForTokenAction
+            Task.detached { [weak self] in
+                do {
+                    let moppLibPersonalData = try await MoppLibCardActions.cardPersonalData()
+                    guard let self else { return }
+                    await MainActor.run {
+                        self.idCardPersonalData = moppLibPersonalData
+                        self.state = .readyForTokenAction
                     }
-                }, failure: { [weak self] error in
-                    DispatchQueue.main.async {
-                        guard let error = error as NSError? else { self?.state = .readerProcessFailed; return }
-                        if error.code == MoppLibErrorCode.moppLibErrorReaderProcessFailed.rawValue {
-                            self?.state = .readerProcessFailed
-                            return
-                        }
-                        self?.state = .readerNotFound
+                } catch let error as NSError {
+                    await MainActor.run { [weak self] in
+                        self?.state = error.code == MoppLibErrorCode.moppLibErrorReaderProcessFailed.rawValue ?
+                            .readerProcessFailed : .readerNotFound
                     }
-                })
+                } catch {
+                    await MainActor.run { [weak self] in self?.state = .readerProcessFailed }
+                }
             }
 
         case .ReaderProcessFailed:
