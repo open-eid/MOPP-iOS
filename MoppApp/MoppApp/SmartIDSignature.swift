@@ -171,7 +171,7 @@ class SmartIDSignature {
     
     private func validateSignature(cert: Data, signatureValue: Data) -> Void {
         printLog("\nRIA.SmartID - Validating signature...\n")
-        MoppLibManager.isSignatureValid(cert, signatureValue: signatureValue, success: {
+        MoppLibContainerActions.isSignatureValid(cert, signatureValue: signatureValue, success: {
             printLog("\nRIA.SmartID - Successfully validated signature!\n")
             DispatchQueue.main.async {
                 NotificationCenter.default.post(
@@ -208,7 +208,7 @@ class SmartIDSignature {
     }
 
     private func setupControlCode(certificateValue: Data, containerPath: String, roleData: MoppLibRoleAddressData?) -> Data? {
-        guard let hash = MoppLibManager.prepareSignature(certificateValue, containerPath: containerPath, roleData: roleData) else {
+        guard let hash = MoppLibContainerActions.prepareSignature(certificateValue, containerPath: containerPath, roleData: roleData) else {
             return nil
         }
 

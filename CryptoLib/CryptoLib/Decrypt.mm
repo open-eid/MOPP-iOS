@@ -29,12 +29,11 @@
 
 @implementation Decrypt
 
-- (NSMutableDictionary *)decryptFile:(NSString *)fullPath withPin:(NSString *)pin withToken:(id<AbstractSmartToken>)smartToken error:(NSError**)error {
++ (NSMutableDictionary *)decryptFile:(NSString *)fullPath withToken:(id<AbstractSmartToken>)smartToken error:(NSError**)error {
 
     std::string encodedFullPath = std::string([fullPath UTF8String]);
-    std::string encodedPin = std::string([pin UTF8String]);
     CDOCReader cdocReader(encodedFullPath);
-    SmartCardTokenWrapper token(encodedPin, smartToken);
+    SmartCardTokenWrapper token(smartToken);
 
     NSMutableDictionary *response = [NSMutableDictionary new];
     std::vector<unsigned char> decryptedData = cdocReader.decryptData(&token);

@@ -23,9 +23,12 @@
 
 #import "MoppLibConstants.h"
 
-@interface MoppLibCryptoActions : NSObject
+@class CdocInfo;
 
-+ (MoppLibCryptoActions *)sharedInstance;
+typedef void (^CdocContainerBlock)(CdocInfo * _Nonnull cdocInfo);
+typedef void (^DecryptedDataBlock)(NSDictionary<NSString*,NSData*> * _Nonnull decryptedData);
+
+@interface MoppLibCryptoActions : NSObject
 
     /**
      * Encrypt data and create CDOC container.
@@ -36,7 +39,7 @@
      * @param success       Block to be called on successful completion of action.
      * @param failure       Block to be called when action fails. Includes error.
      */
-- (void)encryptData:(NSString *)fullPath withDataFiles:(NSArray*)dataFiles withAddressees:(NSArray*)addressees success:(VoidBlock)success failure:(FailureBlock)failure;
++ (void)encryptData:(NSString *)fullPath withDataFiles:(NSArray*)dataFiles withAddressees:(NSArray*)addressees success:(VoidBlock)success failure:(FailureBlock)failure;
 
 
     /**
@@ -47,7 +50,7 @@
      * @param success       Block to be called on successful completion of action. Includes decrypted data as NSMutableDictionary.
      * @param failure       Block to be called when action fails. Includes error.
      */
-- (void)decryptData:(NSString *)fullPath withPin1:(NSString*)pin1 success:(DecryptedDataBlock)success failure:(FailureBlock)failure;
++ (void)decryptData:(NSString *)fullPath withPin1:(NSString*)pin1 success:(DecryptedDataBlock)success failure:(FailureBlock)failure;
 
 /**
  * Parse and get info of CDOC container.
@@ -56,5 +59,5 @@
  * @param success       Block to be called on successful completion of action. Includes CDOC container info as CdocContainerBlock.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)parseCdocInfo:(NSString *)fullPath success:(CdocContainerBlock)success failure:(FailureBlock)failure;
++ (void)parseCdocInfo:(NSString *)fullPath success:(CdocContainerBlock)success failure:(FailureBlock)failure;
     @end

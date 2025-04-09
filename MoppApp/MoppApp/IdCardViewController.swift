@@ -34,10 +34,10 @@ protocol IdCardSignViewControllerDelegate : AnyObject {
 }
 
 protocol IdCardDecryptViewControllerDelegate : AnyObject {
-    func idCardDecryptDidFinished(cancelled: Bool, success: Bool, dataFiles: NSMutableDictionary, error: Error?)
+    func idCardDecryptDidFinished(cancelled: Bool, success: Bool, dataFiles: [String:Data], error: Error?)
 }
 
-class IdCardViewController : MoppViewController, TokenFlowSigning {
+class IdCardViewController : MoppViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var idCardView: UIView!
     @IBOutlet weak var containerStackView: UIStackView!
@@ -48,8 +48,7 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
     @IBOutlet weak var actionButton: ScaledButton!
     @IBOutlet weak var pinTextFieldTitleLabel: UILabel!
     @IBOutlet weak var loadingSpinner: SpinnerView!
-    
-    private let pinCodeKey = "idCardPinKey"
+
     var isActionDecryption = false
     var containerPath: String!
     weak var signDelegate: IdCardSignViewControllerDelegate?
@@ -437,89 +436,65 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
 
         state = .tokenActionInProcess
         if isActionDecryption {
-            MoppLibCryptoActions.sharedInstance().decryptData(containerPath, withPin1: pin,
-                success: {(_ decryptedData: NSMutableDictionary?) -> Void in
-                    guard let strongDecryptedData = decryptedData else { return }
-                    self.decryptDelegate?.idCardDecryptDidFinished(cancelled: false, success: true,  dataFiles: strongDecryptedData, error: nil)
-            },
+            MoppLibCryptoActions.decryptData(
+                containerPath, withPin1: pin,
+                success: { [weak self] decryptedData in
+                    self?.decryptDelegate?.idCardDecryptDidFinished(cancelled: false, success: true, dataFiles: decryptedData, error: nil)
+                },
                 failure: { [weak self] error in
-                    guard let nsError = error as NSError? else { return }
-                    if nsError.code == MoppLibErrorCode.moppLibErrorWrongPin.rawValue {
+                    if let nsError = error as NSError?,
+                       nsError.code == MoppLibErrorCode.moppLibErrorWrongPin.rawValue {
                         DispatchQueue.main.async {
                             self?.pinAttemptsLeft = (nsError.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as? NSNumber)?.uintValue ?? 0
                             self?.state = .wrongPin
                         }
                     } else {
                         DispatchQueue.main.async {
-                            self?.dismiss(animated: false, completion: {
-                                self?.decryptDelegate?.idCardDecryptDidFinished(cancelled: false, success: false, dataFiles: NSMutableDictionary(), error: error)
-                            })
+                            self?.dismiss(animated: false) {
+                                self?.decryptDelegate?.idCardDecryptDidFinished(cancelled: false, success: false, dataFiles: .init(), error: error)
+                            }
                         }
                     }
                 }
             )
-
         } else {
             if DefaultsHelper.isRoleAndAddressEnabled {
                 let roleAndAddressView = UIStoryboard.tokenFlow.instantiateViewController(of: RoleAndAddressViewController.self)
                 roleAndAddressView.modalPresentationStyle = .overCurrentContext
                 roleAndAddressView.modalTransitionStyle = .crossDissolve
-                roleAndAddressView.viewController = self
-                if !savePin(pin: pin) {
-                    showPinSaveError()
-                    return
-                }
+                roleAndAddressView.onComplete = { [weak self] in self?.sign(pin) }
                 present(roleAndAddressView, animated: true)
             } else {
-                if !savePin(pin: pin) {
-                    showPinSaveError()
-                    return
-                }
-                
-                self.sign(pin)
+                sign(pin)
             }
         }
     }
-    
-    func sign(_ pin: String?) {
-        guard let signingPin = String(data: KeychainUtil.retrieve(key: pinCodeKey) ?? Data(), encoding: .utf8)  else {
-            DispatchQueue.main.async {
-                self.dismiss(animated: false, completion: { [weak self] in
-                    guard let sself = self else { return }
-                    return sself.getTopViewController().showErrorMessage(message: "Unable to get PIN")
-                })
-            }
-            return
-        }
-        let idCardParameters = IDCardParameters(containerPath: containerPath, pin2: signingPin, roleData: DefaultsHelper.isRoleAndAddressEnabled ? RoleAndAddressUtil.getSavedRoleInfo() : nil)
-        KeychainUtil.remove(key: pinCodeKey)
-        signAction(idCardParameters: idCardParameters)
-    }
-    
-    func signAction(idCardParameters: IDCardParameters?) {
-        IDCardSignature.shared.createIDCardSignature(idCardParameters: idCardParameters) { [weak self] result in
-            switch result {
-            case .success(_):
+
+    func sign(_ pin: String) {
+        MoppLibContainerActions.sharedInstance().addSignature(
+            containerPath, withPin2:pin,
+            roleData: DefaultsHelper.isRoleAndAddressEnabled ? RoleAndAddressUtil.getSavedRoleInfo() : nil,
+            success: { [weak self] in
                 DispatchQueue.main.async {
-                    self?.dismiss(animated: false, completion: {
+                    self?.dismiss(animated: false) {
                         self?.signDelegate?.idCardSignDidFinished(cancelled: false, success: true, error: nil)
-                    })
-                }
-            case .failure(let error):
-                if error.code == MoppLibErrorCode.moppLibErrorWrongPin.rawValue {
-                    DispatchQueue.main.async {
-                        self?.pinAttemptsLeft = (error.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as? NSNumber)?.uintValue ?? 0
-                        self?.state = .wrongPin
                     }
-                } else {
-                    DispatchQueue.main.async {
-                        self?.dismiss(animated: false, completion: {
+                }
+            },
+            failure: { [weak self] error in
+                DispatchQueue.main.async {
+                    if let nsError = error as NSError?,
+                       nsError.code == MoppLibErrorCode.moppLibErrorWrongPin.rawValue {
+                        self?.pinAttemptsLeft = (nsError.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as? NSNumber)?.uintValue ?? 0
+                        self?.state = .wrongPin
+                    } else {
+                        self?.dismiss(animated: false) {
                             self?.signDelegate?.idCardSignDidFinished(cancelled: false, success: false, error: error)
-                        })
+                        }
                     }
                 }
             }
-        }
+        )
     }
     
     @objc func hideKeyboardAccessibility(notification: Notification) {
@@ -540,19 +515,6 @@ class IdCardViewController : MoppViewController, TokenFlowSigning {
     override func keyboardWillHide(notification: NSNotification) {
         hideKeyboard(scrollView: scrollView)
     }
-        
-    func savePin(pin: String) -> Bool {
-        return KeychainUtil.save(key: pinCodeKey, info: pin.data(using: .utf8) ?? Data())
-    }
-    
-    func showPinSaveError() {
-        DispatchQueue.main.async {
-            self.dismiss(animated: false, completion: { [weak self] in
-                guard let sself = self else { return }
-                return sself.getTopViewController().showErrorMessage(message: "Unable to secure PIN")
-            })
-        }
-    }
 }
 
 extension IdCardViewController : MoppLibCardReaderManagerDelegate {
@@ -569,23 +531,22 @@ extension IdCardViewController : MoppLibCardReaderManagerDelegate {
         case .CardConnected:
             state = .idCardConnected
 
-            // Give some time for UI to update before executing data requests
-            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                MoppLibCardActions.cardPersonalData(success: { [weak self] moppLibPersonalData in
-                    DispatchQueue.main.async {
-                        self?.idCardPersonalData = moppLibPersonalData
-                        self?.state = .readyForTokenAction
+            Task.detached { [weak self] in
+                do {
+                    let moppLibPersonalData = try await MoppLibCardActions.cardPersonalData()
+                    guard let self else { return }
+                    await MainActor.run {
+                        self.idCardPersonalData = moppLibPersonalData
+                        self.state = .readyForTokenAction
                     }
-                }, failure: { [weak self] error in
-                    DispatchQueue.main.async {
-                        guard let error = error as NSError? else { self?.state = .readerProcessFailed; return }
-                        if error.code == MoppLibErrorCode.moppLibErrorReaderProcessFailed.rawValue {
-                            self?.state = .readerProcessFailed
-                            return
-                        }
-                        self?.state = .readerNotFound
+                } catch let error as NSError {
+                    await MainActor.run { [weak self] in
+                        self?.state = error.code == MoppLibErrorCode.moppLibErrorReaderProcessFailed.rawValue ?
+                            .readerProcessFailed : .readerNotFound
                     }
-                })
+                } catch {
+                    await MainActor.run { [weak self] in self?.state = .readerProcessFailed }
+                }
             }
 
         case .ReaderProcessFailed:

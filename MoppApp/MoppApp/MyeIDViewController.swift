@@ -136,13 +136,8 @@ extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
         case .ReaderNotConnected: statusVC?.state = .readerNotFound
         case .ReaderRestarted: statusVC?.state = .readerRestarted
         case .ReaderConnected: statusVC?.state = .idCardNotFound
-        case .CardConnected:
-            statusVC?.state = .requestingData
-            // Give some time for status textfield to update before executing data requests
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.infoManager.requestInformation(with: strongSelf)
-            })
+        case .CardConnected: statusVC?.state = .requestingData
+            infoManager.requestInformation()
         case .ReaderProcessFailed: statusVC?.state = .readerProcessFailed
         }
     }

@@ -215,13 +215,11 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
         if container == nil {
             let filePath = containerPath as NSString
             let container = CryptoContainer(filename: filePath.lastPathComponent as NSString, filePath: filePath)
-            MoppLibCryptoActions.sharedInstance().parseCdocInfo(
+            MoppLibCryptoActions.parseCdocInfo(
                 filePath as String?,
-                success: {(_ cdocInfo: CdocInfo?) -> Void in
-                    guard let strongCdocInfo = cdocInfo else { return }
-                    
-                    container.addressees = strongCdocInfo.addressees as? [Addressee] ?? []
-                    container.dataFiles = strongCdocInfo.dataFiles
+                success: { cdocInfo in
+                    container.addressees = cdocInfo.addressees as? [Addressee] ?? []
+                    container.dataFiles = cdocInfo.dataFiles
                     self.containerPath = filePath as String?
                     self.state = .opened
                     
