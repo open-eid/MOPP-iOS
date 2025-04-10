@@ -21,14 +21,13 @@
  *
  */
 
-import Foundation
 import SkSigningLib
 
 class SessionCertificate {
     
     static let shared: SessionCertificate = SessionCertificate()
     
-    func getCertificate(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, trustedCertificates: [String]?, completionHandler: @escaping (Result<CertificateResponse, SigningError>) -> Void) -> Void {
+    func getCertificate(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, trustedCertificates: [Data], completionHandler: @escaping (Result<CertificateResponse, SigningError>) -> Void) -> Void {
         do {
             _ = try RequestSignature.shared.getCertificate(baseUrl: baseUrl, requestParameters: CertificateRequestParameters(relyingPartyUUID: uuid, relyingPartyName: kRelyingPartyName, phoneNumber: "+\(phoneNumber)", nationalIdentityNumber: nationalIdentityNumber), trustedCertificates: trustedCertificates, manualProxyConf: ManualProxy.getManualProxyConfiguration()) { (result) in
                 

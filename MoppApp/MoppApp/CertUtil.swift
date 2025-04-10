@@ -21,7 +21,6 @@
  *
  */
 
-import Foundation
 import ASN1Decoder
 
 class CertUtil {
@@ -56,13 +55,14 @@ class CertUtil {
         return try X509Certificate(data: fileData)
     }
     
-    static func certificateString(_ certificateLocation: URL?) -> String? {
+    static func certificate(_ certificateLocation: URL?) -> Data? {
         guard let certLocation = certificateLocation else { return nil }
         do {
-            return try String(contentsOf: certLocation)
+            let base64 = try String(contentsOf: certLocation)
                 .replacingOccurrences(of: "-----BEGIN CERTIFICATE-----", with: "")
                 .replacingOccurrences(of: "-----END CERTIFICATE-----", with: "")
                 .trimWhitespacesAndNewlines()
+            return Data(base64Encoded: base64, options: .ignoreUnknownCharacters)
         } catch let openFileError {
             printLog("Failed to open '\(certLocation.lastPathComponent)'. Error: \(openFileError.localizedDescription)")
             return nil

@@ -20,7 +20,6 @@
  *
  */
 
-import Foundation
 import LDAP
 import ASN1Decoder
 
@@ -41,7 +40,7 @@ public class OpenLdap {
         case decipherOnly = 8
     }
 
-    static public func search(identityCode: String, configuration: MoppLdapConfiguration) async -> [Addressee] {
+    static public func search(identityCode: String) async -> [Addressee] {
         var filePath: String? = nil
         if let libraryPath = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first {
             filePath = libraryPath.appendingPathComponent("LDAPCerts/ldapCerts.pem").path
@@ -53,10 +52,10 @@ public class OpenLdap {
 
         if isPersonalCode(identityCode) {
             print("Searching with personal code from LDAP")
-            return search(identityCode: identityCode, url: configuration.LDAPPERSONURL, certificatePath: filePath)
+            return search(identityCode: identityCode, url: MoppLdapConfiguration.ldapPersonURL, certificatePath: filePath)
         } else {
             print("Searching with corporation keyword from LDAP")
-            return search(identityCode: identityCode, url: configuration.LDAPCORPURL, certificatePath: filePath)
+            return search(identityCode: identityCode, url: MoppLdapConfiguration.ldapCorpURL, certificatePath: filePath)
         }
     }
 

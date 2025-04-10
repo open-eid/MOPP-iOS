@@ -32,8 +32,8 @@ protocol SessionRequest {
        - requestParameters: Parameters that are sent to the service.
        - completionHandler: On request success, callbacks Result<SessionResponse, SigningError>
     */
-    func getSession(baseUrl: String, requestParameters: SessionRequestParameters, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<SessionResponse, SigningError>) -> Void)
-    
+    func getSession(baseUrl: String, requestParameters: SessionRequestParameters, trustedCertificates: [Data], manualProxyConf: Proxy, completionHandler: @escaping (Result<SessionResponse, SigningError>) -> Void)
+
     /**
     Gets session status info for Mobile-ID. This method invokes SIM toolkit
 
@@ -43,7 +43,7 @@ protocol SessionRequest {
        - requestParameters: Parameters that are used in URL
        - completionHandler: On request success, callbacks Result<SessionStatusResponse, SigningError>
     */
-    func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<SessionStatusResponse, SigningError>) -> Void)
+    func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, trustedCertificates: [Data], manualProxyConf: Proxy, completionHandler: @escaping (Result<SessionStatusResponse, SigningError>) -> Void)
 }
 
 /**
@@ -55,13 +55,13 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
     
     private weak var urlTask: URLSessionTask?
     
-    private var trustedCerts: [String]?
-    
+    private var trustedCerts = [Data]()
+
     deinit {
         urlTask?.cancel()
     }
     
-    public func getSession(baseUrl: String, requestParameters: SessionRequestParameters, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<SessionResponse, SigningError>) -> Void) {
+    public func getSession(baseUrl: String, requestParameters: SessionRequestParameters, trustedCertificates: [Data], manualProxyConf: Proxy, completionHandler: @escaping (Result<SessionResponse, SigningError>) -> Void) {
         guard let url = URL(string: "\(baseUrl)/signature") else {
             completionHandler(.failure(.invalidURL))
             return
@@ -90,7 +90,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         var urlSessionConfiguration: URLSessionConfiguration
         let urlSession: URLSession
         
-        if let trustedCerts = trustedCertificates, !trustedCerts.isEmpty {
+        if !trustedCerts.isEmpty {
             urlSessionConfiguration = URLSessionConfiguration.default
             ProxyUtil.configureURLSessionWithProxy(urlSessionConfiguration: &urlSessionConfiguration, manualProxyConf: manualProxyConf)
             ProxyUtil.setProxyAuthorizationHeader(request: &request, urlSessionConfiguration: urlSessionConfiguration, manualProxyConf: manualProxyConf)
@@ -135,10 +135,10 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
     }
     
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        CertificatePinning().certificatePinning(trustedCertificates: trustedCerts ?? [""], challenge: challenge, completionHandler: completionHandler)
+        CertificatePinning().certificatePinning(trustedCertificates: trustedCerts, challenge: challenge, completionHandler: completionHandler)
     }
     
-    public func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<SessionStatusResponse, SigningError>) -> Void) {
+    public func getSessionStatus(baseUrl: String, process: PollingProcess, requestParameters: SessionStatusRequestParameters, trustedCertificates: [Data], manualProxyConf: Proxy, completionHandler: @escaping (Result<SessionStatusResponse, SigningError>) -> Void) {
         guard let url = URL(string: "\(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)") else {
             Logging.errorLog(forMethod: "RIA.MobileID - Session status", httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(baseUrl)/signature/session/\(requestParameters.sessionId)?timeoutMs=\(requestParameters.timeoutMs ?? Constants.defaultTimeoutMs)")
             return completionHandler(.failure(.invalidURL))
@@ -160,7 +160,7 @@ public class RequestSession: NSObject, URLSessionDelegate, SessionRequest {
         var urlSessionConfiguration: URLSessionConfiguration
         let urlSession: URLSession
         
-        if let trustedCerts = trustedCertificates, !trustedCerts.isEmpty {
+        if !trustedCerts.isEmpty {
             urlSessionConfiguration = URLSessionConfiguration.default
             urlSessionConfiguration.requestCachePolicy = .reloadIgnoringLocalAndRemoteCacheData
             ProxyUtil.configureURLSessionWithProxy(urlSessionConfiguration: &urlSessionConfiguration, manualProxyConf: manualProxyConf)

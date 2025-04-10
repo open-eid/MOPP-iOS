@@ -21,7 +21,6 @@
  *
  */
 
-import Foundation
 import SkSigningLib
 
 class MobileIDSignature {
@@ -61,7 +60,7 @@ class MobileIDSignature {
         })
     }
 
-    private func getCertificate(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, containerPath: String, roleData: MoppLibRoleAddressData?, trustedCertificates: [String]?, completionHandler: @escaping (Data, Data) -> Void) {
+    private func getCertificate(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, containerPath: String, roleData: MoppLibRoleAddressData?, trustedCertificates: [Data], completionHandler: @escaping (Data, Data) -> Void) {
 
         if RequestCancel.shared.isRequestCancelled() {
             return CancelUtil.handleCancelledRequest(errorMessageDetails: "User cancelled Mobile-ID signing")
@@ -127,7 +126,7 @@ class MobileIDSignature {
         }
     }
 
-    private func getSession(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, hash: Data, hashType: String, language: String, trustedCertificates: [String]?, completionHandler: @escaping (String) -> Void) {
+    private func getSession(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, hash: Data, hashType: String, language: String, trustedCertificates: [Data], completionHandler: @escaping (String) -> Void) {
 
         if RequestCancel.shared.isRequestCancelled() {
             return CancelUtil.handleCancelledRequest(errorMessageDetails: "User cancelled Mobile-ID signing")
@@ -172,7 +171,7 @@ class MobileIDSignature {
         }
     }
 
-    private func getSessionStatus(baseUrl: String, sessionId: String, cert: Data, trustedCertificates: [String]?, completionHandler: @escaping (Data) -> Void) {
+    private func getSessionStatus(baseUrl: String, sessionId: String, cert: Data, trustedCertificates: [Data], completionHandler: @escaping (Data) -> Void) {
 
         if RequestCancel.shared.isRequestCancelled() {
             return CancelUtil.handleCancelledRequest(errorMessageDetails: "User cancelled Mobile-ID signing")

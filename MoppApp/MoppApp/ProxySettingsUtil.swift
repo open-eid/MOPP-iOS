@@ -21,7 +21,6 @@
  *
  */
 
-import Foundation
 import SkSigningLib
 
 class ProxySettingsUtil {

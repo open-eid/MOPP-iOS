@@ -167,7 +167,6 @@
 		DF0075C223324AC600BAB3DE /* MoppConfigurationDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */; };
 		DF0C2B3F29150EAB007E1745 /* ScaledLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0C2B3E29150EAB007E1745 /* ScaledLabel.swift */; };
 		DF13562E2902018A00F61823 /* MoppApp+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF13562D2902018A00F61823 /* MoppApp+Additions.swift */; };
-		DF135630290201A100F61823 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13562F290201A100F61823 /* ExternalAccessory.framework */; };
 		DF1503A42AC5D163007222B2 /* ASN1Decoder in Frameworks */ = {isa = PBXBuildFile; productRef = DF1503A32AC5D163007222B2 /* ASN1Decoder */; };
 		DF1503A62AC5D1B9007222B2 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = DF1503A52AC5D1B9007222B2 /* FirebaseCrashlytics */; };
 		DF1503A82AC5D1DB007222B2 /* SwiftyRSA in Frameworks */ = {isa = PBXBuildFile; productRef = DF1503A72AC5D1DB007222B2 /* SwiftyRSA */; };
@@ -503,7 +502,6 @@
 		DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoppConfigurationDecoder.swift; sourceTree = "<group>"; };
 		DF0C2B3E29150EAB007E1745 /* ScaledLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledLabel.swift; sourceTree = "<group>"; };
 		DF13562D2902018A00F61823 /* MoppApp+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoppApp+Additions.swift"; sourceTree = "<group>"; };
-		DF13562F290201A100F61823 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		DF1503882AC5CFFA007222B2 /* MoppLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MoppLib.xcodeproj; path = ../MoppLib/MoppLib.xcodeproj; sourceTree = "<group>"; };
 		DF1503942AC5D011007222B2 /* CryptoLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoLib.xcodeproj; path = ../CryptoLib/CryptoLib.xcodeproj; sourceTree = "<group>"; };
 		DF15039A2AC5D01A007222B2 /* SkSigningLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SkSigningLib.xcodeproj; path = ../SkSigningLib/SkSigningLib.xcodeproj; sourceTree = "<group>"; };
@@ -639,7 +637,6 @@
 				DF1503A62AC5D1B9007222B2 /* FirebaseCrashlytics in Frameworks */,
 				4E0F09EA2D76F6BD003F24B9 /* CryptoLib.framework in Frameworks */,
 				DF1503A82AC5D1DB007222B2 /* SwiftyRSA in Frameworks */,
-				DF135630290201A100F61823 /* ExternalAccessory.framework in Frameworks */,
 				4E0F09EE2D76F6C4003F24B9 /* SkSigningLib.framework in Frameworks */,
 				DF1503AB2AC5D1E5007222B2 /* ZIPFoundation in Frameworks */,
 				4EE56D272AB058A6002648EE /* SwiftECC in Frameworks */,
@@ -1248,7 +1245,6 @@
 				DF1503942AC5D011007222B2 /* CryptoLib.xcodeproj */,
 				DF1503882AC5CFFA007222B2 /* MoppLib.xcodeproj */,
 				4E167D862B6D346F001B74A1 /* digidocpp.framework */,
-				DF13562F290201A100F61823 /* ExternalAccessory.framework */,
 				C55BB1CB2091BD2000618AC4 /* WebKit.framework */,
 			);
 			name = Frameworks;

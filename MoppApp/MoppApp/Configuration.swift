@@ -21,27 +21,24 @@
  *
  */
 
-
 import Foundation
-import ASN1Decoder
-import CryptoLib
 
-internal struct MOPPConfiguration: Codable {
+internal struct MOPPConfiguration: Decodable {
     var TSLURL: String
     let SIVAURL: String
     let METAINF: MOPPMetaInf
     let TSAURL: String
     let LDAPPERSONURL: String
     let LDAPCORPURL: String
-    let TSLCERTS: Array<String>
-    let LDAPCERTS: Array<String>
+    let TSLCERTS: [Data]
+    let LDAPCERTS: [String]
     let OCSPISSUERS: [String: String]
     let MIDPROXYURL: String
     let MIDSKURL: String
     let SIDV2PROXYURL: String
     let SIDV2SKURL: String
-    let CERTBUNDLE: Array<String>
-    
+    let CERTBUNDLE: [Data]
+
     private enum MOPPConfigurationType: String, CodingKey {
         case TSLURL = "TSL-URL"
         case SIVAURL = "SIVA-URL"
@@ -67,18 +64,18 @@ internal struct MOPPConfiguration: Codable {
         TSAURL = try container.decode(String.self, forKey: .TSAURL)
         LDAPPERSONURL = try container.decode(String.self, forKey: .LDAPPERSONURL)
         LDAPCORPURL = try container.decode(String.self, forKey: .LDAPCORPURL)
-        TSLCERTS = try container.decode([String].self, forKey: .TSLCERTS)
+        TSLCERTS = try container.decode([Data].self, forKey: .TSLCERTS)
         LDAPCERTS = try container.decodeIfPresent([String].self, forKey: .LDAPCERTS) ?? []
         OCSPISSUERS = try container.decode([String: String].self, forKey: .OCSPISSUERS)
         MIDPROXYURL = try container.decode(String.self, forKey: .MIDPROXYURL)
         MIDSKURL = try container.decode(String.self, forKey: .MIDSKURL)
         SIDV2PROXYURL = try container.decodeIfPresent(String.self, forKey: .SIDV2PROXYURL) ?? ""
         SIDV2SKURL = try container.decodeIfPresent(String.self, forKey: .SIDV2SKURL) ?? ""
-        CERTBUNDLE = try container.decode([String].self, forKey: .CERTBUNDLE)
+        CERTBUNDLE = try container.decode([Data].self, forKey: .CERTBUNDLE)
     }
 }
 
-internal struct MOPPMetaInf: Codable {
+internal struct MOPPMetaInf: Decodable {
     let URL: String
     let DATE: String
     let SERIAL: Int
@@ -117,31 +114,5 @@ internal struct DefaultMoppConfiguration: Codable {
         UPDATEDATE = try container.decode(String.self, forKey: .UPDATEDATE)
         VERSIONSERIAL = try container.decode(Int.self, forKey: .VERSIONSERIAL)
         TSLURL = try container.decode(String.self, forKey: .TSLURL)
-    }
-}
-
-
-public class MoppConfiguration {
-    static var sivaUrl: String?
-    static var tslUrl: String?
-    static var tslCerts: Array<String>?
-    static var ldapCerts: Array<String>?
-    static var tsaUrl: String?
-    static var ocspIssuers: [String: String]?
-    static var certBundle: Array<String>?
-    static var tsaCert: String?
-    
-    static func getMoppLibConfiguration() -> MoppLibConfiguration {
-        return MoppLibConfiguration(configuration: sivaUrl, tslurl: tslUrl, tslcerts: tslCerts, ldapcerts: ldapCerts, tsaurl: tsaUrl, ocspissuers: ocspIssuers, certbundle: certBundle, tsacert: tsaCert)
-    }
-}
-
-public class MoppLDAPConfiguration {
-    static var ldapCerts: Array<String>?
-    static var ldapPersonUrl: String?
-    static var ldapCorpUrl: String?
-    
-    static func getMoppLDAPConfiguration() -> MoppLdapConfiguration {
-        return MoppLdapConfiguration(ldapCerts: ldapCerts ?? [], ldapPersonURL: ldapPersonUrl ?? "", ldapCorpURL: ldapCorpUrl ?? "")
     }
 }
