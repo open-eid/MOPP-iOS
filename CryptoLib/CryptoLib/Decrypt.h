@@ -25,5 +25,5 @@
 @protocol AbstractSmartToken;
 
 @interface Decrypt : NSObject
-- (NSMutableDictionary *)decryptFile:(NSString *)fullPath withPin:(NSString *)pin withToken:(id<AbstractSmartToken>)smartToken error:(NSError**)error;
++ (NSMutableDictionary *)decryptFile:(NSString *)fullPath withToken:(id<AbstractSmartToken>)smartToken error:(NSError**)error;
 @end

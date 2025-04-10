@@ -21,14 +21,26 @@
  *
  */
 
-#import "MoppLibContainer.h"
-#import "MoppLibSignature.h"
 #import "MoppLibConstants.h"
-#import "MoppLibRoleAddressData.h"
+
+@class MoppLibContainer;
+@class MoppLibSignature;
+@class MoppLibRoleAddressData;
+
+typedef void (^ContainerBlock)(MoppLibContainer *container);
 
 @interface MoppLibContainerActions : NSObject
 
 + (MoppLibContainerActions *)sharedInstance;
+
++ (NSString *)libdigidocppVersion;
+
+/**
+ * Prepares library for operations with containers. Setup must be completed before any container action is carried out. It is recommended, that you initiate setup at earliest opportunity.
+ *
+ * @param result       Block to be called on  completion of action.
+ */
++ (void)setupWith:(void (^_Nonnull)(NSError * _Nullable container))result;
 
 /**
  * Opens container at specified path.
@@ -79,16 +91,6 @@
 - (void)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex success:(ContainerBlock)success failure:(FailureBlock)failure;
 
 /**
- * Gets available containers.
- *
- * @param success       Block to be called on successful completion of action. Includes container data as array of MoppLibContainer.
- * @param failure       Block to be called when action fails. Includes error.
- */
-- (void)getContainersWithSuccess:(void(^)(NSArray *containers))success failure:(FailureBlock)failure;
-
-
-
-/**
  * Removes signature from container.
  *
  * @param moppSignature   Signature that will be removed.
@@ -124,8 +126,9 @@
  * @param success       Block to be called on successful completion of action. Includes container data as MoppLibContainer and BOOL to indicate if signature was added.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(ContainerBlock)success failure:(FailureBlock)failure;
+- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(VoidBlock)success failure:(FailureBlock)failure;
 
-
++ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData;
++ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(VoidBlock)success failure:(FailureBlock)failure;
 
 @end

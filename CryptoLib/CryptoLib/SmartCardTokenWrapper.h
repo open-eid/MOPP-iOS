@@ -33,7 +33,7 @@
 class SmartCardTokenWrapper: public Token
 {
 public:
-    SmartCardTokenWrapper(const std::string &password, id<AbstractSmartToken> smartToken);
+    SmartCardTokenWrapper(id<AbstractSmartToken> smartToken);
     ~SmartCardTokenWrapper() noexcept;
     std::vector<uchar> cert() const final;
     std::vector<uchar> decrypt(const std::vector<uchar> &data) const final;
@@ -42,9 +42,8 @@ public:
     NSError* lastError() const;
 
 private:
-    class Private;
+    struct Private;
     std::unique_ptr<Private> token;
-    static std::vector<uchar> encodeData(const NSData *dataBlock);
 };
 
 #endif

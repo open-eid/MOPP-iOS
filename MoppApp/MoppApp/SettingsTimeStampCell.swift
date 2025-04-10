@@ -21,7 +21,6 @@
  *
  */
 
-import Foundation
 import UIKit
 
 protocol SettingsTimeStampCellDelegate: AnyObject {
@@ -70,16 +69,16 @@ class SettingsTimeStampCell: UITableViewCell {
         let defaultSwitch = DefaultsHelper.defaultSettingsSwitch
 
         if defaultSwitch {
-            textField.text = MoppConfiguration.tsaUrl
+            textField.text = MoppLibConfiguration.tsaURL
             delegate.didChangeTimestamp(field.id, with: nil)
 
         } else {
-            textField.text = DefaultsHelper.timestampUrl ?? MoppConfiguration.tsaUrl
-            delegate.didChangeTimestamp(field.id, with: DefaultsHelper.timestampUrl ?? MoppConfiguration.tsaUrl)
+            textField.text = DefaultsHelper.timestampUrl ?? MoppLibConfiguration.tsaURL
+            delegate.didChangeTimestamp(field.id, with: DefaultsHelper.timestampUrl ?? MoppLibConfiguration.tsaURL)
         }
         textField.isEnabled = !defaultSwitch
         textField.textColor = defaultSwitch ? UIColor.moppLabelDarker : UIColor.moppText
-        textField.text = DefaultsHelper.timestampUrl ?? MoppConfiguration.tsaUrl
+        textField.text = DefaultsHelper.timestampUrl ?? MoppLibConfiguration.tsaURL
 
         titleLabel.text = L(.settingsTimestampUrlTitle)
         textField.placeholder = L(.settingsTimestampUrlPlaceholder)

@@ -21,9 +21,6 @@
  *
  */
 
-import UIKit
-import MoppLib
-
 class InitializationViewController : UIViewController {
 
     override func viewDidLoad() {
@@ -32,28 +29,11 @@ class InitializationViewController : UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-#if USE_TEST_DDS
-        let useTestDDS = true
-#else
-        let useTestDDS = false
-#endif
-        
-        MoppLibManager.sharedInstance().setup(success: {
+        MoppLibContainerActions.setup() { _ in
             DispatchQueue.main.async {
                 MoppApp.instance.setupTabController()
             }
-        },
-        andFailure: { _ in
-            DispatchQueue.main.async {
-                MoppApp.instance.setupTabController()
-            }
-        },
-        usingTestDigiDocService: useTestDDS,
-        andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaurl,
-        withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration(),
-        andProxyConfiguration: ManualProxy.getMoppLibProxyConfiguration()
-        )
+        }
     }
 
 }

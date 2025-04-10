@@ -167,7 +167,6 @@
 		DF0075C223324AC600BAB3DE /* MoppConfigurationDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */; };
 		DF0C2B3F29150EAB007E1745 /* ScaledLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0C2B3E29150EAB007E1745 /* ScaledLabel.swift */; };
 		DF13562E2902018A00F61823 /* MoppApp+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF13562D2902018A00F61823 /* MoppApp+Additions.swift */; };
-		DF135630290201A100F61823 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF13562F290201A100F61823 /* ExternalAccessory.framework */; };
 		DF1503A42AC5D163007222B2 /* ASN1Decoder in Frameworks */ = {isa = PBXBuildFile; productRef = DF1503A32AC5D163007222B2 /* ASN1Decoder */; };
 		DF1503A62AC5D1B9007222B2 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = DF1503A52AC5D1B9007222B2 /* FirebaseCrashlytics */; };
 		DF1503A82AC5D1DB007222B2 /* SwiftyRSA in Frameworks */ = {isa = PBXBuildFile; productRef = DF1503A72AC5D1DB007222B2 /* SwiftyRSA */; };
@@ -230,8 +229,6 @@
 		DFBDF1F427D8DD4100A5CF3C /* RoleAndAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1F327D8DD4100A5CF3C /* RoleAndAddressViewController.swift */; };
 		DFBDF1FC27DF6BA800A5CF3C /* MobileIDParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1FB27DF6BA800A5CF3C /* MobileIDParameters.swift */; };
 		DFBDF1FE27DF6D3B00A5CF3C /* SmartIDParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1FD27DF6D3B00A5CF3C /* SmartIDParameters.swift */; };
-		DFBDF20027DF764400A5CF3C /* IDCardParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1FF27DF764400A5CF3C /* IDCardParameters.swift */; };
-		DFBDF20227DF7ED700A5CF3C /* IDCardSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF20127DF7ED700A5CF3C /* IDCardSignature.swift */; };
 		DFBDF20427DF89A100A5CF3C /* RoleAndAddressUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF20327DF89A100A5CF3C /* RoleAndAddressUtil.swift */; };
 		DFBDF20627E0AC7D00A5CF3C /* RoleDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF20527E0AC7D00A5CF3C /* RoleDetailsViewController.swift */; };
 		DFBEF9452434DD0C007A6762 /* UIAlertAction+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBEF9442434DD0C007A6762 /* UIAlertAction+Additions.swift */; };
@@ -255,7 +252,6 @@
 		DFDF02C0241EC72D006CF443 /* SessionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDF02BF241EC72C006CF443 /* SessionStatus.swift */; };
 		DFDF02C4241ED0CA006CF443 /* MobileIDSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFDF02C3241ED0CA006CF443 /* MobileIDSignature.swift */; };
 		DFEE73042A151423003428E4 /* ScaledTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEE73032A151423003428E4 /* ScaledTextView.swift */; };
-		DFEFF8DD2AD6DCE3003D452B /* TokenFlowSigning.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEFF8DC2AD6DCE3003D452B /* TokenFlowSigning.swift */; };
 		DFF3C3AE233231190079458A /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3AC233231180079458A /* Configuration.swift */; };
 		DFF3C3AF233231190079458A /* SettingsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3AD233231190079458A /* SettingsConfiguration.swift */; };
 		DFF3C3B22332314A0079458A /* RuntimeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3B02332314A0079458A /* RuntimeError.swift */; };
@@ -506,7 +502,6 @@
 		DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoppConfigurationDecoder.swift; sourceTree = "<group>"; };
 		DF0C2B3E29150EAB007E1745 /* ScaledLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledLabel.swift; sourceTree = "<group>"; };
 		DF13562D2902018A00F61823 /* MoppApp+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MoppApp+Additions.swift"; sourceTree = "<group>"; };
-		DF13562F290201A100F61823 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		DF1503882AC5CFFA007222B2 /* MoppLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MoppLib.xcodeproj; path = ../MoppLib/MoppLib.xcodeproj; sourceTree = "<group>"; };
 		DF1503942AC5D011007222B2 /* CryptoLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoLib.xcodeproj; path = ../CryptoLib/CryptoLib.xcodeproj; sourceTree = "<group>"; };
 		DF15039A2AC5D01A007222B2 /* SkSigningLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SkSigningLib.xcodeproj; path = ../SkSigningLib/SkSigningLib.xcodeproj; sourceTree = "<group>"; };
@@ -567,8 +562,6 @@
 		DFBDF1F327D8DD4100A5CF3C /* RoleAndAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleAndAddressViewController.swift; sourceTree = "<group>"; };
 		DFBDF1FB27DF6BA800A5CF3C /* MobileIDParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileIDParameters.swift; sourceTree = "<group>"; };
 		DFBDF1FD27DF6D3B00A5CF3C /* SmartIDParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartIDParameters.swift; sourceTree = "<group>"; };
-		DFBDF1FF27DF764400A5CF3C /* IDCardParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDCardParameters.swift; sourceTree = "<group>"; };
-		DFBDF20127DF7ED700A5CF3C /* IDCardSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDCardSignature.swift; sourceTree = "<group>"; };
 		DFBDF20327DF89A100A5CF3C /* RoleAndAddressUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleAndAddressUtil.swift; sourceTree = "<group>"; };
 		DFBDF20527E0AC7D00A5CF3C /* RoleDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleDetailsViewController.swift; sourceTree = "<group>"; };
 		DFBEF9442434DD0C007A6762 /* UIAlertAction+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Additions.swift"; sourceTree = "<group>"; };
@@ -593,7 +586,6 @@
 		DFDF02C3241ED0CA006CF443 /* MobileIDSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileIDSignature.swift; sourceTree = "<group>"; };
 		DFEE73032A151423003428E4 /* ScaledTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledTextView.swift; sourceTree = "<group>"; };
 		DFEEFCCD29AD062C0013E66B /* DiagnosticError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticError.swift; sourceTree = "<group>"; };
-		DFEFF8DC2AD6DCE3003D452B /* TokenFlowSigning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenFlowSigning.swift; sourceTree = "<group>"; };
 		DFF3C3AC233231180079458A /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		DFF3C3AD233231190079458A /* SettingsConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsConfiguration.swift; sourceTree = "<group>"; };
 		DFF3C3B02332314A0079458A /* RuntimeError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeError.swift; sourceTree = "<group>"; };
@@ -645,7 +637,6 @@
 				DF1503A62AC5D1B9007222B2 /* FirebaseCrashlytics in Frameworks */,
 				4E0F09EA2D76F6BD003F24B9 /* CryptoLib.framework in Frameworks */,
 				DF1503A82AC5D1DB007222B2 /* SwiftyRSA in Frameworks */,
-				DF135630290201A100F61823 /* ExternalAccessory.framework in Frameworks */,
 				4E0F09EE2D76F6C4003F24B9 /* SkSigningLib.framework in Frameworks */,
 				DF1503AB2AC5D1E5007222B2 /* ZIPFoundation in Frameworks */,
 				4EE56D272AB058A6002648EE /* SwiftECC in Frameworks */,
@@ -690,8 +681,6 @@
 				DFBDF1F327D8DD4100A5CF3C /* RoleAndAddressViewController.swift */,
 				DFBDF1FB27DF6BA800A5CF3C /* MobileIDParameters.swift */,
 				DFBDF1FD27DF6D3B00A5CF3C /* SmartIDParameters.swift */,
-				DFBDF1FF27DF764400A5CF3C /* IDCardParameters.swift */,
-				DFEFF8DC2AD6DCE3003D452B /* TokenFlowSigning.swift */,
 			);
 			name = "Token flow";
 			sourceTree = "<group>";
@@ -1214,7 +1203,6 @@
 				E4C53F4A1E30D03500F209BE /* DefaultsHelper.swift */,
 				DFDF02C3241ED0CA006CF443 /* MobileIDSignature.swift */,
 				4E59080324B2E295001B23A6 /* SmartIDSignature.swift */,
-				DFBDF20127DF7ED700A5CF3C /* IDCardSignature.swift */,
 				4EE56D222AB0561C002648EE /* NFCSignature.swift */,
 				DFDF02BD241EB5D3006CF443 /* SessionCertificate.swift */,
 				E4C53F4D1E30D13100F209BE /* Session.swift */,
@@ -1257,7 +1245,6 @@
 				DF1503942AC5D011007222B2 /* CryptoLib.xcodeproj */,
 				DF1503882AC5CFFA007222B2 /* MoppLib.xcodeproj */,
 				4E167D862B6D346F001B74A1 /* digidocpp.framework */,
-				DF13562F290201A100F61823 /* ExternalAccessory.framework */,
 				C55BB1CB2091BD2000618AC4 /* WebKit.framework */,
 			);
 			name = Frameworks;
@@ -1607,7 +1594,6 @@
 				DFA56CF22AF003F8007D7F7E /* RadioButton.swift in Sources */,
 				DF56368F2B0E63AA0098F31D /* LicensesCell.swift in Sources */,
 				C593D9F6208F39DF000B3BF6 /* SettingsChoiceButton.swift in Sources */,
-				DFEFF8DD2AD6DCE3003D452B /* TokenFlowSigning.swift in Sources */,
 				C58FCD5F20650BBE00FE3B57 /* MyeIDInfoCell.swift in Sources */,
 				C51E8A0F21A2F2AD0054662A /* SettingsTimeStampCell.swift in Sources */,
 				C5F462AA209C6B05001B7D59 /* NSMutableAttributedString+Additions.swift in Sources */,
@@ -1635,7 +1621,6 @@
 				C50DCD191FD1542A00D48E16 /* RecentContainersNameCell.swift in Sources */,
 				C593D9F0208F1C16000B3BF6 /* SettingsFieldCell.swift in Sources */,
 				C593D9E8208F1986000B3BF6 /* SettingsViewController.swift in Sources */,
-				DFBDF20227DF7ED700A5CF3C /* IDCardSignature.swift in Sources */,
 				C54EA6E520444EC90039AC78 /* TokenFlowSelectionViewController.swift in Sources */,
 				DFF3C3B32332314A0079458A /* SignatureVerifier.swift in Sources */,
 				DF17ABCE29C0F86E009711DF /* BarButton.swift in Sources */,
@@ -1756,7 +1741,6 @@
 				C50DCD131FCC4D3000D48E16 /* UIView+Additions.swift in Sources */,
 				DF53DCEA2A0A9D8A00F5DAF6 /* NotificationMessage.swift in Sources */,
 				C537AE542004C29E009037E5 /* MobileIDEditViewController.swift in Sources */,
-				DFBDF20027DF764400A5CF3C /* IDCardParameters.swift in Sources */,
 				3921CAA520B5A24A00BF3178 /* CryptoContainerViewController.swift in Sources */,
 				C50DCCCB1FC32A3E00D48E16 /* SigningViewController.swift in Sources */,
 				C5FA0BE920A1930400A208E5 /* MoppApp+Jailbreak.swift in Sources */,

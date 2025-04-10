@@ -48,7 +48,7 @@ class CountryTextField: MyTextField {
     }
 }
 
-class SmartIDEditViewController : MoppViewController, TokenFlowSigning {
+class SmartIDEditViewController : MoppViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var idCodeTextField: PersonalCodeField!
     @IBOutlet weak var countryTextField: UITextField!
@@ -187,15 +187,13 @@ class SmartIDEditViewController : MoppViewController, TokenFlowSigning {
             let roleAndAddressView = UIStoryboard.tokenFlow.instantiateViewController(of: RoleAndAddressViewController.self)
             roleAndAddressView.modalPresentationStyle = .overCurrentContext
             roleAndAddressView.modalTransitionStyle = .crossDissolve
-            roleAndAddressView.viewController = self
+            roleAndAddressView.onComplete = { [weak self] in self?.sign() }
             present(roleAndAddressView, animated: true)
         } else {
-            dismiss(animated: false) { [weak self] in
-                self?.sign(nil)
-            }
+            sign()
         }
     }
-    
+
     @objc func toggleRememberMe(_ sender: UISwitch) {
         if sender.isOn {
             rememberSwitch.accessibilityUserInputLabels = ["Disable remember me"]
@@ -213,14 +211,13 @@ class SmartIDEditViewController : MoppViewController, TokenFlowSigning {
             }
         }()
     }
-    
-    func sign(_ pin: String?) {
-        dismiss(animated: false) { [weak self] in
-            guard let sself = self else { return }
-            sself.delegate?.smartIDEditViewControllerDidDismiss(
+
+    func sign() {
+        dismiss(animated: false) {
+            self.delegate?.smartIDEditViewControllerDidDismiss(
                 cancelled: false,
-                country: sself.getCountry(),
-                idCode: sself.idCodeTextField.text)
+                country: self.getCountry(),
+                idCode: self.idCodeTextField.text)
         }
     }
 

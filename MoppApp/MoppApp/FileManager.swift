@@ -196,8 +196,8 @@ class MoppFileManager {
             })
     }
     
-    func saveFile(fileURL: URL, _ folderName: String?, completionHandler: @escaping (Bool, URL?) -> Void) {
-        let tsaCertDirectory: URL? = MoppFileManager.cacheDirectory.appendingPathComponent(folderName ?? "tsa-cert", isDirectory: true)
+    func saveFile(fileURL: URL, _ folderName: String, completionHandler: @escaping (Bool, URL?) -> Void) {
+        let tsaCertDirectory: URL? = MoppFileManager.cacheDirectory.appendingPathComponent(folderName, isDirectory: true)
         
         guard let saveDir: URL = tsaCertDirectory else { printLog("Failed to get \(tsaCertDirectory?.lastPathComponent ?? "requested") directory"); completionHandler(false, nil); return }
         do {
@@ -465,7 +465,7 @@ class MoppFileManager {
         do {
             try fileManager.copyItem(atPath: sourcePath, toPath: finalName)
         } catch {
-            printLog("copyFileWithPath error: \(error.localizedDescription)")
+            printLog("copyFile error: \(error.localizedDescription)")
         }
         return finalName
     }

@@ -21,9 +21,6 @@
  *
  */
 
-import Foundation
-import CryptoLib
-
 protocol AddresseeViewControllerDelegate: AnyObject {
     func addAddresseeToContainer(selectedAddressees: [Addressee])
 }
@@ -93,14 +90,14 @@ class AddresseeViewController : MoppViewController {
         selectedIndexes = []
         showLoading(show: true)
 
-        if (!MoppLibManager.sharedInstance().isConnected()) {
+        if (!MoppLibManager.shared.isConnected) {
             self.infoAlert(message: L(.noConnectionMessage))
             self.showLoading(show: false)
             return
         }
 
         Task {
-            let result = await OpenLdap.search(identityCode: trimmedText, configuration: MoppLDAPConfiguration.getMoppLDAPConfiguration())
+            let result = await OpenLdap.search(identityCode: trimmedText)
             if (result.count > 0) {
                 self.foundAddressees = result.sorted { $0.identifier < $1.identifier }
                 self.showLoading(show: false)

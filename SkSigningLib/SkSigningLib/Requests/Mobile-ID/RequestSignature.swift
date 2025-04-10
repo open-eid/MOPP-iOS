@@ -33,7 +33,7 @@ protocol CertificateRequest {
        - requestParameters: Parameters that are sent to the service. Uses CertificateRequestParameters struct
        - completionHandler: On request response, callbacks Result<CertificateResponse, SigningError>
     */
-    func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<CertificateResponse, SigningError>) -> Void)
+    func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, trustedCertificates: [Data], manualProxyConf: Proxy, completionHandler: @escaping (Result<CertificateResponse, SigningError>) -> Void)
 }
 
 /**
@@ -43,10 +43,10 @@ protocol CertificateRequest {
 public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest {
     
     public static let shared: RequestSignature = RequestSignature()
-    private var trustedCerts: [String]?
+    private var trustedCerts = [Data]()
     private weak var urlTask: URLSessionTask?
     
-    public func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, trustedCertificates: [String]?, manualProxyConf: Proxy, completionHandler: @escaping (Result<CertificateResponse, SigningError>) -> Void) {
+    public func getCertificate(baseUrl: String, requestParameters: CertificateRequestParameters, trustedCertificates: [Data], manualProxyConf: Proxy, completionHandler: @escaping (Result<CertificateResponse, SigningError>) -> Void) {
         guard UUID(uuidString: requestParameters.relyingPartyUUID) != nil else { completionHandler(.failure(.midInvalidAccessRights)); return }
         guard let url = URL(string: "\(baseUrl)/certificate") else {
             Logging.errorLog(forMethod: "RIA.MobileID - Certificate", httpResponse: nil, error: .invalidURL, extraInfo: "Invalid URL \(baseUrl)/certificate")
@@ -75,7 +75,7 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
         var urlSessionConfiguration: URLSessionConfiguration
         let urlSession: URLSession
         
-        if let trustedCerts = trustedCertificates, !trustedCerts.isEmpty {
+        if !trustedCerts.isEmpty {
             urlSessionConfiguration = URLSessionConfiguration.default
             ProxyUtil.configureURLSessionWithProxy(urlSessionConfiguration: &urlSessionConfiguration, manualProxyConf: manualProxyConf)
             ProxyUtil.setProxyAuthorizationHeader(request: &request, urlSessionConfiguration: urlSessionConfiguration, manualProxyConf: manualProxyConf)
@@ -132,7 +132,7 @@ public class RequestSignature: NSObject, URLSessionDelegate, CertificateRequest 
     }
     
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        CertificatePinning().certificatePinning(trustedCertificates: trustedCerts ?? [""], challenge: challenge, completionHandler: completionHandler)
+        CertificatePinning().certificatePinning(trustedCertificates: trustedCerts, challenge: challenge, completionHandler: completionHandler)
     }
     
     private func handleCertificateError(certificateResponse: CertificateResponse) -> SigningError {

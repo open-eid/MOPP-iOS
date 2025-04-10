@@ -21,8 +21,6 @@
  *
  */
 
-import Foundation
-import MoppLib
 import SkSigningLib
 
 public class ManualProxy {
@@ -34,14 +32,5 @@ public class ManualProxy {
             port: DefaultsHelper.proxyPort,
             username: DefaultsHelper.proxyUsername ?? "",
             password: String(data: KeychainUtil.retrieve(key: proxyPasswordKey) ?? Data(), encoding: .utf8) ?? "")
-    }
-    
-    public static func getMoppLibProxyConfiguration() -> MoppLibProxyConfiguration {
-        let manualProxy = ManualProxy.getManualProxyConfiguration()
-        if manualProxy.setting == .systemProxy {
-            let systemProxySettings = ProxyUtil.getSystemProxySettings()
-            return MoppLibProxyConfiguration(configuration: systemProxySettings.setting.rawValue, host: systemProxySettings.host, port: NSNumber(value: systemProxySettings.port), username: systemProxySettings.username, password: systemProxySettings.password)
-        }
-        return MoppLibProxyConfiguration(configuration: manualProxy.setting.rawValue, host: manualProxy.host, port: NSNumber(value: manualProxy.port), username: manualProxy.username, password: manualProxy.password)
     }
 }

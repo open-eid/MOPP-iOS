@@ -22,15 +22,10 @@
  */
 
 #import "MoppLibDigidocManager.h"
-#import "MoppLibConfiguration.h"
 #import "MoppLibContainer.h"
 #import "MoppLibDataFile.h"
-#import "MoppLibDigidocValidateOnline.h"
-#import "MoppLibManager.h"
-#import "MoppLibProxyConfiguration.h"
 #import "MoppLibRoleAddressData.h"
 #import "MoppLibSignature.h"
-#import "MLFileManager.h"
 #import <CryptoLib/CryptoLib-Swift.h>
 #import <MoppLib/MoppLib-Swift.h>
 
@@ -38,203 +33,10 @@
 #include <digidocpp/DataFile.h>
 #include <digidocpp/Signature.h>
 #include <digidocpp/Exception.h>
-#include <digidocpp/XmlConf.h>
 #include <digidocpp/crypto/Signer.h>
 #include <digidocpp/crypto/X509Cert.h>
 
-#import <ExternalAccessory/ExternalAccessory.h>
-#import <UIKit/UIDevice.h>
-
-class DigiDocConf: public digidoc::ConfCurrent {
-
-private:
-  std::string m_tsUrl;
-  MoppLibConfiguration *moppLibConfiguration;
-  MoppLibProxyConfiguration *proxyConfiguration;
-
-public:
-
-  DigiDocConf(const std::string& tsUrl, MoppLibConfiguration* moppConfiguration, MoppLibProxyConfiguration* proxyConfiguration) : m_tsUrl( tsUrl ), moppLibConfiguration( moppConfiguration ), proxyConfiguration( proxyConfiguration ) {}
-
-  std::string TSLCache() const override {
-    NSString *tslCachePath = [[MLFileManager sharedInstance] tslCachePath];
-    //    printLog(@"tslCachePath: %@", tslCachePath);
-    return tslCachePath.UTF8String;
-  }
-
-  std::string TSUrl() const override {
-      NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-      NSString *tsaUrl = [defaults stringForKey:@"kTimestampUrlKey"];
-      return [tsaUrl length] != 0 ? tsaUrl.UTF8String : moppLibConfiguration.TSAURL.UTF8String;
-  }
-
-  std::string verifyServiceUri() const override {
-      NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-      NSString *sivaUrl = [defaults stringForKey:@"kSivaUrl"];
-      NSString *usingSivaUrl = [sivaUrl length] != 0 ? sivaUrl : moppLibConfiguration.SIVAURL;
-      printLog(@"Using SiVa URL: %@", usingSivaUrl);
-      NSLog(@"Using SiVa URL: %@", usingSivaUrl);
-      return [sivaUrl length] != 0 ? sivaUrl.UTF8String : moppLibConfiguration.SIVAURL.UTF8String;
-  }
-
-  std::vector<digidoc::X509Cert> TSLCerts() const override {
-      return stringsToX509Certs(moppLibConfiguration.TSLCERTS);
-  }
-
-  std::string TSLUrl() const override {
-      return moppLibConfiguration.TSLURL.UTF8String;
-  }
-    
-  std::vector<digidoc::X509Cert> TSCerts() const override {
-      NSMutableArray<NSString *> *certBundle = [NSMutableArray arrayWithArray:moppLibConfiguration.CERTBUNDLE];
-      if (moppLibConfiguration.TSACERT != NULL) {
-          [certBundle addObject:moppLibConfiguration.TSACERT];
-      }
-      return stringsToX509Certs(certBundle);
-  }
-
-    virtual std::vector<digidoc::X509Cert> verifyServiceCerts() const override {
-        NSMutableArray<NSString*> *certs = [NSMutableArray arrayWithArray:moppLibConfiguration.CERTBUNDLE];
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSString *sivaFileName = [defaults stringForKey:@"kSivaFileCertName"];
-        if (!(sivaFileName == nil || [sivaFileName isEqualToString:@""])) {
-            NSString *sivaCert = getSivaCert(sivaFileName);
-            
-            if (!(sivaCert == nil || [sivaCert isEqualToString:@""])) {
-                // Remove certificate header, footer, whitespaces and newlines
-                NSCharacterSet *characterSetToRemove = [NSCharacterSet characterSetWithCharactersInString:@" \n\r\t"];
-                
-                NSString * formattedSivaCert = [sivaCert stringByReplacingOccurrencesOfString:@"-----BEGIN CERTIFICATE-----" withString:@""];
-                formattedSivaCert = [formattedSivaCert stringByReplacingOccurrencesOfString:@"-----END CERTIFICATE-----" withString:@""];
-                formattedSivaCert = [[formattedSivaCert componentsSeparatedByCharactersInSet:characterSetToRemove] componentsJoinedByString:@""];
-                
-                [certs addObject:formattedSivaCert];
-            }
-        }
-        
-        return stringsToX509Certs(certs);
-    }
-
-  std::string ocsp(const std::string &issuer) const override {
-    NSString *ocspIssuer = [NSString stringWithCString:issuer.c_str() encoding:[NSString defaultCStringEncoding]];
-    if ([moppLibConfiguration.OCSPISSUERS objectForKey:ocspIssuer]) {
-        printLog(@"Using issuer: '%@' with OCSP url from central configuration: %@", ocspIssuer, moppLibConfiguration.OCSPISSUERS[ocspIssuer]);
-        return std::string([moppLibConfiguration.OCSPISSUERS[ocspIssuer] UTF8String]);
-    }
-    printLog(@"Did not find url for issuer: %@.", ocspIssuer);
-    return digidoc::ConfCurrent::ocsp(issuer);
-  }
-    
-    virtual std::string proxyHost() const override {
-        NSString *host = [[NSUserDefaults standardUserDefaults] stringForKey:@"kProxyHost"];
-        if (host == nil) {
-            return std::string("");
-        }
-        return std::string([host UTF8String]);
-    }
-    
-    virtual std::string proxyPort() const override {
-        NSInteger port = [[NSUserDefaults standardUserDefaults] integerForKey:@"kProxyPort"];
-        return std::to_string(port);
-    }
-    
-    virtual std::string proxyUser() const override {
-        return std::string([proxyConfiguration.USERNAME UTF8String]);
-    }
-    
-    virtual std::string proxyPass() const override {
-        return std::string([proxyConfiguration.PASSWORD UTF8String]);
-    }
-
-    std::vector<digidoc::X509Cert> stringsToX509Certs(NSArray<NSString*> *certBundle) const {
-        __block std::vector<digidoc::X509Cert> x509Certs;
-
-        [certBundle enumerateObjectsUsingBlock:^(NSString* object, NSUInteger idx, BOOL *stop) {
-            try {
-                NSData *data = [[NSData alloc] initWithBase64EncodedString:object options:NSDataBase64DecodingIgnoreUnknownCharacters];
-                auto bytes = reinterpret_cast<const unsigned char*>(data.bytes);
-                x509Certs.emplace_back(bytes, data.length);
-            } catch (const digidoc::Exception &e) {
-                printLog(@"Unable to generate a X509 certificate object. Code: %u, message: %s", e.code(), e.msg().c_str());
-            } catch(...) {
-                printLog(@"Generating a X509 certificate object raised an exception!\n");
-            }
-        }];
-
-        return x509Certs;
-    }
-
-    bool isDebugMode() const {
-        return [[NSUserDefaults standardUserDefaults] boolForKey:@"isDebugMode"];
-    }
-
-    bool isLoggingEnabled() const {
-        return [[NSUserDefaults standardUserDefaults] boolForKey:@"kIsFileLoggingEnabled"];
-    }
-
-    // Comment in / out to see / hide libdigidocpp logs
-    // Currently enabled on DEBUG mode
-
-    int logLevel() const override {
-        if (isDebugMode() || isLoggingEnabled()) {
-            return 4;
-        } else {
-            return 0;
-        }
-    }
-
-    std::string logFile() const override {
-        if (isDebugMode() || isLoggingEnabled()) {
-            MLFileManager *mlFM = [[MLFileManager alloc] init];
-            NSURL *logsUrl = [[NSURL alloc] initFileURLWithPath:[mlFM logsDirectoryPath]];
-            if (![mlFM folderExists:logsUrl.path]) {
-                // Create folder 'logs' in Library/Cache directory
-                BOOL isFolderCreated = [mlFM createFolder:@"logs"];
-                if (isFolderCreated) {
-                    return logFileLocation(logsUrl);
-                } else {
-                    // Save log files to 'Library/Cache' directory if creating 'logs' folder was unsuccessful
-                    NSURL *url = [[NSURL alloc] initWithString:[mlFM cacheDirectoryPath]];
-                    return logFileLocation(url);
-                }
-            } else {
-                return logFileLocation(logsUrl);
-            }
-        }
-        return std::string();
-    }
-
-    std::string logFileLocation(NSURL *logsFolderUrl) const {
-        return std::string([[[logsFolderUrl URLByAppendingPathComponent: @"libdigidocpp.log"] path] UTF8String]);
-    }
-    
-    NSString* getSivaCert(NSString *fileName) const {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-        NSString *cachesDirectory = [paths objectAtIndex:0];
-        NSString *subfolderName = @"siva-cert";
-        
-        NSString *subfolderPath = [cachesDirectory stringByAppendingPathComponent:subfolderName];
-        
-        NSString *filePath = [subfolderPath stringByAppendingPathComponent:fileName];
-        
-        if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-            NSError *error = nil;
-            NSString *fileContents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
-            
-            if (fileContents) {
-                return fileContents;
-            } else {
-                NSLog(@"Error reading file '%@': %@", fileName, [error localizedDescription]);
-                return nil;
-            }
-        } else {
-            NSLog(@"File '%@' not found at path: %@", fileName, filePath);
-            return nil;
-        }
-        return nil;
-    }
-};
-
+#include <set>
 
 class WebSigner: public digidoc::Signer
 {
@@ -252,16 +54,9 @@ private:
   digidoc::X509Cert _cert;
 };
 
-class MoppLibDigidocContainerOpenCB: public digidoc::ContainerOpenCB {
-private:
-    bool validate;
-
-public:
-    MoppLibDigidocContainerOpenCB(bool validate)
-        : validate(validate) {}
-
-    virtual bool validateOnline() const {
-        return validate;
+struct MoppLibDigidocContainerOpenCB: public digidoc::ContainerOpenCB {
+    bool validateOnline() const final {
+        return MoppLibManager.shared.validateOnline;
     }
 };
 
@@ -283,40 +78,6 @@ static std::unique_ptr<digidoc::Signer> signer{};
     sharedInstance = [[self alloc] init];
   });
   return sharedInstance;
-}
-
-- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure usingTestDigiDocService:(BOOL)useTestDDS andTSUrl:(NSString*)tsUrl withMoppConfiguration:(MoppLibConfiguration*)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration {
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        dispatch_semaphore_t sem = dispatch_semaphore_create(0);
-
-        // Initialize libdigidocpp.
-        try {
-            std::string timestampUrl = tsUrl == nil ?
-            [moppConfiguration.TSAURL cStringUsingEncoding:NSUTF8StringEncoding] :
-            [tsUrl cStringUsingEncoding:NSUTF8StringEncoding];
-            digidoc::Conf::init(new DigiDocConf(timestampUrl, moppConfiguration, proxyConfiguration));
-            NSString *appInfo = [self userAgent];
-            std::string appInfoObjcString = std::string([appInfo UTF8String]);
-            digidoc::initialize(appInfoObjcString, appInfoObjcString);
-
-            dispatch_semaphore_signal(sem);
-
-            dispatch_async(dispatch_get_main_queue(), ^{
-                success();
-            });
-        } catch(const digidoc::Exception &e) {
-            dispatch_semaphore_signal(sem);
-
-            parseException(e);
-
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSError *error = [NSError errorWithDomain:@"MoppLib" code:e.code() userInfo:@{@"message":[NSString stringWithUTF8String:e.msg().c_str()]}];
-                failure(error);
-            });
-        }
-        dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-    });
 }
 
 + (digidoc::X509Cert)getCertFromData:(NSData *)data {
@@ -367,10 +128,11 @@ static std::unique_ptr<digidoc::Signer> signer{};
 
 + (void)removeSignature:(digidoc::Container *)container signatureId:(NSString *)signatureId error:(NSError **)error {
 
+    const char *signatureIdUTF8 = signatureId.UTF8String;
     for (int i = 0; i < container->signatures().size(); i++) {
         digidoc::Signature *signature = container->signatures().at(i);
         try {
-            if ([NSString stringWithUTF8String:signature->id().c_str()] == signatureId) {
+            if (signature->id() == signatureIdUTF8) {
                 container->removeSignature(i);
                 container->save();
                 break;
@@ -398,9 +160,7 @@ static std::unique_ptr<digidoc::Signer> signer{};
     signer = std::make_unique<WebSigner>(x509Cert);
 
     try {
-        MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
-        BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
-        MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
+        MoppLibDigidocContainerOpenCB cb;
         docContainer = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
     } catch(const digidoc::Exception &e) {
         parseException(e);
@@ -411,8 +171,8 @@ static std::unique_ptr<digidoc::Signer> signer{};
     NSLog(@"Role data - roles: %@, city: %@, state: %@, zip: %@, country: %@", roleData.ROLES, roleData.CITY, roleData.STATE, roleData.ZIP, roleData.COUNTRY);
     signer->setProfile("time-stamp");
     signer->setSignatureProductionPlace(std::string([roleData.CITY UTF8String] ?: ""), std::string([roleData.STATE UTF8String] ?: ""), std::string([roleData.ZIP UTF8String] ?: ""), std::string([roleData.COUNTRY UTF8String] ?: ""));
-    signer->setUserAgent(std::string([MoppLibManager.sharedInstance.userAgent UTF8String]));
-    
+    signer->setUserAgent(MoppLibManager.userAgent.UTF8String);
+
     std::vector<std::string> roles;
     for (NSString *role in roleData.ROLES) {
         if (role != (id)[NSNull null] && [role length] != 0) {
@@ -425,8 +185,7 @@ static std::unique_ptr<digidoc::Signer> signer{};
     
     NSLog(@"\nSetting signature...\n");
     signature = docContainer->prepareSignature(signer.get());
-    NSString *signatureId = [NSString stringWithCString:signature->id().c_str() encoding:[NSString defaultCStringEncoding]];
-    printLog(@"\nSignature ID set to %@...\n", signatureId);
+    printLog(@"\nSignature ID set to %s...\n", signature->id().c_str());
 
     std::vector<unsigned char> dataToSign = signature->dataToSign();
     return [NSData dataWithBytes:dataToSign.data() length:dataToSign.size()];
@@ -444,9 +203,7 @@ static std::unique_ptr<digidoc::Signer> signer{};
 
     std::unique_ptr<digidoc::Container> doc;
     try {
-      MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
-      BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
-      MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
+      MoppLibDigidocContainerOpenCB cb;
       doc = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
     } catch(const digidoc::Exception &e) {
       parseException(e);
@@ -632,9 +389,7 @@ static std::unique_ptr<digidoc::Signer> signer{};
 
 - (MoppLibContainer *)addDataFilesToContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths error:(NSError **)error {
   try {
-    MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
-    BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
-    MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
+    MoppLibDigidocContainerOpenCB cb;
     auto container = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
 
     for (NSString *dataFilePath in dataFilePaths) {
@@ -673,9 +428,7 @@ static std::unique_ptr<digidoc::Signer> signer{};
 
 - (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex error:(NSError **)error {
   try {
-    MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
-    BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
-    MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
+    MoppLibDigidocContainerOpenCB cb;
     auto container = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
     container->removeDataFile((int)dataFileIndex);
     container->save(containerPath.UTF8String);
@@ -689,18 +442,6 @@ static std::unique_ptr<digidoc::Signer> signer{};
   return moppLibContainer;
 }
 
-- (NSArray *)getContainers {
-
-  NSMutableArray *containers = [NSMutableArray array];
-  NSArray *containerPaths = [[MLFileManager sharedInstance] getContainers];
-  for (NSString *containerPath in containerPaths) {
-    NSError *error;
-    MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
-    [containers addObject:moppLibContainer];
-  }
-  return containers;
-}
-
 void parseException(const digidoc::Exception &e) {
   printLog(@"%u, %s", e.code(), e.msg().c_str());
   for (const digidoc::Exception &ex : e.causes()) {
@@ -708,13 +449,11 @@ void parseException(const digidoc::Exception &e) {
   }
 }
 
-- (void)addSignature:(NSString *)containerPath pin2:(NSString *)pin2 cert:(NSData *)cert roleData:(MoppLibRoleAddressData *)roleData success:(ContainerBlock)success andFailure:(FailureBlock)failure {
+- (void)addSignature:(NSString *)containerPath pin2:(NSString *)pin2 cert:(NSData *)cert roleData:(MoppLibRoleAddressData *)roleData success:(VoidBlock)success andFailure:(FailureBlock)failure {
 
   try {
     // Load the container
-    MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
-    BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
-    MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
+    MoppLibDigidocContainerOpenCB cb;
     // Create unique_ptr that manages a container in this scope
     auto container = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
     WebSigner signer([MoppLibDigidocManager getCertFromData:cert]);
@@ -723,7 +462,7 @@ void parseException(const digidoc::Exception &e) {
     NSLog(@"Role data - roles: %@, city: %@, state: %@, zip: %@, country: %@", roleData.ROLES, roleData.CITY, roleData.STATE, roleData.ZIP, roleData.COUNTRY);
     signer.setProfile("time-stamp");
     signer.setSignatureProductionPlace(std::string([roleData.CITY UTF8String] ?: ""), std::string([roleData.STATE UTF8String] ?: ""), std::string([roleData.ZIP UTF8String] ?: ""), std::string([roleData.COUNTRY UTF8String] ?: ""));
-    signer.setUserAgent(std::string([[MoppLibManager.sharedInstance userAgent:true] UTF8String]));
+    signer.setUserAgent([MoppLibManager userAgent:true].UTF8String);
 
     std::vector<std::string> roles;
     for (NSString *role in roleData.ROLES) {
@@ -743,7 +482,7 @@ void parseException(const digidoc::Exception &e) {
 
     NSError *error = nil;
     std::vector<unsigned char> dataToSign = signature->dataToSign();
-    NSData *calculatedSignature = [MoppLibCardActions calculateSignatureForData:[NSData dataWithBytes:dataToSign.data() length:dataToSign.size()] pin2:pin2 error:&error];
+    NSData *calculatedSignature = [MoppLibCardActions calculateSignatureForData:[NSData dataWithBytesNoCopy:dataToSign.data() length:dataToSign.size() freeWhenDone:NO] pin2:pin2 error:&error];
     if (error != nil) {
       return failure(error);
     }
@@ -755,8 +494,7 @@ void parseException(const digidoc::Exception &e) {
     signature->extendSignatureProfile(&signer);
     signature->validate();
     container->save();
-    MoppLibContainer *moppLibContainer = [self getContainerWithPath:containerPath error:&error];
-    success(moppLibContainer);
+    success();
   } catch(const digidoc::Exception &e) {
     parseException(e);
     if (e.code() == 18) {
@@ -773,9 +511,7 @@ void parseException(const digidoc::Exception &e) {
 }
 
 - (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath error:(NSError **)error {
-  MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
-  BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
-  MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
+  MoppLibDigidocContainerOpenCB cb;
   auto doc = digidoc::Container::openPtr(containerPath.UTF8String, &cb);
   for (int i = 0; i < doc->signatures().size(); i++) {
     digidoc::Signature *signature = doc->signatures().at(i);
@@ -819,12 +555,11 @@ void parseException(const digidoc::Exception &e) {
 
 - (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure {
     try {
-        MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
-        BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
-        MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
+        MoppLibDigidocContainerOpenCB cb;
         if (auto doc = digidoc::Container::openPtr(containerPath.UTF8String, &cb)) {
+            const char *fileNameUTF8 = fileName.UTF8String;
             for (digidoc::DataFile *dataFile: doc->dataFiles()) {
-                if ([self isFileInContainer:fileName dataFile:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]) {
+                if (dataFile->fileName() == fileNameUTF8) {
                     dataFile->saveAs(path.UTF8String);
                     success();
                     return;
@@ -841,18 +576,13 @@ void parseException(const digidoc::Exception &e) {
     failure([MoppLibError generalError]);
 }
 
--(BOOL)isFileInContainer:(NSString *)fileName dataFile:(NSString *)dataFileName {
-    return [fileName isEqualToString:dataFileName];
-}
-
 - (BOOL)isContainerFileSaveable:(NSString *)containerPath saveDataFile:(NSString *)fileName {
     try {
-        MoppLibDigidocValidateOnline *validateOnlineInstance = [MoppLibDigidocValidateOnline sharedInstance];
-        BOOL isValidatedOnline = validateOnlineInstance.validateOnline;
-        MoppLibDigidocContainerOpenCB cb(isValidatedOnline);
+        MoppLibDigidocContainerOpenCB cb;
         if (auto doc = digidoc::Container::openPtr(containerPath.UTF8String, &cb)) {
+            const char *fileNameUTF8 = fileName.UTF8String;
             for (digidoc::DataFile *dataFile: doc->dataFiles()) {
-                if([self isFileInContainer:fileName dataFile:[NSString stringWithUTF8String:dataFile->fileName().c_str()]]) {
+                if(dataFile->fileName() == fileNameUTF8) {
                     return TRUE;
                 }
             }
@@ -861,61 +591,6 @@ void parseException(const digidoc::Exception &e) {
         parseException(e);
     }
     return FALSE;
-}
-
-- (NSString *)digidocVersion {
-    std::string version = digidoc::version();
-    return [[NSString alloc] initWithBytes:version.c_str() length:version.length() encoding:NSUTF8StringEncoding];
-}
-
-- (NSString *)moppAppVersion {
-    NSString * version = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
-    NSString * build = [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
-    return [NSString stringWithFormat:@"%@.%@", version, build];
-}
-
-- (NSString *)iOSVersion {
-    return [[UIDevice currentDevice] systemVersion];
-}
-
-- (NSString *)appLanguage {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *language = [defaults stringForKey:@"kMoppLanguage"];
-    return [language length] != 0 ? [NSString stringWithFormat:@"%@", language] : [NSString stringWithFormat:@"%s", "N/A"];
-}
-
-- (NSArray *)connectedDevices {
-    EAAccessoryManager* accessoryManager = [EAAccessoryManager sharedAccessoryManager];
-    NSMutableArray *devices = [NSMutableArray new];
-    if (accessoryManager) {
-        NSArray<EAAccessory *> *connectedAccessories = [accessoryManager connectedAccessories];
-        for (int i = 0; i < connectedAccessories.count; i++) {
-            EAAccessory *device = connectedAccessories[i];
-            NSString *manufacturer = device.manufacturer;
-            NSString *name = device.name;
-            NSString *modelNumber = device.modelNumber;
-            NSString *deviceName = [NSString stringWithFormat:@"%@ %@ (%@)", manufacturer, name, modelNumber];
-            [devices addObject:deviceName];
-        }
-        return [devices copy];
-    }
-
-    return [devices copy];
-}
-
-- (NSString *)userAgent {
-    return [self userAgent:false];
-}
-
-- (NSString *)userAgent:(BOOL)shouldIncludeDevices {
-    NSString *appInfo = [NSString stringWithFormat:@"%s/%@ (iOS %@) Lang: %@", "riadigidoc", [self moppAppVersion], [self iOSVersion], [self appLanguage]];
-    if (shouldIncludeDevices) {
-        NSArray *connectedDevices = [self connectedDevices];
-        if (connectedDevices.count > 0) {
-            appInfo = [NSString stringWithFormat:@"%@ Devices: %@", appInfo, [connectedDevices componentsJoinedByString:@", "]];
-        }
-    }
-    return appInfo;
 }
 
 @end

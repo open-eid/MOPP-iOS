@@ -23,9 +23,33 @@
 
 import CryptoTokenKit
 
+extension CodeType {
+    internal var aid: Bytes {
+        switch self {
+        case .pin1: return Idemia.kAID
+        case .pin2: return Idemia.kAID_QSCD
+        case .puk: return Idemia.kAID
+        }
+    }
+    internal var pinRef: UInt8 {
+        switch self {
+        case .pin1: return 0x01
+        case .pin2: return 0x85
+        case .puk: return 0x02
+        }
+    }
+    internal var recordNr: UInt8 {
+        switch self {
+        case .pin1: return 1
+        case .pin2: return 5
+        case .puk: return 2
+        }
+    }
+}
+
 class Idemia: CardCommands {
-    static private let kAID = Bytes(hex: "00 A4 04 0C 10 A0 00 00 00 77 01 08 00 07 00 00 FE 00 00 01 00")!
-    static private let kAID_QSCD = Bytes(hex: "00 A4 04 0C 10 51 53 43 44 20 41 70 70 6C 69 63 61 74 69 6F 6E")!
+    static fileprivate let kAID = Bytes(hex: "00 A4 04 0C 10 A0 00 00 00 77 01 08 00 07 00 00 FE 00 00 01 00")!
+    static fileprivate let kAID_QSCD = Bytes(hex: "00 A4 04 0C 10 51 53 43 44 20 41 70 70 6C 69 63 61 74 69 6F 6E")!
     static private let kAID_Oberthur = Bytes(hex: "00 A4 04 0C 0D E8 28 BD 08 0F F2 50 4F 54 20 41 57 50")!
     static private let kSelectPersonalFile = Bytes(hex: "00 A4 01 0C 02 50 00")!
     static private let kSelectAuthCert = Bytes(hex: "00 A4 09 04 04 AD F1 34 01 00")!
@@ -65,8 +89,8 @@ class Idemia: CardCommands {
         _ = try reader.transmitCommandChecked(Idemia.kAID)
         _ = try reader.transmitCommandChecked(Idemia.kSelectPersonalFile)
         let personalData = MoppLibPersonalData()
-        for recordNr in 1..<10 {
-            let data = try readFile(file: [0x00, 0xA4, 0x02, 0x04, 0x02, 0x50, UInt8(recordNr)])
+        for recordNr: UInt8 in 1...8 {
+            let data = try readFile(file: [0x00, 0xA4, 0x02, 0x04, 0x02, 0x50, recordNr])
             let record = String(data: data, encoding: .utf8) ?? "-"
             switch recordNr {
             case 1: personalData.surname = record
@@ -103,14 +127,6 @@ class Idemia: CardCommands {
 
     // MARK: - PIN & PUK Management
 
-    private func aidAndRef(_ type: CodeType) -> (Bytes,UInt8) {
-        switch type {
-        case .pin1: return (Idemia.kAID, 1)
-        case .pin2: return (Idemia.kAID_QSCD, 0x85)
-        case .puk: return (Idemia.kAID, 2)
-        }
-    }
-
     private func errorForPinActionResponse(cmd: Bytes) throws {
         switch try reader.transmitCommand(cmd) {
         case (_, 0x9000): return
@@ -132,32 +148,23 @@ class Idemia: CardCommands {
     }
 
     func readCodeCounterRecord(_ type: CodeType) throws -> NSNumber {
-        let (aid, recordNr): (Bytes, UInt8)
-        switch type {
-        case .pin1: (aid, recordNr) = (Idemia.kAID, 1)
-        case .pin2: (aid, recordNr) = (Idemia.kAID_QSCD, 5)
-        case .puk: (aid, recordNr) = (Idemia.kAID, 2)
-        }
-        _ = try reader.transmitCommandChecked(aid)
+        _ = try reader.transmitCommandChecked(type.aid)
         let data = try reader.transmitCommandChecked(
-            [0x00, 0xCB, 0x3F, 0xFF, 0x0A, 0x4D, 0x08, 0x70, 0x06, 0xBF, 0x81, recordNr, 0x02, 0xA0, 0x80, 0x00])
+            [0x00, 0xCB, 0x3F, 0xFF, 0x0A, 0x4D, 0x08, 0x70, 0x06, 0xBF, 0x81, type.recordNr, 0x02, 0xA0, 0x80, 0x00])
         return NSNumber(value: data[13])
     }
 
     func changeCode(_ type: CodeType, to code: String, verifyCode: String) throws {
-        let (aid, pinRef) = aidAndRef(type)
-        _ = try reader.transmitCommandChecked(aid)
+        _ = try reader.transmitCommandChecked(type.aid)
         let verifyPin = pinTemplate(verifyCode)
         let newPin = pinTemplate(code)
-        let changeCmd = [0x00, 0x24, 0x00, pinRef, UInt8(verifyPin.count + newPin.count)]
+        let changeCmd = [0x00, 0x24, 0x00, type.pinRef, UInt8(verifyPin.count + newPin.count)]
         try errorForPinActionResponse(cmd: changeCmd + verifyPin + newPin)
     }
 
     func verifyCode(_ type: CodeType, code: String) throws {
-        let (aid, pinRef) = aidAndRef(type)
-        _ = try reader.transmitCommandChecked(aid)
         let pin = pinTemplate(code)
-        let verifyCmd = [0x00, 0x20, 0x00, pinRef, UInt8(pin.count)]
+        let verifyCmd = [0x00, 0x20, 0x00, type.pinRef, UInt8(pin.count)]
         try errorForPinActionResponse(cmd: verifyCmd + pin)
     }
 
@@ -165,19 +172,21 @@ class Idemia: CardCommands {
         guard type != .puk else {
             throw MoppLibError.generalError()
         }
+        _ = try reader.transmitCommandChecked(type.aid)
         try verifyCode(.puk, code: puk)
-        let (aid, pinRef) = aidAndRef(type)
-        _ = try reader.transmitCommandChecked(aid)
+        if type == .pin2 {
+            _ = try reader.transmitCommandChecked(type.aid)
+        }
         let newPin = pinTemplate(newCode)
-        let unblockCmd = [0x00, 0x2C, 0x02, pinRef,  UInt8(newPin.count)]
+        let unblockCmd = [0x00, 0x2C, 0x02, type.pinRef, UInt8(newPin.count)]
         try errorForPinActionResponse(cmd: unblockCmd + newPin)
     }
 
     // MARK: - Authentication & Signing
 
     func authenticate(for hash: Data, withPin1 pin1: String) throws -> Data {
-        try verifyCode(.pin1, code: pin1)
         _ = try self.reader.transmitCommandChecked(Idemia.kAID_Oberthur)
+        try verifyCode(.pin1, code: pin1)
         _ = try self.reader.transmitCommandChecked(Idemia.kSetSecEnvAuth)
         var paddedHash = Data(repeating: 0x00, count: max(48, hash.count) - hash.count)
         paddedHash.append(hash)
@@ -186,6 +195,7 @@ class Idemia: CardCommands {
     }
 
     func calculateSignature(for hash: Data, withPin2 pin2: String) throws -> Data {
+        _ = try reader.transmitCommandChecked(Idemia.kAID_QSCD)
         try verifyCode(.pin2, code: pin2)
         _ = try self.reader.transmitCommandChecked(Idemia.kSetSecEnvSign)
         var paddedHash = Data(repeating: 0x00, count: max(48, hash.count) - hash.count)
@@ -195,8 +205,8 @@ class Idemia: CardCommands {
     }
 
     func decryptData(_ hash: Data, withPin1 pin1: String) throws -> Data {
-        try verifyCode(.pin1, code: pin1)
         _ = try self.reader.transmitCommandChecked(Idemia.kAID_Oberthur)
+        try verifyCode(.pin1, code: pin1)
         _ = try self.reader.transmitCommandChecked(Idemia.kSetSecEnvDerive)
         let deriveCmd = [0x00, 0x2A, 0x80, 0x86, UInt8(hash.count + 1), 0x00] + hash + [0x00]
         return Data(try self.reader.transmitCommandChecked(deriveCmd))
