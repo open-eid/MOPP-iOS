@@ -21,13 +21,12 @@
  *
  */
 
-import Foundation
 import SkSigningLib
 
 class Session {
     static let shared: Session = Session()
     
-    func getSession(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, hash: Data, hashType: String, language: String, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionResponse, SigningError>) -> Void) -> Void {
+    func getSession(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, hash: Data, hashType: String, language: String, trustedCertificates: [Data], completionHandler: @escaping (Result<SessionResponse, SigningError>) -> Void) -> Void {
         do {
             _ = try RequestSession.shared.getSession(baseUrl: baseUrl, requestParameters: SessionRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, phoneNumber: "+\(phoneNumber)", nationalIdentityNumber: nationalIdentityNumber, hash: hash, hashType: hashType, language: language, displayText: L(.simToolkitSignDocumentTitle).asUnicode, displayTextFormat: DefaultsHelper.moppLanguageID == "ru" ? kAlternativeDisplayTextFormat : kDisplayTextFormat), trustedCertificates: trustedCertificates, manualProxyConf: ManualProxy.getManualProxyConfiguration()) { (sessionResult) in
                 

@@ -26,12 +26,198 @@
 #import <CryptoLib/CryptoLib-Swift.h>
 #import <MoppLib/MoppLib-Swift.h>
 
+#include <digidocpp/Conf.h>
 #include <digidocpp/Container.h>
+#include <digidocpp/Exception.h>
+#include <digidocpp/crypto/X509Cert.h>
+
+struct DigiDocConf final: public digidoc::ConfCurrent {
+    std::string TSLCache() const final {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+        NSString *tslCachePath = [paths objectAtIndex:0];
+        return tslCachePath.UTF8String;
+    }
+
+    std::string TSLUrl() const final {
+        if (MoppLibConfiguration.tslURL) {
+            return MoppLibConfiguration.tslURL.UTF8String;
+        }
+        return digidoc::ConfCurrent::TSLUrl();
+    }
+
+    std::vector<digidoc::X509Cert> TSLCerts() const final {
+        if (MoppLibConfiguration.tslCerts) {
+            return toX509Certs(MoppLibConfiguration.tslCerts);
+        }
+        return digidoc::ConfCurrent::TSLCerts();
+    }
+
+    std::string TSUrl() const final {
+        if (NSString *tsaUrl = [NSUserDefaults.standardUserDefaults stringForKey:@"kTimestampUrlKey"]; tsaUrl.length != 0) {
+            return tsaUrl.UTF8String;
+        }
+        if (MoppLibConfiguration.tsaURL.UTF8String) {
+            return MoppLibConfiguration.tsaURL.UTF8String;
+        }
+        return digidoc::ConfCurrent::TSUrl();
+    }
+
+    std::vector<digidoc::X509Cert> TSCerts() const final {
+        if (MoppLibConfiguration.certBundle || MoppLibConfiguration.tsaCert) {
+            return toX509Certs(MoppLibConfiguration.certBundle, MoppLibConfiguration.tsaCert);
+        }
+        return digidoc::ConfCurrent::TSCerts();
+    }
+
+    std::string verifyServiceUri() const final {
+        if (NSString *sivaUrl = [NSUserDefaults.standardUserDefaults stringForKey:@"kSivaUrl"]; sivaUrl.length != 0) {
+            return sivaUrl.UTF8String;
+        }
+        if (MoppLibConfiguration.sivaURL) {
+            return MoppLibConfiguration.sivaURL.UTF8String;
+        }
+        return digidoc::ConfCurrent::verifyServiceUri();
+    }
+
+    std::vector<digidoc::X509Cert> verifyServiceCerts() const final {
+        if (MoppLibConfiguration.certBundle || MoppLibConfiguration.sivaCert) {
+            return toX509Certs(MoppLibConfiguration.certBundle, MoppLibConfiguration.sivaCert);
+        }
+        return digidoc::ConfCurrent::verifyServiceCerts();
+    }
+
+    std::string ocsp(const std::string &issuer) const final {
+        NSString *ocspIssuer = [NSString stringWithUTF8String:issuer.c_str()];
+        if (NSString *url = MoppLibConfiguration.ocspIssuers[ocspIssuer]) {
+            printLog(@"Using issuer: '%@' with OCSP url from central configuration: %@", ocspIssuer, url);
+            return url.UTF8String;
+        }
+        printLog(@"Did not find url for issuer: %@.", ocspIssuer);
+        return digidoc::ConfCurrent::ocsp(issuer);
+    }
+
+    std::string proxyHost() const final {
+        if (NSString *host = [NSUserDefaults.standardUserDefaults stringForKey:@"kProxyHost"]) {
+            return host.UTF8String;
+        }
+        return {};
+    }
+
+    std::string proxyPort() const final {
+        NSInteger port = [NSUserDefaults.standardUserDefaults integerForKey:@"kProxyPort"];
+        return std::to_string(port);
+    }
+
+    std::string proxyUser() const final {
+        if (NSString *user = [NSUserDefaults.standardUserDefaults stringForKey:@"kProxyUsername"]) {
+            return user.UTF8String;
+        }
+        return {};
+    }
+
+    std::string proxyPass() const final {
+        NSDictionary *query = @{
+            (__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
+            (__bridge id)kSecAttrService: NSBundle.mainBundle.bundleIdentifier,
+            (__bridge id)kSecAttrAccount: [NSString stringWithFormat:@"%@.proxyPasswordKey", NSBundle.mainBundle.bundleIdentifier],
+            (__bridge id)kSecReturnData: @YES,
+            (__bridge id)kSecMatchLimit: (__bridge id)kSecMatchLimitOne
+        };
+
+        CFTypeRef infoData = nullptr;
+        OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, &infoData);
+        if (status == errSecSuccess && infoData != nullptr) {
+            if (NSData *password = CFBridgingRelease(infoData)) {
+                return {(const char*)password.bytes, password.length};
+            }
+        }
+        return {};
+    }
+
+    std::vector<digidoc::X509Cert> toX509Certs(NSArray<NSData*> *certBundle, NSURL *cert = nil) const {
+        std::vector<digidoc::X509Cert> x509Certs;
+        auto add = [&x509Certs](NSData *data) {
+            try {
+                bool isPEM = std::string_view(reinterpret_cast<const char*>(data.bytes), data.length)
+                    .starts_with("-----BEGIN CERTIFICATE-----");
+                auto bytes = reinterpret_cast<const unsigned char*>(data.bytes);
+                x509Certs.emplace_back(bytes, data.length, isPEM ? digidoc::X509Cert::Pem : digidoc::X509Cert::Der);
+            } catch (const digidoc::Exception &e) {
+                printLog(@"Unable to generate a X509 certificate object. Code: %u, message: %s", e.code(), e.msg().c_str());
+            }
+        };
+        for (NSData *data in certBundle) {
+            add(data);
+        }
+        if (cert) {
+            add([NSData dataWithContentsOfURL:cert]);
+        }
+        return x509Certs;
+    }
+
+    bool isDebugMode() const {
+        return [NSUserDefaults.standardUserDefaults boolForKey:@"isDebugMode"];
+    }
+
+    bool isLoggingEnabled() const {
+        return [NSUserDefaults.standardUserDefaults boolForKey:@"kIsFileLoggingEnabled"];
+    }
+
+    // Comment in / out to see / hide libdigidocpp logs
+    // Currently enabled on DEBUG mode
+
+    int logLevel() const final {
+        if (isDebugMode() || isLoggingEnabled()) {
+            return 4;
+        } else {
+            return 0;
+        }
+    }
+
+    std::string logFile() const final {
+        if (!isDebugMode() && !isLoggingEnabled()) {
+            return {};
+        }
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *cacheDirectory = [paths objectAtIndex:0];
+        NSString *logsPath = [cacheDirectory stringByAppendingPathComponent:@"logs"];
+        BOOL isDirectory = NO;
+        if ([NSFileManager.defaultManager fileExistsAtPath:logsPath isDirectory:&isDirectory] && isDirectory) {
+            return logFileLocation(logsPath);
+        }
+        // Create folder 'logs' in Library/Cache directory
+        NSError* error;
+        if ([NSFileManager.defaultManager createDirectoryAtPath:logsPath withIntermediateDirectories:YES attributes:nil error:&error]) {
+            return logFileLocation(logsPath);
+        }
+        printLog(@"createFolder error: %@", error);
+        // Save log files to 'Library/Cache' directory if creating 'logs' folder was unsuccessful
+        return logFileLocation(cacheDirectory);
+    }
+
+    std::string logFileLocation(NSString *logsFolderPath) const {
+        return [logsFolderPath stringByAppendingPathComponent:@"libdigidocpp.log"].UTF8String;
+    }
+};
+
+void parseException(const digidoc::Exception &e);
 
 @implementation MoppLibContainerActions
 
-+ (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure withMoppConfiguration:(MoppLibConfiguration *)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration {
-    [[MoppLibDigidocManager sharedInstance] setupWithSuccess:success andFailure:failure withMoppConfiguration: moppConfiguration andProxyConfiguration: proxyConfiguration];
++ (BOOL)setup:(NSError **)error; {
+    // Initialize libdigidocpp.
+    try {
+        digidoc::Conf::init(new DigiDocConf);
+        std::string appInfo = MoppLibManager.userAgent.UTF8String;
+        digidoc::initialize(appInfo, appInfo);
+        return YES;
+    } catch(const digidoc::Exception &e) {
+        parseException(e);
+        if (error) {
+            *error = [NSError errorWithDomain:@"MoppLib" code:e.code() userInfo:@{@"message":[NSString stringWithUTF8String:e.msg().c_str()]}];
+        }
+        return NO;
+    }
 }
 
 + (NSString *)libdigidocppVersion {

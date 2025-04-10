@@ -25,7 +25,7 @@ import Foundation
 
 class CertificatePinning {
     
-    func certificatePinning(trustedCertificates: [String], challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) -> Void {
+    func certificatePinning(trustedCertificates: [Data], challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) -> Void {
         guard challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust else {
             return completionHandler(.cancelAuthenticationChallenge, nil)
         }
@@ -42,7 +42,7 @@ class CertificatePinning {
             
             let secCertificateData = SecCertificateCopyData(secTrustServerCert) as Data
             
-            if isCertificateTrusted(trustedCertificates: trustedCertificates, serverCertData: secCertificateData) {
+            if trustedCertificates.contains(secCertificateData) {
                 return completionHandler(.useCredential, URLCredential(trust: serverTrust))
             }
             
@@ -50,12 +50,5 @@ class CertificatePinning {
         } else {
             return completionHandler(.cancelAuthenticationChallenge, nil)
         }
-        
-    }
-    
-    func isCertificateTrusted(trustedCertificates: [String], serverCertData: Data) -> Bool {
-        return trustedCertificates
-            .map { cert in Data(base64Encoded: cert) }
-            .contains(serverCertData)
     }
 }

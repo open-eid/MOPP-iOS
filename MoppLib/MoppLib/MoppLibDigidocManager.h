@@ -21,18 +21,11 @@
  *
  */
 
-#import "MoppLibConstants.h"
-
-@class MoppLibContainer;
-@class MoppLibConfiguration;
-@class MoppLibProxyConfiguration;
-@class MoppLibRoleAddressData;
-@class MoppLibSignature;
+#import <MoppLib/MoppLibContainerActions.h>
 
 @interface MoppLibDigidocManager : NSObject
 
 + (MoppLibDigidocManager *)sharedInstance;
-- (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure withMoppConfiguration:(MoppLibConfiguration*)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration;
 
 - (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath error:(NSError **)error;
 - (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths error:(NSError **)error;

@@ -40,10 +40,7 @@
 		DF1503872AC5CE32007222B2 /* OCMock in Frameworks */ = {isa = PBXBuildFile; productRef = DF1503862AC5CE32007222B2 /* OCMock */; };
 		DFBDF1F827DA44BD00A5CF3C /* MoppLibRoleAddressData.h in Headers */ = {isa = PBXBuildFile; fileRef = DFBDF1F727DA44BD00A5CF3C /* MoppLibRoleAddressData.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DFBDF1FA27DA44FD00A5CF3C /* MoppLibRoleAddressData.m in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1F927DA44FD00A5CF3C /* MoppLibRoleAddressData.m */; };
-		DFDD76292B507EFF0008EC2C /* MoppLibProxyConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = DFDD76282B507EFF0008EC2C /* MoppLibProxyConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DFDD762B2B507F9E0008EC2C /* MoppLibProxyConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = DFDD762A2B507F9E0008EC2C /* MoppLibProxyConfiguration.m */; };
-		DFF3C3A923322E0D0079458A /* MoppLibConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = DFF3C3A723322E0C0079458A /* MoppLibConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DFF3C3AA23322E0D0079458A /* MoppLibConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3A823322E0C0079458A /* MoppLibConfiguration.m */; };
+		DFF3C3AA23322E0D0079458A /* MoppLibConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3A823322E0C0079458A /* MoppLibConfiguration.swift */; };
 		E4250CEC1E09695100530370 /* MoppLib.h in Headers */ = {isa = PBXBuildFile; fileRef = E4250CEA1E09695100530370 /* MoppLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E42B08B51E1F0B3B00EA24A3 /* MoppLibContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = E42B08B31E1F0B3B00EA24A3 /* MoppLibContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E42B08B61E1F0B3B00EA24A3 /* MoppLibContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = E42B08B41E1F0B3B00EA24A3 /* MoppLibContainer.m */; };
@@ -104,10 +101,7 @@
 		C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		DFBDF1F727DA44BD00A5CF3C /* MoppLibRoleAddressData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibRoleAddressData.h; sourceTree = "<group>"; };
 		DFBDF1F927DA44FD00A5CF3C /* MoppLibRoleAddressData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoppLibRoleAddressData.m; sourceTree = "<group>"; };
-		DFDD76282B507EFF0008EC2C /* MoppLibProxyConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibProxyConfiguration.h; sourceTree = "<group>"; };
-		DFDD762A2B507F9E0008EC2C /* MoppLibProxyConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoppLibProxyConfiguration.m; sourceTree = "<group>"; };
-		DFF3C3A723322E0C0079458A /* MoppLibConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibConfiguration.h; sourceTree = "<group>"; };
-		DFF3C3A823322E0C0079458A /* MoppLibConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoppLibConfiguration.m; sourceTree = "<group>"; };
+		DFF3C3A823322E0C0079458A /* MoppLibConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoppLibConfiguration.swift; sourceTree = "<group>"; };
 		E4250CE71E09695100530370 /* MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CEA1E09695100530370 /* MoppLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLib.h; sourceTree = "<group>"; };
 		E42B08B31E1F0B3B00EA24A3 /* MoppLibContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibContainer.h; sourceTree = "<group>"; };
@@ -162,6 +156,7 @@
 			children = (
 				54D1647D1E926BA00069C725 /* ResponseObjects */,
 				E4250CEA1E09695100530370 /* MoppLib.h */,
+				DFF3C3A823322E0C0079458A /* MoppLibConfiguration.swift */,
 				54E1DB5B1E44A9060060A250 /* MoppLibManager.swift */,
 				54D1647A1E926AAB0069C725 /* MoppLibCardActions.swift */,
 				C54EA737204D91730039AC78 /* MoppLibCardReaderManager.swift */,
@@ -172,8 +167,6 @@
 				542DCB6B1E23968000899534 /* MoppLibPinActions.swift */,
 				54DC0DC71E0BCCEF00C62B3D /* MoppLibConstants.h */,
 				54DC0E001E0D48C900C62B3D /* MoppLibError.swift */,
-				DFDD76282B507EFF0008EC2C /* MoppLibProxyConfiguration.h */,
-				DFDD762A2B507F9E0008EC2C /* MoppLibProxyConfiguration.m */,
 			);
 			name = PublicInterface;
 			path = MoppLib/PublicInterface;
@@ -189,8 +182,6 @@
 				E42B08C41E1F11B900EA24A3 /* MoppLibDataFile.m */,
 				E42B08C71E1F11C100EA24A3 /* MoppLibSignature.h */,
 				E42B08C81E1F11C100EA24A3 /* MoppLibSignature.m */,
-				DFF3C3A723322E0C0079458A /* MoppLibConfiguration.h */,
-				DFF3C3A823322E0C0079458A /* MoppLibConfiguration.m */,
 				DFBDF1F727DA44BD00A5CF3C /* MoppLibRoleAddressData.h */,
 				DFBDF1F927DA44FD00A5CF3C /* MoppLibRoleAddressData.m */,
 			);
@@ -282,12 +273,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFDD76292B507EFF0008EC2C /* MoppLibProxyConfiguration.h in Headers */,
 				DFBDF1F827DA44BD00A5CF3C /* MoppLibRoleAddressData.h in Headers */,
 				C5AAAF8620CAA3F00087D6DA /* winscard.h in Headers */,
 				C5AAAF8820CAA4240087D6DA /* wintypes.h in Headers */,
 				C5AAAF8A20CAA4790087D6DA /* ft301u.h in Headers */,
-				DFF3C3A923322E0D0079458A /* MoppLibConfiguration.h in Headers */,
 				E42B08C51E1F11B900EA24A3 /* MoppLibDataFile.h in Headers */,
 				399C01E620BC17A10056D7AC /* MoppLibCryptoActions.h in Headers */,
 				E42B08CD1E1F136A00EA24A3 /* MoppLibDigidocManager.h in Headers */,
@@ -427,14 +416,13 @@
 				E42B08B61E1F0B3B00EA24A3 /* MoppLibContainer.m in Sources */,
 				54D1647C1E926AAB0069C725 /* MoppLibCardActions.swift in Sources */,
 				E42B08CA1E1F11C100EA24A3 /* MoppLibSignature.m in Sources */,
-				DFDD762B2B507F9E0008EC2C /* MoppLibProxyConfiguration.m in Sources */,
 				399C01E320BC11C20056D7AC /* MoppLibCryptoActions.m in Sources */,
 				C5E41C5E2180602B00D79B54 /* Idemia.swift in Sources */,
 				39266A5320CFC0F4002E3F23 /* SmartToken.swift in Sources */,
 				542DCB6D1E23968000899534 /* MoppLibPinActions.swift in Sources */,
 				C54EA732204D5E860039AC78 /* CardReaderiR301.swift in Sources */,
 				545111731E13BBA800296B80 /* MoppLibPersonalData.swift in Sources */,
-				DFF3C3AA23322E0D0079458A /* MoppLibConfiguration.m in Sources */,
+				DFF3C3AA23322E0D0079458A /* MoppLibConfiguration.swift in Sources */,
 				54DC0E021E0D48C900C62B3D /* MoppLibError.swift in Sources */,
 				E42B08C61E1F11B900EA24A3 /* MoppLibDataFile.m in Sources */,
 				C54EA738204D91730039AC78 /* MoppLibCardReaderManager.swift in Sources */,

@@ -21,14 +21,13 @@
  *
  */
 
-import Foundation
 import SkSigningLib
 
 class SessionStatus {
     
     static let shared: SessionStatus = SessionStatus()
     
-    func getSessionStatus(baseUrl: String, process: PollingProcess, sessionId: String, timeoutMs: Int?, trustedCertificates: [String]?, completionHandler: @escaping (Result<SessionStatusResponse, SigningError>) -> Void ) {
+    func getSessionStatus(baseUrl: String, process: PollingProcess, sessionId: String, timeoutMs: Int?, trustedCertificates: [Data], completionHandler: @escaping (Result<SessionStatusResponse, SigningError>) -> Void ) {
         DispatchQueue.main.async {
             do {
                 _ = try RequestSession.shared.getSessionStatus(baseUrl: baseUrl, process: process, requestParameters: SessionStatusRequestParameters(sessionId: sessionId, timeoutMs: timeoutMs), trustedCertificates: trustedCertificates, manualProxyConf: ManualProxy.getManualProxyConfiguration()) { (sessionStatusResult: Result<SessionStatusResponse, SigningError>) in

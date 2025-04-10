@@ -21,14 +21,12 @@
  *
  */
 
-#import "MoppLibContainer.h"
-#import "MoppLibSignature.h"
 #import "MoppLibConstants.h"
-#import "MoppLibRoleAddressData.h"
 
 @class MoppLibContainer;
-@class MoppLibConfiguration;
-@class MoppLibProxyConfiguration;
+@class MoppLibSignature;
+@class MoppLibRoleAddressData;
+
 typedef void (^ContainerBlock)(MoppLibContainer *container);
 
 @interface MoppLibContainerActions : NSObject
@@ -40,10 +38,9 @@ typedef void (^ContainerBlock)(MoppLibContainer *container);
 /**
  * Prepares library for operations with containers. Setup must be completed before any container action is carried out. It is recommended, that you initiate setup at earliest opportunity.
  *
- * @param success       Block to be called on successful completion of action.
- * @param failure       Block to be called when action fails. Includes error.
+ * @param error      Error returned on failure.
  */
-+ (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure withMoppConfiguration:(MoppLibConfiguration *)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration;
++ (BOOL)setup:(NSError **)error;
 
 /**
  * Opens container at specified path.

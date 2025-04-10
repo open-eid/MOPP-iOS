@@ -18,7 +18,6 @@
  *
  */
 
-import Foundation
 import SkSigningLib
 import CryptoKit
 
@@ -61,7 +60,7 @@ class SmartIDSignature {
         }
     }
 
-    private func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, containerPath: String, roleData: MoppLibRoleAddressData?, trustedCertificates: [String], errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String, Data, Data) -> Void) {
+    private func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, containerPath: String, roleData: MoppLibRoleAddressData?, trustedCertificates: [Data], errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String, Data, Data) -> Void) {
         printLog("Getting certificate...")
 
         if RequestCancel.shared.isRequestCancelled() {
@@ -96,7 +95,7 @@ class SmartIDSignature {
         }
     }
 
-    private func getSignature(baseUrl: String, documentNumber: String, allowedInteractionsOrder: SIDSignatureRequestParameters, trustedCertificates: [String], errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (Data) -> Void) {
+    private func getSignature(baseUrl: String, documentNumber: String, allowedInteractionsOrder: SIDSignatureRequestParameters, trustedCertificates: [Data], errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (Data) -> Void) {
         printLog("Getting signature...")
 
         if RequestCancel.shared.isRequestCancelled() {
@@ -124,7 +123,7 @@ class SmartIDSignature {
         }
     }
 
-    private func getSessionStatus(baseUrl: String, sessionId: String, trustedCertificates: [String], completionHandler: @escaping (Result<SIDSessionStatusResponse, SigningError>) -> Void) {
+    private func getSessionStatus(baseUrl: String, sessionId: String, trustedCertificates: [Data], completionHandler: @escaping (Result<SIDSessionStatusResponse, SigningError>) -> Void) {
         printLog("RIA.SmartID - Requesting session status...")
 
         if RequestCancel.shared.isRequestCancelled() {

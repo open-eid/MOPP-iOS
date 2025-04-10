@@ -21,9 +21,6 @@
  *
  */
 
-import UIKit
-import MoppLib
-
 class InitializationViewController : UIViewController {
 
     override func viewDidLoad() {
@@ -32,19 +29,14 @@ class InitializationViewController : UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        MoppLibContainerActions.setup(success: {
-            DispatchQueue.main.async {
-                MoppApp.instance.setupTabController()
+        Task(priority: .background) {
+            do {
+                try MoppLibContainerActions.setup()
+            } catch {
+                print("Setup failed: \(error)")
             }
-        },
-        andFailure: { _ in
-            DispatchQueue.main.async {
-                MoppApp.instance.setupTabController()
-            }
-        },
-        withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration(),
-        andProxyConfiguration: ManualProxy.getMoppLibProxyConfiguration()
-        )
+            await MainActor.run { MoppApp.instance.setupTabController() }
+        }
     }
 
 }
