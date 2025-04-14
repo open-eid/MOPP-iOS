@@ -123,7 +123,6 @@ class SiVaUtil {
     }
     
     static func setIsSentToSiva(isSent: Bool) {
-        let validateOnlineInstance = MoppLibDigidocValidateOnline.sharedInstance()
-        validateOnlineInstance?.validateOnline = isSent
+        MoppLibManager.shared.validateOnline = isSent
     }
 }
