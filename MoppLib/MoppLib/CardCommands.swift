@@ -21,7 +21,7 @@
  *
  */
 
-import Foundation
+import CryptoTokenKit
 
 public enum CodeType: UInt {
     case puk = 0
@@ -130,4 +130,80 @@ public protocol CardCommands: AnyObject {
      * - Returns: The decrypted data.
      */
     func decryptData(_ hash: Data, withPin1 pin1: String) throws -> Data
+}
+
+protocol CardCommandsInternal {
+    /**
+     * The smart card reader used to communicate with the card.
+     *
+     * Implementations may use this to send APDU commands and manage card sessions.
+     */
+    var reader: CardReader { get }
+
+    var fillChar: UInt8 { get }
+}
+
+extension CardCommandsInternal {
+    typealias TLV = TKBERTLVRecord
+
+    func select(p1: UInt8 = 0x04, p2: UInt8 = 0x0C, file: Bytes) throws -> Bytes {
+        return try reader.sendAPDU(ins: 0xA4, p1: p1, p2: p2, data: file, le: p2 == 0x0C ? nil : 0x00)
+    }
+
+    func readFile(p1: UInt8, file: Bytes) throws -> Data {
+        var size = 0xE7
+        if let fci = TLV(from: Data(try select(p1: p1, p2: 0x04, file: file))) {
+            for record in TLV.sequenceOfRecords(from: fci.value) ?? [] where record.tag == 0x80 || record.tag == 0x81 {
+                size = Int(record.value[0]) << 8 | Int(record.value[1])
+            }
+        }
+        var data = Bytes()
+        while data.count < size {
+            data.append(contentsOf: try reader.sendAPDU(
+                ins: 0xB0, p1: UInt8(data.count >> 8), p2: UInt8(truncatingIfNeeded: data.count), le: UInt8(min(0xE7, size - data.count))))
+        }
+        return Data(data)
+    }
+
+    func errorForPinActionResponse(execute: () throws -> Void) throws {
+        do {
+            try execute()
+        } catch let error as NSError {
+            switch error.userInfo[MoppLibError.kMoppLibUserInfoSWError] as? NSNumber {
+            case 0x9000: return
+            case 0x6A80: // New pin is invalid
+                throw MoppLibError.Code.pinMatchesOldCode
+            case 0x63C0, 0x6983: // Authentication method blocked
+                throw MoppLibError.Code.pinBlocked
+            case let sw? where (sw.uint16Value & 0xFFF0) == 0x63C0: // For pin codes this means verification failed due to wrong pin
+                throw MoppLibError.wrongPinError(withRetryCount: Int(sw.uint16Value & 0x000F)) // Last char in trailer holds retry count
+            default:
+                throw error
+            }
+        }
+    }
+
+    func pinTemplate(_ pin: String) -> Data {
+        var data = pin.data(using: .utf8)!
+        data.append(Data(repeating: fillChar, count: 12 - data.count))
+        return data
+    }
+
+    func changeCode(_ pinRef: UInt8, to code: String, verifyCode: String) throws {
+        try errorForPinActionResponse {
+            _ = try reader.sendAPDU(ins: 0x24, p2: pinRef, data: pinTemplate(verifyCode) + pinTemplate(code))
+        }
+    }
+
+    func verifyCode(_ pinRef: UInt8, code: String) throws {
+        try errorForPinActionResponse {
+            _ = try reader.sendAPDU(ins: 0x20, p2: pinRef, data: pinTemplate(code))
+        }
+    }
+
+    func setSecEnv(mode: UInt8, algo: Bytes? = nil, keyRef: UInt8) throws {
+        let algo: Data = algo != nil ? TLV(tag: 0x80, value: Data(algo!)).data : Data()
+        _ = try reader.sendAPDU(ins: 0x22, p1: 0x41, p2: mode,
+                                data: algo + TLV(tag: 0x84, value: Data([keyRef])).data)
+    }
 }
