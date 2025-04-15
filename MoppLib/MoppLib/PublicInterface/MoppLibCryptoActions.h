@@ -21,11 +21,13 @@
  *
  */
 
-#import "MoppLibConstants.h"
+#import <Foundation/Foundation.h>
 
 @class CdocInfo;
 @protocol AbstractSmartToken;
 
+typedef void (^FailureBlock)(NSError *error);
+typedef void (^VoidBlock)(void);
 typedef void (^CdocContainerBlock)(CdocInfo * _Nonnull cdocInfo);
 typedef void (^DecryptedDataBlock)(NSDictionary<NSString*,NSData*> * _Nonnull decryptedData);
 
