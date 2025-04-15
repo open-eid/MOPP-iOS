@@ -233,6 +233,7 @@
 "smart-id-country-lithuania" = "Leedu";
 "smart-id-country-latvia" = "Läti";
 "smart-id-challenge-title" = "Allkirjasta Smart-IDga";
+"smart-id-status-request-select-account" = "Allkirjastamiseks kinnita seade Smart-ID rakenduses.";
 "smart-id-sign-help-title" = "Veendu kontrollkoodi õigsuses ja sisesta nutiseadmes Smart-ID PIN2-kood";
 "nfc-title" = "ID-kaardiga allkirjastamiseks sisesta oma ID-kaardi ligipääsu number (CAN) ja PIN2 kood";
 "nfc-can-title" = "ID-kaardi ligipääsu number (CAN)";

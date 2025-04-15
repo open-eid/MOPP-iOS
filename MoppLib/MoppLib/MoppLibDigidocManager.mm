@@ -26,7 +26,6 @@
 #import "MoppLibDataFile.h"
 #import "MoppLibRoleAddressData.h"
 #import "MoppLibSignature.h"
-#import <CryptoLib/CryptoLib-Swift.h>
 #import <MoppLib/MoppLib-Swift.h>
 
 #include <digidocpp/Container.h>

@@ -233,6 +233,7 @@
 "smart-id-country-lithuania" = "Литва";
 "smart-id-country-latvia" = "Латвия";
 "smart-id-challenge-title" = "Подписать с помощью приложения Smart-ID";
+"smart-id-status-request-select-account" = "Для проставления подписи подтвердите устройство в приложении Smart-ID.";
 "smart-id-sign-help-title" = "Убедитесь в правильности контрольного кода и введите PIN2-код для Smart-ID";
 "nfc-title" = "Чтобы подписать с помощью ID-карты, введите ее номер доступа (CAN) и PIN2-код";
 "nfc-can-title" = "Номер доступа ID-карты (CAN)";

@@ -50,14 +50,6 @@ func isDeviceOrientationLandscape() -> Bool {
     return UIDevice.current.orientation.isLandscape
 }
 
-func MSLog(_ format: String, _ arguments: Any..., fileName file: String = #file, _ function: String = #function, _ line: Int = #line) {
-    if isUsingTestMode() || (FileLogUtil.isLoggingEnabled() && FileLogUtil.isLoggingRunning()) {
-        let currentDate = Date().ISO8601Format()
-        NSLog(currentDate)
-        NSLog(format, arguments)
-    }
-}
-
 func printLog(_ message: String, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
     let fileUrl = URL(fileURLWithPath: file)
     let logMessage = "\(message)\n" +
@@ -90,16 +82,6 @@ func L(_ key: LocKey, _ languageId: String, _ arguments: [CVarArg] = []) -> Stri
     let bundle = Bundle(path: bundlePath)
     let format = bundle?.localizedString(forKey: key.rawValue, value: nil, table: nil)
     return String(format: format!, arguments: arguments)
-}
-
-func MoppLib_LocalizedString(_ key: String,_ arguments: [CVarArg] = []) -> String {
-    let languageId = DefaultsHelper.moppLanguageID
-    let moppLibBundlePath = Bundle(identifier: "mobi.lab.MoppLib")?.path(forResource: languageId, ofType: "lproj")
-    guard let strongMoppLibBundlePath = moppLibBundlePath else { return String()}
-    let bundle = Bundle(path: strongMoppLibBundlePath)
-    let format = bundle?.localizedString(forKey: key, value: String(), table: nil)
-    guard let strongFormat = format else { return String()}
-    return String(format: strongFormat, arguments: arguments)
 }
 
 func SkSigningLib_LocalizedString(_ key: String,_ arguments: [CVarArg] = []) -> String {

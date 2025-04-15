@@ -103,8 +103,8 @@ class SmartIDChallengeViewController : UIViewController {
     }
 
     @objc func receiveSelectAccountNotification(_ notification: Notification) {
-        helpLabel.text = MoppLib_LocalizedString("smart-id-status-request-select-account")
-        
+        helpLabel.text = L(.smartIdSelectAccount)
+
         helpLabel.accessibilityLabel = L(.signTitleSmartId)
         currentProgress = 0.0
         sessionTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSessionProgress), userInfo: nil, repeats: true)
@@ -231,8 +231,8 @@ class SmartIDChallengeViewController : UIViewController {
         if let value = announcementValue,  value.contains(getCodeLabelAccessibilityLabel(withProgress: false)) && !isSuccessful {
             printLog("Control code announcement was not successful, retrying...")
             UIAccessibility.post(notification: .announcement, argument: announcementValue)
-        } else if let value = announcementValue, value.contains(MoppLib_LocalizedString("smart-id-status-request-select-account")) && isSuccessful {
-            codeLabel.accessibilityLabel = "\(L(.signingProgress)) \(Int(currentProgress * 100))%. \(MoppLib_LocalizedString("smart-id-status-request-select-account"))"
+        } else if let value = announcementValue, value.contains(L(.smartIdSelectAccount)) && isSuccessful {
+            codeLabel.accessibilityLabel = "\(L(.signingProgress)) \(Int(currentProgress * 100))%. \(L(.smartIdSelectAccount))"
         } else if isSuccessful {
             self.isAnnouncementMade = true
             self.codeLabel.isAccessibilityElement = true

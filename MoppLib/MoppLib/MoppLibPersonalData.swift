@@ -23,7 +23,7 @@
 
 import Foundation
 
-public class MoppLibPersonalData {
+public struct MoppLibPersonalData {
 
     public var givenNames: String = ""
     public var surname: String = ""
