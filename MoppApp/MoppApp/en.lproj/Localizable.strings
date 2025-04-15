@@ -372,6 +372,7 @@
 
 "my-eid-change-code-title" = "Change %@";
 "my-eid-unblock-code-title" = "Unblock %@";
+"my-eid-change-not-available-text" = "The PUK-code cannot be changed on the ID-card in the reader";
 "my-eid-current-code-label" = "CURRENT %@ CODE";
 "my-eid-new-code-label" = "NEW %@ CODE (at least %i symbols)";
 "my-eid-new-code-again-label" = "REPEAT NEW %@ CODE";

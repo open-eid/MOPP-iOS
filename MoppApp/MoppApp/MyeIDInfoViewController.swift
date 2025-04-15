@@ -169,9 +169,9 @@ extension MyeIDInfoViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withType: MyeIDInfoCell.self, for: indexPath)!
             cell.infoManager = infoManager
         if item.type == .expiryDate {
-            cell.populate(titleText: infoManager.personalInfo.itemTitles[item.type]!, with: item.value)
+            cell.populate(titleText: item.type.itemTitle, with: item.value)
         } else {
-            cell.populate(titleText: infoManager.personalInfo.itemTitles[item.type]!, contentText: item.value)
+            cell.populate(titleText: item.type.itemTitle, contentText: item.value)
         }
         
         return cell
@@ -202,9 +202,9 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
             let cell = ui.tableView.dequeueReusableCell(withType: MyeIDInfoCell.self, for: indexPath)!
                 cell.infoManager = infoManager
             if item.type == .expiryDate {
-                cell.populate(titleText: infoManager.personalInfo.itemTitles[item.type]!, with: item.value)
+                cell.populate(titleText: item.type.itemTitle, with: item.value)
             } else {
-                cell.populate(titleText: infoManager.personalInfo.itemTitles[item.type]!, contentText: item.value)
+                cell.populate(titleText: item.type.itemTitle, contentText: item.value)
             }
             
             if UIAccessibility.isVoiceOverRunning && !initialLoadingComplete {

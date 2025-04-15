@@ -22,8 +22,8 @@
  */
 class MyeIDChangeCodesViewController: MoppViewController {
     @IBOutlet weak var ui: MyeIDChangeCodesViewControllerUI!
-    var model = MyeIDChangeCodesModel()
-    
+    var model: MyeIDChangeCodesModel!
+
     weak var infoManager: MyeIDInfoManager!
     
     private var loadingViewController: MyeIDChangeCodesLoadingViewController! = {
@@ -96,9 +96,7 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
 
         present(loadingViewController, animated: false) {
             do {
-                guard let cardCommands = self.model.cardCommands else {
-                    throw MoppLibError.Code.cardNotFound
-                }
+                let cardCommands = self.model.cardCommands
                 var statusText = String()
                 switch self.model.actionType {
                 case .changePin1:
@@ -129,7 +127,7 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
                 self.loadingViewController.dismiss(animated: false) {
                     ui.setViewBorder(view: ui.firstCodeTextField)
                     self.ui.firstInlineErrorLabel.text =
-                    L(retryCount == 1 ? .myEidWrongCodeMessageSingular : .myEidWrongCodeMessage, [self.model.actionType.codeDisplayNameForWrongOrBlocked])
+                        L(retryCount == 1 ? .myEidWrongCodeMessageSingular : .myEidWrongCodeMessage, [self.model.actionType.codeDisplayNameForWrongOrBlocked])
                     self.ui.firstInlineErrorLabel.isHidden = false
                     UIAccessibility.post(notification: .layoutChanged, argument: self.ui.firstInlineErrorLabel)
                 }
