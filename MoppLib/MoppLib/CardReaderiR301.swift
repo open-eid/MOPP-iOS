@@ -24,7 +24,7 @@
 
 import iR301
 
-class CardReaderiR301: CardReaderWrapper {
+class CardReaderiR301: CardReader {
     private var contextHandle: SCARDCONTEXT
     private var cardHandle: SCARDHANDLE = 0
     private var pioSendPci = SCARD_IO_REQUEST(dwProtocol: UInt32(SCARD_PROTOCOL_UNDEFINED),

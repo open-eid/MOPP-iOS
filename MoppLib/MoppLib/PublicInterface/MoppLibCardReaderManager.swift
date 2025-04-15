@@ -103,7 +103,7 @@ private class ReaderInterfaceHandler: NSObject, ReaderInterfaceDelegate {
         }
         do {
             let atr = try reader.powerOnCard()
-            MoppLibCardReaderManager.shared.cardCommandHandler = Idemia(cardReader: reader, atrData: atr)
+            MoppLibCardReaderManager.shared.cardCommandHandler = Idemia(reader: reader, atr: atr)
             if MoppLibCardReaderManager.shared.cardCommandHandler != nil {
                 MoppLibCardReaderManager.shared.updateStatus(.CardConnected)
             }

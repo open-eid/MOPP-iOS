@@ -34,6 +34,13 @@ enum CodeType: UInt {
  */
 protocol CardCommands {
     /**
+     * The smart card reader used to communicate with the card.
+     *
+     * Implementations may use this to send APDU commands and manage card sessions.
+     */
+    var reader: CardReader { get }
+
+    /**
      * Reads public data from the card.
      *
      * - Throws: An error if the operation fails.
@@ -130,4 +137,10 @@ protocol CardCommands {
      * - Returns: The decrypted data.
      */
     func decryptData(_ hash: Data, withPin1 pin1: String) throws -> Data
+}
+
+extension CardCommands {
+    func select(p1: UInt8 = 0x04, p2: UInt8 = 0x0C, file: Bytes) throws -> Bytes {
+        return try reader.sendAPDU(ins: 0xA4, p1: p1, p2: p2, data: file, le: p2 == 0x0C ? nil : 0x00)
+    }
 }

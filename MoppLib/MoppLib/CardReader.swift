@@ -1,5 +1,5 @@
 //
-//  CardReaderWrapper.swift
+//  CardReader.swift
 //  MoppLib
 //
 /*
@@ -25,7 +25,7 @@ import Foundation
 
 typealias Bytes = [UInt8]
 
-protocol CardReaderWrapper {
+protocol CardReader {
     /**
      * Sends an APDU (Application Protocol Data Unit) command to the smart card and retrieves the response.
      *
@@ -46,7 +46,7 @@ protocol CardReaderWrapper {
     func powerOnCard() throws -> Bytes
 }
 
-extension CardReaderWrapper {
+extension CardReader {
     /**
      * Sends an APDU command to the card and retrieves the response, handling special status words (`0x6C00` and `0x6100`).
      *
@@ -93,5 +93,14 @@ extension CardReaderWrapper {
         }
         return result
     }
-}
 
+    func sendAPDU(cls: UInt8 = 0x00, ins: UInt8, p1: UInt8 = 0x00, p2: UInt8 = 0x00, data: (any RangeReplaceableCollection<UInt8>)? = nil, le: UInt8? = nil) throws -> Bytes {
+        let apdu: Bytes = switch (data, le) {
+        case (nil, nil): [cls, ins, p1, p2]
+        case (nil, _): [cls, ins, p1, p2, le!]
+        case (_, nil): [cls, ins, p1, p2, UInt8(data!.count)] + data!
+        case (_, _): [cls, ins, p1, p2, UInt8(data!.count)] + data! + [le!]
+        }
+        return try transmitCommandChecked(apdu)
+    }
+}
