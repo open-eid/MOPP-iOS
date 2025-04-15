@@ -21,12 +21,14 @@
  *
  */
 
-#import "MoppLibConstants.h"
+#import <Foundation/Foundation.h>
 
 @class MoppLibContainer;
 @class MoppLibSignature;
 @class MoppLibRoleAddressData;
 
+typedef void (^FailureBlock)(NSError *error);
+typedef void (^VoidBlock)(void);
 typedef void (^ContainerBlock)(MoppLibContainer *container);
 typedef NS_ENUM(NSInteger, SendDiagnostics);
 
