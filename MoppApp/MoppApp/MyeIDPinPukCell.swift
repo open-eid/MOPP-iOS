@@ -47,7 +47,7 @@ class MyeIDPinPukCell: UITableViewCell {
     @IBAction func changeCodeAction() {
         guard let kind = kind else { return }
     
-        var actionType: MyeIDChangeCodesModel.ActionType? = nil
+        var actionType: MyeIDChangeCodesModel.ActionType
         switch kind {
         case .pin1:
             if infoManager.retryCounts.pin1 == 0 {
@@ -64,10 +64,7 @@ class MyeIDPinPukCell: UITableViewCell {
         case .puk:
             actionType = .changePuk
         }
-        
-        if let actionType = actionType {
-            infoManager.delegate?.didTapChangePinPukCode(actionType: actionType)
-        }
+        infoManager.delegate?.didTapChangePinPukCode(actionType: actionType)
     }
     
     @IBAction func linkAction() {
@@ -131,7 +128,6 @@ class MyeIDPinPukCell: UITableViewCell {
         let signCertValid = infoManager.isSignCertValid
         
         if kind == .pin1 {
-            titleLabel.text = pinPukCellInfo.title
             showCertsExpired(!authCertValid)
             if pin1Blocked {
                 showLink(false)
@@ -158,7 +154,6 @@ class MyeIDPinPukCell: UITableViewCell {
             }
         }
         else if kind == .pin2 {
-            titleLabel.text = pinPukCellInfo.title
             showCertsExpired(!signCertValid)
             if pin2Blocked {
                 showLink(false)
@@ -184,7 +179,6 @@ class MyeIDPinPukCell: UITableViewCell {
             }
         }
         else if kind == .puk {
-            titleLabel.text = pinPukCellInfo.title
             if pukBlocked {
                 showLink(true)
                 linkLabel.attributedText = NSAttributedString(string: L(.myEidHowToGetCodesMessage), attributes: [.underlineStyle : NSUnderlineStyle.single.rawValue])
@@ -195,7 +189,8 @@ class MyeIDPinPukCell: UITableViewCell {
             } else {
                 showLink(false)
                 showErrorLabel(false)
-                showChangeButton(authCertValid || signCertValid, with: pinPukCellInfo.buttonText)
+                showChangeButton(infoManager.canChangePUK && (authCertValid || signCertValid), with: pinPukCellInfo.buttonText)
+                populateForWillDisplayCell(pinPukCellInfo: pinPukCellInfo)
                 button.backgroundColor = UIColor.moppBase
             }
         }
@@ -204,7 +199,8 @@ class MyeIDPinPukCell: UITableViewCell {
     }
     
     func populateForWillDisplayCell(pinPukCellInfo: MyeIDInfoManager.PinPukCell.Info) {
-        if let certInfoText = pinPukCellInfo.certInfoText {
+        if var certInfoText = pinPukCellInfo.certInfoText {
+            if !infoManager.canChangePUK { certInfoText += "\n" + L(.myEidChangeNotAvailableText) }
             certInfoLabel.text = certInfoText
             certInfoLabel.accessibilityLabel = certInfoText
         } else {

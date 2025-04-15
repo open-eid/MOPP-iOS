@@ -85,8 +85,14 @@ public class MoppLibError: NSObject {
     }
 
     static public let kMoppLibUserInfoRetryCount: String = "kMoppLibUserInfoRetryCount"
+    static public let kMoppLibUserInfoSWError: String = "kMoppLibUserInfoSWError"
 
     private override init() {}
+
+    static func swError(_ sw: UInt16) -> NSError {
+        error(.readerProcessFailed, userInfo: [NSLocalizedDescriptionKey: Code.wrongPin.localizedDescription,
+                                                 kMoppLibUserInfoSWError: NSNumber(value: sw)])
+    }
 
     static func wrongPinError(withRetryCount count: Int) -> NSError {
         error(.wrongPin, userInfo: [NSLocalizedDescriptionKey: Code.wrongPin.localizedDescription,
