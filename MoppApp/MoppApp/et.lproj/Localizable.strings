@@ -373,6 +373,7 @@
 
 "my-eid-change-code-title" = "%@-koodi vahetus";
 "my-eid-unblock-code-title" = "%@ lahti blokeerimine";
+"my-eid-change-not-available-text" = "Lugejas oleval ID-kaardil ei saa PUK-koodi muuta";
 "my-eid-current-code-label" = "KEHTIV %@-KOOD";
 "my-eid-new-code-label" = "UUS %@-KOOD (vähemalt %i sümbolit)";
 "my-eid-new-code-again-label" = "UUS %@-KOOD UUESTI";

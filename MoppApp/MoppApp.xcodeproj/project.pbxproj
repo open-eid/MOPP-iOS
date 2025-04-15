@@ -283,13 +283,6 @@
 			remoteGlobalIDString = E4250CE71E09695100530370;
 			remoteInfo = MoppLib;
 		};
-		DF1503922AC5CFFA007222B2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DF1503882AC5CFFA007222B2 /* MoppLib.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 546E575E1E2E07C7009A568D;
-			remoteInfo = MoppLibTests;
-		};
 		DF1503982AC5D011007222B2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DF1503942AC5D011007222B2 /* CryptoLib.xcodeproj */;
@@ -961,7 +954,6 @@
 			isa = PBXGroup;
 			children = (
 				DF15038F2AC5CFFA007222B2 /* MoppLib.framework */,
-				DF1503932AC5CFFA007222B2 /* MoppLibTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1339,13 +1331,6 @@
 			fileType = wrapper.framework;
 			path = MoppLib.framework;
 			remoteRef = DF15038E2AC5CFFA007222B2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		DF1503932AC5CFFA007222B2 /* MoppLibTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = MoppLibTests.xctest;
-			remoteRef = DF1503922AC5CFFA007222B2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		DF1503992AC5D011007222B2 /* CryptoLib.framework */ = {
