@@ -24,8 +24,8 @@
 
 import iR301
 
-class CardReaderiR301: CardReaderWrapper {
-    private var contextHandle: SCARDCONTEXT
+class CardReaderiR301: CardReader {
+    private let contextHandle: SCARDCONTEXT
     private var cardHandle: SCARDHANDLE = 0
     private var pioSendPci = SCARD_IO_REQUEST(dwProtocol: UInt32(SCARD_PROTOCOL_UNDEFINED),
                                               cbPciLength: UInt32(MemoryLayout<SCARD_IO_REQUEST>.size))
@@ -88,12 +88,11 @@ class CardReaderiR301: CardReaderWrapper {
         }
         print("SCardStatus status: \(dwStatus) ATR: \(atr.hexString())")
 
-        if dwStatus == SCARD_PRESENT {
-            return atr
-        } else {
+        guard dwStatus == SCARD_PRESENT else {
             print("ID-CARD: Did not successfully power on card")
             throw MoppLibError.Code.readerProcessFailed
         }
+        return atr
     }
 
     func transmit(_ apdu: Bytes) throws -> (Bytes, UInt16) {
