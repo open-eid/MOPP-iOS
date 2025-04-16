@@ -116,9 +116,3 @@ class CardReaderiR301: CardReader {
         return (response, sw)
     }
 }
-
-private extension DataProtocol {
-    func hexString() -> String {
-        return self.map { String(format: "%02X", $0) }.joined(separator: " ")
-    }
-}

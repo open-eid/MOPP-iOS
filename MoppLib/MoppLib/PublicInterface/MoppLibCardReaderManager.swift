@@ -95,15 +95,13 @@ private class ReaderInterfaceHandler: NSObject, ReaderInterfaceDelegate {
     func cardInterfaceDidDetach(_ attached: Bool) {
         print("ID-CARD: Card (interface) attached: \(attached)")
         MoppLibCardReaderManager.shared.cardCommandHandler = nil
-        guard attached else {
-            return MoppLibCardReaderManager.shared.updateStatus(.ReaderConnected)
-        }
-        guard let reader = CardReaderiR301(contextHandle: MoppLibCardReaderManager.shared.handle) else {
+        guard attached, let reader = CardReaderiR301(contextHandle: MoppLibCardReaderManager.shared.handle) else {
             return MoppLibCardReaderManager.shared.updateStatus(.ReaderConnected)
         }
         do {
             let atr = try reader.powerOnCard()
-            MoppLibCardReaderManager.shared.cardCommandHandler = Idemia(reader: reader, atr: atr)
+            MoppLibCardReaderManager.shared.cardCommandHandler =
+                Idemia(reader: reader, atr: atr) ?? (try? Thales(reader: reader, atr: atr))
             if MoppLibCardReaderManager.shared.cardCommandHandler != nil {
                 MoppLibCardReaderManager.shared.updateStatus(.CardConnected)
             }

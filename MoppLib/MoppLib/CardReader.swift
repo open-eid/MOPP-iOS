@@ -80,27 +80,47 @@ extension CardReader {
     }
 
     /**
-     * Sends an APDU command to the card, retrieves the response, and ensures the operation was successful (`SW = 0x9000`).
+     * Constructs and sends an APDU (Application Protocol Data Unit) command to the smart card.
      *
-     * - Parameter apdu: The APDU command to be sent.
-     * - Throws: An error if communication with the card fails or if the response status word is not `0x9000`.
-     * - Returns: The response data from the card.
+     * This method builds a command APDU according to ISO/IEC 7816-4 using the provided parameters
+     * and transmits it using `transmitCommand`. It then checks the response status word (SW)
+     * and throws an error unless it equals `0x9000`, indicating a successful operation.
+     *
+     * - Parameters:
+     *   - cls: The class byte (CLA) of the command. Defaults to `0x00`.
+     *   - ins: The instruction byte (INS) of the command.
+     *   - p1: The first parameter byte (P1). Defaults to `0x00`.
+     *   - p2: The second parameter byte (P2). Defaults to `0x00`.
+     *   - data: Optional command data to include in the APDU body (`Lc + Data`).
+     *   - le: Optional expected length of response data (`Le`). If provided, an `Le` byte is appended.
+     *
+     * - Throws: `MoppLibError.generalError()` if the card's status word is not `0x9000`,
+     *           or any error thrown by `transmitCommand`.
+     *
+     * - Returns: The response data returned by the card (excluding the status word).
      */
-    func transmitCommandChecked(_ apdu: Bytes) throws -> Bytes {
-        let (result, sw) = try transmitCommand(apdu)
-        guard sw == 0x9000 else {
-            throw MoppLibError.generalError()
-        }
-        return result
-    }
-
-    func sendAPDU(cls: UInt8 = 0x00, ins: UInt8, p1: UInt8 = 0x00, p2: UInt8 = 0x00, data: (any RangeReplaceableCollection<UInt8>)? = nil, le: UInt8? = nil) throws -> Bytes {
+    func sendAPDU(cls: UInt8 = 0x00, ins: UInt8, p1: UInt8 = 0x00, p2: UInt8 = 0x00,
+                  data: (any RangeReplaceableCollection<UInt8>)? = nil, le: UInt8? = nil) throws -> Bytes {
         let apdu: Bytes = switch (data, le) {
         case (nil, nil): [cls, ins, p1, p2]
         case (nil, _): [cls, ins, p1, p2, le!]
         case (_, nil): [cls, ins, p1, p2, UInt8(data!.count)] + data!
         case (_, _): [cls, ins, p1, p2, UInt8(data!.count)] + data! + [le!]
         }
-        return try transmitCommandChecked(apdu)
+        let (result, sw) = try transmitCommand(apdu)
+        guard sw == 0x9000 else {
+            throw MoppLibError.generalError()
+        }
+        return result
+    }
+}
+
+extension Bytes {
+    init(hex: String) {
+        self = hex.split(separator: " ").compactMap { UInt8($0, radix: 16) }
+    }
+
+    func hexString() -> String {
+        return self.map { String(format: "%02X", $0) }.joined(separator: " ")
     }
 }
