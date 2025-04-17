@@ -25,98 +25,53 @@ import Foundation
 
 public class MoppLibCardActions: NSObject {
 
-    /** Gets public personal data from ID card.
-     *
-     * @param success       Block to be called on successful completion of action. Includes card owner public personal data as MoppLibPersonalData.
-     * @param failure       Block to be called when action fails. Includes Error.
-     */
-    static public func cardPersonalData(success: @escaping (MoppLibPersonalData) -> Void,
-                                        failure: @escaping (Error) -> Void) {
-        execute(failure: failure) { handler in
-            success(try handler.readPublicData())
-        }
+    /** Gets public personal data from ID card. */
+    static public func cardPersonalData() async throws -> MoppLibPersonalData {
+        try execute { try $0.readPublicData() }
     }
 
-    /**
-     * Gets signing certificate data.
-     *
-     * @param success       Block to be called on successful completion of action. Includes signing certificate data as MoppLibCertData
-     * @param failure       Block to be called when action fails. Includes error.
-     */
-    @objc static public func signingCertificate(success: @escaping (Data) -> Void,
-                                                failure: @escaping (Error) -> Void) {
-        execute(failure: failure) { handler in
-            success(try handler.readSignatureCertificate())
-        }
+    /** Gets signing certificate data. */
+    @objc static public func signingCertificate() throws -> Data {
+        try execute { try $0.readSignatureCertificate() }
     }
 
-    /**
-     * Gets authentication certificate data.
-     *
-     * @param success       Block to be called on successful completion of action. Includes authentication certificate data as MoppLibCertData
-     * @param failure       Block to be called when action fails. Includes error.
-     */
-    static public func authenticationCertificate(success: @escaping (Data) -> Void,
-                                                 failure: @escaping (Error) -> Void) {
-        execute(failure: failure) { handler in
-            success(try handler.readAuthenticationCertificate())
-        }
+    static public func signingCertificate() async throws -> Data {
+        try execute { try $0.readSignatureCertificate() }
     }
 
-    /**
-     * Gets PIN1 retry counter value.
-     *
-     * @param success       Block to be called on successful completion of action. Includes retry counter value as NSNumber
-     * @param failure       Block to be called when action fails. Includes error.
-     */
-    static public func pin1RetryCount(success: @escaping (NSNumber) -> Void,
-                                      failure: @escaping (Error) -> Void) {
-        execute(failure: failure) { handler in
-            success(try handler.readCodeCounterRecord(.pin1))
-        }
+    /** Gets authentication certificate data. */
+    static public func authenticationCertificate() async throws -> Data {
+        try execute { try $0.readAuthenticationCertificate() }
     }
 
-    /**
-     * Gets PIN2 retry counter value.
-     *
-     * @param success       Block to be called on successful completion of action. Includes retry counter value as NSNumber
-     * @param failure       Block to be called when action fails. Includes error.
-     */
-    @objc static public func pin2RetryCount(success: @escaping (NSNumber) -> Void,
-                                            failure: @escaping (Error) -> Void) {
-        execute(failure: failure) { handler in
-            success(try handler.readCodeCounterRecord(.pin2))
-        }
+    /** Gets PIN1 retry counter value. */
+    static public func pin1RetryCount() async throws -> NSNumber {
+        try execute { try $0.readCodeCounterRecord(.pin1) }
     }
 
-    /**
-     * Gets PUK retry counter value.
-     *
-     * @param success       Block to be called on successful completion of action. Includes retry counter value as NSNumber
-     * @param failure       Block to be called when action fails. Includes error.
-     */
-    static public func pukRetryCount(success: @escaping (NSNumber) -> Void,
-                                     failure: @escaping (Error) -> Void) {
-        execute(failure: failure) { handler in
-            success(try handler.readCodeCounterRecord(.puk))
-        }
+    /** Gets PIN2 retry counter value. */
+    @objc static public func pin2RetryCount() throws -> NSNumber {
+        try execute { try $0.readCodeCounterRecord(.pin2) }
+    }
+
+    /** Gets PIN2 retry counter value. */
+    static public func pin2RetryCount() async throws -> NSNumber {
+        try execute { try $0.readCodeCounterRecord(.pin2) }
+    }
+
+    /** Gets PUK retry counter value. */
+    static public func pukRetryCount() async throws -> NSNumber {
+        try execute { try $0.readCodeCounterRecord(.puk) }
     }
 
     @objc static public func calculateSignatureFor(data: Data, pin2: String) throws -> Data {
-        guard let handler = CardActionsManager.shared.cardCommandHandler else {
-            throw MoppLibError.cardNotFoundError()
-        }
-        return try handler.calculateSignature(for: data, withPin2: pin2)
+        try execute { try $0.calculateSignature(for: data, withPin2: pin2) }
     }
 
-    static private func execute(failure: @escaping (Error) -> Void, action: @escaping (CardCommands) throws -> Void) {
-        guard let handler = CardActionsManager.shared.cardCommandHandler else {
-            return failure(MoppLibError.cardNotFoundError())
+    static private func execute<T>(action: @escaping (CardCommands) throws -> T) throws -> T {
+        guard let handler = MoppLibCardReaderManager.shared.cardCommandHandler else {
+            throw MoppLibError.cardNotFoundError()
         }
-        do {
-            try action(handler)
-        } catch {
-            failure(error)
-        }
+        return try action(handler)
     }
 }

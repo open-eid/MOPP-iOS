@@ -32,14 +32,7 @@ class InitializationViewController : UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-#if USE_TEST_DDS
-        let useTestDDS = true
-#else
-        let useTestDDS = false
-#endif
-        
-        MoppLibManager.sharedInstance().setup(success: {
+        MoppLibContainerActions.setup(success: {
             DispatchQueue.main.async {
                 MoppApp.instance.setupTabController()
             }
@@ -49,8 +42,6 @@ class InitializationViewController : UIViewController {
                 MoppApp.instance.setupTabController()
             }
         },
-        usingTestDigiDocService: useTestDDS,
-        andTSUrl: DefaultsHelper.timestampUrl ?? MoppConfiguration.getMoppLibConfiguration().tsaurl,
         withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration(),
         andProxyConfiguration: ManualProxy.getMoppLibProxyConfiguration()
         )

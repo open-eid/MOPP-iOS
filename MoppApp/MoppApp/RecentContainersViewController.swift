@@ -232,13 +232,12 @@ extension RecentContainersViewController : UITableViewDelegate {
 
                     let container = CryptoContainer(filename: path.lastPathComponent as NSString, filePath: path.path as NSString)
 
-                    MoppLibCryptoActions.sharedInstance().parseCdocInfo(
+                    MoppLibCryptoActions.parseCdocInfo(
                         path.path as String?,
-                        success: {(_ cdocInfo: CdocInfo?) -> Void in
-                            guard let strongCdocInfo = cdocInfo else { return }
+                        success: { cdocInfo in
                             let cryptoContainer = (containerViewController as! CryptoContainerViewController)
-                            container.addressees = strongCdocInfo.addressees as? [Addressee] ?? []
-                            container.dataFiles = strongCdocInfo.dataFiles
+                            container.addressees = cdocInfo.addressees as? [Addressee] ?? []
+                            container.dataFiles = cdocInfo.dataFiles
                             cryptoContainer.containerPath = path.path as String?
                             cryptoContainer.state = .opened
 
