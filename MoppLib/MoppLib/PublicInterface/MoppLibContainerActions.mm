@@ -23,10 +23,20 @@
 
 #import "MoppLibContainerActions.h"
 #import "MoppLibDigidocManager.h"
-#import "Reachability.h"
+#import <CryptoLib/CryptoLib-Swift.h>
 #import <MoppLib/MoppLib-Swift.h>
 
+#include <digidocpp/Container.h>
+
 @implementation MoppLibContainerActions
+
++ (void)setupWithSuccess:(VoidBlock)success andFailure:(FailureBlock)failure withMoppConfiguration:(MoppLibConfiguration *)moppConfiguration andProxyConfiguration:(MoppLibProxyConfiguration*)proxyConfiguration {
+    [[MoppLibDigidocManager sharedInstance] setupWithSuccess:success andFailure:failure withMoppConfiguration: moppConfiguration andProxyConfiguration: proxyConfiguration];
+}
+
++ (NSString *)libdigidocppVersion {
+    return [NSString stringWithUTF8String:digidoc::version().c_str()];
+}
 
 + (MoppLibContainerActions *)sharedInstance {
   static dispatch_once_t pred;
@@ -38,7 +48,7 @@
 }
 
 - (void)openContainerWithPath:(NSString *)containerPath success:(ContainerBlock)success failure:(FailureBlock)failure {
-  
+
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     NSError *error;
     MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] getContainerWithPath:containerPath error:&error];
@@ -85,15 +95,6 @@
   
 }
 
-- (void)getContainersWithSuccess:(void(^)(NSArray *containers))success failure:(FailureBlock)failure {
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    NSArray *containers = [[MoppLibDigidocManager sharedInstance] getContainers];
-    dispatch_async(dispatch_get_main_queue(), ^{
-      success(containers);
-    });
-  });
-}
-
 - (void)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath success:(ContainerBlock)success failure:(FailureBlock)failure {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     NSError *error;
@@ -123,25 +124,36 @@
     return [[MoppLibDigidocManager sharedInstance] isContainerFileSaveable:containerPath saveDataFile:fileName];
 }
 
-- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(void(^)(MoppLibContainer *container))success failure:(FailureBlock)failure {
-  
-  Reachability *reachability = [Reachability reachabilityForInternetConnection];
-  NetworkStatus networkStatus = [reachability currentReachabilityStatus];
-  if (networkStatus == NotReachable) {
+- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(VoidBlock)success failure:(FailureBlock)failure {
+
+  if (!MoppLibManager.shared.isConnected) {
     failure([MoppLibError noInternetConnectionError]);
     return;
   }
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [MoppLibCardActions pin2RetryCountWithSuccess:^(NSNumber *count) {
-            if (count == 0) {
-                return failure([MoppLibError pinBlockedError]);
-            }
-            [MoppLibCardActions signingCertificateWithSuccess:^(NSData *certData) {
-                [[MoppLibDigidocManager sharedInstance] addSignature:containerPath pin2:pin2 cert:certData roleData:roleData success:success andFailure:failure];
-            } failure:failure];
-        } failure:failure];
+        NSError *error = nil;
+        NSNumber *count = [MoppLibCardActions pin2RetryCountAndReturnError:&error];
+        if (error != nil) {
+            return failure(error);
+        }
+        if (count == 0) {
+            return failure([MoppLibError pinBlockedError]);
+        }
+        NSData *certData = [MoppLibCardActions signingCertificateAndReturnError:&error];
+        if (error != nil) {
+            return failure(error);
+        }
+        [[MoppLibDigidocManager sharedInstance] addSignature:containerPath pin2:pin2 cert:certData roleData:roleData success:success andFailure:failure];
     });
+}
+
++ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData {
+    return [MoppLibDigidocManager prepareSignature:cert containerPath:containerPath roleData:roleData];
+}
+
++ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(VoidBlock)success failure:(FailureBlock)failure {
+    return [MoppLibDigidocManager isSignatureValid:cert signatureValue:signatureValue success:success failure:failure];
 }
 
 @end

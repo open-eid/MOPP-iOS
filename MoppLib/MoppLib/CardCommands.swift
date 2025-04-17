@@ -34,6 +34,13 @@ enum CodeType: UInt {
  */
 protocol CardCommands {
     /**
+     * The smart card reader used to communicate with the card.
+     *
+     * Implementations may use this to send APDU commands and manage card sessions.
+     */
+    var reader: CardReader { get }
+
+    /**
      * Reads public data from the card.
      *
      * - Throws: An error if the operation fails.
@@ -132,30 +139,8 @@ protocol CardCommands {
     func decryptData(_ hash: Data, withPin1 pin1: String) throws -> Data
 }
 
-/**
- * Manages interactions with the smart card by delegating commands to `CardCommands` implementations.
- *
- * This class follows the singleton pattern to ensure a single instance is used throughout the app.
- */
-class CardActionsManager: NSObject {
-
-    /**
-     * The shared singleton instance of `CardActionsManager`.
-     */
-    static let shared = CardActionsManager()
-
-    /**
-     * The command handler responsible for executing smart card operations.
-     *
-     * This should be assigned to an object conforming to the `CardCommands` protocol
-     * before performing any smart card actions.
-     */
-    var cardCommandHandler: CardCommands?
-
-    /**
-     * Private initializer to enforce the singleton pattern.
-     */
-    private override init() {
-        super.init()
+extension CardCommands {
+    func select(p1: UInt8 = 0x04, p2: UInt8 = 0x0C, file: Bytes) throws -> Bytes {
+        return try reader.sendAPDU(ins: 0xA4, p1: p1, p2: p2, data: file, le: p2 == 0x0C ? nil : 0x00)
     }
 }

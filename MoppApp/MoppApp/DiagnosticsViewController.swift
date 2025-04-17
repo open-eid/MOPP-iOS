@@ -142,7 +142,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         appVersionLabel.text = "\(L(.diagnosticsAppVersion)): \(MoppApp.versionString)"
         opSysVersionLabel.text = "\(L(.diagnosticsIosVersion)): iOS \(MoppApp.iosVersion)"
         librariesTitleLabel.text = L(.diagnosticsLibrariesLabel)
-        let libdigidocppVersion = MoppLibManager.sharedInstance().libdigidocppVersion() ?? String()
+        let libdigidocppVersion = MoppLibContainerActions.libdigidocppVersion() ?? String()
         librariesLabel.text = "libdigidocpp \(libdigidocppVersion)"
         tslCacheLabel.text = L(.diagnosticsTslCacheLabel)
         centralConfigurationLabel.text = L(.centralConfigurationLabel)
