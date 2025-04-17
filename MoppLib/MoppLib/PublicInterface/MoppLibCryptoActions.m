@@ -22,25 +22,16 @@
  */
 
 #import "MoppLibCryptoActions.h"
-#import <MoppLib/MoppLib-Swift.h>
 
 #import <CryptoLib/Encrypt.h>
 #import <CryptoLib/Decrypt.h>
 #import <CryptoLib/CdocParser.h>
 #import <CryptoLib/CryptoLib-Swift.h>
+#import <MoppLib/MoppLib-Swift.h>
 
 @implementation MoppLibCryptoActions
 
-+ (MoppLibCryptoActions *)sharedInstance {
-    static dispatch_once_t pred;
-    static MoppLibCryptoActions *sharedInstance = nil;
-    dispatch_once(&pred, ^{
-        sharedInstance = [[self alloc] init];
-    });
-    return sharedInstance;
-}
-
-- (void)parseCdocInfo:(NSString *)fullPath success:(CdocContainerBlock)success failure:(FailureBlock)failure {
++ (void)parseCdocInfo:(NSString *)fullPath success:(CdocContainerBlock)success failure:(FailureBlock)failure {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSError *error = nil;
         CdocParser *cdocParser = [CdocParser new];
@@ -54,12 +45,14 @@
     });
 }
 
-- (void)decryptData:(NSString *)fullPath withPin1:(NSString*)pin1 success:(DecryptedDataBlock)success failure:(FailureBlock)failure {
++ (void)decryptData:(NSString *)fullPath withPin1:(NSString*)pin1 success:(DecryptedDataBlock)success failure:(FailureBlock)failure {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        Decrypt *decrypter = [Decrypt new];
-        SmartToken *smartToken = [SmartToken new];
         NSError *error = nil;
-        NSMutableDictionary *response = [decrypter decryptFile:fullPath withPin:pin1 withToken:smartToken error:&error];
+        NSMutableDictionary *response = nil;
+        SmartToken *smartToken = [[SmartToken alloc] initWithPin1:pin1 error:&error];
+        if (smartToken) {
+            response = [Decrypt decryptFile:fullPath withToken:smartToken error:&error];
+        }
         if(error == nil && response.count == 0) {
             error = [MoppLibError generalError];
         }
@@ -69,7 +62,7 @@
     });
 }
 
-- (void)encryptData:(NSString *)fullPath withDataFiles:(NSArray*)dataFiles withAddressees:(NSArray*)addressees success:(VoidBlock)success failure:(FailureBlock)failure {
++ (void)encryptData:(NSString *)fullPath withDataFiles:(NSArray*)dataFiles withAddressees:(NSArray*)addressees success:(VoidBlock)success failure:(FailureBlock)failure {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         Encrypt *encrypter = [[Encrypt alloc] init];

@@ -32,7 +32,7 @@ extension CryptoActions where Self: CryptoContainerViewController {
     
     func startEncryptingProcess() {
         if container.addressees.count > 0 {
-            MoppLibCryptoActions.sharedInstance().encryptData(
+            MoppLibCryptoActions.encryptData(
                 container.filePath as String?,
                 withDataFiles: container.dataFiles as? [Any],
                 withAddressees: container.addressees,
@@ -75,13 +75,13 @@ extension CryptoActions where Self: CryptoContainerViewController {
 
 extension CryptoContainerViewController : IdCardDecryptViewControllerDelegate {
     
-    func idCardDecryptDidFinished(cancelled: Bool, success: Bool, dataFiles: NSMutableDictionary, error: Error?) {
+    func idCardDecryptDidFinished(cancelled: Bool, success: Bool, dataFiles: [String:Data], error: Error?) {
         if !cancelled {
             if success {
                 container.dataFiles.removeAllObjects()
-                for dataFile in dataFiles {
+                for (filename, data) in dataFiles {
                     let cryptoDataFile = CryptoDataFile()
-                    cryptoDataFile.filename = dataFile.key as? String
+                    cryptoDataFile.filename = filename
                     guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: cryptoDataFile.filename) else {
                         dismiss(animated: false)
                         infoAlert(message: L(.decryptionErrorMessage))
@@ -89,7 +89,7 @@ extension CryptoContainerViewController : IdCardDecryptViewControllerDelegate {
                     }
                     cryptoDataFile.filePath = destinationPath
                     container.dataFiles.add(cryptoDataFile)
-                    MoppFileManager.shared.createFile(atPath: destinationPath, contents: dataFile.value as! Data)
+                    MoppFileManager.shared.createFile(atPath: destinationPath, contents: data)
                 }
                 
                 self.isCreated = false

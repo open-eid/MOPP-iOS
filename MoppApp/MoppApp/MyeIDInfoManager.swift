@@ -176,42 +176,39 @@ class MyeIDInfoManager {
         }
     }
 
-    func requestInformation(with viewController: UIViewController) {
-        let failureClosure = { [weak self] in
-            self?.delegate?.didCompleteInformationRequest(success: false)
-        }
+    func requestInformation() {
+        Task.detached { [weak self] in
+            do {
+                let personalData = try await MoppLibCardActions.cardPersonalData()
+                let authCertData = try await MoppLibCardActions.authenticationCertificate()
+                let signCertData = try await MoppLibCardActions.signingCertificate()
+                let pin1RetryCount = try await MoppLibCardActions.pin1RetryCount()
+                let pin2RetryCount = try await MoppLibCardActions.pin2RetryCount()
+                let pukRetryCount = try await MoppLibCardActions.pukRetryCount()
 
-        MoppLibCardActions.cardPersonalData(success: { [weak self] moppLibPersonalData in
-            MoppLibCardActions.authenticationCertificate(success: { [weak self] moppLibAuthCertData in
-                MoppLibCardActions.signingCertificate(success: { [weak self] moppLibSignCertData in
-                    self?.requestRetryCounts(with: viewController, success: { [weak self] (pin1RetryCount, pin2RetryCount, pukRetryCount) in
-                        guard let strongSelf = self else { return }
-                        strongSelf.personalData = moppLibPersonalData
-                        strongSelf.authCertData = try? X509Certificate(der: moppLibAuthCertData)
-                        strongSelf.signCertData = try? X509Certificate(der: moppLibSignCertData)
-                        strongSelf.retryCounts.pin1 = pin1RetryCount
-                        strongSelf.retryCounts.pin2 = pin2RetryCount
-                        strongSelf.retryCounts.puk  = pukRetryCount
-                        strongSelf.setup()
-                        strongSelf.createCertInfoAttributedString(kind: .pin1)
-                        strongSelf.createCertInfoAttributedString(kind: .pin2)
-                        strongSelf.delegate?.didCompleteInformationRequest(success: true)
-                    }, failure: {_ in failureClosure() })
-                }, failure: {_ in failureClosure() })
-            }, failure: {_ in failureClosure() })
-        }, failure: {_ in failureClosure() })
+                guard let self else { return }
+
+                self.personalData = personalData
+                self.authCertData = try? X509Certificate(der: authCertData)
+                self.signCertData = try? X509Certificate(der: signCertData)
+                self.retryCounts.pin1 = pin1RetryCount.intValue
+                self.retryCounts.pin2 = pin2RetryCount.intValue
+                self.retryCounts.puk  = pukRetryCount.intValue
+
+                await MainActor.run {
+                    self.setup()
+                    self.createCertInfoAttributedString(kind: .pin1)
+                    self.createCertInfoAttributedString(kind: .pin2)
+                    self.delegate?.didCompleteInformationRequest(success: true)
+                }
+            } catch {
+                await MainActor.run { [weak self] in
+                    self?.delegate?.didCompleteInformationRequest(success: false)
+                }
+            }
+        }
     }
-    
-    func requestRetryCounts(with viewController: UIViewController, success:@escaping (_ pin1RetryCount:Int, _ pin2RetryCount:Int, _ pukRetryCount:Int)->Void, failure:@escaping (Error?)->Void) {
-        MoppLibCardActions.pin1RetryCount(success: { pin1RetryCount in
-            MoppLibCardActions.pin2RetryCount(success: { pin2RetryCount in
-                MoppLibCardActions.pukRetryCount(success: { pukRetryCount in
-                    success(pin1RetryCount.intValue, pin2RetryCount.intValue, pukRetryCount.intValue)
-                }, failure: failure)
-            }, failure: failure)
-        }, failure: failure)
-    }
-    
+
     func setup() {
         personalInfo.items.removeAll()
         guard let personalData = personalData else { return }

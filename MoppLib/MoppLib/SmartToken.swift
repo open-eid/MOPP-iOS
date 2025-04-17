@@ -22,30 +22,32 @@
 
 import CryptoLib
 
-@objcMembers
 public class SmartToken: NSObject, AbstractSmartToken {
+    let pin1: String
+    let card: CardCommands
+
+    @objc public init(pin1: String) throws {
+        guard let card = MoppLibCardReaderManager.shared.cardCommandHandler else {
+            throw MoppLibError.cardNotFoundError()
+        }
+        self.card = card
+        self.pin1 = pin1
+        super.init()
+    }
+
     public func getCertificate() throws -> Data {
-        guard let handler = CardActionsManager.shared.cardCommandHandler else {
-            throw MoppLibError.cardNotFoundError()
-        }
-        return try handler.readAuthenticationCertificate()
+        try card.readAuthenticationCertificate()
     }
 
-    public func decrypt(_ data: Data, pin1: String) throws -> Data {
-        return try derive(data, pin1: pin1)
+    public func decrypt(_ data: Data) throws -> Data {
+        try card.decryptData(data, withPin1: pin1)
     }
 
-    public func derive(_ data: Data, pin1: String) throws -> Data {
-        guard let handler = CardActionsManager.shared.cardCommandHandler else {
-            throw MoppLibError.cardNotFoundError()
-        }
-        return try handler.decryptData(data, withPin1: pin1)
+    public func derive(_ data: Data) throws -> Data {
+        try card.decryptData(data, withPin1: pin1)
     }
 
-    public func authenticate(_ data: Data, pin1: String) throws -> Data {
-        guard let handler = CardActionsManager.shared.cardCommandHandler else {
-            throw MoppLibError.cardNotFoundError()
-        }
-        return try handler.authenticate(for: data, withPin1: pin1)
+    public func authenticate(_ data: Data) throws -> Data {
+        try card.authenticate(for: data, withPin1: pin1)
     }
 }
