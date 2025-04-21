@@ -131,31 +131,3 @@ protocol CardCommands {
      */
     func decryptData(_ hash: Data, withPin1 pin1: String) throws -> Data
 }
-
-/**
- * Manages interactions with the smart card by delegating commands to `CardCommands` implementations.
- *
- * This class follows the singleton pattern to ensure a single instance is used throughout the app.
- */
-class CardActionsManager: NSObject {
-
-    /**
-     * The shared singleton instance of `CardActionsManager`.
-     */
-    static let shared = CardActionsManager()
-
-    /**
-     * The command handler responsible for executing smart card operations.
-     *
-     * This should be assigned to an object conforming to the `CardCommands` protocol
-     * before performing any smart card actions.
-     */
-    var cardCommandHandler: CardCommands?
-
-    /**
-     * Private initializer to enforce the singleton pattern.
-     */
-    private override init() {
-        super.init()
-    }
-}
