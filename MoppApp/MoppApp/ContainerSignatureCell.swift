@@ -44,13 +44,7 @@ class ContainerSignatureCell: UITableViewCell {
     weak var delegate: ContainerSignatureDelegate? = nil
     
     var signatureStatus: MoppLibSignatureStatus?
-    
-    #if USE_TEST_DDS
-        let useTestDDS = true
-    #else
-        let useTestDDS = false
-    #endif
-    
+
     enum ColorTheme {
         case neutral
         case showInvalid
@@ -137,16 +131,9 @@ class ContainerSignatureCell: UITableViewCell {
     }
     
     func setRoleText(signature: MoppLibSignature) {
-        let rolesData = signature.roleAndAddressData.roles
-        if let roles = rolesData, !roles.isEmpty {
-            roleInfo.text = roles.joined(separator: " / ")
-            roleInfo.isHidden = false
-            setNeedsUpdateConstraints()
-        } else {
-            roleInfo.text = ""
-            roleInfo.isHidden = true
-            setNeedsUpdateConstraints()
-        }
+        roleInfo.isHidden = signature.roleAndAddressData.roles.isEmpty
+        roleInfo.text = signature.roleAndAddressData.roles.joined(separator: " / ")
+        setNeedsUpdateConstraints()
         roleInfo.resetLabelProperties()
     }
     
