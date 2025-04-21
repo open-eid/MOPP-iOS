@@ -133,26 +133,20 @@ extension SigningContainerViewController : MobileIDEditViewControllerDelegate {
         if cancelled { return }
         guard let phoneNumber = phoneNumber else { return }
         guard let idCode = idCode else { return }
-        
-        let mobileIDParameters = MobileIDParameters(phoneNumber: phoneNumber, idCode: idCode, containerPath: self.containerViewDelegate.getContainerPath(), hashType: kHashType, language: decideLanguageBasedOnPreferredLanguages(), roleData: DefaultsHelper.isRoleAndAddressEnabled ? RoleAndAddressUtil.getSavedRoleInfo() : nil)
-        createMobileIDSignature(mobileIDParameters: mobileIDParameters)
-    }
-    
-    func createMobileIDSignature(mobileIDParameters: MobileIDParameters) {
+
         let mobileIDChallengeview = UIStoryboard.tokenFlow.instantiateViewController(of: MobileIDChallengeViewController.self)
         mobileIDChallengeview.modalPresentationStyle = .overFullScreen
         present(mobileIDChallengeview, animated: false)
-        MobileIDSignature.shared.createMobileIDSignature(phoneNumber: mobileIDParameters.phoneNumber, nationalIdentityNumber: mobileIDParameters.idCode, containerPath: mobileIDParameters.containerPath, hashType: mobileIDParameters.hashType, language: mobileIDParameters.language, roleData: mobileIDParameters.roleData)
+
+        MobileIDSignature.shared.createMobileIDSignature(phoneNumber: phoneNumber, nationalIdentityNumber: idCode, containerPath: containerPath, hashType: kHashType, language: decideLanguageBasedOnPreferredLanguages(), roleData: DefaultsHelper.isRoleAndAddressEnabled ? RoleAndAddressUtil.getSavedRoleInfo() : nil)
     }
     
     func decideLanguageBasedOnPreferredLanguages() -> String {
-        let currentLanguage = DefaultsHelper.moppLanguageID
-        if currentLanguage == "et" {
-            return "EST"
-        } else if currentLanguage == "ru" {
-            return "RUS"
+        return switch DefaultsHelper.moppLanguageID {
+        case "et": "EST"
+        case "ru": "RUS"
+        default: "ENG"
         }
-        return "ENG"
     }
 }
 
@@ -162,22 +156,17 @@ extension SigningContainerViewController : SmartIDEditViewControllerDelegate {
 
         guard let country = country else { return }
         guard let idCode = idCode else { return }
-        
-        let smartIDParameters = SmartIDParameters(country: country, idCode: idCode, containerPath: self.containerViewDelegate.getContainerPath(), hashType: kHashType, roleData: DefaultsHelper.isRoleAndAddressEnabled ? RoleAndAddressUtil.getSavedRoleInfo() : nil)
-        createSmartIDSignature(smartIDParameters: smartIDParameters)
-    }
-    
-    func createSmartIDSignature(smartIDParameters: SmartIDParameters) {
+
         let smartIDChallengeview = UIStoryboard.tokenFlow.instantiateViewController(of: SmartIDChallengeViewController.self)
         smartIDChallengeview.modalPresentationStyle = .overFullScreen
         present(smartIDChallengeview, animated: false)
 
         SmartIDSignature.shared.createSmartIDSignature(
-            country: smartIDParameters.country,
-            nationalIdentityNumber: smartIDParameters.idCode,
-            containerPath: smartIDParameters.containerPath,
-            hashType: smartIDParameters.hashType,
-            roleData: smartIDParameters.roleData
+            country: country,
+            nationalIdentityNumber: idCode,
+            containerPath: containerPath,
+            hashType: kHashType,
+            roleData: DefaultsHelper.isRoleAndAddressEnabled ? RoleAndAddressUtil.getSavedRoleInfo() : nil
         )
     }
 }
@@ -221,37 +210,6 @@ extension SigningContainerViewController : IdCardSignViewControllerDelegate {
             }
         } else if let error = error as? IdCardActionError, error == .actionCancelled {
             ErrorUtil.generateError(signingError: L(.signingAbortedMessage))
-        }
-    }
-}
-
-extension BinaryInteger {
-    var binaryDescription: String {
-        var binaryString = ""
-        var internalNumber = self
-        var counter = 0
-
-        for _ in (1...self.bitWidth) {
-            binaryString.insert(contentsOf: "\(internalNumber & 1)", at: binaryString.startIndex)
-            internalNumber >>= 1
-            counter += 1
-            if counter % 4 == 0 {
-                binaryString.insert(contentsOf: " ", at: binaryString.startIndex)
-            }
-        }
-
-        return binaryString
-    }
-}
-
-extension String {
-    func leftPadding(toLength: Int, withPad character: Character) -> String {
-        let newLength = self.count
-        if newLength < toLength {
-            return String(repeatElement(character, count: toLength - newLength)) + self
-        } else {
-            let strIndex = self.index(self.startIndex, offsetBy: newLength - toLength)
-            return String(self[..<strIndex])
         }
     }
 }

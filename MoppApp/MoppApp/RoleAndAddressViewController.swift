@@ -49,8 +49,8 @@ class RoleAndAddressViewController : MoppViewController {
     
     var tapGR: UITapGestureRecognizer!
     
-    var viewController: TokenFlowSigning? = nil
-    
+    var onComplete: (() -> Void)?
+
     var selectedTextField = UITextField()
     var isShowingKeyboard = false
     
@@ -72,12 +72,7 @@ class RoleAndAddressViewController : MoppViewController {
         
         RoleAndAddressUtil.saveRoleInfo(roleData: roleData)
         
-        dismiss(animated: false) {
-            [weak self] in
-            guard let sself = self,
-                  let selectionVC = sself.viewController else { return }
-            selectionVC.sign(nil)
-        }
+        dismiss(animated: false, completion: onComplete)
     }
     
     @IBAction func cancelAction(_ sender: Any) {
@@ -171,34 +166,7 @@ class RoleAndAddressViewController : MoppViewController {
         textField.layer.borderColor = UIColor.moppContentLine.cgColor
         textField.layer.borderWidth = 1.0
     }
-    
-    func signWithMobileID(mobileIDParameters: MobileIDParameters?, roleData: MoppLibRoleAddressData?) {
-        let mobileIDChallengeview = UIStoryboard.tokenFlow.instantiateViewController(of: MobileIDChallengeViewController.self)
-        mobileIDChallengeview.modalPresentationStyle = .overFullScreen
-        getTopViewController().present(mobileIDChallengeview, animated: false)
-        
-        MobileIDSignature.shared.createMobileIDSignature(
-            phoneNumber: mobileIDParameters?.phoneNumber ?? "",
-            nationalIdentityNumber: mobileIDParameters?.idCode ?? "",
-            containerPath: mobileIDParameters?.containerPath ?? "",
-            hashType: mobileIDParameters?.hashType ?? "",
-            language: mobileIDParameters?.language ?? "",
-            roleData: roleData)
-    }
-    
-    func signWithSmartID(smartIDParameters: SmartIDParameters?, roleData: MoppLibRoleAddressData?) {
-        let smartIDChallengeview = UIStoryboard.tokenFlow.instantiateViewController(of: SmartIDChallengeViewController.self)
-        smartIDChallengeview.modalPresentationStyle = .overFullScreen
-        getTopViewController().present(smartIDChallengeview, animated: false)
-        
-        SmartIDSignature.shared.createSmartIDSignature(
-            country: smartIDParameters?.country ?? "",
-            nationalIdentityNumber: smartIDParameters?.idCode ?? "",
-            containerPath: smartIDParameters?.containerPath ?? "",
-            hashType: smartIDParameters?.hashType ?? "",
-            roleData: roleData)
-    }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.0)

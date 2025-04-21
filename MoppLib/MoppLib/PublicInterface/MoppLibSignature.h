@@ -21,7 +21,7 @@
  *
  */
 
-#import "MoppLibConstants.h"
+#import <Foundation/Foundation.h>
 
 typedef NS_ENUM(int, MoppLibSignatureStatus) {
     Valid,

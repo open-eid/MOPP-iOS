@@ -26,8 +26,10 @@
 #import "MoppLibConstants.h"
 #import "MoppLibRoleAddressData.h"
 
+@class MoppLibContainer;
 @class MoppLibConfiguration;
 @class MoppLibProxyConfiguration;
+typedef void (^ContainerBlock)(MoppLibContainer *container);
 
 @interface MoppLibContainerActions : NSObject
 
@@ -127,7 +129,7 @@
  * @param success       Block to be called on successful completion of action. Includes container data as MoppLibContainer and BOOL to indicate if signature was added.
  * @param failure       Block to be called when action fails. Includes error.
  */
-- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(ContainerBlock)success failure:(FailureBlock)failure;
+- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(VoidBlock)success failure:(FailureBlock)failure;
 
 + (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData;
 + (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(VoidBlock)success failure:(FailureBlock)failure;

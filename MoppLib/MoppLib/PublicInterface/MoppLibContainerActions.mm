@@ -124,8 +124,8 @@
     return [[MoppLibDigidocManager sharedInstance] isContainerFileSaveable:containerPath saveDataFile:fileName];
 }
 
-- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(ContainerBlock)success failure:(FailureBlock)failure {
-  
+- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(VoidBlock)success failure:(FailureBlock)failure {
+
   if (!MoppLibManager.shared.isConnected) {
     failure([MoppLibError noInternetConnectionError]);
     return;
