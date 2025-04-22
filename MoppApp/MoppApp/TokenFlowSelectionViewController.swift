@@ -50,7 +50,6 @@ class TokenFlowSelectionViewController : MoppViewController {
     var isFlowForDecrypting = false
     weak var mobileIdEditViewControllerDelegate: MobileIDEditViewControllerDelegate!
     weak var smartIdEditViewControllerDelegate: SmartIDEditViewControllerDelegate!
-    weak var idCardSignViewControllerDelegate: IdCardSignViewControllerDelegate?
     weak var idCardDecryptViewControllerDelegate: IdCardDecryptViewControllerDelegate?
     weak var nfcEditViewControllerDelegate: NFCEditViewControllerDelegate!
 
@@ -194,8 +193,6 @@ extension TokenFlowSelectionViewController {
             if isFlowForDecrypting {
                 idCardSignVC.isActionDecryption = true
                 idCardSignVC.decryptDelegate = idCardDecryptViewControllerDelegate
-            } else {
-                idCardSignVC.signDelegate = idCardSignViewControllerDelegate
             }
             idCardSignVC.keyboardDelegate = self
             newViewController = idCardSignVC

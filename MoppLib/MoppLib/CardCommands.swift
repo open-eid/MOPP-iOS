@@ -23,7 +23,7 @@
 
 import Foundation
 
-enum CodeType: UInt {
+public enum CodeType: UInt {
     case puk = 0
     case pin1 = 1
     case pin2 = 2
@@ -32,14 +32,14 @@ enum CodeType: UInt {
 /**
  * A protocol defining commands for interacting with a smart card.
  */
-protocol CardCommands {
+public protocol CardCommands: AnyObject {
     /**
      * Reads public data from the card.
      *
      * - Throws: An error if the operation fails.
      * - Returns: The personal data read from the card.
      */
-    func readPublicData() throws -> MoppLibPersonalData
+    func readPublicData() async throws -> MoppLibPersonalData
 
     /**
      * Reads the authentication certificate from the card.
@@ -47,7 +47,7 @@ protocol CardCommands {
      * - Throws: An error if the operation fails.
      * - Returns: The authentication certificate as `Data`.
      */
-    func readAuthenticationCertificate() throws -> Data
+    func readAuthenticationCertificate() async throws -> Data
 
     /**
      * Reads the signature certificate from the card.
@@ -55,7 +55,7 @@ protocol CardCommands {
      * - Throws: An error if the operation fails.
      * - Returns: The signature certificate as `Data`.
      */
-    func readSignatureCertificate() throws -> Data
+    func readSignatureCertificate() async throws -> Data
 
     /**
      * Reads the PIN or PUK code counter record.
@@ -64,7 +64,7 @@ protocol CardCommands {
      * - Throws: An error if the operation fails.
      * - Returns: The remaining attempts as an `NSNumber`.
      */
-    func readCodeCounterRecord(_ type: CodeType) throws -> NSNumber
+    func readCodeCounterRecord(_ type: CodeType) async throws -> UInt8
 
     /**
      * Changes the PIN or PUK code.

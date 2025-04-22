@@ -143,13 +143,13 @@ extension ContainerActions where Self: UIViewController {
                     return
                 }
                 
-                if err?.code == MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue && (url.lastPathComponent.hasSuffix(ContainerFormatDdoc) || url.lastPathComponent.hasSuffix(ContainerFormatPDF)) {
+                if err?.code == MoppLibError.Code.noInternetConnection.rawValue && (url.lastPathComponent.hasSuffix(ContainerFormatDdoc) || url.lastPathComponent.hasSuffix(ContainerFormatPDF)) {
 
                     let alert = AlertUtil.messageAlert(message: L(.noConnectionMessage), alertAction: nil)
 
                     navController?.viewControllers.last!.present(alert, animated: true)
                     return
-                } else if err?.code == MoppLibErrorCode.moppLibErrorSslHandshakeFailed.rawValue {
+                } else if err?.code == MoppLibError.Code.sslHandshakeFailed.rawValue {
                     let alert = AlertUtil.messageAlert(message: L(.sslHandshakeMessage), alertAction: nil)
 
                     navController?.viewControllers.last!.present(alert, animated: true)
@@ -273,7 +273,7 @@ extension ContainerActions where Self: UIViewController {
                 failure: { error in
                     landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: { [weak self] in
                         guard let nsError = error as NSError? else { return }
-                        if nsError.code == MoppLibErrorCode.moppLibErrorDuplicatedFilename.rawValue {
+                        if nsError == .duplicatedFilename {
                             DispatchQueue.main.async {
                                 self?.infoAlert(message: L(.containerDetailsFileAlreadyExists))
                             }
