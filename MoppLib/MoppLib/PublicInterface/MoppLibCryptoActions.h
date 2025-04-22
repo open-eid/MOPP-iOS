@@ -24,6 +24,7 @@
 #import "MoppLibConstants.h"
 
 @class CdocInfo;
+@protocol AbstractSmartToken;
 
 typedef void (^CdocContainerBlock)(CdocInfo * _Nonnull cdocInfo);
 typedef void (^DecryptedDataBlock)(NSDictionary<NSString*,NSData*> * _Nonnull decryptedData);
@@ -46,11 +47,11 @@ typedef void (^DecryptedDataBlock)(NSDictionary<NSString*,NSData*> * _Nonnull de
      * Decrypt CDOC container and get data files.
      *
      * @param fullPath      Full path of encrypted file.
-     * @param pin1          PIN1 code.
+     * @param token          SmartToken object.
      * @param success       Block to be called on successful completion of action. Includes decrypted data as NSMutableDictionary.
      * @param failure       Block to be called when action fails. Includes error.
      */
-+ (void)decryptData:(NSString *)fullPath withPin1:(NSString*)pin1 success:(DecryptedDataBlock)success failure:(FailureBlock)failure;
++ (void)decryptData:(NSString *)fullPath withToken:(id<AbstractSmartToken>)token success:(DecryptedDataBlock)success failure:(FailureBlock)failure;
 
 /**
  * Parse and get info of CDOC container.

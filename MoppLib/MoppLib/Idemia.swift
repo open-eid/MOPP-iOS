@@ -61,11 +61,11 @@ class Idemia: CardCommands {
 
     private let reader: CardReaderWrapper
 
-    required init?(cardReader: CardReaderWrapper, atrData: Bytes) {
-        guard atrData == Idemia.ATR else {
+    required init?(reader: CardReaderWrapper, atr: Bytes) {
+        guard atr == Idemia.ATR else {
             return nil
         }
-        reader = cardReader
+        self.reader = reader
     }
 
     private func readFile(file: Bytes) throws -> Data {
@@ -85,7 +85,7 @@ class Idemia: CardCommands {
 
     // MARK: - Public Data
 
-    func readPublicData() throws -> MoppLibPersonalData {
+    func readPublicData() async throws -> MoppLibPersonalData {
         _ = try reader.transmitCommandChecked(Idemia.kAID)
         _ = try reader.transmitCommandChecked(Idemia.kSelectPersonalFile)
         let personalData = MoppLibPersonalData()
@@ -115,12 +115,12 @@ class Idemia: CardCommands {
         return personalData
     }
 
-    func readAuthenticationCertificate() throws -> Data {
+    func readAuthenticationCertificate() async throws -> Data {
         _ = try reader.transmitCommandChecked(Idemia.kAID)
         return try readFile(file: Idemia.kSelectAuthCert)
     }
 
-    func readSignatureCertificate() throws -> Data {
+    func readSignatureCertificate() async throws -> Data {
         _ = try reader.transmitCommandChecked(Idemia.kAID)
         return try readFile(file: Idemia.kSelectSignCert)
     }
@@ -131,13 +131,13 @@ class Idemia: CardCommands {
         switch try reader.transmitCommand(cmd) {
         case (_, 0x9000): return
         case (_, 0x6A80): // New pin is invalid
-            throw MoppLibError.pinMatchesOldCodeError()
+            throw MoppLibError.Code.pinMatchesOldCode
         case (_, 0x63C0), (_, 0x6983): // Authentication method blocked
-            throw MoppLibError.pinBlockedError()
+            throw MoppLibError.Code.pinBlocked
         case (_, let sw) where (sw & 0xFFF0) == 0x63C0: // For pin codes this means verification failed due to wrong pin
             throw MoppLibError.wrongPinError(withRetryCount: Int(sw & 0x000F)) // Last char in trailer holds retry count
         default:
-            throw MoppLibError.generalError()
+            throw MoppLibError.Code.general
         }
     }
 
@@ -147,11 +147,11 @@ class Idemia: CardCommands {
         return data
     }
 
-    func readCodeCounterRecord(_ type: CodeType) throws -> NSNumber {
+    func readCodeCounterRecord(_ type: CodeType) async throws -> UInt8 {
         _ = try reader.transmitCommandChecked(type.aid)
         let data = try reader.transmitCommandChecked(
             [0x00, 0xCB, 0x3F, 0xFF, 0x0A, 0x4D, 0x08, 0x70, 0x06, 0xBF, 0x81, type.recordNr, 0x02, 0xA0, 0x80, 0x00])
-        return NSNumber(value: data[13])
+        return data[13]
     }
 
     func changeCode(_ type: CodeType, to code: String, verifyCode: String) throws {
@@ -170,7 +170,7 @@ class Idemia: CardCommands {
 
     func unblockCode(_ type: CodeType, puk: String, newCode: String) throws {
         guard type != .puk else {
-            throw MoppLibError.generalError()
+            throw MoppLibError.Code.general
         }
         _ = try reader.transmitCommandChecked(type.aid)
         try verifyCode(.puk, code: puk)

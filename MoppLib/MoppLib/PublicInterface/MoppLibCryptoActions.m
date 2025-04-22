@@ -37,7 +37,7 @@
         CdocParser *cdocParser = [CdocParser new];
         CdocInfo *response = [cdocParser parseCdocInfo:fullPath];
         if (response.addressees == nil || response.dataFiles == nil) {
-            error = [MoppLibError generalError];
+            error = [MoppLibError error:MoppLibErrorCodeGeneral];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             error == nil ? success(response) : failure(error);
@@ -45,16 +45,12 @@
     });
 }
 
-+ (void)decryptData:(NSString *)fullPath withPin1:(NSString*)pin1 success:(DecryptedDataBlock)success failure:(FailureBlock)failure {
++ (void)decryptData:(NSString *)fullPath withToken:(id<AbstractSmartToken>)token success:(DecryptedDataBlock)success failure:(FailureBlock)failure {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSError *error = nil;
-        NSMutableDictionary *response = nil;
-        SmartToken *smartToken = [[SmartToken alloc] initWithPin1:pin1 error:&error];
-        if (smartToken) {
-            response = [Decrypt decryptFile:fullPath withToken:smartToken error:&error];
-        }
+        NSMutableDictionary *response = [Decrypt decryptFile:fullPath withToken:token error:&error];
         if(error == nil && response.count == 0) {
-            error = [MoppLibError generalError];
+            error = [MoppLibError error:MoppLibErrorCodeGeneral];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             error == nil ? success(response) : failure(error);
@@ -68,7 +64,7 @@
         Encrypt *encrypter = [[Encrypt alloc] init];
         NSError *error = nil;
         if (![encrypter encryptFile:fullPath withDataFiles:dataFiles withAddressees:addressees]) {
-            error = [MoppLibError generalError];
+            error = [MoppLibError error:MoppLibErrorCodeGeneral];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             error == nil ? success() : failure(error);

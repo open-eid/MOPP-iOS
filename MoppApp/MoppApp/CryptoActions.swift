@@ -75,48 +75,43 @@ extension CryptoActions where Self: CryptoContainerViewController {
 
 extension CryptoContainerViewController : IdCardDecryptViewControllerDelegate {
     
-    func idCardDecryptDidFinished(cancelled: Bool, success: Bool, dataFiles: [String:Data], error: Error?) {
-        if !cancelled {
-            if success {
-                container.dataFiles.removeAllObjects()
-                for (filename, data) in dataFiles {
-                    let cryptoDataFile = CryptoDataFile()
-                    cryptoDataFile.filename = filename
-                    guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: cryptoDataFile.filename) else {
-                        dismiss(animated: false)
-                        infoAlert(message: L(.decryptionErrorMessage))
-                        return
-                    }
-                    cryptoDataFile.filePath = destinationPath
-                    container.dataFiles.add(cryptoDataFile)
-                    MoppFileManager.shared.createFile(atPath: destinationPath, contents: data)
-                }
-                
-                self.isCreated = false
-                self.isForPreview = false
-                self.dismiss(animated: false)
-                self.isDecrypted = true
-                self.isContainerEncrypted = false
-                
-                let decryptionSuccess = NotificationMessage(isSuccess: true, text: L(.containerDetailsDecryptionSuccess))
-                if !self.notifications.contains(where: { $0 == decryptionSuccess }) {
-                    self.notifications.append(decryptionSuccess)
-                }
-                UIAccessibility.post(notification: .screenChanged, argument: L(.containerDetailsDecryptionSuccess))
-                
-                self.reloadCryptoData()
-            } else {
-                self.dismiss(animated: false)
-                guard let nsError = error as NSError? else { return }
-                if nsError.code == MoppLibErrorCode.moppLibErrorPinBlocked.rawValue {
-                    errorAlertWithLink(message: L(.pin1BlockedAlert))
-                } else {
+    func idCardDecryptDidFinished(success: Bool, dataFiles: [String:Data], error: Error?) {
+        if success {
+            container.dataFiles.removeAllObjects()
+            for (filename, data) in dataFiles {
+                let cryptoDataFile = CryptoDataFile()
+                cryptoDataFile.filename = filename
+                guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: cryptoDataFile.filename) else {
+                    dismiss(animated: false)
                     infoAlert(message: L(.decryptionErrorMessage))
+                    return
                 }
+                cryptoDataFile.filePath = destinationPath
+                container.dataFiles.add(cryptoDataFile)
+                MoppFileManager.shared.createFile(atPath: destinationPath, contents: data)
+            }
+            
+            self.isCreated = false
+            self.isForPreview = false
+            self.dismiss(animated: false)
+            self.isDecrypted = true
+            self.isContainerEncrypted = false
+            
+            let decryptionSuccess = NotificationMessage(isSuccess: true, text: L(.containerDetailsDecryptionSuccess))
+            if !self.notifications.contains(where: { $0 == decryptionSuccess }) {
+                self.notifications.append(decryptionSuccess)
+            }
+            UIAccessibility.post(notification: .screenChanged, argument: L(.containerDetailsDecryptionSuccess))
+            
+            self.reloadCryptoData()
+        } else {
+            self.dismiss(animated: false)
+            if let nsError = error as NSError?,
+               nsError == .pinBlocked {
+                errorAlertWithLink(message: L(.pin1BlockedAlert))
+            } else {
+                infoAlert(message: L(.decryptionErrorMessage))
             }
         }
     }
-    
-    
-    
 }
