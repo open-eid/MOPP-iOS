@@ -131,7 +131,7 @@ typedef void (^ContainerBlock)(MoppLibContainer *container);
  */
 - (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(VoidBlock)success failure:(FailureBlock)failure;
 
-+ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData;
++ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData isNFCSignature:(bool) isNFCSignature;
 + (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(VoidBlock)success failure:(FailureBlock)failure;
 
 @end

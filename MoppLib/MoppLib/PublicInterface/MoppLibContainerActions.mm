@@ -148,8 +148,8 @@
     });
 }
 
-+ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData {
-    return [MoppLibDigidocManager prepareSignature:cert containerPath:containerPath roleData:roleData];
++ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData isNFCSignature:(bool) isNFCSignature {
+    return [MoppLibDigidocManager prepareSignature:cert containerPath:containerPath roleData:roleData isNFCSignature:isNFCSignature];
 }
 
 + (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(VoidBlock)success failure:(FailureBlock)failure {

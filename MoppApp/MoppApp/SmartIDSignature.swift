@@ -208,7 +208,7 @@ class SmartIDSignature {
     }
 
     private func setupControlCode(certificateValue: Data, containerPath: String, roleData: MoppLibRoleAddressData?) -> Data? {
-        guard let hash = MoppLibContainerActions.prepareSignature(certificateValue, containerPath: containerPath, roleData: roleData) else {
+        guard let hash = MoppLibContainerActions.prepareSignature(certificateValue, containerPath: containerPath, roleData: roleData, isNFCSignature: false) else {
             return nil
         }
 
