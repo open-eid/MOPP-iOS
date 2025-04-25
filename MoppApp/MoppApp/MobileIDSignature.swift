@@ -264,7 +264,7 @@ class MobileIDSignature {
     // MARK: Get hash
     private func getHash(cert: Data, containerPath: String, roleData: MoppLibRoleAddressData?) -> Data? {
         do {
-            return try MoppLibContainerActions.prepareSignature(cert, containerPath: containerPath, roleData: roleData)
+            return try MoppLibContainerActions.prepareSignature(cert, containerPath: containerPath, roleData: roleData, isNFCSignature: false)
         } catch let error as NSError {
             printLog("RIA.MobileID - Failed to get hash:\n" +
                 "\tCert: \(cert)\n" +

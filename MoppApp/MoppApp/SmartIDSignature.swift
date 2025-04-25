@@ -187,7 +187,7 @@ class SmartIDSignature {
     }
 
     private func setupControlCode(certificateValue: Data, containerPath: String, roleData: MoppLibRoleAddressData?) throws -> Data {
-        let hash = try MoppLibContainerActions.prepareSignature(certificateValue, containerPath: containerPath, roleData: roleData)
+        let hash = try MoppLibContainerActions.prepareSignature(certificateValue, containerPath: containerPath, roleData: roleData, isNFCSignature: false)
         let digest = sha256(data: hash)
         let code = UInt16(digest[digest.count - 2]) << 8 | UInt16(digest[digest.count - 1])
         let challengeId = String(format: "%04d", (code % 10000))
