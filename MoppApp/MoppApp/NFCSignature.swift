@@ -169,7 +169,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 }
 
                 printLog("Cert reading done")
-                guard let hash = MoppLibContainerActions.prepareSignature(cert, containerPath: containerPath, roleData: roleInfo) else {
+                guard let hash = MoppLibContainerActions.prepareSignature(cert, containerPath: containerPath, roleData: roleInfo, isNFCSignature: true) else {
                     return setSessionMessage(L(.nfcSignFailed), invalidate: true)
                 }
                 roleInfo = nil
