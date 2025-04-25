@@ -392,7 +392,12 @@ class IdCardViewController : MoppViewController {
                     throw MoppLibError.Code.pinBlocked
                 }
                 let cert = try await cardCommands.readSignatureCertificate()
-                let dataToSign = try MoppLibContainerActions.prepareSignature(cert, containerPath: containerPath, roleData: DefaultsHelper.isRoleAndAddressEnabled ? RoleAndAddressUtil.getSavedRoleInfo() : nil)
+                let dataToSign = try MoppLibContainerActions.prepareSignature(
+                    cert,
+                    containerPath: containerPath,
+                    roleData: DefaultsHelper.isRoleAndAddressEnabled ? RoleAndAddressUtil.getSavedRoleInfo() : nil,
+                    isNFCSignature: false
+                )
                 let signature = try cardCommands.calculateSignature(for: dataToSign, withPin2: pin)
                 try MoppLibContainerActions.isSignatureValid(signature)
                 await MainActor.run {

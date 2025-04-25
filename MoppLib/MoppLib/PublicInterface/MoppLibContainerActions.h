@@ -110,7 +110,7 @@ typedef void (^ContainerBlock)(MoppLibContainer *container);
  */
 - (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure;
 
-+ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData error:(NSError **)error;
++ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData isNFCSignature:(BOOL)isNFCSignature error:(NSError **)error;
 + (BOOL)isSignatureValid:(NSData * _Nonnull)signatureValue error:(NSError**)error;
 
 @end
