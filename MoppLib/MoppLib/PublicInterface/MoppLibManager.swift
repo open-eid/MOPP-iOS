@@ -55,7 +55,7 @@ public class MoppLibManager: NSObject {
         return userAgent(false, false)
     }
 
-    @objc static public func userAgent(_ shouldIncludeDevices: Bool, _ isNFCSignature: Bool) -> String {
+    @objc static public func userAgent(_ shouldIncludeDevices: Bool, isNFCSignature: Bool) -> String {
         var appInfo = "riadigidoc/\(moppAppVersion()) (iOS \(UIDevice.current.systemVersion)) Lang: \(appLanguage())"
 
         if shouldIncludeDevices {
