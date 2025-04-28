@@ -1,7 +1,6 @@
 //
-//  MoppLibConstants.h
-//  MoppLib
-//
+//  CryptoDataFile.swift
+//  CryptoLib
 /*
  * Copyright 2017 - 2024 Riigi Infosüsteemi Amet
  *
@@ -21,7 +20,14 @@
  *
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-typedef void (^FailureBlock)(NSError *error);
-typedef void (^VoidBlock)(void);
+public class CryptoDataFile: NSObject {
+    @objc public let filename: String
+    @objc public let filePath: String?
+
+    public init(filename: String, filePath: String? = nil) {
+        self.filename = filename
+        self.filePath = filePath
+    }
+}

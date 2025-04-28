@@ -1,3 +1,5 @@
+#!/bin/sh
+
 : ${OPENLDAP:=openldap-2.6.9}
 : ${IPHONEOS_DEPLOYMENT_TARGET:="13.0"}
 : ${ARCHS:="arm64"}
@@ -32,4 +34,13 @@ else
     cd ${TARGET_TEMP_DIR}
 fi
 make install
-cp ${PROJECT_DIR}/openldap.modulemap ${PREFIX}/include/module.modulemap
+cat > "${PREFIX}/include/module.modulemap" <<EOF
+module LDAP [system] {
+    private header "ldap.h"
+    link "crypto"
+    link "ssl"
+    link "lber"
+    link "ldap"
+    export *
+}
+EOF
