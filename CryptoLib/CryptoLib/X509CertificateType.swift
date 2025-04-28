@@ -22,17 +22,17 @@
 
 import ASN1Decoder
 
-extension X509Certificate {
-    public enum CertType {
-        case UnknownType
-        case IDCardType
-        case DigiIDType
-        case EResidentType
-        case MobileIDType
-        case SmartIDType
-        case ESealType
-    }
+@objc public enum CertType: UInt {
+    case UnknownType
+    case IDCardType
+    case DigiIDType
+    case EResidentType
+    case MobileIDType
+    case SmartIDType
+    case ESealType
+}
 
+extension X509Certificate {
     public func certType() -> CertType {
         if let ext = extensionObject(oid: OID.certificatePolicies) as? X509Certificate.CertificatePoliciesExtension {
             for policy in ext.policies ?? [] {

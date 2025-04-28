@@ -252,21 +252,7 @@ public class OpenLdap {
                !x509.extendedKeyUsage.contains(OID.serverAuth.rawValue),
                type != .ESealType || !x509.extendedKeyUsage.contains(OID.clientAuth.rawValue),
                type != .MobileIDType && type != .UnknownType {
-                let cn = x509.subject(oid: OID.commonName)?.joined(separator: ",") ?? ""
-                let serialNumber = x509.subject(oid: OID.serialNumber)?.joined(separator: ",") ?? ""
-                let split = cn.split(separator: ",").map { String($0) }
-                let addressee = Addressee()
-                if split.count == 3 {
-                    addressee.surname = split[0]
-                    addressee.givenName = split[1]
-                    addressee.identifier = split[2]
-                } else {
-                    addressee.identifier = cn
-                }
-                addressee.serialNumber = serialNumber
-                addressee.cert = data
-                addressee.validTo = x509.notAfter ?? Date()
-                result.append(addressee)
+                result.append(Addressee(cert: data, x509: x509))
             }
         }
         return result
