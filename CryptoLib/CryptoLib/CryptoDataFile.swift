@@ -1,5 +1,5 @@
 //
-//  CdocParserDelegate.h
+//  CryptoDataFile.swift
 //  CryptoLib
 /*
  * Copyright 2017 - 2024 Riigi Infosüsteemi Amet
@@ -20,16 +20,14 @@
  *
  */
 
-#import <Foundation/Foundation.h>
-#import "Addressee.h"
-#import "CryptoDataFile.h"
-@interface CdocParserDelegate : NSObject
-{
+import Foundation
+
+public class CryptoDataFile: NSObject {
+    @objc public let filename: String
+    @objc public let filePath: String?
+
+    public init(filename: String, filePath: String? = nil) {
+        self.filename = filename
+        self.filePath = filePath
+    }
 }
-@property (nonatomic, strong) NSMutableArray<Addressee *> *addressees;
-@property (nonatomic, strong) NSMutableArray<CryptoDataFile *> *dataFiles;
-@property (nonatomic, retain) NSString *currentFilenameNode;
-@property (nonatomic) BOOL isNextCharactersFilename;
-@property (nonatomic) BOOL isNextCharactersCertificate;
-@property (nonatomic, strong) Addressee *lastAddressee;
-@end

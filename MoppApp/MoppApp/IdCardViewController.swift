@@ -252,7 +252,7 @@ class IdCardViewController : MoppViewController {
                     self.titleLabel.text = L(.nfcCertExpired)
                     pinHidden = true
                 } else if self.isActionDecryption, let cert = self.cert,
-                          !self.addressees.contains(where: { $0.cert == cert }) {
+                          !self.addressees.contains(where: { $0.data == cert }) {
                     self.titleLabel.text = L(.decryptionWrongCard)
                     pinHidden = true
                 } else {
@@ -368,31 +368,24 @@ class IdCardViewController : MoppViewController {
 
         state = .tokenActionInProcess
         if isActionDecryption {
-            guard let cardCommands else {
-                decryptDelegate?.idCardDecryptDidFinished(success: false, dataFiles: .init(), error: MoppLibError.Code.cardNotFound)
-                return
-            }
-            MoppLibCryptoActions.decryptData(
-                containerPath, with: SmartToken(card: cardCommands, pin1: pin),
-                success: { [weak self] decryptedData in
-                    self?.decryptDelegate?.idCardDecryptDidFinished(success: true, dataFiles: decryptedData, error: nil)
-                },
-                failure: { [weak self] error in
-                    if let nsError = error as NSError?,
-                       nsError == .wrongPin {
-                        DispatchQueue.main.async {
-                            self?.pinAttemptsLeft = (nsError.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as? NSNumber)?.uintValue ?? 0
-                            self?.state = .wrongPin
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            self?.dismiss(animated: false) {
-                                self?.decryptDelegate?.idCardDecryptDidFinished(success: false, dataFiles: .init(), error: error)
-                            }
+            Task {
+                do {
+                    guard let cardCommands else {
+                        throw MoppLibError.Code.cardNotFound
+                    }
+                    let decryptedData = try await Decrypt.decryptFile(containerPath, with: SmartToken(card: cardCommands, pin1: pin))
+                    self.decryptDelegate?.idCardDecryptDidFinished(success: true,  dataFiles: decryptedData, error: nil)
+                } catch let error as NSError where error == .wrongPin {
+                    self.pinAttemptsLeft = (error.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as? NSNumber)?.uintValue ?? 0
+                    self.state = .wrongPin
+                } catch {
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: false) {
+                            self.decryptDelegate?.idCardDecryptDidFinished(success: false, dataFiles: .init(), error: error)
                         }
                     }
                 }
-            )
+            }
         } else if DefaultsHelper.isRoleAndAddressEnabled {
             let roleAndAddressView = UIStoryboard.tokenFlow.instantiateViewController(of: RoleAndAddressViewController.self)
             roleAndAddressView.modalPresentationStyle = .overCurrentContext
