@@ -59,7 +59,7 @@ public class SmartToken: AbstractSmartToken {
         self.cert = cert
     }
 
-    public func getCertificate() throws -> Data {
+    public func getCertificate() async throws -> Data {
         cert
     }
 

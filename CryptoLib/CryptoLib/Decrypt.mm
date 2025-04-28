@@ -21,48 +21,72 @@
  */
 
 #import "Decrypt.h"
+#import "Extensions.h"
 #import "SmartCardTokenWrapper.h"
-#import "DdocParserDelegate.h"
+#import <CryptoLib/CryptoLib-Swift.h>
 
-#import <cdoc/CdocReader.h>
-#import <cdoc/Token.h>
+#include <cdoc/CdocReader.h>
+#include <cdoc/Lock.h>
+#include <cdoc/Recipient.h>
 
 @implementation Decrypt
 
-+ (NSDictionary<NSString*,NSData*> *)decryptFile:(NSString *)fullPath withToken:(id<AbstractSmartToken>)smartToken error:(NSError**)error {
++ (CdocInfo*)cdocInfo:(NSString *)fullPath error:(NSError**)error {
+    return [[CdocInfo alloc] initWithCdoc1Path:fullPath error:error];
+}
 
-    std::string encodedFullPath = std::string([fullPath UTF8String]);
-    CDOCReader cdocReader(encodedFullPath);
-    SmartCardTokenWrapper token(smartToken);
-
-    std::vector<unsigned char> decryptedData = cdocReader.decryptData(&token);
-    *error = token.lastError();
-    if (*error != nil){
-        return nil;
-    }
-    NSData *decrypted = [NSData dataWithBytes:decryptedData.data() length:decryptedData.size()];
-    std::string filename = cdocReader.fileName();
-    std::string mimetype = cdocReader.mimeType();
-
-    NSMutableDictionary<NSString*,NSData*> *response = [NSMutableDictionary new];
-    NSString *nsFilename = [NSString stringWithCString:filename.c_str() encoding: NSUTF8StringEncoding];
-    if ([[nsFilename pathExtension] isEqualToString: @"ddoc"]){
-        NSXMLParser *parser = [[NSXMLParser alloc] initWithData:decrypted];
-        DdocParserDelegate *parserDelegate = [[DdocParserDelegate alloc] init];
-        [parser setDelegate:(id)parserDelegate];
-        [parser parse];
-        NSMutableDictionary *fileDictionary;
-        fileDictionary = parserDelegate.dictionary;
-        for (id key in fileDictionary){
-            NSString *value = [fileDictionary objectForKey:key];
-            NSData *nsdataFromBase64String = [[NSData alloc] initWithBase64EncodedString: value options:NSDataBase64DecodingIgnoreUnknownCharacters];
-            [response setObject:nsdataFromBase64String forKey:key];
-            
++ (void)decryptFile:(NSString *)fullPath withToken:(id<AbstractSmartToken>)smartToken
+         completion:(void (^)(NSDictionary<NSString*,NSData*> *, NSError *))completion {
+    [smartToken getCertificateWithCompletionHandler:^(NSData *certData, NSError *error) {
+        auto cert = [certData toVector];
+        if(cert.empty()) {
+            return completion(nil, error);
         }
-    } else {
-        [response setObject:decrypted forKey:nsFilename];
-    }
-    return response;
+
+        SmartCardTokenWrapper token(smartToken);
+        std::unique_ptr<libcdoc::CDocReader> reader(libcdoc::CDocReader::createReader(fullPath.UTF8String, nullptr, &token, nullptr));
+
+        auto idx = reader->getLockForCert(cert);
+        if(idx < 0) {
+            return completion(nil, [NSError cryptoError:@"Failed to find lock for cert"]);
+        }
+        std::vector<uint8_t> fmk;
+        if(reader->getFMK(fmk, unsigned(idx)) != 0 || fmk.empty()) {
+            return completion(nil, token.lastError() ?: [NSError cryptoError:@"Failed to get FMK"]);
+        }
+        if(reader->beginDecryption(fmk) != 0) {
+            return completion(nil, [NSError cryptoError:@"Failed to start encryption"]);
+        }
+
+        NSMutableDictionary<NSString*,NSData*> *response = [NSMutableDictionary new];
+        std::string name;
+        int64_t size{};
+        while((reader->nextFile(name, size)) == 0)
+        {
+            NSMutableData *data = [[NSMutableData alloc] initWithLength:16 * 1024];
+            NSUInteger currentLength = 0;
+
+            uint64_t bytesRead = 0;
+            while (true) {
+                bytesRead = reader->readData(reinterpret_cast<uint8_t *>(data.mutableBytes) + currentLength, 16 * 1024);
+                if (bytesRead < 0) {
+                    NSLog(@"Error reading data from file: %s", name.c_str());
+                    return completion(nil, [NSError cryptoError:@"Failed to decrypt file"]);
+                }
+
+                currentLength += bytesRead;
+                [data setLength:currentLength];
+                if (bytesRead == 0) {
+                    break;
+                }
+                [data increaseLengthBy:16 * 1024];
+            }
+            [response setObject:data forKey:[NSString stringWithStdString:name]];
+        }
+        if (reader->finishDecryption() != 0)
+            return completion(nil, [NSError cryptoError:@"Failed to end encryption"]);
+        return completion(response, nil);
+    }];
 }
 
 @end

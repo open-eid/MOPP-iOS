@@ -256,7 +256,7 @@ class IdCardViewController : MoppViewController {
                     self.titleLabel.text = L(.nfcCertExpired)
                     pinHidden = true
                 } else if self.isActionDecryption, let cert = self.cert,
-                          !self.addressees.contains(where: { $0.cert == cert }) {
+                          !self.addressees.contains(where: { $0.data == cert }) {
                     self.titleLabel.text = L(.decryptionWrongCard)
                     pinHidden = true
                 } else {
@@ -378,7 +378,7 @@ class IdCardViewController : MoppViewController {
             }
             Task.detached(priority: .background) { [weak self] in
                 do {
-                    let response = try Decrypt.decryptFile(containerPath, with: SmartToken(card: cardCommands, pin1: pin, cert: cert))
+                    let response = try await Decrypt.decryptFile(containerPath, with: SmartToken(card: cardCommands, pin1: pin, cert: cert))
                     guard response.count > 0 else { throw MoppLibError.Code.general }
                     guard let self else { return }
                     await MainActor.run {
