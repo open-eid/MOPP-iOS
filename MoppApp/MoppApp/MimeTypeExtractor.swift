@@ -136,7 +136,29 @@ class MimeTypeExtractor {
         
         return fileExtension
     }
-    
+
+    public static func findDuplicateFilenames(in filePath: URL) -> [String] {
+        var filenames = Set<String>()
+        var duplicateFilenames = Set<String>()
+
+        do {
+            let archive = try Archive(url: filePath, accessMode: .read)
+
+            for entry in archive {
+                let filename = URL(fileURLWithPath: entry.path).lastPathComponent
+                if filenames.contains(filename) {
+                    duplicateFilenames.insert(filename)
+                } else {
+                    filenames.insert(filename)
+                }
+            }
+        } catch {
+            printLog("Unable to open archive at \(filePath.lastPathComponent): \(error.localizedDescription)")
+        }
+
+        return Array(duplicateFilenames)
+    }
+
     private static func containerHasSignatureFiles(filePath: URL) -> Bool {
         do {
             let archive = try Archive(url: filePath, accessMode: .read)
@@ -172,7 +194,7 @@ class MimeTypeExtractor {
         
         return false
     }
-    
+
     private static func unZipFile(filePath: URL, fileName: String) -> URL? {
         let outputPath =  MoppFileManager.shared.tempCacheDirectoryPath().appendingPathComponent(filePath.lastPathComponent).deletingPathExtension()
 
