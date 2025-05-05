@@ -97,7 +97,7 @@ class SigningCategoryViewController: MoppViewController {
             kind: .timestamp,
             title: L(.settingsTimestampUrlTitle),
             placeholderText: NSAttributedString(string: L(.settingsTimestampUrlPlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppText]),
-            value: DefaultsHelper.timestampUrl ?? MoppConfiguration.tsaUrl!
+            value: DefaultsHelper.timestampUrl ?? MoppLibConfiguration.tsaURL!
         ),
         Field(
             id: .useDefault,
@@ -348,15 +348,6 @@ extension SigningCategoryViewController: SettingsCellDelegate {
 extension SigningCategoryViewController: SettingsTimeStampCellDelegate {
     func didChangeTimestamp(_ fieldId: SigningCategoryViewController.FieldId, with value: String?) {
         DefaultsHelper.timestampUrl = value
-        MoppLibContainerActions.setup(success: {
-            printLog("success")
-        }, andFailure: { [weak self] error in
-            let nsError = error as? NSError
-            
-            self?.errorAlertWithLink(message: MessageUtil.generateDetailedErrorMessage(error: nsError) ?? L(.genericErrorMessage))
-        },
-               withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration(),
-               andProxyConfiguration: ManualProxy.getMoppLibProxyConfiguration())
     }
 }
 

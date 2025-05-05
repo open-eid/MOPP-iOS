@@ -23,14 +23,7 @@
 
 import Foundation
 
-public class MoppLdapConfiguration {
-    var LDAPCERTS: [String] = []
-    var LDAPPERSONURL: String = ""
-    var LDAPCORPURL: String = ""
-
-    public init(ldapCerts: [String], ldapPersonURL: String, ldapCorpURL: String) {
-        self.LDAPCERTS = ldapCerts
-        self.LDAPPERSONURL = ldapPersonURL
-        self.LDAPCORPURL = ldapCorpURL
-    }
+public struct MoppLdapConfiguration {
+    static public var ldapPersonURL = "ldaps://esteid.ldap.sk.ee"
+    static public var ldapCorpURL = "ldaps://k3.ldap.sk.ee"
 }

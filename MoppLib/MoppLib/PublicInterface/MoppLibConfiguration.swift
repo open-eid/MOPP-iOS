@@ -1,9 +1,9 @@
 //
-//  MoppLibProxyConfiguration.h
+//  MoppLibConfiguration.swift
 //  MoppLib
 //
 /*
- * Copyright 2017 - 2023 Riigi Infosüsteemi Amet
+ * Copyright 2017 - 2024 Riigi Infosüsteemi Amet
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,16 +21,20 @@
  *
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-@interface MoppLibProxyConfiguration : NSObject
+@objcMembers
+public class MoppLibConfiguration: NSObject {
+    static public var sivaURL: String?
+    static public var sivaCert: URL?
+    static public var tslURL: String?
+    static public var tslCerts: [Data]?
+    static public var tsaURL: String?
+    static public var tsaCert: URL?
+    static public var ocspIssuers: [String: String]?
+    static public var certBundle: [Data]?
 
-@property (nonatomic, strong) NSString *PROXYSETTING;
-@property (nonatomic, strong) NSString *HOST;
-@property (nonatomic, strong) NSNumber *PORT;
-@property (nonatomic, strong) NSString *USERNAME;
-@property (nonatomic, strong) NSString *PASSWORD;
-
-- (id) initWithConfiguration:(NSString *)PROXYSETTING HOST:(NSString *)HOST PORT:(NSNumber *)PORT USERNAME:(NSString *)USERNAME PASSWORD:(NSString *)PASSWORD;
-
-@end
+    private override init() {
+        super.init()
+    }
+}

@@ -42,7 +42,6 @@
  * configuration is updated, else cached version is used.
  */
 
-import Foundation
 import SkSigningLib
 
 class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate {
@@ -108,12 +107,9 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             setAllConfigurationToCache(configData: localConfigData, signature: localSignature, initialUpdateDate: MoppDateFormatter().stringToDate(dateString: getDefaultMoppConfiguration().UPDATEDATE), versionSerial: decodedData.METAINF.SERIAL)
             setConfigurationToCache("", forKey: "lastUpdateDateCheck")
             
-            setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, ldapCerts: decodedData.LDAPCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS, certBundle: decodedData.CERTBUNDLE)
+            setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS, certBundle: decodedData.CERTBUNDLE)
             setMoppConfiguration(configuration: decodedData)
-            
             setupMoppLDAPConfiguration(ldapCerts: decodedData.LDAPCERTS, ldapPersonUrl: decodedData.LDAPPERSONURL, ldapCorpUrl: decodedData.LDAPCORPURL)
-            printLog("DIGIDOC: Saving LDAP CERTS")
-            saveLdapCerts(ldapCerts: decodedData.LDAPCERTS, overwrite: false)
         } catch {
             printLog("Unable to read file: \(error.localizedDescription)")
             fatalError("Unable to read default file(s)")
@@ -129,13 +125,9 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             _ = try SignatureVerifier().isSignatureCorrect(configData: trim(text: cachedConfigData)!, publicKey: localPublicKey, signature: cachedSignature)
 
             let decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: cachedConfigData)
-            setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, ldapCerts: decodedData.LDAPCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS, certBundle: decodedData.CERTBUNDLE)
+            setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS, certBundle: decodedData.CERTBUNDLE)
             setMoppConfiguration(configuration: decodedData)
-            
             setupMoppLDAPConfiguration(ldapCerts: decodedData.LDAPCERTS, ldapPersonUrl: decodedData.LDAPPERSONURL, ldapCorpUrl: decodedData.LDAPCORPURL)
-            
-            saveLdapCerts(ldapCerts: decodedData.LDAPCERTS, overwrite: false)
-
         } catch {
             printLog("Unable to read file: \(error.localizedDescription)")
             loadLocalConfiguration()
@@ -145,11 +137,10 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     private func setupCentralConfiguration(centralConfig: String, centralSignature: String, decodedData: MOPPConfiguration) {
         setAllConfigurationToCache(configData: centralConfig, signature: centralSignature, versionSerial: decodedData.METAINF.SERIAL)
         setMoppConfiguration(configuration: decodedData)
-        setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, ldapCerts: decodedData.LDAPCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS, certBundle: decodedData.CERTBUNDLE)
+        setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS, certBundle: decodedData.CERTBUNDLE)
         saveLdapCerts(ldapCerts: decodedData.LDAPCERTS, overwrite: true)
         NotificationCenter.default.post(name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil, userInfo: ["isLoaded": true])
         setConfigurationToCache(true, forKey: "isCentralConfigurationLoaded")
-        reloadDigiDocConf()
     }
     
     private func handleCacheConfiguration() -> Void {
@@ -246,8 +237,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             }
             
             guard let httpResponse = response as? HTTPURLResponse else {
-                let responseError = error as NSError?
-                return completionHandler(nil, responseError)
+                return completionHandler(nil, error)
             }
             
             if error != nil {
@@ -323,21 +313,25 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         Configuration.moppConfig = configuration
     }
 
-    private func setupMoppConfiguration(sivaUrl: String, tslUrl: String, tslCerts: Array<String>, ldapCerts: Array<String>, tsaUrl: String, ocspIssuers: [String: String], certBundle: Array<String>) -> Void {
-        MoppConfiguration.sivaUrl = sivaUrl
-        MoppConfiguration.tslUrl = tslUrl
-        MoppConfiguration.tslCerts = tslCerts
-        MoppConfiguration.ldapCerts = ldapCerts
-        MoppConfiguration.tsaUrl = tsaUrl
-        MoppConfiguration.ocspIssuers = ocspIssuers
-        MoppConfiguration.certBundle = certBundle
-        MoppConfiguration.tsaCert = CertUtil.certificateString(CertUtil.getCertFile(folder: "tsa-cert", fileName: DefaultsHelper.tsaCertFileName ?? ""))
+    private func setupMoppConfiguration(sivaUrl: String, tslUrl: String, tslCerts: [Data], tsaUrl: String, ocspIssuers: [String: String], certBundle: [Data]) -> Void {
+        MoppLibConfiguration.sivaURL = sivaUrl
+        if let fileName = DefaultsHelper.sivaCertFileName {
+            MoppLibConfiguration.sivaCert = CertUtil.getCertFile(folder: "siva-cert", fileName: fileName)
+        }
+        MoppLibConfiguration.tslURL = tslUrl
+        MoppLibConfiguration.tslCerts = tslCerts
+        MoppLibConfiguration.tsaURL = tsaUrl
+        if let fileName = DefaultsHelper.tsaCertFileName {
+            MoppLibConfiguration.tsaCert = CertUtil.getCertFile(folder: "tsa-cert", fileName: fileName)
+        }
+        MoppLibConfiguration.ocspIssuers = ocspIssuers
+        MoppLibConfiguration.certBundle = certBundle
     }
 
-    private func setupMoppLDAPConfiguration(ldapCerts: Array<String>, ldapPersonUrl: String, ldapCorpUrl: String) {
-        MoppLDAPConfiguration.ldapCerts = ldapCerts
-        MoppLDAPConfiguration.ldapPersonUrl = ldapPersonUrl
-        MoppLDAPConfiguration.ldapCorpUrl = ldapCorpUrl
+    private func setupMoppLDAPConfiguration(ldapCerts: [String], ldapPersonUrl: String, ldapCorpUrl: String) {
+        saveLdapCerts(ldapCerts: ldapCerts, overwrite: false)
+        MoppLdapConfiguration.ldapPersonURL = ldapPersonUrl
+        MoppLdapConfiguration.ldapCorpURL = ldapCorpUrl
     }
 
     private func isDateAfterInterval(updateDate: Date, interval: Int) -> Bool {
@@ -348,20 +342,9 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         return text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
 
-    private func reloadDigiDocConf() {
-        MoppLibContainerActions.setup(success: {
-            printLog("Successfully reloaded DigiDocConf")
-        }, andFailure: { error in
-            printLog("Failed to reload DigiDocConf")
-            fatalError("Failed to reload DigiDocConf")
-        },
-           withMoppConfiguration: MoppConfiguration.getMoppLibConfiguration(),
-           andProxyConfiguration: ManualProxy.getMoppLibProxyConfiguration())
-    }
-    
-    
-    func saveLdapCerts(ldapCerts: [String]?, overwrite: Bool) {
-        guard let ldapCertList = ldapCerts, !ldapCertList.isEmpty else { printLog("No LDAP certs found (central configuration)"); return }
+    func saveLdapCerts(ldapCerts: [String], overwrite: Bool) {
+        printLog("DIGIDOC: Saving LDAP CERTS")
+        guard !ldapCerts.isEmpty else { printLog("No LDAP certs found (central configuration)"); return }
         if let libraryDirectory = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first {
             let ldapCertsDirectory = libraryDirectory.appendingPathComponent("LDAPCerts")
             let directoryExists = MoppFileManager.shared.directoryExists(ldapCertsDirectory.path)
@@ -394,26 +377,21 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             
             printLog("Is empty file created: \(isEmptyFileCreated)")
             
-            for (index, cert) in ldapCertList.enumerated() {
-                guard !cert.isEmpty else { continue }
-
-                let pemCert = "-----BEGIN CERTIFICATE-----\n" + cert.trimWhitespacesAndNewlines() + "\n" + "-----END CERTIFICATE-----\n"
-                
-                printLog("Writing LDAP cert \(index + 1)")
-                do {
-                    let fileHandle = try FileHandle(forWritingTo: combinedCertsPath)
-                    
+            do {
+                let fileHandle = try FileHandle(forWritingTo: combinedCertsPath)
+                defer { fileHandle.closeFile() }
+                fileHandle.seekToEndOfFile()
+                for (index, cert) in ldapCerts.enumerated() {
+                    guard !cert.isEmpty else { continue }
+                    printLog("Writing LDAP cert \(index + 1)")
+                    let pemCert = "-----BEGIN CERTIFICATE-----\n" + cert.trimWhitespacesAndNewlines() + "\n-----END CERTIFICATE-----\n"
                     if let stringData = pemCert.data(using: .utf8) {
-                        fileHandle.seekToEndOfFile()
                         fileHandle.write(stringData)
                     }
-                    
-                    fileHandle.closeFile()
-                } catch {
-                    printLog("Error writing to LDAP certs file: \(error.localizedDescription)")
-                    continue
+                    printLog("LDAP certificate file written")
                 }
-                printLog("LDAP certificate file written to \(combinedCertsPath)")
+            } catch {
+                printLog("Error writing to LDAP certs file: \(error.localizedDescription)")
             }
         }
     }
