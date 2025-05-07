@@ -60,10 +60,12 @@ NSError* SmartCardTokenWrapper::lastError() const
 
 std::vector<uchar> SmartCardTokenWrapper::cert() const
 {
-    NSError *error = nil;
-    auto result = [[token->smartTokenClass getCertificateAndReturnError:&error] toVector];
-    token->error = error;
-    return result;
+    __block NSData *result;
+    [token->smartTokenClass getCertificateWithCompletionHandler:^(NSData *data, NSError *error) {
+        result = data;
+        token->error = error;
+    }];
+    return [result toVector];
 }
 
 std::vector<uchar> SmartCardTokenWrapper::decrypt(const std::vector<uchar> &data) const

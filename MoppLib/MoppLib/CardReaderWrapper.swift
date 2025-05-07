@@ -89,7 +89,7 @@ extension CardReaderWrapper {
     func transmitCommandChecked(_ apdu: Bytes) throws -> Bytes {
         let (result, sw) = try transmitCommand(apdu)
         guard sw == 0x9000 else {
-            throw MoppLibError.generalError()
+            throw MoppLibError.Code.general
         }
         return result
     }
