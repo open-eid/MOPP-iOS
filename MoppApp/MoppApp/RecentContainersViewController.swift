@@ -21,8 +21,6 @@
  *
  */
 
-import UIKit
-import CryptoLib
 class RecentContainersViewController : MoppModalViewController {
     var requestCloseSearch: (() -> Void) = {}
     @IBOutlet weak var tableView: UITableView!
@@ -197,17 +195,9 @@ extension RecentContainersViewController : UITableViewDelegate {
             }
             guard let path = containerPath else { return }
             self.closeSearch()
-            dismiss(animated: true, completion: {
+            dismiss(animated: true) {
                 let ext = (filename as NSString).pathExtension
                 var navController: UINavigationController = (LandingViewController.shared.viewController(for: .signTab) as? UINavigationController)!
-
-                let failure: (() -> Void) = {
-                    LandingViewController.shared.importProgressViewController.dismissRecursivelyIfPresented(animated: false, completion: nil)
-                    let alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [filename]), preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
-
-                    navController.viewControllers.last!.present(alert, animated: true)
-                }
 
                 if ext.isAsicContainerExtension || ext.isPdfContainerExtension {
                     let containerPathURL = path
@@ -225,35 +215,30 @@ extension RecentContainersViewController : UITableViewDelegate {
                         self.openContainer(containerPath: path.path, navController: navController, isSendingToSivaAgreed: true)
                     }
                 } else {
-                    var containerViewController: ContainerViewController
                     LandingViewController.shared.containerType = .cdoc
-                    containerViewController = CryptoContainerViewController.instantiate()
-                    containerViewController.containerPath = path.path
-
-                    let container = CryptoContainer(filename: path.lastPathComponent as NSString, filePath: path.path as NSString)
-
-                    MoppLibCryptoActions.parseCdocInfo(
-                        path.path as String?,
-                        success: { cdocInfo in
-                            let cryptoContainer = (containerViewController as! CryptoContainerViewController)
-                            container.addressees = cdocInfo.addressees as? [Addressee] ?? []
-                            container.dataFiles = cdocInfo.dataFiles
-                            cryptoContainer.containerPath = path.path as String?
-                            cryptoContainer.state = .opened
-
-                            cryptoContainer.container = container
-                            cryptoContainer.isContainerEncrypted = true
-
-                            navController = (LandingViewController.shared.viewController(for: .cryptoTab) as? UINavigationController)!
-                            navController.pushViewController(cryptoContainer, animated: true)
-                    },
-                        failure: { _ in
-                            failure()
+                    Task(priority: .background) {
+                        do {
+                            let cdocInfo = try Decrypt.cdocInfo(path.path)
+                            await MainActor.run {
+                                let cryptoContainer = CryptoContainerViewController.instantiate()
+                                cryptoContainer.containerPath = path.path
+                                cryptoContainer.container = CryptoContainer(filename: path.lastPathComponent, filePath: path.path, cdocInfo: cdocInfo)
+                                cryptoContainer.state = .opened
+                                cryptoContainer.isContainerEncrypted = true
+                                navController = (LandingViewController.shared.viewController(for: .cryptoTab) as? UINavigationController)!
+                                navController.pushViewController(cryptoContainer, animated: true)
+                            }
+                        } catch {
+                            await MainActor.run {
+                                LandingViewController.shared.importProgressViewController.dismissRecursivelyIfPresented(animated: false, completion: nil)
+                                let alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [filename]), preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
+                                navController.viewControllers.last!.present(alert, animated: true)
+                            }
                         }
-                    )
+                    }
                 }
-
-            })
+            }
         }
     }
 

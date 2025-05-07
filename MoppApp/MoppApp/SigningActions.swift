@@ -79,7 +79,6 @@ extension SigningActions where Self: SigningContainerViewController {
        
         signSelectionVC.mobileIdEditViewControllerDelegate = self
         signSelectionVC.smartIdEditViewControllerDelegate = self
-        signSelectionVC.idCardSignViewControllerDelegate = self
         signSelectionVC.nfcEditViewControllerDelegate = self
         signSelectionVC.containerPath = containerPath
         
@@ -175,41 +174,6 @@ extension SigningContainerViewController : NFCEditViewControllerDelegate {
     func nfcEditViewControllerDidDismiss(cancelled: Bool, can: String?, pin: String?) {
         if !cancelled, let can = can, let pin = pin {
             NFCSignature.shared.createNFCSignature(can: can, pin: pin, containerPath: self.containerViewDelegate.getContainerPath(), hashType: kHashType, roleData: DefaultsHelper.isRoleAndAddressEnabled ? RoleAndAddressUtil.getSavedRoleInfo() : nil)
-        }
-    }
-}
-
-extension SigningContainerViewController : IdCardSignViewControllerDelegate {
-    func idCardSignDidFinished(cancelled: Bool, success: Bool, error: Error?) {
-        if !cancelled {
-            if success {
-                NotificationCenter.default.post(
-                    name: .signatureCreatedFinishedNotificationName,
-                    object: nil,
-                    userInfo: nil)
-            } else {
-                guard let nsError = error as NSError? else { return }
-                switch nsError.code {
-                case MoppLibErrorCode.moppLibErrorPinBlocked.rawValue:
-                    ErrorUtil.generateError(signingError: L(.pin2BlockedAlert))
-                case MoppLibErrorCode.moppLibErrorTooManyRequests.rawValue:
-                    ErrorUtil.generateError(signingError: .tooManyRequests(signingMethod: SigningType.idCard.rawValue))
-                case MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue:
-                    ErrorUtil.generateError(signingError: .noResponseError)
-                case MoppLibErrorCode.moppLibErrorOCSPTimeSlot.rawValue:
-                    ErrorUtil.generateError(signingError: .ocspInvalidTimeSlot)
-                case MoppLibErrorCode.moppLibErrorSslHandshakeFailed.rawValue:
-                    ErrorUtil.generateError(signingError: .invalidSSLCert)
-                case MoppLibErrorCode.moppLibErrorInvalidProxySettings.rawValue:
-                    ErrorUtil.generateError(signingError: .invalidProxySettings)
-                case MoppLibErrorCode.moppLibErrorReaderProcessFailed.rawValue:
-                    ErrorUtil.generateError(signingError: .empty, details: L(.cardReaderStateReaderProcessFailed))
-                default:
-                    ErrorUtil.generateError(signingError: .empty, details: MessageUtil.errorMessageWithDetails(details: nsError.localizedDescription))
-                }
-            }
-        } else if let error = error as? IdCardActionError, error == .actionCancelled {
-            ErrorUtil.generateError(signingError: L(.signingAbortedMessage))
         }
     }
 }

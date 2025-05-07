@@ -46,11 +46,11 @@ class SmartIDSignature {
             "\tUUID: \(uuid)\n"
         )
 
-        getCertificate(baseUrl: baseUrl, country: country, nationalIdentityNumber: nationalIdentityNumber, requestParameters: certparams, containerPath: containerPath, roleData: roleData, trustedCertificates: certBundle, errorHandler: errorHandler) { documentNumber, cert, hash in
-            var signparams = SIDSignatureRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, hash: hash, hashType: hashType, allowedInteractionsOrder: SIDSignatureRequestAllowedInteractionsOrder(type: "confirmationMessageAndVerificationCodeChoice", displayText: "\(L(.simToolkitSignDocumentTitle).asUnicode) \(FileUtil.getSignDocumentFileName(containerPath: containerPath).asUnicode)"))
+        getCertificate(baseUrl: baseUrl, country: country, nationalIdentityNumber: nationalIdentityNumber, requestParameters: certparams, containerPath: containerPath, roleData: roleData, trustedCertificates: certBundle, errorHandler: errorHandler) { documentNumber, hash in
+            let signparams = SIDSignatureRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, hash: hash, hashType: hashType, allowedInteractionsOrder: SIDSignatureRequestAllowedInteractionsOrder(type: "confirmationMessageAndVerificationCodeChoice", displayText: "\(L(.simToolkitSignDocumentTitle).asUnicode) \(FileUtil.getSignDocumentFileName(containerPath: containerPath).asUnicode)"))
             self.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, allowedInteractionsOrder: signparams, trustedCertificates: certBundle, errorHandler: errorHandler) { signatureValue in
                 if !RequestCancel.shared.isRequestCancelled() {
-                    self.validateSignature(cert: cert, signatureValue: signatureValue)
+                    self.validateSignature(signatureValue: signatureValue)
                     UIApplication.shared.endBackgroundTask(backgroundTask)
                 } else {
                     UIApplication.shared.endBackgroundTask(backgroundTask)
@@ -60,7 +60,7 @@ class SmartIDSignature {
         }
     }
 
-    private func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, containerPath: String, roleData: MoppLibRoleAddressData?, trustedCertificates: [Data], errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String, Data, Data) -> Void) {
+    private func getCertificate(baseUrl: String, country: String, nationalIdentityNumber: String, requestParameters: SIDCertificateRequestParameters, containerPath: String, roleData: MoppLibRoleAddressData?, trustedCertificates: [Data], errorHandler: @escaping (SigningError, String) -> Void, completionHandler: @escaping (String, Data) -> Void) {
         printLog("Getting certificate...")
 
         if RequestCancel.shared.isRequestCancelled() {
@@ -81,10 +81,12 @@ class SmartIDSignature {
                         guard let certificateValue = sessionStatus.cert?.value else {
                             return errorHandler(.generalError, "Unable to get certificate value")
                         }
-                        guard let hash = self.setupControlCode(certificateValue: certificateValue, containerPath: containerPath, roleData: roleData) else {
-                            return errorHandler(.generalError, "Error getting hash. Is 'cert' empty: \(certificateValue.isEmpty). ContainerPath: \(containerPath)")
+                        do {
+                            let hash = try self.setupControlCode(certificateValue: certificateValue, containerPath: containerPath, roleData: roleData)
+                            completionHandler(documentNumber, hash)
+                        } catch let error as NSError {
+                            errorHandler(.generalError, error.localizedDescription + "\nError getting hash. Is 'cert' empty: \(certificateValue.isEmpty). ContainerPath: \(containerPath)")
                         }
-                        completionHandler(documentNumber, certificateValue, hash)
                     case .failure(let error):
                         errorHandler(error, "Unable to get certificate status")
                     }
@@ -168,9 +170,10 @@ class SmartIDSignature {
         }
     }
     
-    private func validateSignature(cert: Data, signatureValue: Data) -> Void {
-        printLog("\nRIA.SmartID - Validating signature...\n")
-        MoppLibContainerActions.isSignatureValid(cert, signatureValue: signatureValue, success: {
+    private func validateSignature(signatureValue: Data) -> Void {
+        do {
+            printLog("\nRIA.SmartID - Validating signature...\n")
+            try MoppLibContainerActions.isSignatureValid(signatureValue)
             printLog("\nRIA.SmartID - Successfully validated signature!\n")
             DispatchQueue.main.async {
                 NotificationCenter.default.post(
@@ -178,39 +181,13 @@ class SmartIDSignature {
                     object: nil,
                     userInfo: nil)
             }
-        }, failure: { (error: Error?) in
-            printLog("\nRIA.SmartID - Error validating signature. Error: \(error?.localizedDescription ?? "Unable to display error")\n")
-            guard let error = error, let err = error as NSError? else {
-                ErrorUtil.generateError(signingError: .generalSignatureAddingError, details: MessageUtil.errorMessageWithDetails(details: "Unknown error"))
-                return
-            }
-            
-            if err.code == 5 || err.code == 6 {
-                printLog("\nRIA.SmartID - Certificate revoked. \(err.domain)")
-                ErrorUtil.generateError(signingError: .certificateRevoked, details: MessageUtil.generateDetailedErrorMessage(error: error as NSError) ?? err.domain)
-                return
-            } else if err.code == 7 {
-                printLog("\nRIA.SmartID - Invalid OCSP time slot. \(err.domain)")
-                ErrorUtil.generateError(signingError: .ocspInvalidTimeSlot, details: MessageUtil.generateDetailedErrorMessage(error: error as NSError) ?? err.domain)
-                return
-            } else if err.code == 18 {
-                printLog("\nRIA.SmartID - Too many requests. \(err.domain)")
-                ErrorUtil.generateError(signingError: .tooManyRequests(signingMethod: SigningType.smartId.rawValue), details:
-                    MessageUtil.generateDetailedErrorMessage(error: error as NSError) ?? err.domain)
-                return
-            }
-            
-            printLog("\nRIA.SmartID - General signature adding error. \(err.domain)")
-            return ErrorUtil.generateError(signingError: .empty, details:
-                    MessageUtil.generateDetailedErrorMessage(error: error as NSError) ?? err.domain)
-        })
+        } catch {
+            ErrorUtil.generateError(signingError: error, signingType: SigningType.smartId)
+        }
     }
 
-    private func setupControlCode(certificateValue: Data, containerPath: String, roleData: MoppLibRoleAddressData?) -> Data? {
-        guard let hash = MoppLibContainerActions.prepareSignature(certificateValue, containerPath: containerPath, roleData: roleData) else {
-            return nil
-        }
-
+    private func setupControlCode(certificateValue: Data, containerPath: String, roleData: MoppLibRoleAddressData?) throws -> Data {
+        let hash = try MoppLibContainerActions.prepareSignature(certificateValue, containerPath: containerPath, roleData: roleData)
         let digest = sha256(data: hash)
         let code = UInt16(digest[digest.count - 2]) << 8 | UInt16(digest[digest.count - 1])
         let challengeId = String(format: "%04d", (code % 10000))

@@ -27,7 +27,8 @@ class MyeIDViewController : MoppViewController {
     var didRestartReader = false
     
     var infoManager: MyeIDInfoManager!
- 
+    var cardCommands: CardCommands?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         infoManager = MyeIDInfoManager()
@@ -131,13 +132,15 @@ extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
         if statusVC == nil {
             statusVC = showViewController(createStatusViewController()) as? MyeIDStatusViewController
         }
+        cardCommands = nil
         switch readerStatus {
         case .Initial: statusVC?.state = .initial
         case .ReaderNotConnected: statusVC?.state = .readerNotFound
         case .ReaderRestarted: statusVC?.state = .readerRestarted
         case .ReaderConnected: statusVC?.state = .idCardNotFound
-        case .CardConnected: statusVC?.state = .requestingData
-            infoManager.requestInformation()
+        case .CardConnected(let cardCommands): statusVC?.state = .requestingData
+            self.cardCommands = cardCommands
+            infoManager.requestInformation(cardCommands)
         case .ReaderProcessFailed: statusVC?.state = .readerProcessFailed
         }
     }
@@ -146,11 +149,8 @@ extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
 extension MyeIDViewController: MyeIDInfoManagerDelegate {
     func didCompleteInformationRequest(success:Bool) {
         if success {
-            DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self else { return }
-                let infoViewController = strongSelf.createInfoViewController()
-                _ = strongSelf.showViewController(infoViewController)
-            }
+            let infoViewController = self.createInfoViewController()
+            _ = self.showViewController(infoViewController)
         } else {
             if didRestartReader {
                 printLog("ID-CARD: My eID. Reader already restarted")
@@ -166,7 +166,7 @@ extension MyeIDViewController: MyeIDInfoManagerDelegate {
     
     func didTapChangePinPukCode(actionType: MyeIDChangeCodesModel.ActionType) {
         let changeCodesViewController = UIStoryboard.myEID.instantiateViewController(of: MyeIDChangeCodesViewController.self)
-            changeCodesViewController.model = MyeIDInfoManager.createChangeCodesModel(actionType: actionType)
+            changeCodesViewController.model = MyeIDInfoManager.createChangeCodesModel(actionType: actionType, cardCommands: cardCommands)
             changeCodesViewController.infoManager = infoManager
         
         changingCodesVCPresented = true

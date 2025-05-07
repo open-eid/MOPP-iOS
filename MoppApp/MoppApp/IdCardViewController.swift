@@ -20,21 +20,16 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
-enum IdCardActionError: Error {
-    case actionCancelled
-}
+
+import SkSigningLib
 
 protocol IdCardSignViewKeyboardDelegate : AnyObject {
     func idCardPINKeyboardWillAppear()
     func idCardPINKeyboardWillDisappear()
 }
 
-protocol IdCardSignViewControllerDelegate : AnyObject {
-    func idCardSignDidFinished(cancelled: Bool, success: Bool, error: Error?)
-}
-
 protocol IdCardDecryptViewControllerDelegate : AnyObject {
-    func idCardDecryptDidFinished(cancelled: Bool, success: Bool, dataFiles: [String:Data], error: Error?)
+    func idCardDecryptDidFinished(success: Bool, dataFiles: [String:Data], error: Error?)
 }
 
 class IdCardViewController : MoppViewController {
@@ -51,7 +46,7 @@ class IdCardViewController : MoppViewController {
 
     var isActionDecryption = false
     var containerPath: String!
-    weak var signDelegate: IdCardSignViewControllerDelegate?
+    var cardCommands: CardCommands?
     weak var decryptDelegate: IdCardDecryptViewControllerDelegate?
     weak var keyboardDelegate: IdCardSignViewKeyboardDelegate? = nil
 
@@ -161,18 +156,14 @@ class IdCardViewController : MoppViewController {
                 sself.state == .readerNotFound ||
                 sself.state == .idCardNotFound ||
                 sself.state == .tokenActionInProcess
-                if self?.loadingSpinner != nil {
-                    self?.loadingSpinner.show(showLoading)
-                }
+                self?.loadingSpinner?.show(showLoading)
                 if self?.pinTextField != nil {
                     self?.pinTextField.resignFirstResponder()
                 }
         }
 
         NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: OperationQueue.main) { [weak self]_ in
-            if self?.loadingSpinner != nil {
-                self?.loadingSpinner.show(true)
-            }
+            self?.loadingSpinner?.show(true)
             UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: self?.titleLabel)
         }
 
@@ -207,86 +198,36 @@ class IdCardViewController : MoppViewController {
 
     func updateUI(for state: State) {
         scrollView.setContentOffset(.zero, animated: true)
+        actionButton.isEnabled = false
+        pinTextField.isHidden = true
+        pinTextField.text = nil
+        pinTextFieldTitleLabel.isHidden = true
+        pinTextFieldTitleLabel.text = nil
+        pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
+        loadingSpinner?.show(true)
+        pinCodeStackView?.isHidden = false
         switch state {
         case .initial:
-            actionButton.isEnabled = false
-            pinTextField.isHidden = true
-            pinTextField.text = nil
-            pinTextFieldTitleLabel.isHidden = true
-            pinTextFieldTitleLabel.text = nil
-            pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
-            if loadingSpinner != nil {
-                loadingSpinner.show(false)
-            }
-            if pinCodeStackView != nil {
-                pinCodeStackView.isHidden = true
-            }
             titleLabel.text = L(.cardReaderStateInitial)
         case .readerNotFound:
-            UIAccessibility.post(notification: UIAccessibility.Notification.announcement,  argument: L(.cardReaderStateReaderNotFound))
-            actionButton.isEnabled = false
-            pinTextField.isHidden = true
-            pinTextField.text = nil
-            pinTextFieldTitleLabel.isHidden = true
-            pinTextFieldTitleLabel.text = nil
-            pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
-            if loadingSpinner != nil {
-                loadingSpinner.show(true)
-            }
-            if pinCodeStackView != nil {
-                pinCodeStackView.isHidden = true
-            }
+            UIAccessibility.post(notification: .announcement,  argument: L(.cardReaderStateReaderNotFound))
             titleLabel.text = L(.cardReaderStateReaderNotFound)
-        case .readerRestarted:
-            UIAccessibility.post(notification: .announcement,  argument: L(.cardReaderStateReaderRestarted))
-            actionButton.isEnabled = false
-            pinTextField.isHidden = true
-            pinTextField.text = nil
-            pinTextFieldTitleLabel.isHidden = true
-            pinTextFieldTitleLabel.text = nil
-            pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
-            if loadingSpinner != nil {
-                loadingSpinner.show(true)
-            }
-            if pinCodeStackView != nil {
-                pinCodeStackView.isHidden = false
-            }
-            titleLabel.text = L(.cardReaderStateReaderRestarted)
-        case .idCardNotFound:
-            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: L(.cardReaderStateIdCardNotFound))
-            actionButton.isEnabled = false
-            pinTextField.isHidden = true
-            pinTextField.text = nil
-            pinTextFieldTitleLabel.isHidden = true
-            pinTextFieldTitleLabel.text = nil
-            pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
-            if loadingSpinner != nil {
-                loadingSpinner.show(true)
-            }
-            if pinCodeStackView != nil {
-                pinCodeStackView.isHidden = false
-            }
-            titleLabel.text = L(.cardReaderStateIdCardNotFound)
-        case .idCardConnected:
-            UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: L(.cardReaderStateIdCardConnected))
-            actionButton.isEnabled = false
-            pinTextField.isHidden = true
-            pinTextField.text = nil
-            pinTextFieldTitleLabel.isHidden = true
-            pinTextFieldTitleLabel.text = nil
-            pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
-            if loadingSpinner != nil {
-                loadingSpinner.show(true)
-            }
-            if pinCodeStackView != nil {
-                pinCodeStackView.isHidden = false
-            }
-            titleLabel.text = L(.cardReaderStateIdCardConnected)
+            pinCodeStackView?.isHidden = true
         case .readerProcessFailed:
             UIAccessibility.post(notification: .announcement, argument: L(.cardReaderStateReaderProcessFailed))
-            actionButton.isEnabled = false
-            pinCodeStackView.isHidden = true
             titleLabel.text = L(.cardReaderStateReaderProcessFailed)
+            pinCodeStackView?.isHidden = true
+        case .readerRestarted:
+            UIAccessibility.post(notification: .announcement,  argument: L(.cardReaderStateReaderRestarted))
+            titleLabel.text = L(.cardReaderStateReaderRestarted)
+        case .idCardNotFound:
+            UIAccessibility.post(notification: .announcement, argument: L(.cardReaderStateIdCardNotFound))
+            titleLabel.text = L(.cardReaderStateIdCardNotFound)
+        case .idCardConnected:
+            UIAccessibility.post(notification: .announcement, argument: L(.cardReaderStateIdCardConnected))
+            titleLabel.text = L(.cardReaderStateIdCardConnected)
+        case .tokenActionInProcess:
+            UIAccessibility.post(notification: .announcement, argument: isActionDecryption ? L(.decryptionInProgress) : L(.signingInProgress))
         case .readyForTokenAction:
             // Give VoiceOver time to announce "ID-card found"
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
@@ -294,20 +235,15 @@ class IdCardViewController : MoppViewController {
                 let personalCode = self.idCardPersonalData?.personalIdentificationCode ?? String()
                 if self.isActionDecryption {
                     self.titleLabel.text = L(.cardReaderStateReadyForPin1, [fullname, personalCode])
-                    UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: L(.cardReaderStateReadyForPin1, [fullname, personalCode]))
+                    UIAccessibility.post(notification: .announcement, argument: L(.cardReaderStateReadyForPin1, [fullname, personalCode]))
                 } else {
                     self.titleLabel.text = L(.cardReaderStateReadyForPin2, [fullname, personalCode])
-                    UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: L(.cardReaderStateReadyForPin2, [fullname, personalCode]))
+                    UIAccessibility.post(notification: .announcement, argument: L(.cardReaderStateReadyForPin2, [fullname, personalCode]))
                 }
-                self.actionButton.isEnabled = false
+                self.loadingSpinner?.show(false)
                 self.pinTextField.isHidden = false
-                self.pinTextField.text = nil
                 self.pinTextFieldTitleLabel.isHidden = false
-                if self.isActionDecryption {
-                    self.pinTextFieldTitleLabel.text = L(.pin1TextfieldLabel)
-                } else {
-                    self.pinTextFieldTitleLabel.text = L(.pin2TextfieldLabel)
-                }
+                self.pinTextFieldTitleLabel.text = self.isActionDecryption ? L(.pin1TextfieldLabel) : L(.pin2TextfieldLabel)
                 self.pinTextFieldTitleLabel.textColor = UIColor.moppText
                 // Voice Control label might not show, showing and hiding the textfield helps
                 if !UIAccessibility.isVoiceOverRunning {
@@ -316,55 +252,28 @@ class IdCardViewController : MoppViewController {
                     self.pinTextField.layer.borderColor = UIColor.black.cgColor
                 }
                 self.setPinFieldVoiceControlLabel(isDecryption: self.isActionDecryption)
-                self.pinTextFieldTitleLabel.textColor = UIColor.moppText
-                if self.loadingSpinner != nil {
-                    self.loadingSpinner.show(false)
-                }
-            }
-        case .tokenActionInProcess:
-            actionButton.isEnabled = false
-            pinTextField.isHidden = true
-            pinTextField.text = nil
-            pinTextFieldTitleLabel.isHidden = true
-            pinTextFieldTitleLabel.text = nil
-            pinTextFieldTitleLabel.textColor = UIColor.moppBaseBackground
-            if loadingSpinner != nil {
-                loadingSpinner.show(true)
-            }
-            if isActionDecryption {
-                titleLabel.text = L(.decryptionInProgress)
-                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
-            } else {
-                titleLabel.text = L(.signingInProgress)
-                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
             }
         case .wrongPin:
             let fullname = idCardPersonalData?.fullName ?? String()
             let personalCode = idCardPersonalData?.personalIdentificationCode ?? String()
             if isActionDecryption {
                 titleLabel.text = L(.cardReaderStateReadyForPin1, [fullname, personalCode])
-                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
+                UIAccessibility.post(notification: .layoutChanged, argument: titleLabel)
             } else {
                 titleLabel.text = L(.cardReaderStateReadyForPin2, [fullname, personalCode])
-                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: titleLabel)
+                UIAccessibility.post(notification: .layoutChanged, argument: titleLabel)
             }
-            actionButton.isEnabled = false
+            loadingSpinner?.show(false)
             pinTextField.isHidden = false
-            pinTextField.text = nil
             pinTextFieldTitleLabel.isHidden = false
-            pinTextField.text = nil
-            if loadingSpinner != nil {
-                loadingSpinner.show(false)
-            }
             pinTextFieldTitleLabel.textColor = UIColor.moppError
             if isActionDecryption {
                 pinTextFieldTitleLabel.text = pinAttemptsLeft > 1 ? L(.wrongPin1, [pinAttemptsLeft]) : L(.wrongPin1Single)
-                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: pinTextFieldTitleLabel)
+                UIAccessibility.post(notification: .layoutChanged, argument: pinTextFieldTitleLabel)
             } else {
                 pinTextFieldTitleLabel.text = pinAttemptsLeft > 1 ? L(.wrongPin2, [pinAttemptsLeft]) : L(.wrongPin2Single)
-                UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: pinTextFieldTitleLabel)
+                UIAccessibility.post(notification: .layoutChanged, argument: pinTextFieldTitleLabel)
             }
-
         }
 
         guard let actionUIButton = actionButton else { printLog("Unable to get actionButton"); return }
@@ -415,11 +324,9 @@ class IdCardViewController : MoppViewController {
         dismiss(animated: false) {
             [weak self] in
             guard let sself = self else { return }
-            var error: IdCardActionError? = nil
             if actionCancelled {
-                error = .actionCancelled
+                ErrorUtil.generateError(signingError: L(.signingAbortedMessage))
             }
-            sself.signDelegate?.idCardSignDidFinished(cancelled: true, success: false, error: error)
             if sself.isActionDecryption {
                 UIAccessibility.post(notification: .screenChanged, argument: L(.cryptoDecryptionCancelled))
             } else {
@@ -436,65 +343,72 @@ class IdCardViewController : MoppViewController {
 
         state = .tokenActionInProcess
         if isActionDecryption {
-            MoppLibCryptoActions.decryptData(
-                containerPath, withPin1: pin,
-                success: { [weak self] decryptedData in
-                    self?.decryptDelegate?.idCardDecryptDidFinished(cancelled: false, success: true, dataFiles: decryptedData, error: nil)
-                },
-                failure: { [weak self] error in
-                    if let nsError = error as NSError?,
-                       nsError.code == MoppLibErrorCode.moppLibErrorWrongPin.rawValue {
-                        DispatchQueue.main.async {
-                            self?.pinAttemptsLeft = (nsError.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as? NSNumber)?.uintValue ?? 0
-                            self?.state = .wrongPin
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            self?.dismiss(animated: false) {
-                                self?.decryptDelegate?.idCardDecryptDidFinished(cancelled: false, success: false, dataFiles: .init(), error: error)
-                            }
+            Task {
+                do {
+                    guard let cardCommands else {
+                        throw MoppLibError.Code.cardNotFound
+                    }
+                    let decryptedData = try await Decrypt.decryptFile(containerPath, with: SmartToken(card: cardCommands, pin1: pin))
+                    self.decryptDelegate?.idCardDecryptDidFinished(success: true,  dataFiles: decryptedData, error: nil)
+                } catch let error as NSError where error == .wrongPin {
+                    self.pinAttemptsLeft = (error.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as? NSNumber)?.uintValue ?? 0
+                    self.state = .wrongPin
+                } catch {
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: false) {
+                            self.decryptDelegate?.idCardDecryptDidFinished(success: false, dataFiles: .init(), error: error)
                         }
                     }
                 }
-            )
-        } else {
-            if DefaultsHelper.isRoleAndAddressEnabled {
-                let roleAndAddressView = UIStoryboard.tokenFlow.instantiateViewController(of: RoleAndAddressViewController.self)
-                roleAndAddressView.modalPresentationStyle = .overCurrentContext
-                roleAndAddressView.modalTransitionStyle = .crossDissolve
-                roleAndAddressView.onComplete = { [weak self] in self?.sign(pin) }
-                present(roleAndAddressView, animated: true)
-            } else {
-                sign(pin)
             }
+        } else if DefaultsHelper.isRoleAndAddressEnabled {
+            let roleAndAddressView = UIStoryboard.tokenFlow.instantiateViewController(of: RoleAndAddressViewController.self)
+            roleAndAddressView.modalPresentationStyle = .overCurrentContext
+            roleAndAddressView.modalTransitionStyle = .crossDissolve
+            roleAndAddressView.onComplete = { [weak self] in self?.sign(pin) }
+            present(roleAndAddressView, animated: true)
+        } else {
+            sign(pin)
         }
     }
 
     func sign(_ pin: String) {
-        MoppLibContainerActions.sharedInstance().addSignature(
-            containerPath, withPin2:pin,
-            roleData: DefaultsHelper.isRoleAndAddressEnabled ? RoleAndAddressUtil.getSavedRoleInfo() : nil,
-            success: { [weak self] in
-                DispatchQueue.main.async {
-                    self?.dismiss(animated: false) {
-                        self?.signDelegate?.idCardSignDidFinished(cancelled: false, success: true, error: nil)
+        Task {
+            do {
+                guard MoppLibManager.shared.isConnected else {
+                    throw MoppLibError.Code.noInternetConnection
+                }
+                guard let cardCommands else {
+                    throw MoppLibError.Code.cardNotFound
+                }
+                guard try await cardCommands.readCodeCounterRecord(.pin2) != 0 else {
+                    throw MoppLibError.Code.pinBlocked
+                }
+                let cert = try await cardCommands.readSignatureCertificate()
+                let dataToSign = try MoppLibContainerActions.prepareSignature(cert, containerPath: containerPath, roleData: DefaultsHelper.isRoleAndAddressEnabled ? RoleAndAddressUtil.getSavedRoleInfo() : nil)
+                let signature = try cardCommands.calculateSignature(for: dataToSign, withPin2: pin)
+                try MoppLibContainerActions.isSignatureValid(signature)
+                await MainActor.run {
+                    self.dismiss(animated: false) {
+                        NotificationCenter.default.post(
+                            name: .signatureCreatedFinishedNotificationName,
+                            object: nil,
+                            userInfo: nil)
                     }
                 }
-            },
-            failure: { [weak self] error in
-                DispatchQueue.main.async {
-                    if let nsError = error as NSError?,
-                       nsError.code == MoppLibErrorCode.moppLibErrorWrongPin.rawValue {
-                        self?.pinAttemptsLeft = (nsError.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as? NSNumber)?.uintValue ?? 0
-                        self?.state = .wrongPin
+            } catch let error as NSError {
+                await MainActor.run {
+                    if error == .wrongPin {
+                        self.pinAttemptsLeft = (error.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as? NSNumber)?.uintValue ?? 0
+                        self.state = .wrongPin
                     } else {
-                        self?.dismiss(animated: false) {
-                            self?.signDelegate?.idCardSignDidFinished(cancelled: false, success: false, error: error)
+                        self.dismiss(animated: false) {
+                            ErrorUtil.generateError(signingError: error, signingType:SigningType.idCard)
                         }
                     }
                 }
             }
-        )
+        }
     }
     
     @objc func hideKeyboardAccessibility(notification: Notification) {
@@ -519,21 +433,19 @@ class IdCardViewController : MoppViewController {
 
 extension IdCardViewController : MoppLibCardReaderManagerDelegate {
     func moppLibCardReaderStatusDidChange(_ readerStatus: MoppLibCardReaderStatus) {
+        cardCommands = nil
         switch readerStatus {
-        case .Initial:
-            state = .initial
-        case .ReaderNotConnected:
-            state = .readerNotFound
-        case .ReaderRestarted:
-            state = .readerRestarted
-        case .ReaderConnected:
-            state = .idCardNotFound
-        case .CardConnected:
+        case .Initial: state = .initial
+        case .ReaderNotConnected: state = .readerNotFound
+        case .ReaderRestarted: state = .readerRestarted
+        case .ReaderConnected: state = .idCardNotFound
+        case .CardConnected(let cardCommands):
             state = .idCardConnected
+            self.cardCommands = cardCommands
 
             Task.detached { [weak self] in
                 do {
-                    let moppLibPersonalData = try await MoppLibCardActions.cardPersonalData()
+                    let moppLibPersonalData = try await cardCommands.readPublicData()
                     guard let self else { return }
                     await MainActor.run {
                         self.idCardPersonalData = moppLibPersonalData
@@ -541,18 +453,14 @@ extension IdCardViewController : MoppLibCardReaderManagerDelegate {
                     }
                 } catch let error as NSError {
                     await MainActor.run { [weak self] in
-                        self?.state = error.code == MoppLibErrorCode.moppLibErrorReaderProcessFailed.rawValue ?
-                            .readerProcessFailed : .readerNotFound
+                        self?.state = error == .readerProcessFailed ? .readerProcessFailed : .readerNotFound
                     }
                 } catch {
                     await MainActor.run { [weak self] in self?.state = .readerProcessFailed }
                 }
             }
 
-        case .ReaderProcessFailed:
-            state = .readerProcessFailed
-        @unknown default:
-            break
+        case .ReaderProcessFailed: state = .readerProcessFailed
         }
     }
     
