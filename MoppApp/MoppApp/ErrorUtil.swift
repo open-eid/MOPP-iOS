@@ -21,11 +21,32 @@
  *
  */
 
-import Foundation
 import SkSigningLib
 
 class ErrorUtil {
-    
+
+    static func generateError(signingError: (any Error)?, signingType: SigningType) {
+        guard let nsError = signingError as NSError? else { return }
+        switch nsError.code {
+        case MoppLibError.Code.certRevoked.rawValue:
+            generateError(signingError: .certificateRevoked)
+        case MoppLibError.Code.OCSPTimeSlot.rawValue:
+            generateError(signingError: .ocspInvalidTimeSlot)
+        case MoppLibError.Code.tooManyRequests.rawValue:
+            generateError(signingError: .tooManyRequests(signingMethod: signingType.rawValue))
+        case MoppLibError.Code.invalidProxySettings.rawValue:
+            generateError(signingError: .invalidProxySettings)
+        case MoppLibError.Code.noInternetConnection.rawValue:
+            generateError(signingError: .noResponseError)
+        case MoppLibError.Code.pinBlocked.rawValue:
+            generateError(signingError: L(.pin2BlockedAlert))
+        case MoppLibError.Code.readerProcessFailed.rawValue:
+            generateError(signingError: .empty, details: L(.cardReaderStateReaderProcessFailed))
+        default:
+            generateError(signingError: .empty, details: MessageUtil.errorMessageWithDetails(details: nsError.localizedDescription))
+        }
+    }
+
     static func generateError(signingError: SigningError, details: String = "") -> Void {
         let error = NSError(domain: "SkSigningLib", code: 10, userInfo: [NSLocalizedDescriptionKey: signingError, NSLocalizedFailureReasonErrorKey: details])
         return self.errorResult(error: error)
