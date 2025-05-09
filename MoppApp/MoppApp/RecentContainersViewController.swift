@@ -201,9 +201,15 @@ extension RecentContainersViewController : UITableViewDelegate {
                 let ext = (filename as NSString).pathExtension
                 var navController: UINavigationController = (LandingViewController.shared.viewController(for: .signTab) as? UINavigationController)!
 
-                let failure: (() -> Void) = {
+                let failure: (_ customMessage: String?) -> Void = { customMessage in
                     LandingViewController.shared.importProgressViewController.dismissRecursivelyIfPresented(animated: false, completion: nil)
-                    let alert = UIAlertController(title: L(.fileImportOpenExistingFailedAlertTitle), message: L(.fileImportOpenExistingFailedAlertMessage, [filename]), preferredStyle: .alert)
+
+                    let message = customMessage ?? L(.fileImportOpenExistingFailedAlertMessage, [filename])
+                    let alert = UIAlertController(
+                        title: L(.fileImportOpenExistingFailedAlertTitle),
+                        message: message,
+                        preferredStyle: .alert
+                    )
                     alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
 
                     navController.viewControllers.last!.present(alert, animated: true)
@@ -211,6 +217,11 @@ extension RecentContainersViewController : UITableViewDelegate {
 
                 if ext.isAsicContainerExtension || ext.isPdfContainerExtension {
                     let containerPathURL = path
+                    let duplicateFilesInContainer = MimeTypeExtractor.findDuplicateFilenames(in: containerPathURL)
+                    if !duplicateFilesInContainer.isEmpty {
+                        failure(L(.fileImportFailedDuplicateFiles, duplicateFilesInContainer))
+                        return
+                    }
                     SiVaUtil.setIsSentToSiva(isSent: false)
                     if (SiVaUtil.isDocumentSentToSiVa(fileUrl: containerPathURL) || (containerPathURL.pathExtension == "asics" || containerPathURL.pathExtension == "scs")) && !MimeTypeExtractor.isXadesContainer(filePath: containerPathURL) {
                         SiVaUtil.displaySendingToSiVaDialog { hasAgreed in
@@ -248,7 +259,7 @@ extension RecentContainersViewController : UITableViewDelegate {
                             navController.pushViewController(cryptoContainer, animated: true)
                     },
                         failure: { _ in
-                            failure()
+                            failure(nil)
                         }
                     )
                 }

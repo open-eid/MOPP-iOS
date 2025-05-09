@@ -139,6 +139,7 @@
 "file-import-failed-file-save" = "Не удалось сохранить файл";
 "file-import-failed-empty-file" = "Пустой файл нельзя добавить в контейнер";
 "file-import-failed-empty-file-imported" = "В контейнер добавлен пустой файл. Для подписания удалите из контейнера пустой файл.";
+"file-import-failed-duplicate-files" = "В контейнере обнаружено несколько ссылок на файл '%@'";
 
 // Details
 "container-details-signing-success" = "ПОДПИСЬ ДОБАВЛЕНА";

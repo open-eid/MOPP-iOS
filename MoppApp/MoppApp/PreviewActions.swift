@@ -51,6 +51,13 @@ extension PreviewActions where Self: ContainerViewController {
             let containerViewController = SigningContainerViewController.instantiate()
 
             let destinationPathURL = URL(fileURLWithPath: destinationPath)
+
+            let duplicateFilesInContainer = MimeTypeExtractor.findDuplicateFilenames(in: destinationPathURL)
+            if !duplicateFilesInContainer.isEmpty {
+                self.infoAlert(message: L(.fileImportFailedDuplicateFiles, duplicateFilesInContainer))
+                return
+            }
+
             SiVaUtil.setIsSentToSiva(isSent: false)
             if (SiVaUtil.isDocumentSentToSiVa(fileUrl: destinationPathURL) && !MimeTypeExtractor.isXadesContainer(filePath: destinationPathURL)) {
                 SiVaUtil.displaySendingToSiVaDialog { hasAgreed in

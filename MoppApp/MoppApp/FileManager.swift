@@ -528,7 +528,19 @@ class MoppFileManager {
                     completion?(error, [])
                     return
                 }
-                
+
+                let duplicateFilesInContainer = MimeTypeExtractor.findDuplicateFilenames(in: fileURL)
+
+                if urls.count == 1 && importedPaths.isEmpty && !duplicateFilesInContainer.isEmpty {
+                    let error = NSError(
+                        domain: "DuplicateFiles",
+                        code: 4,
+                        userInfo: [NSLocalizedDescriptionKey: L(.fileImportFailedDuplicateFiles, duplicateFilesInContainer)]
+                    )
+                    completion?(error, [])
+                    return
+                }
+
                 do {
                     data = try Data(contentsOf: fileURL)
                 } catch let error {
