@@ -22,21 +22,17 @@
 
 import CryptoLib
 
-public class SmartToken: NSObject, AbstractSmartToken {
+public class SmartToken: AbstractSmartToken {
     let pin1: String
     let card: CardCommands
 
-    @objc public init(pin1: String) throws {
-        guard let card = MoppLibCardReaderManager.shared.cardCommandHandler else {
-            throw MoppLibError.cardNotFoundError()
-        }
+    public init(card: CardCommands, pin1: String) {
         self.card = card
         self.pin1 = pin1
-        super.init()
     }
 
-    public func getCertificate() throws -> Data {
-        try card.readAuthenticationCertificate()
+    public func getCertificate() async throws -> Data {
+        try await card.readAuthenticationCertificate()
     }
 
     public func decrypt(_ data: Data) throws -> Data {

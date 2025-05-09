@@ -259,12 +259,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1310;
-				ORGANIZATIONNAME = RIA;
+				ORGANIZATIONNAME = "Riigi Infosüsteemi Amet";
 				TargetAttributes = {
 					39231FA920AB1C6C00E1E2B4 = {
 						CreatedOnToolsVersion = 9.3.1;
 						LastSwiftMigration = 1620;
-						ProvisioningStyle = Manual;
 					};
 					4E01B4A02AEFDC4500941723 = {
 						CreatedOnToolsVersion = 15.0.1;
