@@ -34,6 +34,13 @@ public class MoppLibConfiguration: NSObject {
     static public var ocspIssuers: [String: String]?
     static public var certBundle: [Data]?
 
+    static public var isDebugMode: Bool {
+        UserDefaults.standard.bool(forKey: "isDebugMode")
+    }
+    static public var isLoggingEnabled: Bool {
+        UserDefaults.standard.bool(forKey: "kIsFileLoggingEnabled")
+    }
+
     private override init() {
         super.init()
     }

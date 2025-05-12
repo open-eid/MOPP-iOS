@@ -393,7 +393,7 @@ class IdCardViewController : MoppViewController {
                 }
                 let cert = try await cardCommands.readSignatureCertificate()
                 let dataToSign = try MoppLibContainerActions.prepareSignature(cert, containerPath: containerPath, roleData: DefaultsHelper.isRoleAndAddressEnabled ? RoleAndAddressUtil.getSavedRoleInfo() : nil)
-                let signature = try cardCommands.calculateSignature(for: dataToSign, withPin2: pin)
+                let signature = try await cardCommands.calculateSignature(for: dataToSign, withPin2: pin)
                 try MoppLibContainerActions.isSignatureValid(signature)
                 await MainActor.run {
                     self.dismiss(animated: false) {
