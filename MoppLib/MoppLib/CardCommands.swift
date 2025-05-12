@@ -77,7 +77,7 @@ public protocol CardCommands: AnyObject {
      *   - verifyCode: The current PIN or PUK code for verification.
      * - Throws: An error if the operation fails.
      */
-    func changeCode(_ type: CodeType, to code: String, verifyCode: String) throws
+    func changeCode(_ type: CodeType, to code: String, verifyCode: String) async throws
 
     /**
      * Verifies a PIN or PUK code.
@@ -87,7 +87,7 @@ public protocol CardCommands: AnyObject {
      *   - code: The PIN/PUK code to verify.
      * - Throws: An error if the verification fails.
      */
-    func verifyCode(_ type: CodeType, code: String) throws
+    func verifyCode(_ type: CodeType, code: String) async throws
 
     /**
      * Unblocks a PIN using the PUK code.
@@ -98,7 +98,7 @@ public protocol CardCommands: AnyObject {
      *   - newCode: The new PIN code.
      * - Throws: An error if the operation fails.
      */
-    func unblockCode(_ type: CodeType, puk: String, newCode: String) throws
+    func unblockCode(_ type: CodeType, puk: String, newCode: String) async throws
 
     /**
      * Authenticates using a cryptographic challenge.
@@ -109,7 +109,7 @@ public protocol CardCommands: AnyObject {
      * - Throws: An error if the operation fails.
      * - Returns: The authentication response as `Data`.
      */
-    func authenticate(for hash: Data, withPin1 pin1: String) throws -> Data
+    func authenticate(for hash: Data, withPin1 pin1: String) async throws -> Data
 
     /**
      * Calculates a digital signature for the given hash.
@@ -120,7 +120,7 @@ public protocol CardCommands: AnyObject {
      * - Throws: An error if the operation fails.
      * - Returns: The signature as `Data`.
      */
-    func calculateSignature(for hash: Data, withPin2 pin2: String) throws -> Data
+    func calculateSignature(for hash: Data, withPin2 pin2: String) async throws -> Data
 
     /**
      * Decrypts data using PIN 1.
@@ -131,7 +131,7 @@ public protocol CardCommands: AnyObject {
      * - Throws: An error if the operation fails.
      * - Returns: The decrypted data.
      */
-    func decryptData(_ hash: Data, withPin1 pin1: String) throws -> Data
+    func decryptData(_ hash: Data, withPin1 pin1: String) async throws -> Data
 }
 
 protocol CardCommandsInternal: CardCommands {
@@ -148,28 +148,28 @@ protocol CardCommandsInternal: CardCommands {
 extension CardCommandsInternal {
     typealias TLV = TKBERTLVRecord
 
-    func select(p1: UInt8 = 0x04, p2: UInt8 = 0x0C, file: Bytes) throws -> Bytes {
-        return try reader.sendAPDU(ins: 0xA4, p1: p1, p2: p2, data: file, le: p2 == 0x0C ? nil : 0x00)
+    func select(p1: UInt8 = 0x04, p2: UInt8 = 0x0C, file: Bytes) async throws -> Data {
+        return try await reader.sendAPDU(ins: 0xA4, p1: p1, p2: p2, data: file, le: p2 == 0x0C ? nil : 0x00)
     }
 
-    func readFile(p1: UInt8, file: Bytes) throws -> Data {
-        var size = 0xE7
-        if let fci = TLV(from: Data(try select(p1: p1, p2: 0x04, file: file))) {
+    func readFile(p1: UInt8, file: Bytes) async throws -> Data {
+        var size = 0xE5
+        if let fci = TLV(from: Data(try await select(p1: p1, p2: 0x04, file: file))) {
             for record in TLV.sequenceOfRecords(from: fci.value) ?? [] where record.tag == 0x80 || record.tag == 0x81 {
                 size = Int(record.value[0]) << 8 | Int(record.value[1])
             }
         }
-        var data = Bytes()
+        var data = Data()
         while data.count < size {
-            data.append(contentsOf: try reader.sendAPDU(
-                ins: 0xB0, p1: UInt8(data.count >> 8), p2: UInt8(truncatingIfNeeded: data.count), le: UInt8(min(0xE7, size - data.count))))
+            data.append(contentsOf: try await reader.sendAPDU(
+                ins: 0xB0, p1: UInt8(data.count >> 8), p2: UInt8(truncatingIfNeeded: data.count), le: UInt8(min(0xE5, size - data.count))))
         }
-        return Data(data)
+        return data
     }
 
-    private func errorForPinActionResponse(execute: () throws -> Void) throws {
+    private func errorForPinActionResponse(execute: () async throws -> Void) async throws {
         do {
-            try execute()
+            try await execute()
         } catch let error as NSError {
             switch error.userInfo[MoppLibError.kMoppLibUserInfoSWError] as? NSNumber {
             case 0x9000: return
@@ -192,27 +192,33 @@ extension CardCommandsInternal {
         return data
     }
 
-    func changeCode(_ pinRef: UInt8, to code: String, verifyCode: String) throws {
-        try errorForPinActionResponse {
-            _ = try reader.sendAPDU(ins: 0x24, p2: pinRef, data: pinTemplate(verifyCode) + pinTemplate(code))
+    func changeCode(_ pinRef: UInt8, to code: String, verifyCode: String) async throws {
+        try await errorForPinActionResponse {
+            _ = try await reader.sendAPDU(ins: 0x24, p2: pinRef, data: pinTemplate(verifyCode) + pinTemplate(code))
         }
     }
 
-    func unblockCode(_ pinRef: UInt8, puk: String?, newCode: String) throws {
-        try errorForPinActionResponse {
-            _ = try reader.sendAPDU(ins: 0x2C, p1: puk == nil ? 0x02 : 0x00, p2: pinRef, data: pinTemplate(puk) + pinTemplate(newCode))
+    func unblockCode(_ pinRef: UInt8, puk: String?, newCode: String) async throws {
+        try await errorForPinActionResponse {
+            _ = try await reader.sendAPDU(ins: 0x2C, p1: puk == nil ? 0x02 : 0x00, p2: pinRef, data: pinTemplate(puk) + pinTemplate(newCode))
         }
     }
 
-    func verifyCode(_ pinRef: UInt8, code: String) throws {
-        try errorForPinActionResponse {
-            _ = try reader.sendAPDU(ins: 0x20, p2: pinRef, data: pinTemplate(code))
+    func verifyCode(_ pinRef: UInt8, code: String) async throws {
+        try await errorForPinActionResponse {
+            _ = try await reader.sendAPDU(ins: 0x20, p2: pinRef, data: pinTemplate(code))
         }
     }
 
-    func setSecEnv(mode: UInt8, algo: Bytes? = nil, keyRef: UInt8) throws {
+    func setSecEnv(mode: UInt8, algo: Bytes? = nil, keyRef: UInt8) async throws {
         let algo: Data = algo != nil ? TLV(tag: 0x80, value: Data(algo!)).data : Data()
-        _ = try reader.sendAPDU(ins: 0x22, p1: 0x41, p2: mode,
+        _ = try await reader.sendAPDU(ins: 0x22, p1: 0x41, p2: mode,
                                 data: algo + TLV(tag: 0x84, value: Data([keyRef])).data)
+    }
+}
+
+extension Bytes {
+    init(hex: String) {
+        self = hex.split(separator: " ").compactMap { UInt8($0, radix: 16) }
     }
 }

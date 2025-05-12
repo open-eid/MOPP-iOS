@@ -23,7 +23,7 @@
 import Foundation
 
 @objc public protocol AbstractSmartToken {
-    func getCertificate() async throws -> Data
+    func getCertificate() throws -> Data
     func decrypt(_ data: Data) throws -> Data
     func derive(_ data: Data) throws -> Data
     func authenticate(_ data: Data) throws -> Data

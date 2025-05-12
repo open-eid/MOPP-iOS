@@ -37,7 +37,6 @@
 		4E59080424B2E295001B23A6 /* SmartIDSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59080324B2E295001B23A6 /* SmartIDSignature.swift */; };
 		4E6E1D9B2AAB493A008B3E74 /* NFCEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E1D9A2AAB493A008B3E74 /* NFCEditViewController.swift */; };
 		4EE56D232AB0561C002648EE /* NFCSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE56D222AB0561C002648EE /* NFCSignature.swift */; };
-		4EE56D272AB058A6002648EE /* SwiftECC in Frameworks */ = {isa = PBXBuildFile; productRef = 4EE56D262AB058A6002648EE /* SwiftECC */; };
 		540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.swift */; };
 		547BDF251E8BEFA30093931F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
 		54825EF51E1CFE9600253FF0 /* Date+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF41E1CFE9600253FF0 /* Date+Additions.swift */; };
@@ -604,7 +603,6 @@
 				DF1503A82AC5D1DB007222B2 /* SwiftyRSA in Frameworks */,
 				4E0F09EE2D76F6C4003F24B9 /* SkSigningLib.framework in Frameworks */,
 				DF1503AB2AC5D1E5007222B2 /* ZIPFoundation in Frameworks */,
-				4EE56D272AB058A6002648EE /* SwiftECC in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1246,7 +1244,6 @@
 				DF1503A52AC5D1B9007222B2 /* FirebaseCrashlytics */,
 				DF1503A72AC5D1DB007222B2 /* SwiftyRSA */,
 				DF1503AA2AC5D1E5007222B2 /* ZIPFoundation */,
-				4EE56D262AB058A6002648EE /* SwiftECC */,
 			);
 			productName = MoppApp;
 			productReference = E4250CC31E0968D200530370 /* MoppApp.app */;
@@ -1299,7 +1296,6 @@
 				DF15037C2AC5CD32007222B2 /* XCRemoteSwiftPackageReference "SwiftyRSA" */,
 				DF15037F2AC5CD8D007222B2 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				DF1503822AC5CDBC007222B2 /* XCRemoteSwiftPackageReference "ASN1Decoder" */,
-				4EE56D252AB058A6002648EE /* XCRemoteSwiftPackageReference "SwiftECC" */,
 			);
 			productRefGroup = E4250CC41E0968D200530370 /* Products */;
 			projectDirPath = "";
@@ -1996,14 +1992,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4EE56D252AB058A6002648EE /* XCRemoteSwiftPackageReference "SwiftECC" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/leif-ibsen/SwiftECC";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
-			};
-		};
 		DF1503792AC5CCE7007222B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -2039,11 +2027,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4EE56D262AB058A6002648EE /* SwiftECC */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4EE56D252AB058A6002648EE /* XCRemoteSwiftPackageReference "SwiftECC" */;
-			productName = SwiftECC;
-		};
 		DF1503A32AC5D163007222B2 /* ASN1Decoder */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DF1503822AC5CDBC007222B2 /* XCRemoteSwiftPackageReference "ASN1Decoder" */;
