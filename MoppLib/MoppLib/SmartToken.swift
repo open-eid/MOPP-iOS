@@ -22,6 +22,32 @@
 
 import CryptoLib
 
+extension Task where Failure == Error {
+    final class ResultReturn {
+        var result: Result<Success, Error>? = nil
+    }
+    func exec() throws -> Success {
+        let semaphore = DispatchSemaphore(value: 0)
+        let output = ResultReturn()
+        Task<Void,Error> {
+            do {
+                output.result = .success(try await self.value)
+            } catch {
+                output.result = .failure(error)
+            }
+            semaphore.signal()
+        }
+        semaphore.wait()
+        return try output.result!.get()
+    }
+}
+
+func blocking<T>(_ body: @escaping @Sendable () async throws -> T) throws -> T {
+    try Task<T, Error> {
+        return try await body()
+    }.exec()
+}
+
 public class SmartToken: AbstractSmartToken {
     let pin1: String
     let card: CardCommands
@@ -36,14 +62,14 @@ public class SmartToken: AbstractSmartToken {
     }
 
     public func decrypt(_ data: Data) throws -> Data {
-        try card.decryptData(data, withPin1: pin1)
+        return try blocking { try await self.card.decryptData(data, withPin1: self.pin1) }
     }
 
     public func derive(_ data: Data) throws -> Data {
-        try card.decryptData(data, withPin1: pin1)
+        return try blocking { try await self.card.decryptData(data, withPin1: self.pin1) }
     }
 
     public func authenticate(_ data: Data) throws -> Data {
-        try card.authenticate(for: data, withPin1: pin1)
+        return try blocking { try await self.card.authenticate(for: data, withPin1: self.pin1) }
     }
 }

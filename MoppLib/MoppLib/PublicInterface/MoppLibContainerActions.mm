@@ -91,10 +91,8 @@ struct DigiDocConf final: public digidoc::ConfCurrent {
     std::string ocsp(const std::string &issuer) const final {
         NSString *ocspIssuer = [NSString stringWithUTF8String:issuer.c_str()];
         if (NSString *url = MoppLibConfiguration.ocspIssuers[ocspIssuer]) {
-            printLog(@"Using issuer: '%@' with OCSP url from central configuration: %@", ocspIssuer, url);
             return url.UTF8String;
         }
-        printLog(@"Did not find url for issuer: %@.", ocspIssuer);
         return digidoc::ConfCurrent::ocsp(issuer);
     }
 
@@ -157,19 +155,8 @@ struct DigiDocConf final: public digidoc::ConfCurrent {
         return x509Certs;
     }
 
-    bool isDebugMode() const {
-        return [NSUserDefaults.standardUserDefaults boolForKey:@"isDebugMode"];
-    }
-
-    bool isLoggingEnabled() const {
-        return [NSUserDefaults.standardUserDefaults boolForKey:@"kIsFileLoggingEnabled"];
-    }
-
-    // Comment in / out to see / hide libdigidocpp logs
-    // Currently enabled on DEBUG mode
-
     int logLevel() const final {
-        if (isDebugMode() || isLoggingEnabled()) {
+        if (MoppLibConfiguration.isDebugMode || MoppLibConfiguration.isLoggingEnabled) {
             return 4;
         } else {
             return 0;
@@ -177,7 +164,7 @@ struct DigiDocConf final: public digidoc::ConfCurrent {
     }
 
     std::string logFile() const final {
-        if (!isDebugMode() && !isLoggingEnabled()) {
+        if (!MoppLibConfiguration.isDebugMode && !MoppLibConfiguration.isLoggingEnabled) {
             return {};
         }
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
