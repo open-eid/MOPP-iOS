@@ -95,55 +95,65 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
         let newCode = ui.secondCodeTextField.text ?? String()
 
         present(loadingViewController, animated: false) {
-            do {
-                let cardCommands = self.model.cardCommands
-                var statusText = String()
-                switch self.model.actionType {
-                case .changePin1:
-                    try cardCommands.changeCode(.pin1, to: newCode, verifyCode: oldCode)
-                    statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PIN1.rawValue])
-                case .changePin2:
-                    try cardCommands.changeCode(.pin2, to: newCode, verifyCode: oldCode)
-                    statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PIN2.rawValue])
-                case .changePuk:
-                    try cardCommands.changeCode(.puk, to: newCode, verifyCode: oldCode)
-                    statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PUK.rawValue])
-                case .unblockPin1:
-                    try cardCommands.unblockCode(.pin1, puk: oldCode, newCode: newCode)
-                    statusText = L(.myEidCodeUnblockedSuccessMessage, [IdCardCodeName.PIN1.rawValue])
-                case .unblockPin2:
-                    try cardCommands.unblockCode(.pin2, puk: oldCode, newCode: newCode)
-                    statusText = L(.myEidCodeUnblockedSuccessMessage, [IdCardCodeName.PIN2.rawValue])
-                }
-                self.infoManager.retryCounts.resetRetryCount(for: self.model.actionType)
-                self.loadingViewController.dismiss(animated: false) {
-                    ui.clearCodeTextFields()
-                    UIAccessibility.post(notification: .layoutChanged, argument: statusText)
-                    ui.showStatusView(with: statusText)
-                }
-            } catch let error as NSError where error == .wrongPin {
-                let retryCount = (error.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as? NSNumber)?.intValue ?? 0
-                self.infoManager.retryCounts.setRetryCount(for: self.model.actionType, with: retryCount)
-                self.loadingViewController.dismiss(animated: false) {
-                    ui.setViewBorder(view: ui.firstCodeTextField)
-                    self.ui.firstInlineErrorLabel.text =
-                        L(retryCount == 1 ? .myEidWrongCodeMessageSingular : .myEidWrongCodeMessage, [self.model.actionType.codeDisplayNameForWrongOrBlocked])
-                    self.ui.firstInlineErrorLabel.isHidden = false
-                    UIAccessibility.post(notification: .layoutChanged, argument: self.ui.firstInlineErrorLabel)
-                }
-            } catch MoppLibError.Code.pinBlocked {
-                self.infoManager.retryCounts.setRetryCount(for: self.model.actionType, with: 0)
-                let codeDisplayName = self.model.actionType.codeDisplayNameForWrongOrBlocked
-                self.loadingViewController.dismiss(animated: false) {
-                    self.ui.clearCodeTextFields()
-                    self.infoAlert(message: L(.myEidCodeBlockedMessage, [codeDisplayName, codeDisplayName])) { _ in
-                        self.navigationController?.popViewController(animated: true)
+            Task {
+                do {
+                    let cardCommands = self.model.cardCommands
+                    var statusText = String()
+                    switch self.model.actionType {
+                    case .changePin1:
+                        try await cardCommands.changeCode(.pin1, to: newCode, verifyCode: oldCode)
+                        statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PIN1.rawValue])
+                    case .changePin2:
+                        try await cardCommands.changeCode(.pin2, to: newCode, verifyCode: oldCode)
+                        statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PIN2.rawValue])
+                    case .changePuk:
+                        try await cardCommands.changeCode(.puk, to: newCode, verifyCode: oldCode)
+                        statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PUK.rawValue])
+                    case .unblockPin1:
+                        try await cardCommands.unblockCode(.pin1, puk: oldCode, newCode: newCode)
+                        statusText = L(.myEidCodeUnblockedSuccessMessage, [IdCardCodeName.PIN1.rawValue])
+                    case .unblockPin2:
+                        try await cardCommands.unblockCode(.pin2, puk: oldCode, newCode: newCode)
+                        statusText = L(.myEidCodeUnblockedSuccessMessage, [IdCardCodeName.PIN2.rawValue])
                     }
-                }
-            } catch let error as NSError {
-                self.loadingViewController.dismiss(animated: false) {
-                    self.ui.clearCodeTextFields()
-                    self.errorAlertWithLink(message: error.localizedFailureReason)
+                    self.infoManager.retryCounts.resetRetryCount(for: self.model.actionType)
+                    await MainActor.run {
+                        self.loadingViewController.dismiss(animated: false) {
+                            ui.clearCodeTextFields()
+                            UIAccessibility.post(notification: .layoutChanged, argument: statusText)
+                            ui.showStatusView(with: statusText)
+                        }
+                    }
+                } catch let error as NSError where error == .wrongPin {
+                    await MainActor.run {
+                        let retryCount = (error.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as? NSNumber)?.intValue ?? 0
+                        self.infoManager.retryCounts.setRetryCount(for: self.model.actionType, with: retryCount)
+                        self.loadingViewController.dismiss(animated: false) {
+                            ui.setViewBorder(view: ui.firstCodeTextField)
+                            self.ui.firstInlineErrorLabel.text =
+                            L(retryCount == 1 ? .myEidWrongCodeMessageSingular : .myEidWrongCodeMessage, [self.model.actionType.codeDisplayNameForWrongOrBlocked])
+                            self.ui.firstInlineErrorLabel.isHidden = false
+                            UIAccessibility.post(notification: .layoutChanged, argument: self.ui.firstInlineErrorLabel)
+                        }
+                    }
+                } catch MoppLibError.Code.pinBlocked {
+                    await MainActor.run {
+                        self.infoManager.retryCounts.setRetryCount(for: self.model.actionType, with: 0)
+                        let codeDisplayName = self.model.actionType.codeDisplayNameForWrongOrBlocked
+                        self.loadingViewController.dismiss(animated: false) {
+                            self.ui.clearCodeTextFields()
+                            self.infoAlert(message: L(.myEidCodeBlockedMessage, [codeDisplayName, codeDisplayName])) { _ in
+                                self.navigationController?.popViewController(animated: true)
+                            }
+                        }
+                    }
+                } catch let error as NSError {
+                    await MainActor.run {
+                        self.loadingViewController.dismiss(animated: false) {
+                            self.ui.clearCodeTextFields()
+                            self.errorAlertWithLink(message: error.localizedFailureReason)
+                        }
+                    }
                 }
             }
         }
