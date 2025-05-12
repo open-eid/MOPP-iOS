@@ -35,15 +35,7 @@ protocol CardReader {
      *   - The response data from the card.
      *   - The status word (SW), which indicates the processing status of the command.
      */
-    func transmit(_ apdu: Bytes) throws -> (Bytes, UInt16)
-
-    /**
-     * Powers on the smart card and retrieves its initial response (ATR - Answer to Reset).
-     *
-     * - Throws: An error if the card fails to power on.
-     * - Returns: The ATR (Answer to Reset) response data from the card.
-     */
-    func powerOnCard() throws -> Bytes
+    func transmit(_ apdu: Bytes) async throws -> (Bytes, UInt16)
 }
 
 extension CardReader {
@@ -71,24 +63,24 @@ extension CardReader {
      * - Returns: The full response data returned by the card (excluding the status word).
      */
     func sendAPDU(cls: UInt8 = 0x00, ins: UInt8, p1: UInt8 = 0x00, p2: UInt8 = 0x00,
-                  data: (any RangeReplaceableCollection<UInt8>)? = nil, le: UInt8? = nil) throws -> Bytes {
+                  data: (any RangeReplaceableCollection<UInt8>)? = nil, le: UInt8? = nil) async throws -> Data {
         var apdu: Bytes = switch (data, le) {
         case (nil, nil): [cls, ins, p1, p2]
         case (nil, _): [cls, ins, p1, p2, le!]
         case (_, nil): [cls, ins, p1, p2, UInt8(data!.count)] + data!
         case (_, _): [cls, ins, p1, p2, UInt8(data!.count)] + data! + [le!]
         }
-        var (result, sw) = try transmit(apdu)
+        var (result, sw) = try await transmit(apdu)
 
         // Handle SW 6CXX (Wrong length, correct length provided in SW2)
         if (sw & 0xFF00) == 0x6C00 {
             apdu[apdu.count - 1] = UInt8(truncatingIfNeeded: sw)
-            (result, sw) = try transmit(apdu)
+            (result, sw) = try await transmit(apdu)
         }
 
         // Handle SW 61XX (More data available, use GET RESPONSE command)
         while (sw & 0xFF00) == 0x6100 {
-            let (additionalData, newSW) = try transmit([0x00, 0xC0, 0x00, 0x00, UInt8(truncatingIfNeeded: sw)])
+            let (additionalData, newSW) = try await transmit([0x00, 0xC0, 0x00, 0x00, UInt8(truncatingIfNeeded: sw)])
             result.append(contentsOf: additionalData)
             sw = newSW
         }
@@ -96,16 +88,6 @@ extension CardReader {
         guard sw == 0x9000 else {
             throw MoppLibError.swError(sw)
         }
-        return result
-    }
-}
-
-extension Bytes {
-    init(hex: String) {
-        self = hex.split(separator: " ").compactMap { UInt8($0, radix: 16) }
-    }
-
-    func hexString() -> String {
-        return self.map { String(format: "%02X", $0) }.joined(separator: " ")
+        return Data(result)
     }
 }

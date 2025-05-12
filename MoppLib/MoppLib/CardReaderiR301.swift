@@ -24,7 +24,7 @@
 import iR301
 
 class CardReaderiR301: CardReader {
-    private let contextHandle: SCARDCONTEXT
+    let atr: Bytes
     private var cardHandle: SCARDHANDLE = 0
     private var pioSendPci = SCARD_IO_REQUEST(dwProtocol: UInt32(SCARD_PROTOCOL_UNDEFINED),
                                               cbPciLength: UInt32(MemoryLayout<SCARD_IO_REQUEST>.size))
@@ -35,7 +35,7 @@ class CardReaderiR301: CardReader {
         }
     }
 
-    init?(contextHandle: SCARDCONTEXT) {
+    init?(contextHandle: SCARDCONTEXT) throws {
         guard contextHandle != 0 else {
             print("ID-CARD: Invalid context handle: \(contextHandle)")
             return nil
@@ -56,10 +56,6 @@ class CardReaderiR301: CardReader {
             return nil
         }
 
-        self.contextHandle = contextHandle
-    }
-
-    func powerOnCard() throws -> Bytes {
         var dwReaders: DWORD = 128
         let mszReaders = try String(unsafeUninitializedCapacity: Int(dwReaders)) { buffer in
             let listReadersResult = SCardListReaders(contextHandle, nil, buffer.baseAddress, &dwReaders)
@@ -78,24 +74,23 @@ class CardReaderiR301: CardReader {
 
         var atrSize: DWORD = 32
         var dwStatus: DWORD = 0
-        let atr = try Bytes(unsafeUninitializedCapacity: Int(atrSize)) { buffer, initializedCount in
+        atr = try Bytes(unsafeUninitializedCapacity: Int(atrSize)) { [cardHandle] buffer, initializedCount in
             guard SCardStatus(cardHandle, nil, nil, &dwStatus, nil, buffer.baseAddress, &atrSize) == SCARD_S_SUCCESS else {
                 print("ID-CARD: Failed to get card status")
                 throw MoppLibError.Code.readerProcessFailed
             }
             initializedCount = Int(atrSize)
         }
-        print("SCardStatus status: \(dwStatus) ATR: \(atr.hexString())")
+        print("SCardStatus status: \(dwStatus) ATR: \(atr.hex))")
 
         guard dwStatus == SCARD_PRESENT else {
             print("ID-CARD: Did not successfully power on card")
             throw MoppLibError.Code.readerProcessFailed
         }
-        return atr
     }
 
     func transmit(_ apdu: Bytes) throws -> (Bytes, UInt16) {
-        print("ID-CARD Transmitting: \(apdu.hexString())")
+        print("ID-CARD Transmitting: \(apdu.hex)")
         var responseSize: DWORD = 512
         var response = try Bytes(unsafeUninitializedCapacity: Int(responseSize)) { buffer, initializedCount in
             guard SCardTransmit(cardHandle, &pioSendPci, apdu, DWORD(apdu.count), nil, buffer.baseAddress, &responseSize) == SCARD_S_SUCCESS else {
@@ -108,8 +103,8 @@ class CardReaderiR301: CardReader {
             print("ID-CARD: Response size must be at least 2. Response size: \(response.count)")
             throw MoppLibError.Code.readerProcessFailed
         }
-        print("ID-CARD Response: \(response.hexString())")
-        let sw = UInt16(response[response.count - 2]) << 8 | UInt16(response[response.count - 1])
+        print("ID-CARD Response: \(response.hex)")
+        let sw = UInt16(response[response.count - 2], response[response.count - 1])
         response.removeLast(2)
         return (response, sw)
     }
