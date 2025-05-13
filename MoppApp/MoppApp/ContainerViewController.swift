@@ -782,7 +782,7 @@ extension ContainerViewController : UITableViewDataSource {
                     return
                 }
 
-                if nsError.code == MoppLibErrorCode.moppLibErrorSslHandshakeFailed.rawValue {
+                if nsError == .sslHandshakeFailed {
                     let alert = AlertUtil.messageAlert(message: L(.sslHandshakeMessage), alertAction: nil)
                     self.navigationController?.popViewController(animated: true)
                     self.navigationController?.viewControllers.last!.present(alert, animated: true)
@@ -798,8 +798,8 @@ extension ContainerViewController : UITableViewDataSource {
 
         } failure: { error in
             printLog("Unable to get file from container \(error?.localizedDescription ?? "Unable to get error description")")
-            let nserror = error as NSError?
-            if nserror != nil && nserror?.code == MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue {
+            if let nserror = error as NSError?,
+               nserror == .noInternetConnection {
                 let pathExtension = URL(string: containerFilePath)?.pathExtension
                 let asicContainer: MoppLibContainer? = self.containerViewDelegate?.getContainer()
                 if (pathExtension == "asics" || pathExtension == "scs") && !ContainerViewController.isXades(signatures: asicContainer?.signatures ?? []) {

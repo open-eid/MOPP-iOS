@@ -305,13 +305,13 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
             }, failure: { [weak self] error in
                 
                 let nserror = error! as NSError
-                var message = nserror.domain
+                var message = nserror.localizedDescription
                 switch nserror.code {
-                case MoppLibErrorCode.moppLibErrorGeneral.rawValue:
+                case MoppLibError.Code.general.rawValue:
                     message = L(.fileImportOpenExistingFailedAlertMessage, [self?.containerPath.substr(fromLast: "/") ?? String()])
-                case MoppLibErrorCode.moppLibErrorNoInternetConnection.rawValue:
+                case MoppLibError.Code.noInternetConnection.rawValue:
                     message = L(.noConnectionMessage)
-                case MoppLibErrorCode.moppLibErrorInvalidProxySettings.rawValue:
+                case MoppLibError.Code.invalidProxySettings.rawValue:
                     message = L(.proxyUnableToConnectToService)
                 default: break
                 }

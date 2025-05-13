@@ -110,25 +110,7 @@ typedef void (^ContainerBlock)(MoppLibContainer *container);
  */
 - (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure;
 
-/**
- * Specifies if datafile in container is saveable.
- *
- * @param containerPath    Path to container.
- * @param fileName    Name of a file that will be saved.
- * @return Is container saveable.
- */
-- (BOOL)isContainerFileSaveable:(NSString *)containerPath saveDataFile:(NSString *)fileName;
-
-/**
- * Signs container with certtificates on ID card. If document has already been signed by this certificate, they will be given an opportunity to cancel signing. If they cancel, signatureWasAdded will be set to NO in success block. Updated container will be included in success block if signing is successful. Otherwise it may be missing.\n\nInternet connection is needed for signing containers. 
- *
- * @param containerPath    Path to container.
- * @param success       Block to be called on successful completion of action. Includes container data as MoppLibContainer and BOOL to indicate if signature was added.
- * @param failure       Block to be called when action fails. Includes error.
- */
-- (void)addSignature:(NSString *)containerPath withPin2:(NSString*)pin2 roleData:(MoppLibRoleAddressData *)roleData success:(VoidBlock)success failure:(FailureBlock)failure;
-
-+ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData;
-+ (void)isSignatureValid:(NSData *)cert signatureValue:(NSData *)signatureValue success:(VoidBlock)success failure:(FailureBlock)failure;
++ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData error:(NSError **)error;
++ (BOOL)isSignatureValid:(NSData * _Nonnull)signatureValue error:(NSError**)error;
 
 @end

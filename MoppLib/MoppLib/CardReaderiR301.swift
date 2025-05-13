@@ -66,7 +66,7 @@ class CardReaderiR301: CardReaderWrapper {
             let listReadersResult = SCardListReaders(contextHandle, nil, buffer.baseAddress, &dwReaders)
             guard listReadersResult == SCARD_S_SUCCESS else {
                 print("SCardListReaders error \(listReadersResult)")
-                throw MoppLibError.readerProcessFailedError()
+                throw MoppLibError.Code.readerProcessFailed
             }
             return Int(dwReaders)
         }
@@ -74,7 +74,7 @@ class CardReaderiR301: CardReaderWrapper {
         let connectResult = SCardConnect(contextHandle, mszReaders, DWORD(SCARD_SHARE_SHARED),
                                          DWORD(SCARD_PROTOCOL_T0 | SCARD_PROTOCOL_T1), &cardHandle, &pioSendPci.dwProtocol)
         guard connectResult == SCARD_S_SUCCESS else {
-            throw MoppLibError.readerProcessFailedError()
+            throw MoppLibError.Code.readerProcessFailed
         }
 
         var atrSize: DWORD = 32
@@ -82,7 +82,7 @@ class CardReaderiR301: CardReaderWrapper {
         let atr = try Bytes(unsafeUninitializedCapacity: Int(atrSize)) { buffer, initializedCount in
             guard SCardStatus(cardHandle, nil, nil, &dwStatus, nil, buffer.baseAddress, &atrSize) == SCARD_S_SUCCESS else {
                 print("ID-CARD: Failed to get card status")
-                throw MoppLibError.readerProcessFailedError()
+                throw MoppLibError.Code.readerProcessFailed
             }
             initializedCount = Int(atrSize)
         }
@@ -92,7 +92,7 @@ class CardReaderiR301: CardReaderWrapper {
             return atr
         } else {
             print("ID-CARD: Did not successfully power on card")
-            throw MoppLibError.readerProcessFailedError()
+            throw MoppLibError.Code.readerProcessFailed
         }
     }
 
@@ -102,13 +102,13 @@ class CardReaderiR301: CardReaderWrapper {
         var response = try Bytes(unsafeUninitializedCapacity: Int(responseSize)) { buffer, initializedCount in
             guard SCardTransmit(cardHandle, &pioSendPci, apdu, DWORD(apdu.count), nil, buffer.baseAddress, &responseSize) == SCARD_S_SUCCESS else {
                 print("ID-CARD: Failed to send APDU data")
-                throw MoppLibError.readerProcessFailedError()
+                throw MoppLibError.Code.readerProcessFailed
             }
             initializedCount = Int(responseSize)
         }
         guard response.count >= 2 else {
             print("ID-CARD: Response size must be at least 2. Response size: \(response.count)")
-            throw MoppLibError.readerProcessFailedError()
+            throw MoppLibError.Code.readerProcessFailed
         }
         print("IR301 Response: \(response.hexString())")
         let sw = UInt16(response[response.count - 2]) << 8 | UInt16(response[response.count - 1])

@@ -42,15 +42,15 @@ class MobileIDSignature {
         let certBundle = Configuration.getConfiguration().CERTBUNDLE
 
         // MARK: Request certificate
-        getCertificate(baseUrl: baseUrl, uuid: uuid, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, containerPath: containerPath, roleData: roleData, trustedCertificates: certBundle, completionHandler: { (hash, cert) in
+        getCertificate(baseUrl: baseUrl, uuid: uuid, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, containerPath: containerPath, roleData: roleData, trustedCertificates: certBundle, completionHandler: { hash in
             // MARK: Request session
             self.getSession(baseUrl: baseUrl, uuid: uuid, phoneNumber: phoneNumber, nationalIdentityNumber: nationalIdentityNumber, hash: hash, hashType: hashType, language: language, trustedCertificates: Configuration.getConfiguration().CERTBUNDLE,  completionHandler: { (sessionId) in
                 // MARK: Request session status
-                self.getSessionStatus(baseUrl: baseUrl, sessionId: sessionId, cert: cert, trustedCertificates: certBundle, completionHandler: { (signatureValue) in
+                self.getSessionStatus(baseUrl: baseUrl, sessionId: sessionId, trustedCertificates: certBundle, completionHandler: { (signatureValue) in
                     if !RequestCancel.shared.isRequestCancelled() {
                         // MARK: Validate signature
                         DispatchQueue.main.async {
-                            return self.validateSignature(cert: cert, signatureValue: signatureValue)
+                            return self.validateSignature(signatureValue: signatureValue)
                         }
                     } else {
                         return CancelUtil.handleCancelledRequest(errorMessageDetails: "User cancelled Mobile-ID signing")
@@ -60,7 +60,7 @@ class MobileIDSignature {
         })
     }
 
-    private func getCertificate(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, containerPath: String, roleData: MoppLibRoleAddressData?, trustedCertificates: [Data], completionHandler: @escaping (Data, Data) -> Void) {
+    private func getCertificate(baseUrl: String, uuid: String, phoneNumber: String, nationalIdentityNumber: String, containerPath: String, roleData: MoppLibRoleAddressData?, trustedCertificates: [Data], completionHandler: @escaping (Data) -> Void) {
 
         if RequestCancel.shared.isRequestCancelled() {
             return CancelUtil.handleCancelledRequest(errorMessageDetails: "User cancelled Mobile-ID signing")
@@ -111,10 +111,7 @@ class MobileIDSignature {
             }
             
             // MARK: Get hash
-            guard let hash = self.getHash(cert: cert, containerPath: containerPath, roleData: roleData) else {
-                printLog("\nRIA.MobileID - Error getting hash. Is 'cert' empty: \(cert.isEmpty). ContainerPath: \(containerPath)\n")
-                return ErrorUtil.generateError(signingError: .generalError, details: MessageUtil.errorMessageWithDetails(details: "Unable to get hash"))
-            }
+            guard let hash = self.getHash(cert: cert, containerPath: containerPath, roleData: roleData) else { return }
             
             printLog("\nRIA.MobileID - Hash: \(hash)\n")
             
@@ -122,7 +119,7 @@ class MobileIDSignature {
             printLog("\nRIA.MobileID - Getting control code\n")
             self.setupControlCode(dataToSign: hash)
 
-            completionHandler(hash, cert)
+            completionHandler(hash)
         }
     }
 
@@ -171,7 +168,7 @@ class MobileIDSignature {
         }
     }
 
-    private func getSessionStatus(baseUrl: String, sessionId: String, cert: Data, trustedCertificates: [Data], completionHandler: @escaping (Data) -> Void) {
+    private func getSessionStatus(baseUrl: String, sessionId: String, trustedCertificates: [Data], completionHandler: @escaping (Data) -> Void) {
 
         if RequestCancel.shared.isRequestCancelled() {
             return CancelUtil.handleCancelledRequest(errorMessageDetails: "User cancelled Mobile-ID signing")
@@ -230,12 +227,12 @@ class MobileIDSignature {
     }
     
     // MARK: Signature validation
-    private func validateSignature(cert: Data, signatureValue: Data) -> Void {
+    private func validateSignature(signatureValue: Data) -> Void {
         printLog("RIA.MobileID - Validating signature...:\n" +
-            "\tCert: \(cert)\n" +
             "\tSignature value: \(signatureValue)\n"
         )
-        MoppLibContainerActions.isSignatureValid(cert, signatureValue: signatureValue, success: {
+        do {
+            try MoppLibContainerActions.isSignatureValid(signatureValue)
             printLog("\nRIA.MobileID - Successfully validated signature!\n")
             DispatchQueue.main.async {
                 NotificationCenter.default.post(
@@ -243,29 +240,9 @@ class MobileIDSignature {
                     object: nil,
                     userInfo: nil)
             }
-        }, failure: { (error: Error?) in
-            printLog("\nRIA.MobileID - Error validating signature. Error: \(error?.localizedDescription ?? "Unable to display error")\n")
-            guard let error = error, let err = error as NSError? else {
-                ErrorUtil.generateError(signingError: .generalSignatureAddingError, details: MessageUtil.errorMessageWithDetails(details: "Unknown error"))
-                return
-            }
-            
-            if err.code == 7 {
-                printLog("\nRIA.MobileID - Invalid OCSP time slot. \(err.domain)")
-                ErrorUtil.generateError(signingError: .ocspInvalidTimeSlot, details: MessageUtil.generateDetailedErrorMessage(error: err) ?? "")
-                return
-            } else if err.code == 18 {
-                printLog("\nRIA.MobileID - Too many requests. \(err.domain)")
-                ErrorUtil.generateError(signingError: .tooManyRequests(signingMethod: SigningType.mobileId.rawValue), details:
-                    MessageUtil.generateDetailedErrorMessage(error: err) ?? "")
-                return
-            }
-            
-            printLog("\nRIA.MobileID - General signature adding error. \(err.domain)")
-            ErrorUtil.generateError(signingError: .empty, details:
-                    MessageUtil.generateDetailedErrorMessage(error: err) ?? "")
-            return
-        })
+        } catch {
+            ErrorUtil.generateError(signingError: error, signingType: SigningType.mobileId)
+        }
     }
     
     // MARK: Control / verification code setup
@@ -286,17 +263,17 @@ class MobileIDSignature {
     
     // MARK: Get hash
     private func getHash(cert: Data, containerPath: String, roleData: MoppLibRoleAddressData?) -> Data? {
-        guard let hash = MoppLibContainerActions.prepareSignature(cert, containerPath: containerPath, roleData: roleData) else {
+        do {
+            return try MoppLibContainerActions.prepareSignature(cert, containerPath: containerPath, roleData: roleData)
+        } catch let error as NSError {
             printLog("RIA.MobileID - Failed to get hash:\n" +
                 "\tCert: \(cert)\n" +
                 "\tContainer path: \(containerPath)\n"
             )
 
-            ErrorUtil.generateError(signingError: .generalError, details: MessageUtil.errorMessageWithDetails(details: "Failed to get hash"))
+            ErrorUtil.generateError(signingError: .generalError, details: MessageUtil.errorMessageWithDetails(details: error.localizedDescription + "\nFailed to get hash"))
             return nil
         }
-        
-        return hash
     }
 
     // MARK: Handle session status error

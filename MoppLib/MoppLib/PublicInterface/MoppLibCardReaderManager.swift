@@ -27,12 +27,12 @@ public protocol MoppLibCardReaderManagerDelegate: AnyObject {
     func moppLibCardReaderStatusDidChange(_ status: MoppLibCardReaderStatus)
 }
 
-public enum MoppLibCardReaderStatus: UInt {
-    case Initial = 0
+public enum MoppLibCardReaderStatus {
+    case Initial
     case ReaderNotConnected
     case ReaderRestarted
     case ReaderConnected
-    case CardConnected
+    case CardConnected(CardCommands)
     case ReaderProcessFailed
 }
 
@@ -40,7 +40,6 @@ public class MoppLibCardReaderManager {
     public static let shared = MoppLibCardReaderManager()
 
     public weak var delegate: MoppLibCardReaderManagerDelegate?
-    var cardCommandHandler: CardCommands?
     fileprivate var handle: SCARDCONTEXT = 0
     private var handler = ReaderInterfaceHandler()
     private var status: MoppLibCardReaderStatus = .Initial
@@ -60,7 +59,7 @@ public class MoppLibCardReaderManager {
     }
 
     public func stopDiscoveringReaders(with status: MoppLibCardReaderStatus = .Initial) {
-        print("ID-CARD: Stopping reader discovery with status \(status.rawValue)")
+        print("ID-CARD: Stopping reader discovery")
         self.status = status
         FtDidEnterBackground(1)
         SCardCancel(handle)
@@ -70,7 +69,6 @@ public class MoppLibCardReaderManager {
     }
 
     fileprivate func updateStatus(_ status: MoppLibCardReaderStatus) {
-        guard self.status != status else { return }
         self.status = status
         DispatchQueue.main.async {
             self.delegate?.moppLibCardReaderStatusDidChange(status)
@@ -88,13 +86,11 @@ private class ReaderInterfaceHandler: NSObject, ReaderInterfaceDelegate {
 
     func readerInterfaceDidChange(_ attached: Bool, bluetoothID: String?) {
         print("ID-CARD attached: \(attached)")
-        MoppLibCardReaderManager.shared.cardCommandHandler = nil
         MoppLibCardReaderManager.shared.updateStatus(attached ? .ReaderConnected : .ReaderNotConnected)
     }
 
     func cardInterfaceDidDetach(_ attached: Bool) {
         print("ID-CARD: Card (interface) attached: \(attached)")
-        MoppLibCardReaderManager.shared.cardCommandHandler = nil
         guard attached else {
             return MoppLibCardReaderManager.shared.updateStatus(.ReaderConnected)
         }
@@ -103,9 +99,8 @@ private class ReaderInterfaceHandler: NSObject, ReaderInterfaceDelegate {
         }
         do {
             let atr = try reader.powerOnCard()
-            MoppLibCardReaderManager.shared.cardCommandHandler = Idemia(cardReader: reader, atrData: atr)
-            if MoppLibCardReaderManager.shared.cardCommandHandler != nil {
-                MoppLibCardReaderManager.shared.updateStatus(.CardConnected)
+            if let handler = Idemia(reader: reader, atr: atr) {
+                MoppLibCardReaderManager.shared.updateStatus(.CardConnected(handler))
             }
         } catch {
             print("ID-CARD: Unable to power on card")

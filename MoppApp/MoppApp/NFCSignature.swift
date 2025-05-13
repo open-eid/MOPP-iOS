@@ -169,9 +169,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 }
 
                 printLog("Cert reading done")
-                guard let hash = MoppLibContainerActions.prepareSignature(cert, containerPath: containerPath, roleData: roleInfo) else {
-                    return setSessionMessage(L(.nfcSignFailed), invalidate: true)
-                }
+                let hash = try MoppLibContainerActions.prepareSignature(cert, containerPath: containerPath, roleData: roleInfo)
                 roleInfo = nil
                 setSessionMessage(L(.nfcSignDoc))
                 var pin = Bytes(repeating: 0xFF, count: 12)
@@ -180,41 +178,16 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 _ = try await sendWrapped(tag: tag, cls: 0x00, ins: 0x20, p1: 0x00, p2: 0x85, data: pin)
                 let signatureValue = try await sendWrapped(tag: tag, cls:0x00, ins: 0x2A, p1: 0x9E, p2: 0x9A, data: Bytes(hash), le: 256);
                 printLog("\nRIA.NFC - Validating signature...\n")
-                MoppLibContainerActions.isSignatureValid(cert, signatureValue: signatureValue, success: {
-                    printLog("\nRIA.NFC - Successfully validated signature!\n")
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        NotificationCenter.default.post(
-                            name: .signatureCreatedFinishedNotificationName,
-                            object: nil,
-                            userInfo: nil)
-                    }
-                    setSessionMessage(L(.nfcSignDone))
-                    session.invalidate()
-                }, failure: { (error: Error?) in
-                    printLog("\nRIA.NFC - Error validating signature. Error: \(error?.localizedDescription ?? "Unable to display error")\n")
-                    setSessionMessage(L(.nfcSignFailed), invalidate: true)
-                    guard let err = error as NSError? else {
-                        return ErrorUtil.generateError(signingError: .generalSignatureAddingError, details: MessageUtil.errorMessageWithDetails(details: "Unknown error"))
-                    }
-                    let details = MessageUtil.generateDetailedErrorMessage(error: err) ?? err.domain
-                    switch err.code {
-                    case 5, 6:
-                        printLog("\nRIA.NFC - Certificate revoked. \(err.domain)")
-                        ErrorUtil.generateError(signingError: .certificateRevoked, details: details)
-                    case 7:
-                        printLog("\nRIA.NFC - Invalid OCSP time slot. \(err.domain)")
-                        ErrorUtil.generateError(signingError: .ocspInvalidTimeSlot, details: details)
-                    case 18:
-                        printLog("\nRIA.NFC - Too many requests. \(err.domain)")
-                        ErrorUtil.generateError(signingError: .tooManyRequests(signingMethod: SigningType.nfc.rawValue), details: details)
-                    case 20:
-                        printLog("\nRIA.NFC - Failed to connect to host. \(err.domain)")
-                        ErrorUtil.generateError(signingError: .invalidProxySettings)
-                    default:
-                        printLog("\nRIA.NFC - General signature adding error. \(err.domain)")
-                        ErrorUtil.generateError(signingError: .empty, details: details)
-                    }
-                })
+                try MoppLibContainerActions.isSignatureValid(signatureValue)
+                printLog("\nRIA.NFC - Successfully validated signature!\n")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    NotificationCenter.default.post(
+                        name: .signatureCreatedFinishedNotificationName,
+                        object: nil,
+                        userInfo: nil)
+                }
+                setSessionMessage(L(.nfcSignDone))
+                session.invalidate()
             } catch NFCError.pinError(let attemptsLeft) {
                 printLog("\nRIA.NFC - PinError count \(attemptsLeft)")
                 switch attemptsLeft {
@@ -227,6 +200,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 setSessionMessage(L(.nfcSignFailed), invalidate: true)
             } catch {
                 printLog("\nRIA.NFC - Error \(error.localizedDescription)")
+                ErrorUtil.generateError(signingError: error, signingType: SigningType.nfc)
                 setSessionMessage(L(.nfcSignFailed), invalidate: true)
             }
         }
@@ -547,7 +521,7 @@ extension NFCISO7816Tag {
         case (let data, 0x90, 0x00):
             return data
         case (let data, 0x61, let len):
-            return data + (try await sendCommand(cls: 0x00, ins: 0xC0, p1: 0x00, p2: 0x00, data: Data(), le: Int(len)))
+            return data + (try await sendCommand(cls: 0x00, ins: 0xC0, p1: 0x00, p2: 0x00, le: Int(len)))
         case (_, 0x6C, let len):
             return try await sendCommand(cls: cls, ins: ins, p1: p1, p2: p2, data: data, le: Int(len))
         case (_, 0x63, let count) where count & 0xC0 > 0:

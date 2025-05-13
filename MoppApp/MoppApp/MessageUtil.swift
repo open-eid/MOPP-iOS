@@ -25,15 +25,10 @@ import Foundation
 
 class MessageUtil {
     
-    static func generateDetailedErrorMessage(error: NSError?) -> String? {
-        guard let err = error else { return nil }
-        
-        let code = err.code
-        let message = err.domain
-        
+    static func generateDetailedErrorMessage(error: NSError) -> String? {
         return """
         \(L(.errorDetailsTitle)):
-        \(message) (code \(code))
+        \(error.localizedDescription) (code \(error.code))
         """
     }
     

@@ -176,24 +176,24 @@ class MyeIDInfoManager {
         }
     }
 
-    func requestInformation() {
+    func requestInformation(_ cardCommands: CardCommands) {
         Task.detached { [weak self] in
             do {
-                let personalData = try await MoppLibCardActions.cardPersonalData()
-                let authCertData = try await MoppLibCardActions.authenticationCertificate()
-                let signCertData = try await MoppLibCardActions.signingCertificate()
-                let pin1RetryCount = try await MoppLibCardActions.pin1RetryCount()
-                let pin2RetryCount = try await MoppLibCardActions.pin2RetryCount()
-                let pukRetryCount = try await MoppLibCardActions.pukRetryCount()
+                let personalData = try await cardCommands.readPublicData()
+                let authCertData = try await cardCommands.readAuthenticationCertificate()
+                let signCertData = try await cardCommands.readSignatureCertificate()
+                let pin1RetryCount = try await cardCommands.readCodeCounterRecord(.pin1)
+                let pin2RetryCount = try await cardCommands.readCodeCounterRecord(.pin2)
+                let pukRetryCount = try await cardCommands.readCodeCounterRecord(.puk)
 
                 guard let self else { return }
 
                 self.personalData = personalData
                 self.authCertData = try? X509Certificate(der: authCertData)
                 self.signCertData = try? X509Certificate(der: signCertData)
-                self.retryCounts.pin1 = pin1RetryCount.intValue
-                self.retryCounts.pin2 = pin2RetryCount.intValue
-                self.retryCounts.puk  = pukRetryCount.intValue
+                self.retryCounts.pin1 = Int(pin1RetryCount)
+                self.retryCounts.pin2 = Int(pin2RetryCount)
+                self.retryCounts.puk  = Int(pukRetryCount)
 
                 await MainActor.run {
                     self.setup()
@@ -353,6 +353,7 @@ class MyeIDChangeCodesModel {
         }
     }
     var actionType: ActionType = .changePin1
+    var cardCommands: CardCommands?
     var titleText = String()
     var infoBullets = [String]()
     var firstTextFieldLabelText = String()
@@ -364,10 +365,11 @@ class MyeIDChangeCodesModel {
 
 
 extension MyeIDInfoManager {
-    class func createChangeCodesModel(actionType: MyeIDChangeCodesModel.ActionType) -> MyeIDChangeCodesModel {
+    class func createChangeCodesModel(actionType: MyeIDChangeCodesModel.ActionType, cardCommands: CardCommands?) -> MyeIDChangeCodesModel {
         let model = MyeIDChangeCodesModel()
             model.actionType = actionType
-        
+        model.cardCommands = cardCommands
+
         switch actionType {
         case .changePin1:
         
