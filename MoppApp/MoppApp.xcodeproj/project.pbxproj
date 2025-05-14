@@ -44,7 +44,7 @@
 		54825EF81E1D270F00253FF0 /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54825EF71E1D270F00253FF0 /* String+Additions.swift */; };
 		54825EFB1E1D28E900253FF0 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54825EFA1E1D28E900253FF0 /* UIColor+Additions.swift */; };
 		54A4182B1E83FAD200559E2B /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54A418291E83FAD200559E2B /* MainInterface.storyboard */; };
-		54A4182F1E83FAD200559E2B /* shareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 54A418241E83FAD200559E2B /* shareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		54A4182F1E83FAD200559E2B /* shareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 54A418241E83FAD200559E2B /* shareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		54A5729F1E82AC760099BFAF /* AppStore.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54A5729E1E82AC760099BFAF /* AppStore.plist */; };
 		54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 54DC0DBE1E0BC0CD00C62B3D /* Landing.storyboard */; };
 		C506EC7C1FB9CBFD00E07226 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C506EC7B1FB9CBFD00E07226 /* Constants.swift */; };
@@ -314,15 +314,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		54A418331E83FAD200559E2B /* Embed App Extensions */ = {
+		54A418331E83FAD200559E2B /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				54A4182F1E83FAD200559E2B /* shareExtension.appex in Embed App Extensions */,
+				54A4182F1E83FAD200559E2B /* shareExtension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		E4250D081E0A911100530370 /* Embed Frameworks */ = {
@@ -598,7 +598,6 @@
 		E4250D0E1E0AA8E500530370 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E4250D101E0AA8E900530370 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = et.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E4250D111E0AA8EE00530370 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E4250D1A1E0AB1B300530370 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		E42B08941E15617200EA24A3 /* LandingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
 		E42B08A41E1D4EE900EA24A3 /* test1.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test1.bdoc; sourceTree = "<group>"; };
 		E42B08A51E1D4EE900EA24A3 /* test2.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test2.bdoc; sourceTree = "<group>"; };
@@ -1132,7 +1131,6 @@
 				E4250D0D1E0AA8E500530370 /* Localizable.strings */,
 				E4250D091E0AA7AF00530370 /* LaunchScreen.xib */,
 				DF900C94238567CA00887385 /* tslFiles.bundle */,
-				E4250D1A1E0AB1B300530370 /* PrefixHeader.pch */,
 				E42B08A41E1D4EE900EA24A3 /* test1.bdoc */,
 				E42B08A51E1D4EE900EA24A3 /* test2.bdoc */,
 				E43BD80E1E3A121100F6C39D /* asiceTest.asice */,
@@ -1272,7 +1270,7 @@
 				E4250CC01E0968D200530370 /* Frameworks */,
 				E4250CC11E0968D200530370 /* Resources */,
 				E4250D081E0A911100530370 /* Embed Frameworks */,
-				54A418331E83FAD200559E2B /* Embed App Extensions */,
+				54A418331E83FAD200559E2B /* Embed Foundation Extensions */,
 				DF4FC5552AC5D3EE00910E4B /* Setup Firebase Crashlytics */,
 			);
 			buildRules = (
@@ -1298,8 +1296,9 @@
 		E4250CBB1E0968D200530370 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1250;
+				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
 				ORGANIZATIONNAME = "Riigi Infosüsteemi Amet";
 				TargetAttributes = {
 					54A418231E83FAD200559E2B = {
@@ -1324,10 +1323,9 @@
 			};
 			buildConfigurationList = E4250CBE1E0968D200530370 /* Build configuration list for PBXProject "MoppApp" */;
 			compatibilityVersion = "Xcode 15.0";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 				et,
@@ -1490,6 +1488,8 @@
 			);
 			name = "Setup Firebase Crashlytics";
 			outputFileListPaths = (
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1792,13 +1792,7 @@
 		54A418301E83FAD200559E2B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CODE_SIGN_ENTITLEMENTS = shareExtension/shareExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = ET847QJV9F;
 				INFOPLIST_FILE = shareExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1811,8 +1805,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.shareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = $SHARE_EXTENSION_PROVISIONING_PROFILE;
-				PROVISIONING_PROFILE_SPECIFIER = $SHARE_EXTENSION_PROVISIONING_PROFILE;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1821,12 +1813,8 @@
 		54A418311E83FAD200559E2B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CODE_SIGN_ENTITLEMENTS = shareExtension/shareExtension.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = ET847QJV9F;
 				INFOPLIST_FILE = shareExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1849,11 +1837,10 @@
 		E4250CD81E0968D200530370 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1879,14 +1866,16 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = ET847QJV9F;
+				ENABLE_MODULE_VERIFIER = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1902,6 +1891,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 2.8.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1911,11 +1901,10 @@
 		E4250CD91E0968D200530370 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1941,13 +1930,15 @@
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 0;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = ET847QJV9F;
+				ENABLE_MODULE_VERIFIER = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1957,6 +1948,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 2.8.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1967,17 +1959,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MoppApp/MoppApp.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEBUG_ACTIVITY_MODE = "";
 				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
 				DEFAULT_CENTRAL_CONFIGURATION_TSL_URL = "";
 				DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL = "";
 				DEFAULT_CENTRAL_CONFIGURATION_URL = "";
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = ET847QJV9F;
 				DIGIDOCPP_PATH = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
 				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1991,7 +1977,6 @@
 					"DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL=$(DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL)",
 				);
 				GOOGLE_CONF_REQUIRED = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MoppApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2001,11 +1986,8 @@
 					"$(inherited)",
 					"-ObjC",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = $APP_PROVISIONING_PROFILE;
-				PROVISIONING_PROFILE_SPECIFIER = $APP_PROVISIONING_PROFILE;
 				SWIFT_OBJC_BRIDGING_HEADER = "MoppApp/MoppApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -2017,16 +1999,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = MoppApp/MoppApp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEBUG_ACTIVITY_MODE = "";
 				DEFAULT_CENTRAL_CONFIGURATION_TSL_URL = "";
 				DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL = "";
 				DEFAULT_CENTRAL_CONFIGURATION_URL = "";
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = ET847QJV9F;
 				DIGIDOCPP_PATH = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
 				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2040,7 +2017,6 @@
 					"DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL=$(DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL)",
 				);
 				GOOGLE_CONF_REQUIRED = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = MoppApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2050,7 +2026,6 @@
 					"$(inherited)",
 					"-ObjC",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = $APP_PROVISIONING_PROFILE;

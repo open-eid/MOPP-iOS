@@ -168,6 +168,7 @@ enum LocKey : String
     case smartIdCountryLithuania = "smart-id-country-lithuania"
     case smartIdCountryLatvia = "smart-id-country-latvia"
     case smartIdChallengeTitle = "smart-id-challenge-title"
+    case smartIdSelectAccount = "smart-id-status-request-select-account"
     case nfcTitle = "nfc-title"
     case nfcCANTitle = "nfc-can-title"
     case nfcDeviceNoSupport = "nfc-device-no-support"

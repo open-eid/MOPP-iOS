@@ -73,21 +73,22 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
     func didTapConfirmButton(_ ui: MyeIDChangeCodesViewControllerUI) {
         ui.clearInlineErrors()
         
-        if let invalidCodesError = validateCodes() {
-            if invalidCodesError.textFieldIndex == 0 {
-                ui.firstInlineErrorLabel.isHidden = false
-                ui.firstInlineErrorLabel.text = invalidCodesError.message
-                ui.setViewBorder(view: ui.firstCodeTextField)
-                UIAccessibility.post(notification: .screenChanged, argument: ui.firstInlineErrorLabel)
-            }
-            else if invalidCodesError.textFieldIndex == 1 || invalidCodesError.textFieldIndex == 2 {
-                ui.secondInlineErrorLabel.isHidden = false
-                ui.secondInlineErrorLabel.text = invalidCodesError.message
-                ui.setViewBorder(view: ui.secondCodeTextField)
-                ui.setViewBorder(view: ui.thirdCodeTextField)
-                UIAccessibility.post(notification: .screenChanged, argument: ui.secondInlineErrorLabel)
-            }
+        switch validateCodes() {
+        case (let message, 0)?:
+            ui.firstInlineErrorLabel.isHidden = false
+            ui.firstInlineErrorLabel.text = message
+            ui.setViewBorder(view: ui.firstCodeTextField)
+            UIAccessibility.post(notification: .screenChanged, argument: ui.firstInlineErrorLabel)
             return
+        case (let message, 1)?, (let message, 2)?:
+            ui.secondInlineErrorLabel.isHidden = false
+            ui.secondInlineErrorLabel.text = message
+            ui.setViewBorder(view: ui.secondCodeTextField)
+            ui.setViewBorder(view: ui.thirdCodeTextField)
+            UIAccessibility.post(notification: .screenChanged, argument: ui.secondInlineErrorLabel)
+            return
+        default:
+            break
         }
 
         let oldCode = ui.firstCodeTextField.text ?? String()
@@ -111,17 +112,17 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
                 case .changePuk:
                     try cardCommands.changeCode(.puk, to: newCode, verifyCode: oldCode)
                     self.infoManager.retryCounts.puk = IdCardCodeLengthLimits.maxRetryCount.rawValue
-                    statusText = L(.myEidCodeUnblockedSuccessMessage, [IdCardCodeName.PIN1.rawValue])
+                    statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PUK.rawValue])
                 case .unblockPin1:
                     try cardCommands.unblockCode(.pin1, puk: oldCode, newCode: newCode)
                     self.infoManager.retryCounts.pin1 = IdCardCodeLengthLimits.maxRetryCount.rawValue
                     self.infoManager.retryCounts.puk = IdCardCodeLengthLimits.maxRetryCount.rawValue
-                    statusText = L(.myEidCodeUnblockedSuccessMessage, [IdCardCodeName.PIN2.rawValue])
+                    statusText = L(.myEidCodeUnblockedSuccessMessage, [IdCardCodeName.PIN1.rawValue])
                 case .unblockPin2:
                     try cardCommands.unblockCode(.pin2, puk: oldCode, newCode: newCode)
                     self.infoManager.retryCounts.pin2 = IdCardCodeLengthLimits.maxRetryCount.rawValue
                     self.infoManager.retryCounts.puk = IdCardCodeLengthLimits.maxRetryCount.rawValue
-                    statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PUK.rawValue])
+                    statusText = L(.myEidCodeUnblockedSuccessMessage, [IdCardCodeName.PIN2.rawValue])
                 }
                 self.loadingViewController.dismiss(animated: false) {
                     ui.clearCodeTextFields()

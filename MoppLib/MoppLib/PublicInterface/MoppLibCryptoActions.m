@@ -26,7 +26,6 @@
 #import <CryptoLib/Encrypt.h>
 #import <CryptoLib/Decrypt.h>
 #import <CryptoLib/CdocParser.h>
-#import <CryptoLib/CryptoLib-Swift.h>
 #import <MoppLib/MoppLib-Swift.h>
 
 @implementation MoppLibCryptoActions

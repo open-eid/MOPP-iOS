@@ -21,9 +21,7 @@
  *
  */
 
-#import "MoppLibContainerActions.h"
 #import "MoppLibDigidocManager.h"
-#import <CryptoLib/CryptoLib-Swift.h>
 #import <MoppLib/MoppLib-Swift.h>
 
 #include <digidocpp/Conf.h>

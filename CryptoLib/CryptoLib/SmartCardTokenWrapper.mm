@@ -61,10 +61,13 @@ NSError* SmartCardTokenWrapper::lastError() const
 std::vector<uchar> SmartCardTokenWrapper::cert() const
 {
     __block NSData *result;
+    dispatch_semaphore_t signal = dispatch_semaphore_create(0);
     [token->smartTokenClass getCertificateWithCompletionHandler:^(NSData *data, NSError *error) {
         result = data;
         token->error = error;
+        dispatch_semaphore_signal(signal);
     }];
+    dispatch_semaphore_wait(signal, DISPATCH_TIME_FOREVER);
     return [result toVector];
 }
 

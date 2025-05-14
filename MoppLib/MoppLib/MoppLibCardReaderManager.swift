@@ -91,10 +91,7 @@ private class ReaderInterfaceHandler: NSObject, ReaderInterfaceDelegate {
 
     func cardInterfaceDidDetach(_ attached: Bool) {
         print("ID-CARD: Card (interface) attached: \(attached)")
-        guard attached else {
-            return MoppLibCardReaderManager.shared.updateStatus(.ReaderConnected)
-        }
-        guard let reader = CardReaderiR301(contextHandle: MoppLibCardReaderManager.shared.handle) else {
+        guard attached, let reader = CardReaderiR301(contextHandle: MoppLibCardReaderManager.shared.handle) else {
             return MoppLibCardReaderManager.shared.updateStatus(.ReaderConnected)
         }
         do {

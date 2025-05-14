@@ -27,7 +27,7 @@ import UIKit
 
 public class MoppLibManager: NSObject {
     @objc static public let shared = MoppLibManager()
-    @objc public var isConnected: Bool = false
+    public var isConnected: Bool = false
     @objc public var validateOnline = true
 
     private let monitor = NWPathMonitor()
