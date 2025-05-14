@@ -3,5 +3,5 @@
 //
 
 #import <MoppLib/MoppLib.h>
-#import <CryptoLib/CryptoLib.h>
+#import <CryptoLib/CryptoLib-Swift.h>
 #import <UIKit/UIKit.h>

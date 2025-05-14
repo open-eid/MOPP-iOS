@@ -149,11 +149,8 @@ extension MyeIDViewController: MoppLibCardReaderManagerDelegate {
 extension MyeIDViewController: MyeIDInfoManagerDelegate {
     func didCompleteInformationRequest(success:Bool) {
         if success {
-            DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self else { return }
-                let infoViewController = strongSelf.createInfoViewController()
-                _ = strongSelf.showViewController(infoViewController)
-            }
+            let infoViewController = self.createInfoViewController()
+            _ = self.showViewController(infoViewController)
         } else {
             if didRestartReader {
                 printLog("ID-CARD: My eID. Reader already restarted")
