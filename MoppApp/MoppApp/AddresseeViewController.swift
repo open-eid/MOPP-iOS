@@ -98,14 +98,21 @@ class AddresseeViewController : MoppViewController {
 
         Task {
             let result = await OpenLdap.search(identityCode: trimmedText)
-            if (result.count > 0) {
-                self.foundAddressees = result.sorted { $0.identifier < $1.identifier }
-                self.showLoading(show: false)
-                self.tableView.reloadData()
-            } else {
-                self.infoAlert(message: "\(L(.cryptoEmptyLdapLabel))")
-                self.showLoading(show: false)
+            let filteredResults = await OpenLdap.filteredResults(addressees: result)
+
+            showLoading(show: false)
+
+            guard !result.isEmpty else {
+                infoAlert(message: "\(L(.cryptoEmptyLdapLabel))")
+                return
             }
+
+            if result.count >= 50 {
+                infoAlert(message: "\(L(.cryptoTooManyResultsLdapLabel))")
+            }
+
+            foundAddressees = filteredResults.sorted { $0.identifier < $1.identifier }
+            tableView.reloadData()
         }
     }
 }

@@ -93,13 +93,20 @@ public class OpenLdap {
             return []
         }
 
-        let filter = if isPersonalCode(identityCode) {
-            "(serialNumber=\(secureLdap ? "PNOEE-" : "")\(identityCode))"
-        } else if identityCode.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil {
-            "(serialNumber=\(identityCode))"
+        let escapedIdentityCode = identityCode
+            .replacingOccurrences(of: "(", with: "\\(")
+            .replacingOccurrences(of: ")", with: "\\)")
+            .replacingOccurrences(of: "*", with: "\\*")
+            .replacingOccurrences(of: "\\", with: "\\\\")
+
+        let filter = if isPersonalCode(escapedIdentityCode) {
+            "(serialNumber=\(secureLdap ? "PNOEE-" : "")\(escapedIdentityCode))"
+        } else if isCompanyCode(escapedIdentityCode) {
+            "(serialNumber=\(escapedIdentityCode))"
         } else {
-            "(cn=*\(identityCode)*)"
+            "(cn=*\(escapedIdentityCode)*)"
         }
+
         var msg: LDAPMessage?
         print("Searching from LDAP. Url: \(url) \(filter)")
         var attr = Array("userCertificate;binary".utf8CString)
@@ -139,6 +146,10 @@ public class OpenLdap {
         return inputString.count == 11 && inputString.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
     }
 
+    static private func isCompanyCode(_ inputString: String) -> Bool {
+        return inputString.count == 8 && inputString.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
+    }
+
     static private func attributes(ldap: LDAP, msg: LDAPMessage) -> [Addressee] {
         var result = [Addressee]()
         var ber: BerElement?
@@ -148,7 +159,7 @@ public class OpenLdap {
         }
         while let attr = attrPointer {
             defer { ldap_memfree(attr) }
-            result.append(contentsOf: values(ldap: ldap, msg: msg, tag: String(cString: attr)))
+            result.append(contentsOf: results(ldap: ldap, msg: msg, tag: String(cString: attr)))
             attrPointer = ldap_next_attribute(ldap, msg, ber)
         }
 
@@ -159,7 +170,7 @@ public class OpenLdap {
         return result
     }
 
-    static private func values(ldap: LDAP, msg: LDAPMessage, tag: String) -> [Addressee] {
+    static private func results(ldap: LDAP, msg: LDAPMessage, tag: String) -> [Addressee] {
         var result = [Addressee]()
         guard let bvals = ldap_get_values_len(ldap, msg, tag) else {
             return result
@@ -173,26 +184,45 @@ public class OpenLdap {
             guard let x509 = try? X509Certificate(der: data) else {
                 continue
             }
+
+            let cn = x509.subject(oid: OID.commonName)?.joined(separator: ",") ?? ""
+            let split = cn.split(separator: ",").map { String($0) }
+            let addressee = Addressee()
+            if split.count == 3 {
+                addressee.surname = split[0]
+                addressee.givenName = split[1]
+                addressee.identifier = split[2]
+            } else {
+                addressee.identifier = cn
+            }
+            addressee.cert = data
+            addressee.validTo = x509.notAfter ?? Date()
+            result.append(addressee)
+        }
+
+        return result
+    }
+
+    static public func filteredResults(addressees: [Addressee]) async -> [Addressee] {
+        var filteredResults = [Addressee]()
+
+        for addressee in addressees {
+            guard let x509 = try? X509Certificate(der: addressee.cert) else {
+                continue
+            }
+
             let type = x509.certType()
-            if x509.keyUsage[KeyUsage.keyEncipherment.rawValue] || x509.keyUsage[KeyUsage.keyAgreement.rawValue],
-               !x509.extendedKeyUsage.contains(OID.serverAuth.rawValue),
-               type != .ESealType || !x509.extendedKeyUsage.contains(OID.clientAuth.rawValue),
-               type != .MobileIDType && type != .UnknownType {
-                let cn = x509.subject(oid: OID.commonName)?.joined(separator: ",") ?? ""
-                let split = cn.split(separator: ",").map { String($0) }
-                let addressee = Addressee()
-                if split.count == 3 {
-                    addressee.surname = split[0]
-                    addressee.givenName = split[1]
-                    addressee.identifier = split[2]
-                } else {
-                    addressee.identifier = cn
-                }
-                addressee.cert = data
-                addressee.validTo = x509.notAfter ?? Date()
-                result.append(addressee)
+            let keyUsageOK = x509.keyUsage[KeyUsage.keyEncipherment.rawValue] ||
+            x509.keyUsage[KeyUsage.keyAgreement.rawValue]
+            let notServerAuth = !x509.extendedKeyUsage.contains(OID.serverAuth.rawValue)
+            let notInvalidESeal = !(type == .ESealType && x509.extendedKeyUsage.contains(OID.clientAuth.rawValue))
+            let isTypeAllowed = type != .MobileIDType && type != .UnknownType
+
+            if keyUsageOK && notServerAuth && notInvalidESeal && isTypeAllowed {
+                filteredResults.append(addressee)
             }
         }
-        return result
+
+        return filteredResults
     }
 }
