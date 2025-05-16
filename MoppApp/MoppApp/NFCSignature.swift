@@ -197,6 +197,10 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 }
             } catch NFCError.error(let msg) {
                 printLog("\nRIA.NFC - error \(msg)")
+                if msg == "6300" {
+                    setSessionMessage(L(.nfcSignFailedWrongCan), invalidate: true)
+                    return
+                }
                 setSessionMessage(L(.nfcSignFailed), invalidate: true)
             } catch {
                 printLog("\nRIA.NFC - Error \(error.localizedDescription)")

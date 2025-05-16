@@ -250,6 +250,7 @@
 "nfc-sign-done" = "Allkiri lisatud";
 "nfc-auth-failed" = "Isikutuvastus ID-kaardiga ebaõnnestus";
 "nfc-sign-failed" = "Ümbriku allkirjastamine ebaõnnestus";
+"nfc-sign-failed-wrong-can" = "Vale CAN number";
 "nfc-pin-locked" = "PIN2 on blokeeritud";
 "nfc-cert-parse-failed" = "Viga sertifikaadi parsimisel";
 "nfc-cert-expired" = "Aegunud sertifikaati ei saa kasutada allkirjastamiseks";
