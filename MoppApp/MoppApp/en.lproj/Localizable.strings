@@ -249,6 +249,7 @@
 "nfc-sign-done" = "Signing done";
 "nfc-auth-failed" = "Failed to authenticate with ID-card";
 "nfc-sign-failed" = "Failed to sign document with ID-card";
+"nfc-sign-failed-wrong-can" = "Wrong CAN number";
 "nfc-pin-locked" = "PIN2 has been blocked";
 "nfc-cert-parse-failed" = "Certificate parsing failed";
 "nfc-cert-expired" = "An expired certificate cannot be used for signing";
