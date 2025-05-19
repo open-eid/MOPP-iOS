@@ -184,6 +184,7 @@ enum LocKey : String
     case nfcSignDone = "nfc-sign-done"
     case nfcAuthFailed = "nfc-auth-failed"
     case nfcSignFailed = "nfc-sign-failed"
+    case nfcSignFailedWrongCan = "nfc-sign-failed-wrong-can"
     case nfcPinInvalid = "nfc-pin-invalid"
     case nfcPinLocked = "nfc-pin-locked"
     case nfcCertParseFailed = "nfc-cert-parse-failed"
