@@ -1,6 +1,5 @@
 //
 //  CardReaderIR301.swift
-
 //  MoppLib
 //
 /*
@@ -96,7 +95,7 @@ class CardReaderiR301: CardReader {
     }
 
     func transmit(_ apdu: Bytes) throws -> (Bytes, UInt16) {
-        print("ID-CARD: Transmitting APDU data \(apdu.hexString())")
+        print("ID-CARD Transmitting: \(apdu.hexString())")
         var responseSize: DWORD = 512
         var response = try Bytes(unsafeUninitializedCapacity: Int(responseSize)) { buffer, initializedCount in
             guard SCardTransmit(cardHandle, &pioSendPci, apdu, DWORD(apdu.count), nil, buffer.baseAddress, &responseSize) == SCARD_S_SUCCESS else {
@@ -109,15 +108,9 @@ class CardReaderiR301: CardReader {
             print("ID-CARD: Response size must be at least 2. Response size: \(response.count)")
             throw MoppLibError.Code.readerProcessFailed
         }
-        print("IR301 Response: \(response.hexString())")
+        print("ID-CARD Response: \(response.hexString())")
         let sw = UInt16(response[response.count - 2]) << 8 | UInt16(response[response.count - 1])
         response.removeLast(2)
         return (response, sw)
-    }
-}
-
-private extension DataProtocol {
-    func hexString() -> String {
-        return self.map { String(format: "%02X", $0) }.joined(separator: " ")
     }
 }
