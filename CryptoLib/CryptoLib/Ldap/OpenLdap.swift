@@ -94,10 +94,10 @@ public class OpenLdap {
         }
 
         let escapedIdentityCode = identityCode
+            .replacingOccurrences(of: "\\", with: "\\\\")
             .replacingOccurrences(of: "(", with: "\\(")
             .replacingOccurrences(of: ")", with: "\\)")
             .replacingOccurrences(of: "*", with: "\\*")
-            .replacingOccurrences(of: "\\", with: "\\\\")
 
         let filter = if isPersonalCode(escapedIdentityCode) {
             "(serialNumber=\(secureLdap ? "PNOEE-" : "")\(escapedIdentityCode))"
@@ -212,8 +212,7 @@ public class OpenLdap {
             }
 
             let type = x509.certType()
-            let keyUsageOK = x509.keyUsage[KeyUsage.keyEncipherment.rawValue] ||
-            x509.keyUsage[KeyUsage.keyAgreement.rawValue]
+            let keyUsageOK = x509.keyUsage[KeyUsage.keyEncipherment.rawValue] || x509.keyUsage[KeyUsage.keyAgreement.rawValue]
             let notServerAuth = !x509.extendedKeyUsage.contains(OID.serverAuth.rawValue)
             let notInvalidESeal = !(type == .ESealType && x509.extendedKeyUsage.contains(OID.clientAuth.rawValue))
             let isTypeAllowed = type != .MobileIDType && type != .UnknownType
