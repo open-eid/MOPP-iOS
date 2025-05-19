@@ -60,7 +60,7 @@ workflows:
         description: |
           Build parameters
         type: string
-        default: "-DUSE_TEST_DDS -DDEBUG"
+        default: "-DDEBUG"
     scripts:
       - name: Setup dependencies
         script: |
@@ -76,7 +76,7 @@ workflows:
 
           # Remove current files in tslFiles.bundle
           echo "Removing current TSL files"
-          find $TSL_FILES_DIRECTORY -mindepth 1 ! -name ".keep" -delete
+          find $TSL_FILES_DIRECTORY -mindepth 1 ! -name ".gitignore" -delete
 
           # Download latest 'eu-lotl.xml' file"
           echo "Downloading latest 'eu-lotl.xml' file"
@@ -217,7 +217,7 @@ workflows:
 
           # Remove current files in tslFiles.bundle
           echo "Removing current TSL files"
-          find $TSL_FILES_DIRECTORY -mindepth 1 ! -name ".keep" -delete
+          find $TSL_FILES_DIRECTORY -mindepth 1 ! -name ".gitignore" -delete
 
           # Download latest 'eu-lotl.xml' file"
           echo "Downloading latest 'eu-lotl.xml' file"
