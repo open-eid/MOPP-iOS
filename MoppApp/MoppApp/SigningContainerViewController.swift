@@ -306,12 +306,12 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                 
                 let nserror = error! as NSError
                 var message = nserror.localizedDescription
-                switch nserror.code {
-                case MoppLibError.Code.general.rawValue:
+                switch nserror {
+                case .general:
                     message = L(.fileImportOpenExistingFailedAlertMessage, [self?.containerPath.substr(fromLast: "/") ?? String()])
-                case MoppLibError.Code.noInternetConnection.rawValue:
+                case .noInternetConnection:
                     message = L(.noConnectionMessage)
-                case MoppLibError.Code.invalidProxySettings.rawValue:
+                case .invalidProxySettings:
                     message = L(.proxyUnableToConnectToService)
                 default: break
                 }
