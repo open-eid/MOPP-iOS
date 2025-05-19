@@ -98,7 +98,6 @@ class AddresseeViewController : MoppViewController {
 
         Task {
             let result = await OpenLdap.search(identityCode: trimmedText)
-            let filteredResults = await OpenLdap.filteredResults(addressees: result)
 
             showLoading(show: false)
 
@@ -110,6 +109,8 @@ class AddresseeViewController : MoppViewController {
             if result.count >= 50 {
                 infoAlert(message: "\(L(.cryptoTooManyResultsLdapLabel))")
             }
+
+            let filteredResults = await OpenLdap.filteredResults(addressees: result)
 
             foundAddressees = filteredResults.sorted { $0.identifier < $1.identifier }
             tableView.reloadData()
