@@ -90,16 +90,16 @@ class AddresseeViewController : MoppViewController {
         selectedIndexes = []
         showLoading(show: true)
 
-        if (!MoppLibManager.shared.isConnected) {
+        guard MoppLibManager.shared.isConnected else {
             self.infoAlert(message: L(.noConnectionMessage))
             self.showLoading(show: false)
             return
         }
 
         Task(priority: .userInitiated) { [weak self] in
-            guard let self = self else { return }
 
-            let result = await OpenLdap.search(identityCode: trimmedText)
+            let result = OpenLdap.search(identityCode: trimmedText)
+            guard let self = self else { return }
 
             await MainActor.run {
                 self.showLoading(show: false)

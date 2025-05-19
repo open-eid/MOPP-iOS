@@ -27,7 +27,7 @@ class ErrorUtil {
 
     static func generateError(signingError: any Error, signingType: SigningType) {
         let nsError = signingError as NSError
-        switch MoppLibError.Code(rawValue: nsError.code) {
+        switch nsError {
         case .certRevoked:
             generateError(signingError: .certificateRevoked)
         case .OCSPTimeSlot:
