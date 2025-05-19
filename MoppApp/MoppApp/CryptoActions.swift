@@ -20,8 +20,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
 import Foundation
-import CryptoLib
 
 protocol CryptoActions {
     func startEncryptingProcess()
@@ -31,12 +31,15 @@ protocol CryptoActions {
 extension CryptoActions where Self: CryptoContainerViewController {
     
     func startEncryptingProcess() {
-        if container.addressees.count > 0 {
-            MoppLibCryptoActions.encryptData(
-                container.filePath as String?,
-                withDataFiles: container.dataFiles as? [Any],
-                withAddressees: container.addressees,
-                success: {
+        guard container.addressees.count > 0 else {
+            return self.infoAlert(message: L(.cryptoNoAddresseesWarning))
+        }
+        guard let container else { return }
+        Task { [weak self] in
+            do {
+                try await Encrypt.encryptFile(container.filePath, with: container.dataFiles, with: container.addressees)
+                guard let self else { return }
+                await MainActor.run {
                     self.isCreated = false
                     self.isForPreview = false
                     self.isContainerEncrypted = true
@@ -50,16 +53,10 @@ extension CryptoActions where Self: CryptoContainerViewController {
                     self.reloadCryptoData()
 
                     MoppFileManager.removeFiles()
-                    
-            },
-                failure: { _ in
-                    DispatchQueue.main.async {
-                        self.infoAlert(message: L(.cryptoEncryptionErrorText))
-                    }
                 }
-            )
-        } else {
-            self.infoAlert(message: L(.cryptoNoAddresseesWarning))
+            } catch {
+                await self?.infoAlert(message: L(.cryptoEncryptionErrorText))
+            }
         }
     }
     func startDecryptingProcess() {
@@ -74,35 +71,32 @@ extension CryptoActions where Self: CryptoContainerViewController {
 }
 
 extension CryptoContainerViewController : IdCardDecryptViewControllerDelegate {
-    
+
     func idCardDecryptDidFinished(success: Bool, dataFiles: [String:Data], error: Error?) {
         if success {
-            container.dataFiles.removeAllObjects()
-            for (filename, data) in dataFiles {
-                let cryptoDataFile = CryptoDataFile()
-                cryptoDataFile.filename = filename
-                guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: cryptoDataFile.filename) else {
+            container.dataFiles.removeAll()
+            for dataFile in dataFiles {
+                guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: dataFile.key) else {
                     dismiss(animated: false)
                     infoAlert(message: L(.decryptionErrorMessage))
                     return
                 }
-                cryptoDataFile.filePath = destinationPath
-                container.dataFiles.add(cryptoDataFile)
-                MoppFileManager.shared.createFile(atPath: destinationPath, contents: data)
+                container.dataFiles.append(CryptoDataFile(filename: dataFile.key, filePath: destinationPath))
+                MoppFileManager.shared.createFile(atPath: destinationPath, contents: dataFile.value)
             }
-            
+
             self.isCreated = false
             self.isForPreview = false
             self.dismiss(animated: false)
             self.isDecrypted = true
             self.isContainerEncrypted = false
-            
+
             let decryptionSuccess = NotificationMessage(isSuccess: true, text: L(.containerDetailsDecryptionSuccess))
             if !self.notifications.contains(where: { $0 == decryptionSuccess }) {
                 self.notifications.append(decryptionSuccess)
             }
             UIAccessibility.post(notification: .screenChanged, argument: L(.containerDetailsDecryptionSuccess))
-            
+
             self.reloadCryptoData()
         } else {
             self.dismiss(animated: false)
