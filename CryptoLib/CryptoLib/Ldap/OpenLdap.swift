@@ -200,7 +200,7 @@ public class OpenLdap {
             }
             addressee.cert = data
             addressee.validTo = x509.notAfter ?? Date()
-            if await isValidCert(addressee: addressee) {
+            if isValidCert(addressee: addressee) {
                 result.append(addressee)
             }
         }
@@ -208,7 +208,7 @@ public class OpenLdap {
         return result
     }
 
-    static public func isValidCert(addressee: Addressee) async -> Bool {
+    static public func isValidCert(addressee: Addressee) -> Bool {
         guard let x509 = try? X509Certificate(der: addressee.cert) else {
             return false
         }
