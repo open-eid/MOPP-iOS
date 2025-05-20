@@ -43,23 +43,41 @@ public class OpenLdap {
     static public func search(identityCode: String) async -> (addressees: [Addressee], totalAddressees: Int) {
         var filePath: String? = nil
         if let libraryPath = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first {
-            filePath = libraryPath.appendingPathComponent("LDAPCerts/ldapCerts.pem").path
-            if !FileManager.default.fileExists(atPath: filePath!) {
-                print("File ldapCerts.pem does not exist at directory path: \(filePath!)")
+            let ldapCertFilePath = libraryPath.appendingPathComponent("LDAPCerts/ldapCerts.pem").path
+            if FileManager.default.fileExists(atPath: ldapCertFilePath) {
+                filePath = ldapCertFilePath
+            } else {
+                print("File ldapCerts.pem does not exist at directory path: \(ldapCertFilePath)")
                 filePath = nil
             }
         }
 
         if isPersonalCode(identityCode) {
             print("Searching with personal code from LDAP")
-            return await search(identityCode: identityCode, url: MoppLdapConfiguration.ldapPersonURL, certificatePath: filePath)
+            return await withCheckedContinuation { continuation in
+                DispatchQueue.global(qos: .userInitiated).async {
+                    continuation.resume(returning: search(
+                        identityCode: identityCode,
+                        url: MoppLdapConfiguration.ldapPersonURL,
+                        certificatePath: filePath
+                    ))
+                }
+            }
         } else {
             print("Searching with corporation keyword from LDAP")
-            return await search(identityCode: identityCode, url: MoppLdapConfiguration.ldapCorpURL, certificatePath: filePath)
+            return await withCheckedContinuation { continuation in
+                DispatchQueue.global(qos: .userInitiated).async {
+                    continuation.resume(returning: search(
+                        identityCode: identityCode,
+                        url: MoppLdapConfiguration.ldapCorpURL,
+                        certificatePath: filePath
+                    ))
+                }
+            }
         }
     }
 
-    static private func search(identityCode: String, url: String, certificatePath: String?) async -> (addressees: [Addressee], totalAddressees: Int) {
+    static private func search(identityCode: String, url: String, certificatePath: String?) -> (addressees: [Addressee], totalAddressees: Int) {
         let secureLdap = url.lowercased().hasPrefix("ldaps")
         if secureLdap {
             if let certificatePath = certificatePath, !certificatePath.isEmpty {
@@ -107,33 +125,45 @@ public class OpenLdap {
             "(cn=*\(escapedIdentityCode)*)"
         }
 
-        var msg: LDAPMessage?
+        var msgId: Int32 = 0
         print("Searching from LDAP. Url: \(url) \(filter)")
         var attr = Array("userCertificate;binary".utf8CString)
         _ = attr.withUnsafeMutableBufferPointer { attr in
             var attrs = [attr.baseAddress, nil]
             return attrs.withUnsafeMutableBufferPointer { attrs in
-                ldap_search_ext_s(ldap, "c=EE", LDAP_SCOPE_SUBTREE, filter, attrs.baseAddress, 0, nil, nil, nil, 0, &msg)
+                ldap_search_ext(ldap, "c=EE", LDAP_SCOPE_SUBTREE, filter, attrs.baseAddress, 0, nil, nil, nil, 0, &msgId)
             }
         }
 
-        if let msg = msg {
-            defer { ldap_msgfree(msg) }
-            var result = [Addressee]()
-            var searchEntryCount = 0
-            var message = ldap_first_message(ldap, msg)
-            while let currentMessage = message {
-                if ldap_msgtype(currentMessage) == LDAP_RES_SEARCH_ENTRY {
-                    searchEntryCount += 1
-                    await result.append(contentsOf: attributes(ldap: ldap!, msg: currentMessage))
-                }
-                message = ldap_next_message(ldap, currentMessage)
-            }
+        var resMsg: LDAPMessage? = nil
+        var timeout = timeval(tv_sec: 10, tv_usec: 0)
 
-            return (result, searchEntryCount)
+        let resultCode = withUnsafeMutablePointer(to: &resMsg) { resPtr in
+            ldap_result(ldap, Int32(msgId), LDAP_MSG_ALL, &timeout, resPtr)
         }
 
-        return ([], 0)
+        guard resultCode > 0, let msg = resMsg else {
+            print("ldap_result failed or timed out \(resultCode)")
+            return ([], 0)
+        }
+        defer { ldap_msgfree(msg) }
+
+        guard let ldap = ldap else {
+            print("LDAP connection is nil")
+            return ([], 0)
+        }
+
+        var addressees = [Addressee]()
+        var searchEntryCount = 0
+        var message = ldap_first_message(ldap, msg)
+        while let currentMessage = message {
+            if ldap_msgtype(currentMessage) == LDAP_RES_SEARCH_ENTRY {
+                searchEntryCount += 1
+                addressees.append(contentsOf: attributes(ldap: ldap, msg: currentMessage))
+            }
+            message = ldap_next_message(ldap, currentMessage)
+        }
+        return (addressees, searchEntryCount)
     }
 
     static private func setLdapOption(option: Int32, value: String) -> Bool {
@@ -153,7 +183,7 @@ public class OpenLdap {
         return inputString.count == 8 && inputString.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
     }
 
-    static private func attributes(ldap: LDAP, msg: LDAPMessage) async -> [Addressee] {
+    static private func attributes(ldap: LDAP, msg: LDAPMessage) -> [Addressee] {
         var result = [Addressee]()
         var ber: BerElement?
         var attrPointer = ldap_first_attribute(ldap, msg, &ber)
@@ -162,7 +192,7 @@ public class OpenLdap {
         }
         while let attr = attrPointer {
             defer { ldap_memfree(attr) }
-            await result.append(contentsOf: results(ldap: ldap, msg: msg, tag: String(cString: attr)))
+            result.append(contentsOf: results(ldap: ldap, msg: msg, tag: String(cString: attr)))
             attrPointer = ldap_next_attribute(ldap, msg, ber)
         }
 
@@ -173,7 +203,7 @@ public class OpenLdap {
         return result
     }
 
-    static private func results(ldap: LDAP, msg: LDAPMessage, tag: String) async -> [Addressee] {
+    static private func results(ldap: LDAP, msg: LDAPMessage, tag: String) -> [Addressee] {
         var result = [Addressee]()
         guard let bvals = ldap_get_values_len(ldap, msg, tag) else {
             return result
