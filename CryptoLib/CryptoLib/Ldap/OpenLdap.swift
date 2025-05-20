@@ -120,16 +120,17 @@ public class OpenLdap {
         if let msg = msg {
             defer { ldap_msgfree(msg) }
             var result = [Addressee]()
+            var searchEntryCount = 0
             var message = ldap_first_message(ldap, msg)
             while let currentMessage = message {
                 if ldap_msgtype(currentMessage) == LDAP_RES_SEARCH_ENTRY {
-                    result.append(contentsOf: attributes(ldap: ldap!, msg: currentMessage))
+                    searchEntryCount += 1
+                    await result.append(contentsOf: attributes(ldap: ldap!, msg: currentMessage))
                 }
                 message = ldap_next_message(ldap, currentMessage)
             }
 
-            let filteredResults = await filteredResults(addressees: result)
-            return (filteredResults, result.count)
+            return (result, searchEntryCount)
         }
 
         return ([], 0)
@@ -152,7 +153,7 @@ public class OpenLdap {
         return inputString.count == 8 && inputString.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
     }
 
-    static private func attributes(ldap: LDAP, msg: LDAPMessage) -> [Addressee] {
+    static private func attributes(ldap: LDAP, msg: LDAPMessage) async -> [Addressee] {
         var result = [Addressee]()
         var ber: BerElement?
         var attrPointer = ldap_first_attribute(ldap, msg, &ber)
@@ -161,7 +162,7 @@ public class OpenLdap {
         }
         while let attr = attrPointer {
             defer { ldap_memfree(attr) }
-            result.append(contentsOf: results(ldap: ldap, msg: msg, tag: String(cString: attr)))
+            await result.append(contentsOf: results(ldap: ldap, msg: msg, tag: String(cString: attr)))
             attrPointer = ldap_next_attribute(ldap, msg, ber)
         }
 
@@ -172,7 +173,7 @@ public class OpenLdap {
         return result
     }
 
-    static private func results(ldap: LDAP, msg: LDAPMessage, tag: String) -> [Addressee] {
+    static private func results(ldap: LDAP, msg: LDAPMessage, tag: String) async -> [Addressee] {
         var result = [Addressee]()
         guard let bvals = ldap_get_values_len(ldap, msg, tag) else {
             return result
@@ -199,31 +200,25 @@ public class OpenLdap {
             }
             addressee.cert = data
             addressee.validTo = x509.notAfter ?? Date()
-            result.append(addressee)
+            if await isValidCert(addressee: addressee) {
+                result.append(addressee)
+            }
         }
 
         return result
     }
 
-    static public func filteredResults(addressees: [Addressee]) async -> [Addressee] {
-        var filteredResults = [Addressee]()
-
-        for addressee in addressees {
-            guard let x509 = try? X509Certificate(der: addressee.cert) else {
-                continue
-            }
-
-            let type = x509.certType()
-            let keyUsageOK = x509.keyUsage[KeyUsage.keyEncipherment.rawValue] || x509.keyUsage[KeyUsage.keyAgreement.rawValue]
-            let notServerAuth = !x509.extendedKeyUsage.contains(OID.serverAuth.rawValue)
-            let notInvalidESeal = !(type == .ESealType && x509.extendedKeyUsage.contains(OID.clientAuth.rawValue))
-            let isTypeAllowed = type != .MobileIDType && type != .UnknownType
-
-            if keyUsageOK && notServerAuth && notInvalidESeal && isTypeAllowed {
-                filteredResults.append(addressee)
-            }
+    static public func isValidCert(addressee: Addressee) async -> Bool {
+        guard let x509 = try? X509Certificate(der: addressee.cert) else {
+            return false
         }
 
-        return filteredResults
+        let type = x509.certType()
+        let keyUsageOK = x509.keyUsage[KeyUsage.keyEncipherment.rawValue] || x509.keyUsage[KeyUsage.keyAgreement.rawValue]
+        let notServerAuth = !x509.extendedKeyUsage.contains(OID.serverAuth.rawValue)
+        let notInvalidESeal = !(type == .ESealType && x509.extendedKeyUsage.contains(OID.clientAuth.rawValue))
+        let isTypeAllowed = type != .MobileIDType && type != .UnknownType
+
+        return keyUsageOK && notServerAuth && notInvalidESeal && isTypeAllowed
     }
 }
