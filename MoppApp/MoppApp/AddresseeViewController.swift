@@ -101,18 +101,16 @@ class AddresseeViewController : MoppViewController {
 
             showLoading(show: false)
 
-            guard !result.isEmpty else {
+            guard !result.addressees.isEmpty else {
                 infoAlert(message: "\(L(.cryptoEmptyLdapLabel))")
                 return
             }
 
-            if result.count >= 50 {
+            if result.totalAddressees >= 50 {
                 infoAlert(message: "\(L(.cryptoTooManyResultsLdapLabel))")
             }
 
-            let filteredResults = await OpenLdap.filteredResults(addressees: result)
-
-            foundAddressees = filteredResults.sorted { $0.identifier < $1.identifier }
+            foundAddressees = result.0.sorted { $0.identifier < $1.identifier }
             tableView.reloadData()
         }
     }

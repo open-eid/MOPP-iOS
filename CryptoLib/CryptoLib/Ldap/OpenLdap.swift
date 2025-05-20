@@ -40,7 +40,7 @@ public class OpenLdap {
         case decipherOnly = 8
     }
 
-    static public func search(identityCode: String) async -> [Addressee] {
+    static public func search(identityCode: String) async -> (addressees: [Addressee], totalAddressees: Int) {
         var filePath: String? = nil
         if let libraryPath = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first {
             filePath = libraryPath.appendingPathComponent("LDAPCerts/ldapCerts.pem").path
@@ -52,27 +52,27 @@ public class OpenLdap {
 
         if isPersonalCode(identityCode) {
             print("Searching with personal code from LDAP")
-            return search(identityCode: identityCode, url: MoppLdapConfiguration.ldapPersonURL, certificatePath: filePath)
+            return await search(identityCode: identityCode, url: MoppLdapConfiguration.ldapPersonURL, certificatePath: filePath)
         } else {
             print("Searching with corporation keyword from LDAP")
-            return search(identityCode: identityCode, url: MoppLdapConfiguration.ldapCorpURL, certificatePath: filePath)
+            return await search(identityCode: identityCode, url: MoppLdapConfiguration.ldapCorpURL, certificatePath: filePath)
         }
     }
 
-    static private func search(identityCode: String, url: String, certificatePath: String?) -> [Addressee] {
+    static private func search(identityCode: String, url: String, certificatePath: String?) async -> (addressees: [Addressee], totalAddressees: Int) {
         let secureLdap = url.lowercased().hasPrefix("ldaps")
         if secureLdap {
             if let certificatePath = certificatePath, !certificatePath.isEmpty {
-                guard setLdapOption(option: LDAP_OPT_X_TLS_CACERTFILE, value: certificatePath) else { return [] }
+                guard setLdapOption(option: LDAP_OPT_X_TLS_CACERTFILE, value: certificatePath) else { return ([], 0) }
             } else {
-                guard let bundlePath = Bundle(for: OpenLdap.self).resourcePath else { return [] }
-                guard setLdapOption(option: LDAP_OPT_X_TLS_CACERTDIR, value: bundlePath) else { return [] }
+                guard let bundlePath = Bundle(for: OpenLdap.self).resourcePath else { return ([], 0) }
+                guard setLdapOption(option: LDAP_OPT_X_TLS_CACERTDIR, value: bundlePath) else { return ([], 0) }
             }
             var ldapConnectionReset = 0
             let result = ldap_set_option(nil, LDAP_OPT_X_TLS_NEWCTX, &ldapConnectionReset)
             guard result == LDAP_SUCCESS else {
                 print("ldap_set_option(LDAP_OPT_X_TLS_NEWCTX) failed: \(String(cString: ldap_err2string(result)))")
-                return []
+                return ([], 0)
             }
         }
 
@@ -83,14 +83,14 @@ public class OpenLdap {
         }
         guard ldapReturnCode == LDAP_SUCCESS else {
             print("Failed to initialize LDAP: \(String(cString: ldap_err2string(ldapReturnCode)))")
-            return []
+            return ([], 0)
         }
 
         var ldapVersion = LDAP_VERSION3
         let result = ldap_set_option(ldap, LDAP_OPT_PROTOCOL_VERSION, &ldapVersion)
         guard result == LDAP_SUCCESS else {
             print("ldap_set_option(PROTOCOL_VERSION) failed: \(String(cString: ldap_err2string(result)))")
-            return []
+            return ([], 0)
         }
 
         let escapedIdentityCode = identityCode
@@ -127,10 +127,12 @@ public class OpenLdap {
                 }
                 message = ldap_next_message(ldap, currentMessage)
             }
-            return result
+
+            let filteredResults = await filteredResults(addressees: result)
+            return (filteredResults, result.count)
         }
 
-        return []
+        return ([], 0)
     }
 
     static private func setLdapOption(option: Int32, value: String) -> Bool {
