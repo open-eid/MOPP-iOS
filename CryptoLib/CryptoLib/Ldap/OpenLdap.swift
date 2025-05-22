@@ -54,30 +54,14 @@ public class OpenLdap {
 
         if isPersonalCode(identityCode) {
             print("Searching with personal code from LDAP")
-            return await withCheckedContinuation { continuation in
-                DispatchQueue.global(qos: .userInitiated).async {
-                    continuation.resume(returning: search(
-                        identityCode: identityCode,
-                        url: MoppLdapConfiguration.ldapPersonURL,
-                        certificatePath: filePath
-                    ))
-                }
-            }
+            return await search(identityCode: identityCode, url: MoppLdapConfiguration.ldapPersonURL, certificatePath: filePath)
         } else {
             print("Searching with corporation keyword from LDAP")
-            return await withCheckedContinuation { continuation in
-                DispatchQueue.global(qos: .userInitiated).async {
-                    continuation.resume(returning: search(
-                        identityCode: identityCode,
-                        url: MoppLdapConfiguration.ldapCorpURL,
-                        certificatePath: filePath
-                    ))
-                }
-            }
+            return await search(identityCode: identityCode, url: MoppLdapConfiguration.ldapCorpURL, certificatePath: filePath)
         }
     }
 
-    static private func search(identityCode: String, url: String, certificatePath: String?) -> (addressees: [Addressee], totalAddressees: Int) {
+    static private func search(identityCode: String, url: String, certificatePath: String?) async -> (addressees: [Addressee], totalAddressees: Int) {
         let secureLdap = url.lowercased().hasPrefix("ldaps")
         if secureLdap {
             if let certificatePath = certificatePath, !certificatePath.isEmpty {
@@ -95,7 +79,7 @@ public class OpenLdap {
         }
 
         var ldap: LDAP?
-        let ldapReturnCode = ldap_initialize(&ldap, url)
+        var ldapReturnCode = ldap_initialize(&ldap, url)
         defer {
             if let ldap = ldap { ldap_destroy(ldap) }
         }
@@ -105,9 +89,9 @@ public class OpenLdap {
         }
 
         var ldapVersion = LDAP_VERSION3
-        let result = ldap_set_option(ldap, LDAP_OPT_PROTOCOL_VERSION, &ldapVersion)
-        guard result == LDAP_SUCCESS else {
-            print("ldap_set_option(PROTOCOL_VERSION) failed: \(String(cString: ldap_err2string(result)))")
+        ldapReturnCode = ldap_set_option(ldap, LDAP_OPT_PROTOCOL_VERSION, &ldapVersion)
+        guard ldapReturnCode == LDAP_SUCCESS else {
+            print("ldap_set_option(PROTOCOL_VERSION) failed: \(String(cString: ldap_err2string(ldapReturnCode)))")
             return ([], 0)
         }
 
@@ -119,51 +103,54 @@ public class OpenLdap {
 
         let filter = if isPersonalCode(escapedIdentityCode) {
             "(serialNumber=\(secureLdap ? "PNOEE-" : "")\(escapedIdentityCode))"
-        } else if isCompanyCode(escapedIdentityCode) {
+        } else if escapedIdentityCode.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil {
             "(serialNumber=\(escapedIdentityCode))"
         } else {
             "(cn=*\(escapedIdentityCode)*)"
         }
-
         var msgId: Int32 = 0
         print("Searching from LDAP. Url: \(url) \(filter)")
         var attr = Array("userCertificate;binary".utf8CString)
-        _ = attr.withUnsafeMutableBufferPointer { attr in
+        ldapReturnCode = attr.withUnsafeMutableBufferPointer { attr in
             var attrs = [attr.baseAddress, nil]
             return attrs.withUnsafeMutableBufferPointer { attrs in
                 ldap_search_ext(ldap, "c=EE", LDAP_SCOPE_SUBTREE, filter, attrs.baseAddress, 0, nil, nil, nil, 0, &msgId)
             }
         }
 
-        var resMsg: LDAPMessage? = nil
-        var timeout = timeval(tv_sec: 10, tv_usec: 0)
-
-        let resultCode = withUnsafeMutablePointer(to: &resMsg) { resPtr in
-            ldap_result(ldap, Int32(msgId), LDAP_MSG_ALL, &timeout, resPtr)
-        }
-
-        guard resultCode > 0, let msg = resMsg else {
-            print("ldap_result failed or timed out \(resultCode)")
-            return ([], 0)
-        }
-        defer { ldap_msgfree(msg) }
-
-        guard let ldap = ldap else {
-            print("LDAP connection is nil")
+        guard ldapReturnCode == LDAP_SUCCESS else {
+            print("ldap_search_ext failed: \(String(cString: ldap_err2string(ldapReturnCode)))")
             return ([], 0)
         }
 
-        var addressees = [Addressee]()
-        var searchEntryCount = 0
-        var message = ldap_first_message(ldap, msg)
-        while let currentMessage = message {
-            if ldap_msgtype(currentMessage) == LDAP_RES_SEARCH_ENTRY {
-                searchEntryCount += 1
-                addressees.append(contentsOf: attributes(ldap: ldap, msg: currentMessage))
+        var result = [Addressee]()
+        var totalAddressees = 0
+        var msg: LDAPMessage? = nil
+        var tv = timeval(tv_sec: 0, tv_usec: 100_000)
+        while !Task.isCancelled {
+            ldapReturnCode = ldap_result(ldap, msgId, LDAP_MSG_ONE, &tv, &msg)
+
+            defer { if let msg = msg { ldap_msgfree(msg) } }
+            switch ldapReturnCode {
+            case Int32(LDAP_RES_SEARCH_ENTRY):
+                print("ldap_result result: \(String(describing: msg ?? nil))")
+                let addressees = await attributes(ldap: ldap!, msg: msg!)
+                result.append(contentsOf: addressees)
+                totalAddressees += 1
+                break
+            case Int32(LDAP_RES_SEARCH_RESULT):
+                print("ldap_result done: \(String(describing: msg ?? nil))")
+                result.append(contentsOf: await attributes(ldap: ldap!, msg: msg!))
+                return (addressees: result, totalAddressees: totalAddressees)
+            case Int32(LDAP_SUCCESS):
+                print("ldap_result continue: \(String(describing: msg ?? nil))")
+                break
+            default:
+                print("ldap_result failed: \(String(cString: ldap_err2string(ldapReturnCode)))")
+                return (addressees: result, totalAddressees: totalAddressees)
             }
-            message = ldap_next_message(ldap, currentMessage)
         }
-        return (addressees, searchEntryCount)
+        return (addressees: result, totalAddressees: totalAddressees)
     }
 
     static private func setLdapOption(option: Int32, value: String) -> Bool {
@@ -179,31 +166,34 @@ public class OpenLdap {
         return inputString.count == 11 && inputString.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
     }
 
-    static private func isCompanyCode(_ inputString: String) -> Bool {
-        return inputString.count == 8 && inputString.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
-    }
-
-    static private func attributes(ldap: LDAP, msg: LDAPMessage) -> [Addressee] {
+    static private func attributes(ldap: LDAP, msg: LDAPMessage) async -> [Addressee] {
         var result = [Addressee]()
-        var ber: BerElement?
-        var attrPointer = ldap_first_attribute(ldap, msg, &ber)
-        defer {
-            if let ber = ber { ber_free(ber, 0) }
-        }
-        while let attr = attrPointer {
-            defer { ldap_memfree(attr) }
-            result.append(contentsOf: results(ldap: ldap, msg: msg, tag: String(cString: attr)))
-            attrPointer = ldap_next_attribute(ldap, msg, ber)
-        }
+        var message = ldap_first_message(ldap, msg)
+        while let currentMessage = message {
+            guard !Task.isCancelled else { break }
+            if ldap_msgtype(currentMessage) == LDAP_RES_SEARCH_ENTRY {
+                var ber: BerElement?
+                var attrPointer = ldap_first_attribute(ldap, currentMessage, &ber)
+                defer {
+                    if let ber = ber { ber_free(ber, 0) }
+                }
+                while let attr = attrPointer {
+                    defer { ldap_memfree(attr) }
+                    result.append(contentsOf: await values(ldap: ldap, msg: currentMessage, tag: String(cString: attr)))
+                    attrPointer = ldap_next_attribute(ldap, currentMessage, ber)
+                }
 
-        if let namePointer = ldap_get_dn(ldap, msg) {
-            print("Result (\(result.count)) \(String(cString: namePointer))")
-            ldap_memfree(namePointer)
+                if let namePointer = ldap_get_dn(ldap, currentMessage) {
+                    print("Result (\(result.count)) \(String(cString: namePointer))")
+                    ldap_memfree(namePointer)
+                }
+            }
+            message = ldap_next_message(ldap, currentMessage)
         }
         return result
     }
 
-    static private func results(ldap: LDAP, msg: LDAPMessage, tag: String) -> [Addressee] {
+    static private func values(ldap: LDAP, msg: LDAPMessage, tag: String) async -> [Addressee] {
         var result = [Addressee]()
         guard let bvals = ldap_get_values_len(ldap, msg, tag) else {
             return result
@@ -212,43 +202,32 @@ public class OpenLdap {
 
         var i = 0
         while let bval = bvals[i] {
+            guard !Task.isCancelled else { break }
             let data = Data(bytes: bval.pointee.bv_val, count: Int(bval.pointee.bv_len))
             i += 1
             guard let x509 = try? X509Certificate(der: data) else {
                 continue
             }
-
-            let cn = x509.subject(oid: OID.commonName)?.joined(separator: ",") ?? ""
-            let split = cn.split(separator: ",").map { String($0) }
-            let addressee = Addressee()
-            if split.count == 3 {
-                addressee.surname = split[0]
-                addressee.givenName = split[1]
-                addressee.identifier = split[2]
-            } else {
-                addressee.identifier = cn
-            }
-            addressee.cert = data
-            addressee.validTo = x509.notAfter ?? Date()
-            if isValidCert(addressee: addressee) {
+            let type = x509.certType()
+            if x509.keyUsage[KeyUsage.keyEncipherment.rawValue] || x509.keyUsage[KeyUsage.keyAgreement.rawValue],
+               !x509.extendedKeyUsage.contains(OID.serverAuth.rawValue),
+               type != .ESealType || !x509.extendedKeyUsage.contains(OID.clientAuth.rawValue),
+               type != .MobileIDType && type != .UnknownType {
+                let cn = x509.subject(oid: OID.commonName)?.joined(separator: ",") ?? ""
+                let split = cn.split(separator: ",").map { String($0) }
+                let addressee = Addressee()
+                if split.count == 3 {
+                    addressee.surname = split[0]
+                    addressee.givenName = split[1]
+                    addressee.identifier = split[2]
+                } else {
+                    addressee.identifier = cn
+                }
+                addressee.cert = data
+                addressee.validTo = x509.notAfter ?? Date()
                 result.append(addressee)
             }
         }
-
         return result
-    }
-
-    static public func isValidCert(addressee: Addressee) -> Bool {
-        guard let x509 = try? X509Certificate(der: addressee.cert) else {
-            return false
-        }
-
-        let type = x509.certType()
-        let keyUsageOK = x509.keyUsage[KeyUsage.keyEncipherment.rawValue] || x509.keyUsage[KeyUsage.keyAgreement.rawValue]
-        let notServerAuth = !x509.extendedKeyUsage.contains(OID.serverAuth.rawValue)
-        let notInvalidESeal = !(type == .ESealType && x509.extendedKeyUsage.contains(OID.clientAuth.rawValue))
-        let isTypeAllowed = type != .MobileIDType && type != .UnknownType
-
-        return keyUsageOK && notServerAuth && notInvalidESeal && isTypeAllowed
     }
 }
