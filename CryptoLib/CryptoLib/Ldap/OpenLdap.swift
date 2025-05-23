@@ -40,7 +40,7 @@ public class OpenLdap {
         case decipherOnly = 8
     }
 
-    static public func search(identityCode: String) async -> (addressees: [Addressee], totalAddressees: Int) {
+    static public func search(identityCode: String) -> (addressees: [Addressee], totalAddressees: Int) {
         var filePath: String? = nil
         if let libraryPath = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first {
             let ldapCertFilePath = libraryPath.appendingPathComponent("LDAPCerts/ldapCerts.pem").path
@@ -54,14 +54,14 @@ public class OpenLdap {
 
         if isPersonalCode(identityCode) {
             print("Searching with personal code from LDAP")
-            return await search(identityCode: identityCode, url: MoppLdapConfiguration.ldapPersonURL, certificatePath: filePath)
+            return search(identityCode: identityCode, url: MoppLdapConfiguration.ldapPersonURL, certificatePath: filePath)
         } else {
             print("Searching with corporation keyword from LDAP")
-            return await search(identityCode: identityCode, url: MoppLdapConfiguration.ldapCorpURL, certificatePath: filePath)
+            return search(identityCode: identityCode, url: MoppLdapConfiguration.ldapCorpURL, certificatePath: filePath)
         }
     }
 
-    static private func search(identityCode: String, url: String, certificatePath: String?) async -> (addressees: [Addressee], totalAddressees: Int) {
+    static private func search(identityCode: String, url: String, certificatePath: String?) -> (addressees: [Addressee], totalAddressees: Int) {
         let secureLdap = url.lowercased().hasPrefix("ldaps")
         if secureLdap {
             if let certificatePath = certificatePath, !certificatePath.isEmpty {
@@ -126,30 +126,29 @@ public class OpenLdap {
         var result = [Addressee]()
         var totalAddressees = 0
         var msg: LDAPMessage? = nil
-        var tv = timeval(tv_sec: 0, tv_usec: 100_000)
         while !Task.isCancelled {
+            var tv = timeval(tv_sec: 0, tv_usec: 100_000)
             ldapReturnCode = ldap_result(ldap, msgId, LDAP_MSG_ONE, &tv, &msg)
 
             defer { if let msg = msg { ldap_msgfree(msg) } }
             switch ldapReturnCode {
             case Int32(LDAP_RES_SEARCH_ENTRY):
-                print("ldap_result result: \(String(describing: msg ?? nil))")
-                let addressees = await attributes(ldap: ldap!, msg: msg!)
+                let addressees = attributes(ldap: ldap!, msg: msg!)
                 result.append(contentsOf: addressees)
                 totalAddressees += 1
                 break
             case Int32(LDAP_RES_SEARCH_RESULT):
-                print("ldap_result done: \(String(describing: msg ?? nil))")
-                result.append(contentsOf: await attributes(ldap: ldap!, msg: msg!))
                 return (addressees: result, totalAddressees: totalAddressees)
             case Int32(LDAP_SUCCESS):
-                print("ldap_result continue: \(String(describing: msg ?? nil))")
                 break
             default:
                 print("ldap_result failed: \(String(cString: ldap_err2string(ldapReturnCode)))")
                 return (addressees: result, totalAddressees: totalAddressees)
             }
         }
+
+        ldap_abandon_ext(ldap, msgId, nil, nil)
+
         return (addressees: result, totalAddressees: totalAddressees)
     }
 
@@ -166,7 +165,7 @@ public class OpenLdap {
         return inputString.count == 11 && inputString.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
     }
 
-    static private func attributes(ldap: LDAP, msg: LDAPMessage) async -> [Addressee] {
+    static private func attributes(ldap: LDAP, msg: LDAPMessage) -> [Addressee] {
         var result = [Addressee]()
         var message = ldap_first_message(ldap, msg)
         while let currentMessage = message {
@@ -179,7 +178,7 @@ public class OpenLdap {
                 }
                 while let attr = attrPointer {
                     defer { ldap_memfree(attr) }
-                    result.append(contentsOf: await values(ldap: ldap, msg: currentMessage, tag: String(cString: attr)))
+                    result.append(contentsOf: values(ldap: ldap, msg: currentMessage, tag: String(cString: attr)))
                     attrPointer = ldap_next_attribute(ldap, currentMessage, ber)
                 }
 
@@ -193,7 +192,7 @@ public class OpenLdap {
         return result
     }
 
-    static private func values(ldap: LDAP, msg: LDAPMessage, tag: String) async -> [Addressee] {
+    static private func values(ldap: LDAP, msg: LDAPMessage, tag: String) -> [Addressee] {
         var result = [Addressee]()
         guard let bvals = ldap_get_values_len(ldap, msg, tag) else {
             return result
