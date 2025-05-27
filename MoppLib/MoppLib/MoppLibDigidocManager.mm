@@ -167,7 +167,7 @@ static std::unique_ptr<digidoc::Signer> signer{};
         printLog(@"Role data - roles: %@, city: %@, state: %@, zip: %@, country: %@", roleData.ROLES, roleData.CITY, roleData.STATE, roleData.ZIP, roleData.COUNTRY);
         signer->setProfile("time-stamp");
         signer->setSignatureProductionPlace(std::string([roleData.CITY UTF8String] ?: ""), std::string([roleData.STATE UTF8String] ?: ""), std::string([roleData.ZIP UTF8String] ?: ""), std::string([roleData.COUNTRY UTF8String] ?: ""));
-        signer->setUserAgent([MoppLibManager userAgentWithShouldIncludeDevices:false isNFCSignature:isNFCSignature].UTF8String);
+        signer->setUserAgent([MoppLibManager userAgentWithShouldIncludeDevices:true isNFCSignature:isNFCSignature].UTF8String);
 
         std::vector<std::string> roles;
         for (NSString *role in roleData.ROLES) {
