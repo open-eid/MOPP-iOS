@@ -74,6 +74,7 @@
 "crypto-view-begin-label-accessibility" = "Choose a file to encrypt or decrypt";
 "crypto-view-begin-button" = "CHOOSE FILE";
 "crypto-empty-ldap-label" = "Person or company does not own a valid certificate.\nIt is necessary to have a valid certificate for encryption.\nIn case of questions please contact our support via id.ee.";
+"crypto-too-many-results-ldap-label" = "The name you were looking for gave too many results, please refine your search.";
 "crypto-ldap-search-placeholder" = "Enter personal code, company or registry code";
 "crypto-encryption-error-text" = "Something went wrong with encryption";
 "crypto-encryption-success" = "ENCRYPTION SUCCEEDED";
