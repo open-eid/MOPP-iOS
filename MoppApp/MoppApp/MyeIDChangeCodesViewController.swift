@@ -22,8 +22,8 @@
  */
 class MyeIDChangeCodesViewController: MoppViewController {
     @IBOutlet weak var ui: MyeIDChangeCodesViewControllerUI!
-    var model = MyeIDChangeCodesModel()
-    
+    var model: MyeIDChangeCodesModel!
+
     weak var infoManager: MyeIDInfoManager!
     
     private var loadingViewController: MyeIDChangeCodesLoadingViewController! = {
@@ -96,34 +96,26 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
 
         present(loadingViewController, animated: false) {
             do {
-                guard let cardCommands = self.model.cardCommands else {
-                    throw MoppLibError.Code.cardNotFound
-                }
+                let cardCommands = self.model.cardCommands
                 var statusText = String()
                 switch self.model.actionType {
                 case .changePin1:
                     try cardCommands.changeCode(.pin1, to: newCode, verifyCode: oldCode)
-                    self.infoManager.retryCounts.pin1 = IdCardCodeLengthLimits.maxRetryCount.rawValue
                     statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PIN1.rawValue])
                 case .changePin2:
                     try cardCommands.changeCode(.pin2, to: newCode, verifyCode: oldCode)
-                    self.infoManager.retryCounts.pin2 = IdCardCodeLengthLimits.maxRetryCount.rawValue
                     statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PIN2.rawValue])
                 case .changePuk:
                     try cardCommands.changeCode(.puk, to: newCode, verifyCode: oldCode)
-                    self.infoManager.retryCounts.puk = IdCardCodeLengthLimits.maxRetryCount.rawValue
                     statusText = L(.myEidCodeChangedSuccessMessage, [IdCardCodeName.PUK.rawValue])
                 case .unblockPin1:
                     try cardCommands.unblockCode(.pin1, puk: oldCode, newCode: newCode)
-                    self.infoManager.retryCounts.pin1 = IdCardCodeLengthLimits.maxRetryCount.rawValue
-                    self.infoManager.retryCounts.puk = IdCardCodeLengthLimits.maxRetryCount.rawValue
                     statusText = L(.myEidCodeUnblockedSuccessMessage, [IdCardCodeName.PIN1.rawValue])
                 case .unblockPin2:
                     try cardCommands.unblockCode(.pin2, puk: oldCode, newCode: newCode)
-                    self.infoManager.retryCounts.pin2 = IdCardCodeLengthLimits.maxRetryCount.rawValue
-                    self.infoManager.retryCounts.puk = IdCardCodeLengthLimits.maxRetryCount.rawValue
                     statusText = L(.myEidCodeUnblockedSuccessMessage, [IdCardCodeName.PIN2.rawValue])
                 }
+                self.infoManager.retryCounts.resetRetryCount(for: self.model.actionType)
                 self.loadingViewController.dismiss(animated: false) {
                     ui.clearCodeTextFields()
                     UIAccessibility.post(notification: .layoutChanged, argument: statusText)
@@ -132,12 +124,14 @@ extension MyeIDChangeCodesViewController: MyeIDChangeCodesViewControllerUIDelega
             } catch let error as NSError where error == .wrongPin {
                 let retryCount = (error.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as? NSNumber)?.intValue ?? 0
                 self.infoManager.retryCounts.setRetryCount(for: self.model.actionType, with: retryCount)
-                ui.setViewBorder(view: ui.firstCodeTextField)
-                self.ui.firstInlineErrorLabel.text =
-                    L(retryCount == 1 ? .myEidWrongCodeMessageSingular : .myEidWrongCodeMessage, [self.model.actionType.codeDisplayNameForWrongOrBlocked])
-                self.ui.firstInlineErrorLabel.isHidden = false
-                UIAccessibility.post(notification: .layoutChanged, argument: self.ui.firstInlineErrorLabel)
-            } catch let error as NSError where error == .pinBlocked {
+                self.loadingViewController.dismiss(animated: false) {
+                    ui.setViewBorder(view: ui.firstCodeTextField)
+                    self.ui.firstInlineErrorLabel.text =
+                        L(retryCount == 1 ? .myEidWrongCodeMessageSingular : .myEidWrongCodeMessage, [self.model.actionType.codeDisplayNameForWrongOrBlocked])
+                    self.ui.firstInlineErrorLabel.isHidden = false
+                    UIAccessibility.post(notification: .layoutChanged, argument: self.ui.firstInlineErrorLabel)
+                }
+            } catch MoppLibError.Code.pinBlocked {
                 self.infoManager.retryCounts.setRetryCount(for: self.model.actionType, with: 0)
                 let codeDisplayName = self.model.actionType.codeDisplayNameForWrongOrBlocked
                 self.loadingViewController.dismiss(animated: false) {

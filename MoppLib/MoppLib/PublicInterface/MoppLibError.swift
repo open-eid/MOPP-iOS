@@ -69,7 +69,7 @@ public class MoppLibError: NSObject {
             }
         }
 
-        public static var errorDomain: String { "MoppLibError" }
+        public static var errorDomain: String { "MoppLib.MoppLibError.Code" }
         public var errorCode: Int { self.rawValue }
         public var errorUserInfo: [String : Any] {
             [NSLocalizedDescriptionKey: self.localizedDescription]
@@ -78,11 +78,21 @@ public class MoppLibError: NSObject {
         public static func == (lhs: NSError, rhs: MoppLibError.Code) -> Bool {
             lhs.code == rhs.rawValue && lhs.domain == Code.errorDomain
         }
+
+        public static func ~= (lhs: MoppLibError.Code, rhs: NSError) -> Bool {
+            lhs.rawValue == rhs.code && Code.errorDomain == rhs.domain
+        }
     }
 
     static public let kMoppLibUserInfoRetryCount: String = "kMoppLibUserInfoRetryCount"
+    static public let kMoppLibUserInfoSWError: String = "kMoppLibUserInfoSWError"
 
     private override init() {}
+
+    static func swError(_ sw: UInt16) -> NSError {
+        error(.readerProcessFailed, userInfo: [NSLocalizedDescriptionKey: Code.wrongPin.localizedDescription,
+                                                 kMoppLibUserInfoSWError: NSNumber(value: sw)])
+    }
 
     static func wrongPinError(withRetryCount count: Int) -> NSError {
         error(.wrongPin, userInfo: [NSLocalizedDescriptionKey: Code.wrongPin.localizedDescription,
