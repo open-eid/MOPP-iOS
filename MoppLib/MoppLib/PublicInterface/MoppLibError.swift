@@ -69,7 +69,7 @@ public class MoppLibError: NSObject {
             }
         }
 
-        public static var errorDomain: String { "MoppLibError" }
+        public static var errorDomain: String { "MoppLib.MoppLibError.Code" }
         public var errorCode: Int { self.rawValue }
         public var errorUserInfo: [String : Any] {
             [NSLocalizedDescriptionKey: self.localizedDescription]
@@ -77,6 +77,10 @@ public class MoppLibError: NSObject {
 
         public static func == (lhs: NSError, rhs: MoppLibError.Code) -> Bool {
             lhs.code == rhs.rawValue && lhs.domain == Code.errorDomain
+        }
+
+        public static func ~= (lhs: MoppLibError.Code, rhs: NSError) -> Bool {
+            lhs.rawValue == rhs.code && Code.errorDomain == rhs.domain
         }
     }
 
