@@ -58,7 +58,7 @@ public class MoppLibManager: NSObject {
     @objc static public func userAgent(shouldIncludeDevices: Bool, isNFCSignature: Bool) -> String {
         var appInfo = "riadigidoc/\(moppAppVersion()) (iOS \(UIDevice.current.systemVersion)) Lang: \(appLanguage())"
 
-        if shouldIncludeDevices {
+        if shouldIncludeDevices && !isNFCSignature {
             let connectedDevices = EAAccessoryManager.shared().connectedAccessories.map { device in
                 "\(device.manufacturer) \(device.name) (\(device.modelNumber))"
             }
