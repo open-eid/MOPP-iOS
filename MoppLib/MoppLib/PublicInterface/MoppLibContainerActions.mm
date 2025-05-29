@@ -303,8 +303,8 @@ struct DigiDocConf final: public digidoc::ConfCurrent {
   });
 }
 
-+ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData isNFCSignature:(BOOL)isNFCSignature error:(NSError **)error {
-    return [MoppLibDigidocManager prepareSignature:cert containerPath:containerPath roleData:roleData isNFCSignature:isNFCSignature error:error];
++ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData isIDCardReaderSignature:(BOOL) isIDCardReaderSignature isNFCSignature:(BOOL)isNFCSignature error:(NSError **)error {
+    return [MoppLibDigidocManager prepareSignature:cert containerPath:containerPath roleData:roleData isIDCardReaderSignature:isIDCardReaderSignature isNFCSignature:isNFCSignature error:error];
 }
 
 + (BOOL)isSignatureValid:(NSData *)signatureValue error:(NSError**)error {

@@ -396,6 +396,7 @@ class IdCardViewController : MoppViewController {
                     cert,
                     containerPath: containerPath,
                     roleData: DefaultsHelper.isRoleAndAddressEnabled ? RoleAndAddressUtil.getSavedRoleInfo() : nil,
+                    isIDCardReaderSignature: true,
                     isNFCSignature: false
                 )
                 let signature = try cardCommands.calculateSignature(for: dataToSign, withPin2: pin)
