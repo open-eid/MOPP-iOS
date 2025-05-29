@@ -25,6 +25,12 @@ import ExternalAccessory
 import Network
 import UIKit
 
+@objc public enum SendDiagnostics: Int {
+    case Devices
+    case NFC
+    case None
+}
+
 public class MoppLibManager: NSObject {
     @objc static public let shared = MoppLibManager()
     public var isConnected: Bool = false
@@ -52,13 +58,13 @@ public class MoppLibManager: NSObject {
     }
 
     @objc static public func userAgent() -> String {
-        return userAgent(shouldIncludeDevices: false, isNFCSignature: false)
+        return userAgent(sendDiagnostics: .None)
     }
 
-    @objc static public func userAgent(shouldIncludeDevices: Bool, isNFCSignature: Bool) -> String {
+    @objc static public func userAgent(sendDiagnostics: SendDiagnostics) -> String {
         var appInfo = "riadigidoc/\(moppAppVersion()) (iOS \(UIDevice.current.systemVersion)) Lang: \(appLanguage())"
 
-        if shouldIncludeDevices {
+        if sendDiagnostics == .Devices {
             let connectedDevices = EAAccessoryManager.shared().connectedAccessories.map { device in
                 "\(device.manufacturer) \(device.name) (\(device.modelNumber))"
             }
@@ -67,7 +73,7 @@ public class MoppLibManager: NSObject {
             }
         }
         
-        if isNFCSignature {
+        if sendDiagnostics == .NFC {
             appInfo += " NFC: true"
         }
 

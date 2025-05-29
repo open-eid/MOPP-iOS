@@ -169,7 +169,12 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 }
 
                 printLog("Cert reading done")
-                let hash = try MoppLibContainerActions.prepareSignature(cert, containerPath: containerPath, roleData: roleInfo, isNFCSignature: true)
+                let hash = try MoppLibContainerActions.prepareSignature(
+                    cert,
+                    containerPath: containerPath,
+                    roleData: roleInfo,
+                    sendDiagnostics: .NFC
+                )
                 roleInfo = nil
                 setSessionMessage(L(.nfcSignDoc))
                 var pin = Bytes(repeating: 0xFF, count: 12)
