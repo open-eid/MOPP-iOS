@@ -13,19 +13,16 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix:
-        xcode:
-          - 16.2
-        platform:
-          - iOS
-        language: [ 'swift' ]
 
     steps:
     - name: Checkout
       uses: actions/checkout@v4
       with:
         submodules: recursive
-        
+
+    - name: Change default Xcode
+      run: sudo xcode-select -s /Applications/Xcode_16.2.app
+
     # Creating sample files needed to build, but not needed for CodeQL.
     # .plist files need a sample structure to avoid error: "unable to read input file as a property list"
     - name: Create sample files
@@ -42,24 +39,18 @@ jobs:
         </dict>
         </plist>
         EOF
-        cd ${{ github.workspace }}/MoppApp/MoppApp
-        touch config.json
-        touch publicKey.pub
-        touch signature.rsa
-        touch defaultConfiguration.json
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
-        languages: ${{ matrix.language }}
+        languages: swift
         queries: +security-and-quality
 
     - name: Build
-      run: |
-        cd ${{ github.workspace }}/MoppApp
-        xcodebuild -scheme MoppApp -configuration Release GOOGLE_CONF_REQUIRED=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CURRENT_PROJECT_VERSION=${{ github.run_number }}
+      working-directory: ${{ github.workspace }}/MoppApp
+      run: xcodebuild -scheme MoppApp -configuration Release GOOGLE_CONF_REQUIRED=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CURRENT_PROJECT_VERSION=${{ github.run_number }}
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
       with:
-        category: "/language:${{ matrix.language }}"
+        category: "/language:swift"
