@@ -258,19 +258,12 @@
 		DFF3C3BD2332355D0079458A /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = DFF3C3B92332355C0079458A /* config.json */; };
 		DFF3C3BE2332355D0079458A /* signature.rsa in Resources */ = {isa = PBXBuildFile; fileRef = DFF3C3BA2332355C0079458A /* signature.rsa */; };
 		DFF3C3BF2332355D0079458A /* defaultConfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = DFF3C3BB2332355D0079458A /* defaultConfiguration.json */; };
-		E4180C371E26822000FD7B8C /* datafile.txt in Resources */ = {isa = PBXBuildFile; fileRef = E4180C361E26822000FD7B8C /* datafile.txt */; };
 		E4250CCB1E0968D200530370 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCA1E0968D200530370 /* AppDelegate.swift */; };
 		E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4250D091E0AA7AF00530370 /* LaunchScreen.xib */; };
 		E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
 		E42B08951E15617200EA24A3 /* LandingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B08941E15617200EA24A3 /* LandingViewController.swift */; };
-		E42B08A61E1D4EE900EA24A3 /* test1.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E42B08A41E1D4EE900EA24A3 /* test1.bdoc */; };
-		E42B08A71E1D4EE900EA24A3 /* test2.bdoc in Resources */ = {isa = PBXBuildFile; fileRef = E42B08A51E1D4EE900EA24A3 /* test2.bdoc */; };
 		E42B08AE1E1EFC1800EA24A3 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B08AD1E1EFC1800EA24A3 /* DateFormatter.swift */; };
 		E42B08B11E1F049B00EA24A3 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B08B01E1F049B00EA24A3 /* FileManager.swift */; };
-		E43BD80F1E3A121100F6C39D /* asiceTest.asice in Resources */ = {isa = PBXBuildFile; fileRef = E43BD80E1E3A121100F6C39D /* asiceTest.asice */; };
-		E43BD8111E3A121A00F6C39D /* ddocTest.ddoc in Resources */ = {isa = PBXBuildFile; fileRef = E43BD8101E3A121A00F6C39D /* ddocTest.ddoc */; };
-		E4C53F371E2FAE6C00F209BE /* image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E4C53F351E2FAE6C00F209BE /* image.jpg */; };
-		E4C53F381E2FAE6C00F209BE /* presentation.pdf in Resources */ = {isa = PBXBuildFile; fileRef = E4C53F361E2FAE6C00F209BE /* presentation.pdf */; };
 		E4C53F4B1E30D03500F209BE /* DefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C53F4A1E30D03500F209BE /* DefaultsHelper.swift */; };
 		E4C53F4E1E30D13100F209BE /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C53F4D1E30D13100F209BE /* Session.swift */; };
 /* End PBXBuildFile section */
@@ -590,7 +583,6 @@
 		DFF3C3BA2332355C0079458A /* signature.rsa */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = signature.rsa; path = MoppApp/signature.rsa; sourceTree = "<group>"; };
 		DFF3C3BB2332355D0079458A /* defaultConfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = defaultConfiguration.json; path = MoppApp/defaultConfiguration.json; sourceTree = "<group>"; };
 		DFF6A55627E14D3B0055F8D5 /* RoleDetailsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleDetailsViewControllerTests.swift; sourceTree = "<group>"; };
-		E4180C361E26822000FD7B8C /* datafile.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = datafile.txt; sourceTree = "<group>"; };
 		E4250CC31E0968D200530370 /* MoppApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CCA1E0968D200530370 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4250CD71E0968D200530370 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -599,14 +591,8 @@
 		E4250D101E0AA8E900530370 /* et */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = et; path = et.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E4250D111E0AA8EE00530370 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E42B08941E15617200EA24A3 /* LandingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingViewController.swift; sourceTree = "<group>"; };
-		E42B08A41E1D4EE900EA24A3 /* test1.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test1.bdoc; sourceTree = "<group>"; };
-		E42B08A51E1D4EE900EA24A3 /* test2.bdoc */ = {isa = PBXFileReference; lastKnownFileType = file; path = test2.bdoc; sourceTree = "<group>"; };
 		E42B08AD1E1EFC1800EA24A3 /* DateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		E42B08B01E1F049B00EA24A3 /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
-		E43BD80E1E3A121100F6C39D /* asiceTest.asice */ = {isa = PBXFileReference; lastKnownFileType = file; path = asiceTest.asice; sourceTree = "<group>"; };
-		E43BD8101E3A121A00F6C39D /* ddocTest.ddoc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ddocTest.ddoc; sourceTree = "<group>"; };
-		E4C53F351E2FAE6C00F209BE /* image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image.jpg; sourceTree = "<group>"; };
-		E4C53F361E2FAE6C00F209BE /* presentation.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = presentation.pdf; sourceTree = "<group>"; };
 		E4C53F4A1E30D03500F209BE /* DefaultsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultsHelper.swift; sourceTree = "<group>"; };
 		E4C53F4D1E30D13100F209BE /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1131,13 +1117,6 @@
 				E4250D0D1E0AA8E500530370 /* Localizable.strings */,
 				E4250D091E0AA7AF00530370 /* LaunchScreen.xib */,
 				DF900C94238567CA00887385 /* tslFiles.bundle */,
-				E42B08A41E1D4EE900EA24A3 /* test1.bdoc */,
-				E42B08A51E1D4EE900EA24A3 /* test2.bdoc */,
-				E43BD80E1E3A121100F6C39D /* asiceTest.asice */,
-				E43BD8101E3A121A00F6C39D /* ddocTest.ddoc */,
-				E4C53F351E2FAE6C00F209BE /* image.jpg */,
-				E4C53F361E2FAE6C00F209BE /* presentation.pdf */,
-				E4180C361E26822000FD7B8C /* datafile.txt */,
 				DFA58218264AAB6500564971 /* digidoc_76.png */,
 				DFA58219264AAB6600564971 /* digidoc_1024.png */,
 			);
@@ -1264,7 +1243,6 @@
 			buildConfigurationList = E4250CDA1E0968D200530370 /* Build configuration list for PBXNativeTarget "MoppApp" */;
 			buildPhases = (
 				DFB1D5EC2ACAFE3700FDC7B8 /* Check GoogleService-Info.plist file existence */,
-				DFA4AF5C23C33DFC00E467F0 /* Create TSL Files bundle */,
 				DFF3C3AB233230490079458A /* Initialize default MOPP configuration setup */,
 				E4250CBF1E0968D200530370 /* Sources */,
 				E4250CC01E0968D200530370 /* Frameworks */,
@@ -1409,7 +1387,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				39CDA7EA20ADBCEC006E2E9F /* Crypto.storyboard in Resources */,
-				E4C53F381E2FAE6C00F209BE /* presentation.pdf in Resources */,
 				C50DCCED1FC5741900D48E16 /* RobotoCondensed-Bold.ttf in Resources */,
 				C50DCCF71FC5741900D48E16 /* Roboto-LightItalic.ttf in Resources */,
 				C5FA0BEC20A19AE100A208E5 /* Jailbreak.storyboard in Resources */,
@@ -1417,7 +1394,6 @@
 				C50DCCEC1FC5741900D48E16 /* Roboto-CondensedItalic.ttf in Resources */,
 				C54EA6E320372F490039AC78 /* SigningElements.xib in Resources */,
 				C50DCCF31FC5741900D48E16 /* Roboto-BoldItalic.ttf in Resources */,
-				E4180C371E26822000FD7B8C /* datafile.txt in Resources */,
 				C50DCCF81FC5741900D48E16 /* Roboto-Regular.ttf in Resources */,
 				C50DCCF41FC5741900D48E16 /* Roboto-Condensed.ttf in Resources */,
 				C50DCCEB1FC5741900D48E16 /* Roboto-Light.ttf in Resources */,
@@ -1426,14 +1402,11 @@
 				DFB1D5EB2ACAFE1B00FDC7B8 /* GoogleService-Info.plist in Resources */,
 				C50DCCF11FC5741900D48E16 /* RobotoCondensed-LightItalic.ttf in Resources */,
 				C50DCCEA1FC5741900D48E16 /* Roboto-Thin.ttf in Resources */,
-				E4C53F371E2FAE6C00F209BE /* image.jpg in Resources */,
-				E43BD8111E3A121A00F6C39D /* ddocTest.ddoc in Resources */,
 				DFF3C3BE2332355D0079458A /* signature.rsa in Resources */,
 				C54BB10D1FBD8CE900A274F6 /* Signing.storyboard in Resources */,
 				C50DCCF51FC5741900D48E16 /* Roboto-BoldCondensed.ttf in Resources */,
 				C50DCCFB1FC5741900D48E16 /* Roboto-BlackItalic.ttf in Resources */,
 				DFF3C3BD2332355D0079458A /* config.json in Resources */,
-				E42B08A61E1D4EE900EA24A3 /* test1.bdoc in Resources */,
 				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
 				54A5729F1E82AC760099BFAF /* AppStore.plist in Resources */,
 				C50DCCF61FC5741900D48E16 /* Roboto-BoldCondensedItalic.ttf in Resources */,
@@ -1446,7 +1419,6 @@
 				C54BB1091FBD8CC600A274F6 /* MyeID.storyboard in Resources */,
 				39F8EFE720D263B5001BCF73 /* TokenFlow.storyboard in Resources */,
 				C50DCD1D1FD1579700D48E16 /* RecentContainersElements.xib in Resources */,
-				E43BD80F1E3A121100F6C39D /* asiceTest.asice in Resources */,
 				C50DCD011FC6E97400D48E16 /* Container.storyboard in Resources */,
 				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
 				54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */,
@@ -1462,7 +1434,6 @@
 				C50DCCFA1FC5741900D48E16 /* Roboto-Black.ttf in Resources */,
 				C50DCCF01FC5741900D48E16 /* Roboto-Medium.ttf in Resources */,
 				C50DCCE81FC5741900D48E16 /* Roboto-Italic.ttf in Resources */,
-				E42B08A71E1D4EE900EA24A3 /* test2.bdoc in Resources */,
 				C506EC7E1FB9D5A000E07226 /* Assets.xcassets in Resources */,
 				C50DCD221FD69A8500D48E16 /* CustomElements.xib in Resources */,
 				DF900C972386768F00887385 /* tslFiles.bundle in Resources */,
@@ -1496,24 +1467,6 @@
 			shellScript = "if [ \"$GOOGLE_CONF_REQUIRED\" == \"YES\" ] && [ ! -f \"$GOOGLE_CONF_PATH\" ]; then\n    \"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		DFA4AF5C23C33DFC00E467F0 /* Create TSL Files bundle */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Create TSL Files bundle";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ ! -d \"MoppApp/tslFiles.bundle\" ] \nthen\n    echo \"Creating TSL Files bundle...\"\n    mkdir MoppApp/tslFiles.bundle \nfi\n";
-		};
 		DFB1D5EC2ACAFE3700FDC7B8 /* Check GoogleService-Info.plist file existence */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1545,10 +1498,14 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(SRCROOT)/MoppApp/defaultConfiguration.json",
+				"$(SRCROOT)/MoppApp/signature.rsa",
+				"$(SRCROOT)/MoppApp/config.json",
+				"$(SRCROOT)/MoppApp/publicKey.pub",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"Initializing default MOPP configuration setup script: \"\n\nconfigUrl=${DEFAULT_CENTRAL_CONFIGURATION_URL}\nupdateInterval=${DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL}\ntslUrl=${DEFAULT_CENTRAL_CONFIGURATION_TSL_URL}\n\n\nif [ -z \"$configUrl\" ] || [ -z \"$updateInterval\" ] || [ -z \"$tslUrl\" ]; then\n    echo \"No user-defined variables, continuing...\";\nelse\n    # Detect if Homebrew is installed\n    which -s /usr/local/bin/brew\n    if [[ $? != 0 ]] ; then\n        # Install Homebrew\n        ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\"\n    else\n        echo \"Brew is already installed\"\n    fi\n\n    # Detect if Swift-sh is installed\n    if /usr/local/bin/brew ls --versions swift-sh > /dev/null; then\n        echo \"Swift-sh is already installed\"\n    else\n        # Install Swift-sh\n        /usr/local/bin/brew install mxcl/made/swift-sh\n    fi\n\n    # Run script with Swift-sh\n    if ERROR=$( { /usr/local/Cellar/swift-sh/*/bin/swift-sh SetupConfiguration/Sources/main.swift ${DEFAULT_CENTRAL_CONFIGURATION_URL} ${DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL} ${DEFAULT_CENTRAL_CONFIGURATION_TSL_URL}; } 2>&1 ) ; then\n        echo \"Build succeeded\"\n    elif ERROR2=$( { /usr/bin/xcrun --sdk macosx swift-sh SetupConfiguration/Sources/main.swift ${DEFAULT_CENTRAL_CONFIGURATION_URL} ${DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL} ${DEFAULT_CENTRAL_CONFIGURATION_TSL_URL}; } 2>&1 ) ; then\n        echo \"Xcrun build succeeded\"\n    else\n        echo ${ERROR} 1>&2\n        echo ${ERROR2} 1>&2\n        exit 64\n    fi\n    \nfi\n";
+			shellScript = "echo \"Initializing default MOPP configuration setup script: \"\n\nconfigUrl=${DEFAULT_CENTRAL_CONFIGURATION_URL}\nupdateInterval=${DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL}\ntslUrl=${DEFAULT_CENTRAL_CONFIGURATION_TSL_URL}\nexport PATH=$PATH:/opt/homebrew/bin:/usr/local/bin\n\n\nif [ -z \"$configUrl\" ] || [ -z \"$updateInterval\" ] || [ -z \"$tslUrl\" ]; then\n    echo \"No user-defined variables, continuing...\";\nelse\n    # Detect if Homebrew is installed\n    which -s brew\n    if [[ $? != 0 ]] ; then\n        # Install Homebrew\n        ruby -e \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)\"\n    else\n        echo \"Brew is already installed\"\n    fi\n\n    # Detect if Swift-sh is installed\n    if brew ls --versions swift-sh > /dev/null; then\n        echo \"Swift-sh is already installed\"\n    else\n        # Install Swift-sh\n        if [[ -x \"/opt/homebrew/bin/brew\" ]]; then\n            arch -arm64 /opt/homebrew/bin/brew install mxcl/made/swift-sh\n        else\n            /usr/local/bin/brew install mxcl/made/swift-sh\n        fi\n    fi\n\n    cd ${SRCROOT}/MoppApp\n    # Run script with Swift-sh\n    if ERROR=$( { swift-sh ${SRCROOT}/SetupConfiguration/Sources/main.swift ${configUrl} ${updateInterval} ${tslUrl}; } 2>&1 ) ; then\n        echo \"Build succeeded\"\n    elif ERROR2=$( { /usr/bin/xcrun --sdk macosx swift-sh ${SRCROOT}/SetupConfiguration/Sources/main.swift ${configUrl} ${updateInterval} ${tslUrl}; } 2>&1 ) ; then\n        echo \"Xcrun build succeeded\"\n    else\n        echo ${ERROR} 1>&2\n        echo ${ERROR2} 1>&2\n        exit 64\n    fi\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1894,6 +1851,7 @@
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1961,9 +1919,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MoppApp/MoppApp.entitlements;
 				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
-				DEFAULT_CENTRAL_CONFIGURATION_TSL_URL = "";
-				DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL = "";
-				DEFAULT_CENTRAL_CONFIGURATION_URL = "";
+				DEFAULT_CENTRAL_CONFIGURATION_TSL_URL = "https://ec.europa.eu/tools/lotl/eu-lotl.xml";
+				DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL = 4;
+				DEFAULT_CENTRAL_CONFIGURATION_URL = "https://id.eesti.ee";
 				DIGIDOCPP_PATH = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
 				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1971,12 +1929,7 @@
 					"$(DIGIDOCPP_PATH)/lib",
 				);
 				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"DEFAULT_CENTRAL_CONFIGURATION_URL=$(DEFAULT_CENTRAL_CONFIGURATION_URL)",
-					"DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL=$(DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL)",
-				);
-				GOOGLE_CONF_REQUIRED = YES;
+				GOOGLE_CONF_REQUIRED = NO;
 				INFOPLIST_FILE = MoppApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2001,9 +1954,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MoppApp/MoppApp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEFAULT_CENTRAL_CONFIGURATION_TSL_URL = "";
-				DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL = "";
-				DEFAULT_CENTRAL_CONFIGURATION_URL = "";
+				DEFAULT_CENTRAL_CONFIGURATION_TSL_URL = "https://ec.europa.eu/tools/lotl/eu-lotl.xml";
+				DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL = 4;
+				DEFAULT_CENTRAL_CONFIGURATION_URL = "https://id.eesti.ee";
 				DIGIDOCPP_PATH = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
 				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2011,11 +1964,6 @@
 					"$(DIGIDOCPP_PATH)/lib",
 				);
 				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"DEFAULT_CENTRAL_CONFIGURATION_URL=$(DEFAULT_CENTRAL_CONFIGURATION_URL)",
-					"DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL=$(DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL)",
-				);
 				GOOGLE_CONF_REQUIRED = YES;
 				INFOPLIST_FILE = MoppApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
