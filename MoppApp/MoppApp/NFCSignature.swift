@@ -25,9 +25,11 @@ import CryptoTokenKit
 import SwiftECC
 import BigInt
 import SkSigningLib
+import ASN1Decoder
 
 enum NFCError: Error {
     case error(msg: String)
+    case canError
     case pinError(attemptsLeft: UInt8)
 }
 
@@ -153,12 +155,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 try await selectDF(tag: tag, file: [0xAD, 0xF2])
                 let cert = try await readEF(tag: tag, file: [0x34, 0x1F])
 
-                guard let certData = TLV(from: cert), certData.tag == 0x30,
-                      let certContent = TLV.sequenceOfRecords(from: certData.value), certContent.count == 3,
-                      let certInfo = TLV.sequenceOfRecords(from: certContent[0].value), certInfo.count > 7,
-                      let certValidity = TLV.sequenceOfRecords(from: certInfo[4].value), certValidity.count == 2,
-                      let certExpire = String(data: certValidity[1].value, encoding: .ascii),
-                      let expireDate = NFCSignature.dateFormatter.date(from: certExpire) else {
+                guard let expireDate = try? X509Certificate(der: cert).notAfter else {
                     setSessionMessage(L(.nfcSignFailed), invalidate: true)
                     return ErrorUtil.generateError(signingError: L(.nfcCertParseFailed))
                 }
@@ -200,13 +197,9 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 case 1: setSessionMessage(L(.wrongPin2Single), invalidate: true)
                 default: setSessionMessage(L(.nfcWrongPin2, [attemptsLeft]), invalidate: true)
                 }
-            } catch NFCError.error(let msg) {
-                printLog("\nRIA.NFC - error \(msg)")
-                if msg == "6300" {
-                    setSessionMessage(L(.nfcSignFailedWrongCan), invalidate: true)
-                    return
-                }
-                setSessionMessage(L(.nfcSignFailed), invalidate: true)
+            } catch NFCError.canError {
+                printLog("\nRIA.NFC - CAN error")
+                setSessionMessage(L(.nfcSignFailedWrongCan), invalidate: true)
             } catch {
                 printLog("\nRIA.NFC - Error \(error.localizedDescription)")
                 ErrorUtil.generateError(signingError: error, signingType: SigningType.nfc)
@@ -237,14 +230,14 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
         printLog("Read CardAccess")
         let data = try await tag.sendCommand(cls: 0x00, ins: 0xB0, p1: 0x00, p2: 0x00, le: 256)
 
-        guard let (mappingType, domain) = TLV.sequenceOfRecords(from: data)?
+        guard let (mappingType, parameterId) = TLV.sequenceOfRecords(from: data)?
             .flatMap({ cardAccess in TLV.sequenceOfRecords(from: cardAccess.value) ?? [] })
             .compactMap({ tlv in
                 if let records = TLV.sequenceOfRecords(from: tlv.value),
                    records.count == 3,
                    let mapping = MappingType(rawValue: records[0].value.toHex),
                    let parameterId = ParameterId(rawValue: records[2].value[0]) {
-                    return (mapping, parameterId.domain)
+                    return (mapping, parameterId)
                 }
                 return nil
             })
@@ -252,10 +245,12 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
             printLog("Unsupported mapping")
             return nil
         }
+        let domain = parameterId.domain
 
         _ = try await tag.sendCommand(cls: 0x00, ins: 0x22, p1: 0xc1, p2: 0xa4, records: [
             TLV(tag: 0x80, value: mappingType.data),
-            TLV(tag: 0x83, value: Data([PasswordType.id_PasswordType_CAN.rawValue]))
+            TLV(tag: 0x83, bytes: [PasswordType.id_PasswordType_CAN.rawValue]),
+            TLV(tag: 0x84, bytes: [parameterId.rawValue]),
         ])
 
         // Step1 - General Authentication
@@ -266,7 +261,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
 
         // Step2
         let (terminalPubKey, terminalPrivKey) = domain.makeKeyPair()
-        let mappingKey = try await tag.sendPaceCommand(records: [try TKBERTLVRecord(tag: 0x81, publicKey: terminalPubKey)], tagExpected: 0x82)
+        let mappingKey = try await tag.sendPaceCommand(records: [try TLV(tag: 0x81, publicKey: terminalPubKey)], tagExpected: 0x82)
         printLog("Mapping key \(mappingKey.toHex)")
         let cardPubKey = try ECPublicKey(domain: domain, point: mappingKey)!
 
@@ -317,7 +312,7 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
 
     func sendWrapped(tag: NFCISO7816Tag, cls: UInt8, ins: UInt8, p1: UInt8, p2: UInt8, data: Bytes, le: Int = -1) async throws -> Data {
         guard SSC != nil else {
-            return try await tag.sendCommand(cls: cls, ins: ins, p1: p1, p2: p2, data: Data(), le: le)
+            return try await tag.sendCommand(cls: cls, ins: ins, p1: p1, p2: p2, le: le)
         }
         _ = SSC!.increment()
         let DO87: Data
@@ -422,32 +417,33 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
     }
 
     private func SHA256(data: Bytes) -> Bytes {
-        var hash = Bytes(repeating: 0x00, count: Int(CC_SHA256_DIGEST_LENGTH))
-        _ = data.withUnsafeBytes { bufferPointer in
-            CC_SHA256(bufferPointer.baseAddress, CC_LONG(data.count), &hash)
+        Bytes(unsafeUninitializedCapacity: Int(CC_SHA256_DIGEST_LENGTH)) { buffer, initializedCount in
+            CC_SHA256(data, CC_LONG(data.count), buffer.baseAddress)
+            initializedCount = Int(CC_SHA256_DIGEST_LENGTH)
         }
-        return hash
     }
 }
 
 
 // MARK: - Extensions
 
-extension DataProtocol where Self.Index == Int {
+extension DataProtocol {
     var toHex: String {
-        return map { String(format: "%02x", $0) }.joined()
+        map { String(format: "%02x", $0) }.joined()
     }
 
-    func chunked(into size: Int) -> [Bytes] {
-        return stride(from: 0, to: count, by: size).map {
-            Bytes(self[$0 ..< Swift.min($0 + size, count)])
+    func chunked(into size: Int) -> [SubSequence] {
+        stride(from: 0, to: count, by: size).map {
+            self[index(startIndex, offsetBy: $0) ..< index(startIndex, offsetBy: Swift.min($0 + size, count))]
         }
     }
 
     func removePadding() throws -> SubSequence {
-        for i in stride(from: count - 1, through: 0, by: -1) {
+        var i = endIndex
+        while i != startIndex {
+            formIndex(before: &i)
             if self[i] == 0x80 {
-                return self[0..<i]
+                return self[startIndex..<i]
             } else if self[i] != 0x00 {
                 throw NFCError.error(msg: "Failed to remove padding")
             }
@@ -456,17 +452,20 @@ extension DataProtocol where Self.Index == Int {
     }
 }
 
-extension MutableDataProtocol where Self.Index == Int {
-    public static func ^ (x: Self, y: Self) -> Self {
-        var result = x
+extension MutableDataProtocol {
+    static func ^ <D: Collection>(lhs: Self, rhs: D) -> Self where D.Element == Self.Element {
+        precondition(lhs.count == rhs.count, "XOR operands must have equal length")
+        var result = lhs
         for i in 0..<result.count {
-            result[i] ^= y[i]
+            result[result.index(result.startIndex, offsetBy: i)] ^= rhs[rhs.index(rhs.startIndex, offsetBy: i)]
         }
         return result
     }
 
     mutating func increment() -> Self {
-        for i in (0..<count).reversed() {
+        var i = endIndex
+        while i != startIndex {
+            formIndex(before: &i)
             self[i] += 1
             if self[i] != 0 {
                 break
@@ -477,19 +476,20 @@ extension MutableDataProtocol where Self.Index == Int {
 
     func leftShiftOneBit() -> Self {
         var shifted = Self(repeating: 0x00, count: count)
-        let last = count - 1
-        for index in 0..<last {
-            shifted[index] = self[index] << 1
-            if (self[index + 1] & 0x80) != 0 {
-                shifted[index] += 0x01
+        let last = index(before: endIndex)
+        var i = startIndex
+        while i < last {
+            shifted[i] = self[i] << 1
+            let next = index(after: i)
+            if (self[next] & 0x80) != 0 {
+                shifted[i] += 0x01
             }
+            i = next
         }
         shifted[last] = self[last] << 1
         return shifted
     }
-}
 
-extension MutableDataProtocol {
     init?(hex: String) {
         guard hex.count.isMultiple(of: 2) else { return nil }
         let chars = hex.map { $0 }
@@ -504,11 +504,6 @@ extension MutableDataProtocol {
         var padding = Self(repeating: 0x00, count: AES.BlockSize - count % AES.BlockSize)
         padding[padding.startIndex] = 0x80
         return self + padding
-    }
-
-    mutating func resize(to size: Index) -> Self {
-        self.removeSubrange(size..<endIndex)
-        return self
     }
 }
 
@@ -525,14 +520,19 @@ extension ECPublicKey {
 
 extension NFCISO7816Tag {
     func sendCommand(cls: UInt8, ins: UInt8, p1: UInt8, p2: UInt8, data: Data = Data(), le: Int = -1) async throws -> Data {
+        printLog(String(format: ">: %02X%02X%02X%02X \(data.toHex) %02X", cls, ins, p1, p2, le > 0 ? le : 0x00))
         let apdu = NFCISO7816APDU(instructionClass: cls, instructionCode: ins, p1Parameter: p1, p2Parameter: p2, data: data, expectedResponseLength: le)
-        switch try await sendCommand(apdu: apdu) {
+        let result = try await sendCommand(apdu: apdu)
+        printLog(String(format: "<: \(result.0.toHex) %02X%02X", result.1, result.2))
+        switch result {
         case (let data, 0x90, 0x00):
             return data
         case (let data, 0x61, let len):
             return data + (try await sendCommand(cls: 0x00, ins: 0xC0, p1: 0x00, p2: 0x00, le: Int(len)))
         case (_, 0x6C, let len):
             return try await sendCommand(cls: cls, ins: ins, p1: p1, p2: p2, data: data, le: Int(len))
+        case (_, 0x63, 0x00):
+            throw NFCError.canError
         case (_, 0x63, let count) where count & 0xC0 > 0:
             throw NFCError.pinError(attemptsLeft: count & 0x0F)
         case (_, 0x69, 0x83):
@@ -561,7 +561,7 @@ extension NFCISO7816Tag {
 }
 
 extension TKBERTLVRecord {
-    convenience init(tag: TKTLVTag, bytes: Bytes) {
+    convenience init(tag: TKTLVTag, bytes: any DataProtocol) {
         self.init(tag: tag, value: Data(bytes))
     }
 
@@ -572,11 +572,11 @@ extension TKBERTLVRecord {
 
 // MARK: - AES
 class AES {
-    public typealias DataType = DataProtocol & ContiguousBytes
+    typealias DataType = DataProtocol & ContiguousBytes
     static let BlockSize: Int = kCCBlockSizeAES128
     static let Zero = Bytes(repeating: 0x00, count: BlockSize)
 
-    public class CBC {
+    class CBC {
         private let key: any DataType
         private let iv: any DataType
 
@@ -594,73 +594,64 @@ class AES {
         }
 
         private func crypt(data: any DataType, operation: Int) throws -> Bytes {
-            var bytesWritten = 0
-            var outputBuffer = Bytes(repeating: 0x00, count: data.count + BlockSize)
-            let status = data.withUnsafeBytes { dataBytes in
-                iv.withUnsafeBytes { ivBytes in
-                    key.withUnsafeBytes { keyBytes in
-                        CCCrypt(
-                            CCOperation(operation),
-                            CCAlgorithm(kCCAlgorithmAES),
-                            CCOptions(0),
-                            keyBytes.baseAddress,
-                            key.count,
-                            ivBytes.baseAddress,
-                            dataBytes.baseAddress,
-                            data.count,
-                            &outputBuffer,
-                            outputBuffer.count,
-                            &bytesWritten
-                        )
+            try Bytes(unsafeUninitializedCapacity: data.count + BlockSize) { buffer, initializedCount in
+                let status = data.withUnsafeBytes { dataBytes in
+                    iv.withUnsafeBytes { ivBytes in
+                        key.withUnsafeBytes { keyBytes in
+                            CCCrypt(
+                                CCOperation(operation),
+                                CCAlgorithm(kCCAlgorithmAES),
+                                CCOptions(0),
+                                keyBytes.baseAddress, key.count,
+                                ivBytes.baseAddress,
+                                dataBytes.baseAddress, data.count,
+                                buffer.baseAddress, buffer.count,
+                                &initializedCount
+                            )
+                        }
                     }
                 }
+                guard status == kCCSuccess else {
+                    throw NFCError.error(msg: "AES.CBC.Error")
+                }
             }
-            if status != kCCSuccess {
-                throw NFCError.error(msg: "AES.CBC.Error")
-            }
-            return outputBuffer.resize(to: bytesWritten)
         }
     }
 
-    public class CMAC {
+    class CMAC {
         static let Rb: Bytes = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x87]
         let cipher: AES.CBC
         let K1: Bytes
         let K2: Bytes
 
-        public init(key: any DataType) throws {
+        init(key: any DataType) throws {
             cipher = AES.CBC(key: key)
             let L = try cipher.encrypt(Zero)
             K1 = (L[0] & 0x80) == 0 ? L.leftShiftOneBit() : L.leftShiftOneBit() ^ CMAC.Rb
             K2 = (K1[0] & 0x80) == 0 ? K1.leftShiftOneBit() : K1.leftShiftOneBit() ^ CMAC.Rb
         }
 
-        public func authenticate<T : DataType>(bytes: T, count: Int = 8) throws -> Bytes where T.Index == Int {
-            let n = ceil(Double(bytes.count) / Double(BlockSize))
-            let lastBlockComplete: Bool
-            if n == 0 {
-                lastBlockComplete = false
-            } else {
-                lastBlockComplete = bytes.count % BlockSize == 0
-            }
-
+        func authenticate<T: DataType>(bytes: T, count: Int = 8) throws -> Bytes.SubSequence where T.Index == Int {
             var blocks = bytes.chunked(into: BlockSize)
-            var M_last = blocks.popLast() ?? Bytes()
-            if lastBlockComplete {
-                M_last = M_last ^ K1
+            let M_last: Bytes
+            if let last = blocks.popLast() {
+                if bytes.count % BlockSize == 0 {
+                    M_last = Bytes(last) ^ K1
+                } else {
+                    M_last = Bytes(last).addPadding() ^ K2
+                }
             } else {
-                M_last = M_last.addPadding() ^ K2
+                M_last = Bytes().addPadding() ^ K1
             }
 
             var x = Bytes(repeating: 0x00, count: BlockSize)
-            var y: Bytes
             for M_i in blocks {
-                y = x ^ M_i
+                let y = x ^ M_i
                 x = try cipher.encrypt(y)
             }
-            y = M_last ^ x
-            var T = try cipher.encrypt(y)
-            return T.resize(to: count)
+            let y = x ^ M_last
+            let T = try cipher.encrypt(y)
+            return T[0..<count]
         }
     }
 }

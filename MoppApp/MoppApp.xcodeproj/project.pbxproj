@@ -598,13 +598,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		54A418211E83FAD200559E2B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E4250CC01E0968D200530370 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1226,7 +1219,6 @@
 			buildConfigurationList = 54A418321E83FAD200559E2B /* Build configuration list for PBXNativeTarget "shareExtension" */;
 			buildPhases = (
 				54A418201E83FAD200559E2B /* Sources */,
-				54A418211E83FAD200559E2B /* Frameworks */,
 				54A418221E83FAD200559E2B /* Resources */,
 			);
 			buildRules = (
@@ -1931,6 +1923,7 @@
 				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
 				GOOGLE_CONF_REQUIRED = NO;
 				INFOPLIST_FILE = MoppApp/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1966,6 +1959,7 @@
 				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
 				GOOGLE_CONF_REQUIRED = YES;
 				INFOPLIST_FILE = MoppApp/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

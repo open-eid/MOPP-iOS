@@ -219,8 +219,6 @@
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
-	<key>NFCReaderUsageDescription</key>
-	<string>This app uses NFC to scan ID-cards</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -237,6 +235,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NFCReaderUsageDescription</key>
+	<string>This app uses NFC to scan ID-cards</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Bluetooth card reader is used to read data from ID card</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>

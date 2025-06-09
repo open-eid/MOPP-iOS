@@ -156,7 +156,7 @@ static std::unique_ptr<digidoc::Signer> signer{};
     }
 }
 
-+ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData sendDiagnotics:(SendDiagnostics)sendDiagnostics error:(NSError **)error {
++ (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData sendDiagnostics:(SendDiagnostics)sendDiagnostics error:(NSError **)error {
     try {
         signer = std::make_unique<WebSigner>(digidoc::X509Cert(reinterpret_cast<const unsigned char *>(cert.bytes), cert.length));
         signature = NULL;
