@@ -157,6 +157,17 @@ class MyeIDInfoManager {
                 puk = value
             }
         }
+
+        mutating func resetRetryCount(for actionType: MyeIDChangeCodesModel.ActionType) {
+            setRetryCount(for: actionType, with: IdCardCodeLengthLimits.maxRetryCount.rawValue)
+            switch actionType {
+            case .unblockPin1:
+                pin1 = IdCardCodeLengthLimits.maxRetryCount.rawValue
+            case .unblockPin2:
+                pin2 = IdCardCodeLengthLimits.maxRetryCount.rawValue
+            default: break
+            }
+        }
     }
 
     var retryCounts = RetryCounts()
