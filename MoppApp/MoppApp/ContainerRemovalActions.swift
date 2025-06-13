@@ -46,7 +46,7 @@ class ContainerRemovalActions {
             return false
         }
         
-        cryptoContainer.dataFiles.removeObject(at: 0)
+        cryptoContainer.dataFiles.remove(at: 0)
         
         return cryptoContainer.dataFiles.count == 0
     }
