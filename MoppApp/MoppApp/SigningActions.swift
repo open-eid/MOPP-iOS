@@ -21,8 +21,6 @@
  *
  */
 
-import Foundation
-import CommonCrypto
 import SkSigningLib
 
 protocol SigningActions {
@@ -35,33 +33,26 @@ protocol SigningActions {
 extension SigningActions where Self: SigningContainerViewController {
     
     func removeContainerSignature(signatureIndex: Int) {
-        guard let signature = container.signatures[signatureIndex] as? MoppLibSignature else {
-            return
-        }
-        confirmDeleteAlert(
-            message: L(.signatureRemoveConfirmMessage),
-            confirmCallback: { [weak self] (alertAction) in
-                if alertAction == .cancel {
-                    UIAccessibility.post(notification: .layoutChanged, argument: L(.signatureRemovalCancelled))
-                } else if alertAction == .confirm {
-                    self?.notificationMessages = []
-                    self?.updateState(.loading)
-                    MoppLibContainerActions.sharedInstance().remove(
-                        signature,
-                        fromContainerWithPath: self?.container.filePath,
-                        success: { [weak self] container in
-                            self?.updateState((self?.isCreated ?? false) ? .created : .opened)
-                            self?.container.signatures.remove(at: signatureIndex)
-                            UIAccessibility.post(notification: .announcement, argument: L(.signatureRemoved))
-                            self?.reloadData()
-                        },
-                        failure: { [weak self] error in
-                            self?.updateState((self?.isCreated ?? false) ? .created : .opened)
-                            self?.reloadData()
-                            self?.infoAlert(message: L(.generalSignatureRemovalMessage))
-                        })
+        let signature = container.signatures[signatureIndex]
+        confirmDeleteAlert(message: L(.signatureRemoveConfirmMessage)) { [weak self] alertAction in
+            guard alertAction == .confirm,
+                let filePath = self?.container.filePath else {
+                return UIAccessibility.post(notification: .layoutChanged, argument: L(.signatureRemovalCancelled))
+            }
+            self?.notificationMessages = []
+            self?.updateState(.loading)
+            MoppLibContainerActions.remove(signature, fromContainerWithPath: filePath) { error in
+                guard let self else { return }
+                guard error == nil else {
+                    self.showLoading(show: false)
+                    return self.infoAlert(message: L(.generalSignatureRemovalMessage))
                 }
-            })
+                self.updateState(self.isCreated ? .created : .opened)
+                self.container.signatures.remove(at: signatureIndex)
+                self.reloadData()
+                UIAccessibility.post(notification: .announcement, argument: L(.signatureRemoved))
+            }
+        }
     }
     
     func startSigningProcess() {
@@ -115,11 +106,11 @@ extension SigningActions where Self: SigningContainerViewController {
     }
     
     func sortSignatures() {
-        container.signatures.sort { (sig1: Any, sig2: Any) -> Bool in
-            let signatureStatusValue1 = (sig1 as! MoppLibSignature).status.rawValue
-            let signatureStatusValue2 = (sig2 as! MoppLibSignature).status.rawValue
+        container.signatures.sort { sig1, sig2 in
+            let signatureStatusValue1 = sig1.status.rawValue
+            let signatureStatusValue2 = sig2.status.rawValue
             if signatureStatusValue1 == signatureStatusValue2 {
-                return (sig1 as! MoppLibSignature).timestamp < (sig2 as! MoppLibSignature).timestamp
+                return sig1.timestamp < sig2.timestamp
             }
             return signatureStatusValue1 > signatureStatusValue2
             
