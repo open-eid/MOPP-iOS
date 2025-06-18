@@ -138,7 +138,7 @@ class ContainerSignatureCell: UITableViewCell {
     }
     
     private func checkSignatureValidity(signature: MoppLibSignature) -> Void {
-        if let timestamp = ISO8601DateFormatter().date(from: signature.timestamp) {
+        if let timestamp = signature.timestamp {
             signedInfoLabel.text = L(LocKey.containerSignatureSigned, [MoppDateFormatter.shared.hHmmssddMMYYYY(toString: timestamp)])
         } else {
             signedInfoLabel.text = ""
