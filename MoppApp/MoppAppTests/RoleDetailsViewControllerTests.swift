@@ -30,7 +30,7 @@ class RoleDetailsViewControllerTests: XCTestCase {
     
     var viewController: RoleDetailsViewController!
     var window: UIWindow!
-    var moppLibSignature: MoppLibSignature? = MoppLibSignature()
+    var moppLibSignature = MoppLibSignature()
     
     override func tearDown() {
         window = nil

@@ -1,5 +1,5 @@
 //
-//  MoppLibDataFile.m
+//  MoppLibRoleAddressData.swift
 //  MoppLib
 //
 /*
@@ -21,9 +21,22 @@
  *
  */
 
-#import "MoppLibDataFile.h"
-#import <CommonCrypto/CommonCrypto.h>
+import Foundation
 
-@implementation MoppLibDataFile
+@objcMembers
+public class MoppLibRoleAddressData: NSObject {
+    public let roles: [String]
+    public let city: String
+    public let state: String
+    public let country: String
+    public let zip: String
 
-@end
+    public init(roles: [String], city: String, state: String, country: String, zip: String) {
+        self.roles = roles
+        self.city = city
+        self.state = state
+        self.country = country
+        self.zip = zip
+        super.init()
+    }
+}
