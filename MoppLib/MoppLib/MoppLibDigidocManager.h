@@ -25,14 +25,8 @@
 
 @interface MoppLibDigidocManager : NSObject
 
-+ (MoppLibDigidocManager *)sharedInstance;
-
-- (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath error:(NSError **)error;
-- (MoppLibContainer *)createContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths error:(NSError **)error;
-- (MoppLibContainer *)addDataFilesToContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths error:(NSError **)error;
-- (MoppLibContainer *)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex error:(NSError **)error;
++ (MoppLibContainer *)getContainerWithPath:(NSString *)containerPath error:(NSError **)error;
 + (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData sendDiagnostics:(SendDiagnostics)sendDiagnostics error:(NSError**)error;
 + (BOOL)isSignatureValid:(NSData *)signatureValue error:(NSError**)error;
-- (MoppLibContainer *)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath error:(NSError **)error;
-- (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure;
+
 @end
