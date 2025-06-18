@@ -18,7 +18,6 @@
  *
  */
 
-import Foundation
 import CoreNFC
 import CommonCrypto
 import CryptoTokenKit
@@ -78,9 +77,9 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
         return df
     }()
     var session: NFCTagReaderSession?
-    var CAN: String?
-    var PIN: String?
-    var containerPath: String?
+    var CAN: String!
+    var PIN: String!
+    var containerPath: String!
     var roleInfo: MoppLibRoleAddressData?
     var ksEnc: Bytes?
     var ksMac: Bytes?

@@ -37,16 +37,6 @@
          </BuildableReference>
       </MacroExpansion>
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DFF6A54C27E14C180055F8D5"
-               BuildableName = "MoppAppTests.xctest"
-               BlueprintName = "MoppAppTests"
-               ReferencedContainer = "container:MoppApp.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

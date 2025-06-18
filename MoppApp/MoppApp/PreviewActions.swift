@@ -151,34 +151,31 @@ extension PreviewActions where Self: ContainerViewController {
             openContentPreview(containerPath)
         } else {
             if self.isAsicContainer {
-                MoppLibContainerActions.sharedInstance().container(
-                    containerFilePath,
-                    saveDataFile: dataFileFilename,
-                    to: destinationPath,
-                    success: { [weak self] in
-                        self?.notifications = []
-                        self?.tableView.reloadData()
-                        let (_, dataFileExt) = dataFileFilename.filenameComponents()
-                        let isPDF = dataFileExt.lowercased() == ContainerFormatPDF
-                        let forcePDFContentPreview = self?.forcePDFContentPreview ?? false
+                MoppLibContainerActions.container(containerFilePath, saveDataFile: dataFileFilename, to: destinationPath) { [weak self] error in
+                    if let error {
+                        self?.infoAlert(message: error.localizedDescription)
+                        return
+                    }
+                    self?.notifications = []
+                    self?.tableView.reloadData()
+                    let (_, dataFileExt) = dataFileFilename.filenameComponents()
+                    let isPDF = dataFileExt.lowercased() == ContainerFormatPDF
+                    let forcePDFContentPreview = self?.forcePDFContentPreview ?? false
 
-                        if dataFileExt.isAsicContainerExtension || (isPDF && !forcePDFContentPreview) {
+                    if dataFileExt.isAsicContainerExtension || (isPDF && !forcePDFContentPreview) {
 
-                            // If container is PDF check signatures count with showing loading
-                            if isPDF {
-                                openPDFPreview()
-                            } else {
-                                openAsicContainerPreview(isPDF)
-                            }
-                        } else if dataFileExt.isCdocContainerExtension {
-                            openCdocContainerPreview()
+                        // If container is PDF check signatures count with showing loading
+                        if isPDF {
+                            openPDFPreview()
                         } else {
-                            openContentPreview(destinationPath)
+                            openAsicContainerPreview(isPDF)
                         }
-
-                    }, failure: { [weak self] error in
-                        self?.infoAlert(message: error?.localizedDescription)
-                })
+                    } else if dataFileExt.isCdocContainerExtension {
+                        openCdocContainerPreview()
+                    } else {
+                        openContentPreview(destinationPath)
+                    }
+                }
             } else {
                 self.notifications = []
                 self.tableView.reloadData()

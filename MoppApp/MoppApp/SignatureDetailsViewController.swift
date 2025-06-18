@@ -109,8 +109,8 @@ class SignatureDetailsViewController: MoppViewController {
         } else {
             signatureDetails.append(SignatureDetail(title: L(.signedFileCountLabel), value: ""))
         }
-        signatureDetails.append(SignatureDetail(title: L(.signatureTimestampLabel), value: MoppDateFormatter().getDateTimeInCurrentTimeZone(dateString: moppLibSignature?.signatureTimestamp ?? "")))
-        signatureDetails.append(SignatureDetail(title: L(.signatureTimestampUtcLabel), value: MoppDateFormatter().getDateTimeInUTCTimeZone(dateString: moppLibSignature?.signatureTimestampUTC ?? "")))
+        signatureDetails.append(SignatureDetail(title: L(.signatureTimestampLabel), value: MoppDateFormatter().getDateTimeInCurrentTimeZone(date: moppLibSignature?.signatureTimestampUTC)))
+        signatureDetails.append(SignatureDetail(title: L(.signatureTimestampUtcLabel), value: MoppDateFormatter().getDateTimeInUTCTimeZone(date: moppLibSignature?.signatureTimestampUTC)))
         signatureDetails.append(SignatureDetail(title: L(.hashValueOfSignatureLabel), value: moppLibSignature?.hashValueOfSignature.hexString() ?? ""))
         signatureDetails.append(SignatureDetail(title: L(.tsCertificateIssuerLabel), value: moppLibSignature?.tsCertificateIssuer ?? ""))
         
@@ -130,9 +130,9 @@ class SignatureDetailsViewController: MoppViewController {
                 x509Certificate: getX509Certificate(cert: moppLibSignature?.ocspCertificate ?? Data()),
                 secCertificate: getSecCertificate(cert: moppLibSignature?.ocspCertificate ?? Data())))
         
-        signatureDetails.append(SignatureDetail(title: L(.ocspTimeLabel), value: MoppDateFormatter().getDateTimeInCurrentTimeZone(dateString: moppLibSignature?.ocspTime ?? "")))
-        signatureDetails.append(SignatureDetail(title: L(.ocspTimeUtcLabel), value: MoppDateFormatter().getDateTimeInUTCTimeZone(dateString: moppLibSignature?.ocspTimeUTC ?? "")))
-        signatureDetails.append(SignatureDetail(title: L(.signersMobileTimeLabel), value: MoppDateFormatter().getDateTimeInUTCTimeZone(dateString: moppLibSignature?.signersMobileTimeUTC ?? "")))
+        signatureDetails.append(SignatureDetail(title: L(.ocspTimeLabel), value: MoppDateFormatter().getDateTimeInCurrentTimeZone(date: moppLibSignature?.ocspTimeUTC)))
+        signatureDetails.append(SignatureDetail(title: L(.ocspTimeUtcLabel), value: MoppDateFormatter().getDateTimeInUTCTimeZone(date: moppLibSignature?.ocspTimeUTC)))
+        signatureDetails.append(SignatureDetail(title: L(.signersMobileTimeLabel), value: MoppDateFormatter().getDateTimeInUTCTimeZone(date: moppLibSignature?.signersMobileTimeUTC)))
     }
 
 
