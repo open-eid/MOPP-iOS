@@ -26,12 +26,19 @@
 
 #include <digidocpp/Conf.h>
 #include <digidocpp/Container.h>
+#include <digidocpp/DataFile.h>
 #include <digidocpp/Exception.h>
 #include <digidocpp/crypto/X509Cert.h>
 
 @interface MoppLibError (digidocpp)
 + (void)setException:(const digidoc::Exception &)exception toError:(NSError**)error;
 @end
+
+struct MoppLibDigidocContainerOpenCB: public digidoc::ContainerOpenCB {
+    bool validateOnline() const final {
+        return MoppLibManager.shared.validateOnline;
+    }
+};
 
 struct DigiDocConf final: public digidoc::ConfCurrent {
     std::string TSLCache() const final {
@@ -221,86 +228,106 @@ struct DigiDocConf final: public digidoc::ConfCurrent {
     return [NSString stringWithUTF8String:digidoc::version().c_str()];
 }
 
-+ (MoppLibContainerActions *)sharedInstance {
-  static dispatch_once_t pred;
-  static MoppLibContainerActions *sharedInstance = nil;
-  dispatch_once(&pred, ^{
-    sharedInstance = [[self alloc] init];
-  });
-  return sharedInstance;
-}
-
-- (void)openContainerWithPath:(NSString *)containerPath success:(ContainerBlock)success failure:(FailureBlock)failure {
-
++ (void)openContainerWithPath:(NSString *)containerPath completion:(void (^)(MoppLibContainer *container, NSError *error))completion {
   dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    NSError *error;
-    MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] getContainerWithPath:containerPath error:&error];
+    NSError *error = nil;
+    MoppLibContainer *container = [MoppLibDigidocManager getContainerWithPath:containerPath error:&error];
     dispatch_async(dispatch_get_main_queue(), ^{
-        error == nil ? success(container) : failure(error);
+        completion(container, error);
     });
   });
 }
 
-- (MoppLibContainer *)openContainerWithPath:(NSString *)containerPath error:(NSError **)error {
-    return [[MoppLibDigidocManager sharedInstance] getContainerWithPath:containerPath error:error];
++ (MoppLibContainer *)openContainerWithPath:(NSString *)containerPath error:(NSError **)error {
+    return [MoppLibDigidocManager getContainerWithPath:containerPath error:error];
 }
 
-- (void)createContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths success:(ContainerBlock)success failure:(FailureBlock)failure {
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    NSError *error;
-    MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] createContainerWithPath:containerPath withDataFilePaths:dataFilePaths error:&error];
-    dispatch_async(dispatch_get_main_queue(), ^{
-      error == nil ? success(container) : failure(error);
++ (void)createContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray<NSString*> *)dataFilePaths completion:(CompletionBlock)completion {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError *error = nil;
+        try {
+            if (auto container = digidoc::Container::createPtr(containerPath.UTF8String)) {
+                for (NSString *dataFilePath in dataFilePaths) {
+                    container->addDataFile(dataFilePath.UTF8String, @"application/octet-stream".UTF8String);
+                }
+                container->save(containerPath.UTF8String);
+            }
+        } catch(const digidoc::Exception &e) {
+            [MoppLibError setException:e toError:&error];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{ completion(error); });
     });
-  });
-  
 }
 
-- (void)addDataFilesToContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray *)dataFilePaths success:(ContainerBlock)success failure:(FailureBlock)failure {
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    NSError *error;
-    MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] addDataFilesToContainerWithPath:containerPath withDataFilePaths:dataFilePaths error:&error];
-    dispatch_async(dispatch_get_main_queue(), ^{
-      error == nil ? success(container) : failure(error);
++ (void)addDataFilesToContainerWithPath:(NSString *)containerPath withDataFilePaths:(NSArray<NSString*> *)dataFilePaths completion:(CompletionBlock)completion {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError *error;
+        try {
+            MoppLibDigidocContainerOpenCB cb;
+            if (auto container = digidoc::Container::openPtr(containerPath.UTF8String, &cb)) {
+                for (NSString *dataFilePath in dataFilePaths) {
+                    container->addDataFile(dataFilePath.UTF8String, "application/octet-stream");
+                }
+                container->save(containerPath.UTF8String);
+            }
+        } catch(const digidoc::Exception &e) {
+            [MoppLibError setException:e toError:&error];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{ completion(error); });
     });
-  });
-  
 }
 
-- (void)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex success:(ContainerBlock)success failure:(FailureBlock)failure {
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    NSError *error;
-    MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] removeDataFileFromContainerWithPath:containerPath atIndex:dataFileIndex error:&error];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        error == nil ? success(container) : failure(error);
++ (void)removeDataFileFromContainerWithPath:(NSString *)containerPath atIndex:(NSUInteger)dataFileIndex completion:(CompletionBlock)completion {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError *error;
+        try {
+            MoppLibDigidocContainerOpenCB cb;
+            if (auto container = digidoc::Container::openPtr(containerPath.UTF8String, &cb)) {
+                container->removeDataFile((int)dataFileIndex);
+                container->save(containerPath.UTF8String);
+            }
+        } catch(const digidoc::Exception &e) {
+            [MoppLibError setException:e toError:&error];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{ completion(error); });
     });
-  });
-  
 }
 
-- (void)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath success:(ContainerBlock)success failure:(FailureBlock)failure {
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    NSError *error;
-    MoppLibContainer *container = [[MoppLibDigidocManager sharedInstance] removeSignature:moppSignature fromContainerWithPath:containerPath error:&error];
-    dispatch_async(dispatch_get_main_queue(), ^{
-      error == nil ? success(container) : failure(error);
++ (void)removeSignature:(MoppLibSignature *)moppSignature fromContainerWithPath:(NSString *)containerPath completion:(CompletionBlock)completion {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError *error;
+        try {
+            MoppLibDigidocContainerOpenCB cb;
+            if (auto doc = digidoc::Container::openPtr(containerPath.UTF8String, &cb)) {
+                doc->removeSignature(moppSignature.pos);
+                doc->save(containerPath.UTF8String);
+            }
+        } catch(const digidoc::Exception &e) {
+            [MoppLibError setException:e toError:&error];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{ completion(error); });
     });
-  });
 }
 
-- (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path success:(VoidBlock)success failure:(FailureBlock)failure {
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-      [[MoppLibDigidocManager sharedInstance] container:containerPath saveDataFile:fileName to:path success:^{
-          dispatch_async(dispatch_get_main_queue(), ^{
-            success();
-          });
-      } failure:^(NSError *error) {
-          dispatch_async(dispatch_get_main_queue(), ^{
-            failure(error);
-          });
-      }];
-    
-  });
++ (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path completion:(CompletionBlock)completion  {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError *error;
+        try {
+            MoppLibDigidocContainerOpenCB cb;
+            if (auto doc = digidoc::Container::openPtr(containerPath.UTF8String, &cb)) {
+                const char *fileNameUTF8 = fileName.UTF8String;
+                for (digidoc::DataFile *dataFile: doc->dataFiles()) {
+                    if (dataFile->fileName() == fileNameUTF8) {
+                        dataFile->saveAs(path.UTF8String);
+                        break;
+                    }
+                }
+            }
+        } catch(const digidoc::Exception &e) {
+            [MoppLibError setException:e toError:&error];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{ completion(error); });
+    });
 }
 
 + (NSData *)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData *)roleData sendDiagnostics:(SendDiagnostics)sendDiagnostics error:(NSError **)error {
