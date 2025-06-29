@@ -69,10 +69,16 @@ workflows:
       - name: "Setup config files from Github"
         script: |
           git config --global credential.helper store
-          echo "https://$GITHUB_TOKEN:@github.com" > ~/.git-credentials
+          echo "https://$RIA_DigiDoc_configs_username:$RIA_DigiDoc_configs@github.com" > ~/.git-credentials
           git clone https://github.com/open-eid/RIA-DigiDoc-configs.git configs
           rm ~/.git-credentials
           ls -R configs
+
+          #git config --global credential.helper store
+          #echo "https://$GITHUB_TOKEN:@github.com" > ~/.git-credentials
+          #git clone https://github.com/open-eid/RIA-DigiDoc-configs.git configs
+          #rm ~/.git-credentials
+          #ls -R configs
       - name: "Setup config and TSL files"
         script: |
           export TSL_FILES_DIRECTORY="$CONFIG_DIRECTORY/tslFiles.bundle"
