@@ -33,10 +33,9 @@ workflows:
       defaultCentralConfigurationUrl_input:
         description: Default Central Configuration URL
         type: choice
-        default: http://10.0.25.57/config
+        default: http://10.1.24.31/config/mobile
         options:
-          - http://10.0.25.57/config
-          - https://repo.ria/config
+          - http://10.1.24.31/config/mobile
           - https://id.eesti.ee
           - https://id.test.eesti.ee
           - http://10.0.25.57/updater
@@ -47,9 +46,9 @@ workflows:
       defaultCentralConfigurationTslUrl_input:
         description: Default Central Configuration TSL URL
         type: choice
-        default: https://repo.ria/tsl/trusted-test-mp.xml
+        default: http://10.1.24.31/tsl/trusted-test-mp.xml
         options:
-          - https://repo.ria/tsl/trusted-test-mp.xml
+          - http://10.1.24.31/tsl/trusted-test-mp.xml
           - https://ec.europa.eu/tools/lotl/eu-lotl.xml
           - https://open-eid.github.io/test-TL/tl-mp-test-EE.xml
       memberTsl_input:
@@ -67,6 +66,10 @@ workflows:
           brew install swift-sh
       - *get_app_version
       - *get_google_services_plist
+      - name: "Setup config files from Github"
+        script: |
+          https://$RIA_DigiDoc_configs@github.com/open-eid/RIA-DigiDoc-configs.git configs
+          ls -R configs
       - name: "Setup config and TSL files"
         script: |
           export TSL_FILES_DIRECTORY="$CONFIG_DIRECTORY/tslFiles.bundle"
