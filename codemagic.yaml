@@ -68,11 +68,19 @@ workflows:
       - *get_google_services_plist
       - name: "Setup config files from Github"
         script: |
-          git config --global credential.helper store
-          echo "https://$RIA_DigiDoc_configs_username:$RIA_DigiDoc_configs@github.com" > ~/.git-credentials
+          echo $RIA_DigiDoc_configs' > /tmp/askpass.sh
+          chmod +x /tmp/askpass.sh
+          export GIT_ASKPASS=/tmp/askpass.sh
+          export GIT_USERNAME=$RIA_DigiDoc_configs_username
           git clone https://github.com/open-eid/RIA-DigiDoc-configs.git configs
-          rm ~/.git-credentials
+          rm /tmp/askpass.sh
           ls -R configs
+
+          #git config --global credential.helper store
+          #echo "https://$RIA_DigiDoc_configs_username:$RIA_DigiDoc_configs@github.com" > ~/.git-credentials
+          #git clone https://github.com/open-eid/RIA-DigiDoc-configs.git configs
+          #rm ~/.git-credentials
+          #ls -R configs
 
           #git config --global credential.helper store
           #echo "https://$GITHUB_TOKEN:@github.com" > ~/.git-credentials
