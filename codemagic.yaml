@@ -72,11 +72,11 @@ workflows:
           touch askpass.sh
           echo $RIA_DigiDoc_configs > askpass.sh
           chmod +x askpass.sh
-          export GIT_ASKPASS=askpass.sh
-          export GIT_USERNAME=$RIA_DigiDoc_configs_username
+          #export GIT_ASKPASS=askpass.sh
+          #export GIT_USERNAME=$RIA_DigiDoc_configs_username
           git clone https://github.com/open-eid/RIA-DigiDoc-configs.git configs
-          rm askpass.sh
-          git config --global user.name "-"
+          #rm askpass.sh
+          #git config --global user.name "-"
           ls -R configs
 
           #git config --global credential.helper store
