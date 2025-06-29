@@ -68,7 +68,7 @@ workflows:
       - *get_google_services_plist
       - name: "Setup config files from Github"
         script: |
-          echo $RIA_DigiDoc_configs' > /tmp/askpass.sh
+          echo $RIA_DigiDoc_configs > /tmp/askpass.sh
           chmod +x /tmp/askpass.sh
           export GIT_ASKPASS=/tmp/askpass.sh
           export GIT_USERNAME=$RIA_DigiDoc_configs_username
