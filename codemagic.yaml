@@ -33,13 +33,11 @@ workflows:
       defaultCentralConfigurationUrl_input:
         description: Default Central Configuration URL
         type: choice
-        default: http://10.0.25.57/config
+        default: http://10.1.24.31/config/mobile
         options:
-          - http://10.0.25.57/config
-          - https://repo.ria/config
+          - http://10.1.24.31/config/mobile
           - https://id.eesti.ee
           - https://id.test.eesti.ee
-          - http://10.0.25.57/updater
       defaultCentralConfigurationUpdateInterval_input:
         description: Default Central Configuration Update Interval
         type: number
@@ -47,9 +45,9 @@ workflows:
       defaultCentralConfigurationTslUrl_input:
         description: Default Central Configuration TSL URL
         type: choice
-        default: https://repo.ria/tsl/trusted-test-mp.xml
+        default: http://10.1.24.31/tsl/trusted-test-mp.xml
         options:
-          - https://repo.ria/tsl/trusted-test-mp.xml
+          - http://10.1.24.31/tsl/trusted-test-mp.xml
           - https://ec.europa.eu/tools/lotl/eu-lotl.xml
           - https://open-eid.github.io/test-TL/tl-mp-test-EE.xml
       memberTsl_input:
@@ -83,7 +81,7 @@ workflows:
           wget "https://ec.europa.eu/tools/lotl/eu-lotl.xml" -P $TSL_FILES_DIRECTORY
 
           # Get repo.ria values from environmental variables, as CodeMagic doesn't have access to repo.ria domain
-          if [[ "${{ inputs.defaultCentralConfigurationTslUrl_input }}" == *"repo.ria"* ]]; then
+          if [[ "${{ inputs.defaultCentralConfigurationTslUrl_input }}" == *"10.1.24.31"* ]]; then
             echo "Using repo.ria configuration"
             echo $REPO_RIA_DEFAULT_PROPERTIES | base64 --decode > $CONFIG_DIRECTORY/defaultConfiguration.json
             echo $REPO_RIA_CONFIG | base64 --decode > $CONFIG_DIRECTORY/config.json
@@ -100,7 +98,7 @@ workflows:
           if [ -f "$TSL_FILES_DIRECTORY/eu-lotl.xml" ]; then
             echo "Getting TSL (local LOTL)"
             # Repo.ria TSL files already in assets folder, doesn't need to download separately anymore
-            if [[ "${{ inputs.defaultCentralConfigurationTslUrl_input }}" == *"repo.ria"* ]]; then
+            if [[ "${{ inputs.defaultCentralConfigurationTslUrl_input }}" == *"10.1.24.31"* ]]; then
               python3 scripts/TSLXMLDownloader.py --tslFile="$TSL_FILES_DIRECTORY/eu-lotl.xml" --countries="${{ inputs.memberTsl_input }}" --isDevBuild="True"
             else
               python3 scripts/TSLXMLDownloader.py --tslFile="$TSL_FILES_DIRECTORY/eu-lotl.xml" --tslTestFile="$TSL_FILES_DIRECTORY/$(basename ${{ inputs.defaultCentralConfigurationTslUrl_input }})" --countries="${{ inputs.memberTsl_input }}" --isDevBuild="True"
@@ -119,7 +117,7 @@ workflows:
       - name: Fetch default configuration
         script: |
           # Not running 'SetupConfiguration' for repo.ria as necessary files are already setup
-          if [[ ! "${{ inputs.defaultCentralConfigurationTslUrl_input }}" == *"repo.ria"* ]]; then
+          if [[ ! "${{ inputs.defaultCentralConfigurationTslUrl_input }}" == *"10.1.24.31"* ]]; then
             echo "Cleaning swift-sh cache"
             swift-sh --clean-cache
             echo "Fetching default configuration"
@@ -143,12 +141,21 @@ workflows:
           agvtool new-version -all "$LATEST_BUILD_NUMBER"
       - name: Build RIA DigiDoc
         script: |
-          export OTHER_BUILD_FLAGS="OTHER_SWIFT_FLAGS=$buildParameters_input"
+          export OTHER_BUILD_FLAGS="OTHER_SWIFT_FLAGS=${{ inputs.buildParameters_input }}"
+          
+          # Skip fetching configuration for repo.ria as necessary files are already setup
+          REPO_RIA_CONF_FLAGS=""
+          if [[ "${{ inputs.defaultCentralConfigurationTslUrl_input }}" == *"10.1.24.31"* ]]; then
+            REPO_RIA_CONF_FLAGS="DEFAULT_CENTRAL_CONFIGURATION_URL='' DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL=4 DEFAULT_CENTRAL_CONFIGURATION_TSL_URL=''"
+          fi
+          
+          ARCHIVE_FLAGS="$OTHER_BUILD_FLAGS $REPO_RIA_CONF_FLAGS"
+          
           xcode-project build-ipa \
             --clean \
             --project "$CM_BUILD_DIR/MoppApp/MoppApp.xcodeproj" \
             --scheme "$XCODE_SCHEME" \
-            --archive-xcargs "$OTHER_BUILD_FLAGS" \
+            --archive-xcargs "$ARCHIVE_FLAGS" \
             --export-xcargs "$OTHER_BUILD_FLAGS"
       - name: Rename and move IPA
         script: |
