@@ -1,5 +1,5 @@
 //
-//  MoppLibContainer.h
+//  MoppLibRoleAddressData.swift
 //  MoppLib
 //
 /*
@@ -21,25 +21,22 @@
  *
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-@interface MoppLibContainer : NSObject
+@objcMembers
+public class MoppLibRoleAddressData: NSObject {
+    public let roles: [String]
+    public let city: String
+    public let state: String
+    public let country: String
+    public let zip: String
 
-@property (strong, nonatomic) NSString *fileName;
-@property (strong, nonatomic) NSString *filePath;
-@property (strong, nonatomic) NSArray *dataFiles;
-@property (strong, nonatomic) NSArray *signatures;
-@property (strong, nonatomic) NSArray *timestampTokens;
-
-- (BOOL)isSigned;
-- (BOOL)isEmpty;
-- (BOOL)isDdoc;
-- (BOOL)isBdoc;
-- (BOOL)isAsice;
-- (BOOL)isAsics;
-- (BOOL)isSignable;
-- (BOOL)isLegacy;
-
-- (NSString *)fileNameWithoutExtension;
-- (NSString *)getNextSignatureId;
-@end
+    public init(roles: [String], city: String, state: String, country: String, zip: String) {
+        self.roles = roles
+        self.city = city
+        self.state = state
+        self.country = country
+        self.zip = zip
+        super.init()
+    }
+}

@@ -1,5 +1,5 @@
 //
-//  MoppLibConstants.h
+//  MoppLibDataFile.swift
 //  MoppLib
 //
 /*
@@ -21,7 +21,19 @@
  *
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-typedef void (^FailureBlock)(NSError *error);
-typedef void (^VoidBlock)(void);
+@objcMembers
+public class MoppLibDataFile : NSObject {
+    public let fileName: String
+    public let mediaType: String
+    public let fileId: String
+    public let fileSize: CUnsignedLong
+
+    public init(fileName: String, mediaType: String, fileId: String, fileSize: CUnsignedLong) {
+        self.fileName = fileName
+        self.mediaType = mediaType
+        self.fileId = fileId
+        self.fileSize = fileSize
+    }
+}
