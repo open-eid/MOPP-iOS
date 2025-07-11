@@ -103,7 +103,7 @@ public class OpenLdap {
 
         let filter = if isPersonalCode(escapedIdentityCode) {
             "(serialNumber=\(secureLdap ? "PNOEE-" : "")\(escapedIdentityCode))"
-        } else if escapedIdentityCode.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil {
+        } else if escapedIdentityCode.count > 4 && escapedIdentityCode.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil {
             "(serialNumber=\(escapedIdentityCode))"
         } else {
             "(cn=*\(escapedIdentityCode)*)"
