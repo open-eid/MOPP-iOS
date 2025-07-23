@@ -44,6 +44,7 @@ public class MoppLibError: NSObject {
         case readerProcessFailed = 10026 // Reader process failed
         case cardNotFound = 10002 // Reader is connected, but card is not detected
         case wrongPin = 10004 // Provided pin is wrong
+        case wrongCan = 10003
         case pinBlocked = 10016 // User did not provide pin for action that required authentication
         case pinMatchesOldCode = 10019 // New pin must be different from old pin or puk
 
@@ -64,6 +65,7 @@ public class MoppLibError: NSObject {
             case .readerProcessFailed: "Reader process failed."
             case .cardNotFound: "ID card could not be detected in reader."
             case .wrongPin: "Wrong PIN entered"
+            case .wrongCan: "Wrong CAN entered"
             case .pinBlocked: "PIN blocked"
             case .pinMatchesOldCode: "New PIN must be different from old PIN."
             }
@@ -85,8 +87,14 @@ public class MoppLibError: NSObject {
     }
 
     static public let kMoppLibUserInfoRetryCount: String = "kMoppLibUserInfoRetryCount"
+    static public let kMoppLibUserInfoSWError: String = "kMoppLibUserInfoSWError"
 
     private override init() {}
+
+    static func swError(_ sw: UInt16) -> NSError {
+        error(.readerProcessFailed, userInfo: [NSLocalizedDescriptionKey: Code.wrongPin.localizedDescription,
+                                                 kMoppLibUserInfoSWError: NSNumber(value: sw)])
+    }
 
     static func wrongPinError(withRetryCount count: Int) -> NSError {
         error(.wrongPin, userInfo: [NSLocalizedDescriptionKey: Code.wrongPin.localizedDescription,
