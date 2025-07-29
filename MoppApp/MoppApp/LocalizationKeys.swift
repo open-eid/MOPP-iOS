@@ -305,6 +305,7 @@ enum LocKey : String
     case myEidInfoBulletPukBlockedWarning = "my-eid-info-bullet-puk-blocked-warning"
     case myEidChangeCodeTitle = "my-eid-change-code-title"
     case myEidUnblockCodeTitle = "my-eid-unblock-code-title"
+    case myEidChangeNotAvailableText = "my-eid-change-not-available-text"
     case myEidCurrentCodeLabel = "my-eid-current-code-label"
     case myEidNewCodeLabel = "my-eid-new-code-label"
     case myEidNewCodeAgainLabel = "my-eid-new-code-again-label"

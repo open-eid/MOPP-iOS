@@ -96,7 +96,7 @@ private class ReaderInterfaceHandler: NSObject, ReaderInterfaceDelegate {
         }
         do {
             let atr = try reader.powerOnCard()
-            if let handler = Idemia(reader: reader, atr: atr) {
+            if let handler: CardCommands = Idemia(reader: reader, atr: atr) ?? (try? Thales(reader: reader, atr: atr)) {
                 MoppLibCardReaderManager.shared.updateStatus(.CardConnected(handler))
             }
         } catch {

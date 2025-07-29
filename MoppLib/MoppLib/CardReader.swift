@@ -48,43 +48,15 @@ protocol CardReader {
 
 extension CardReader {
     /**
-     * Sends an APDU command to the card and retrieves the response, handling special status words (`0x6C00` and `0x6100`).
-     *
-     * - If the response status word is `0x6CXX`, the function resends the command with the correct length.
-     * - If the response status word is `0x61XX`, the function retrieves additional response data.
-     *
-     * - Parameter apdu: The APDU command to be transmitted.
-     * - Throws: An error if communication with the card fails.
-     * - Returns: A tuple containing:
-     *   - The full response data from the card.
-     *   - The final status word (SW) from the card.
-     */
-    func transmitCommand(_ apdu: Bytes) throws -> (Bytes, UInt16) {
-        var (response, sw) = try transmit(apdu)
-
-        // Handle SW 6CXX (Wrong length, correct length provided in SW2)
-        if (sw & 0xFF00) == 0x6C00 {
-            var modifiedApdu = apdu
-            modifiedApdu[apdu.count - 1] = UInt8(truncatingIfNeeded: sw)
-            (response, sw) = try transmit(modifiedApdu)
-        }
-
-        // Handle SW 61XX (More data available, use GET RESPONSE command)
-        while (sw & 0xFF00) == 0x6100 {
-            let (additionalData, newSW) = try transmit([0x00, 0xC0, 0x00, 0x00, UInt8(truncatingIfNeeded: sw)])
-            response.append(contentsOf: additionalData)
-            sw = newSW
-        }
-
-        return (response, sw)
-    }
-
-    /**
      * Constructs and sends an APDU (Application Protocol Data Unit) command to the smart card.
      *
      * This method builds a command APDU according to ISO/IEC 7816-4 using the provided parameters
-     * and transmits it using `transmitCommand`. It then checks the response status word (SW)
-     * and throws an error unless it equals `0x9000`, indicating a successful operation.
+     * and transmits it. It automatically handles specific response status words:
+     *
+     * - **`0x6CXX`**: Indicates incorrect expected length (`Le`). The command is resent using the correct length from `SW2`.
+     * - **`0x61XX`**: Indicates more response data is available. The method issues one or more `GET RESPONSE` commands (INS = `0xC0`) to retrieve the remaining data.
+     *
+     * If the final response status word is not `0x9000`, the method throws a `MoppLibError.swError(_:)` with the returned status word.
      *
      * - Parameters:
      *   - cls: The class byte (CLA) of the command. Defaults to `0x00`.
@@ -94,27 +66,46 @@ extension CardReader {
      *   - data: Optional command data to include in the APDU body (`Lc + Data`).
      *   - le: Optional expected length of response data (`Le`). If provided, an `Le` byte is appended.
      *
-     * - Throws: `MoppLibError.generalError()` if the card's status word is not `0x9000`,
-     *           or any error thrown by `transmitCommand`.
+     * - Throws: `MoppLibError.swError(_:)` if the card's final status word is not `0x9000`, or any error thrown during transmission.
      *
-     * - Returns: The response data returned by the card (excluding the status word).
+     * - Returns: The full response data returned by the card (excluding the status word).
      */
     func sendAPDU(cls: UInt8 = 0x00, ins: UInt8, p1: UInt8 = 0x00, p2: UInt8 = 0x00,
                   data: (any RangeReplaceableCollection<UInt8>)? = nil, le: UInt8? = nil) throws -> Bytes {
-        let apdu: Bytes = switch (data, le) {
+        var apdu: Bytes = switch (data, le) {
         case (nil, nil): [cls, ins, p1, p2]
         case (nil, _): [cls, ins, p1, p2, le!]
         case (_, nil): [cls, ins, p1, p2, UInt8(data!.count)] + data!
         case (_, _): [cls, ins, p1, p2, UInt8(data!.count)] + data! + [le!]
         }
-        let (result, sw) = try transmitCommand(apdu)
+        var (result, sw) = try transmit(apdu)
+
+        // Handle SW 6CXX (Wrong length, correct length provided in SW2)
+        if (sw & 0xFF00) == 0x6C00 {
+            apdu[apdu.count - 1] = UInt8(truncatingIfNeeded: sw)
+            (result, sw) = try transmit(apdu)
+        }
+
+        // Handle SW 61XX (More data available, use GET RESPONSE command)
+        while (sw & 0xFF00) == 0x6100 {
+            let (additionalData, newSW) = try transmit([0x00, 0xC0, 0x00, 0x00, UInt8(truncatingIfNeeded: sw)])
+            result.append(contentsOf: additionalData)
+            sw = newSW
+        }
+
         guard sw == 0x9000 else {
-            throw MoppLibError.Code.general
+            throw MoppLibError.swError(sw)
         }
         return result
     }
+}
 
-    func select(p1: UInt8 = 0x04, p2: UInt8 = 0x0C, file: Bytes) throws -> Bytes {
-        return try sendAPDU(ins: 0xA4, p1: p1, p2: p2, data: file, le: p2 == 0x0C ? nil : 0x00)
+extension Bytes {
+    init(hex: String) {
+        self = hex.split(separator: " ").compactMap { UInt8($0, radix: 16) }
+    }
+
+    func hexString() -> String {
+        return self.map { String(format: "%02X", $0) }.joined(separator: " ")
     }
 }
