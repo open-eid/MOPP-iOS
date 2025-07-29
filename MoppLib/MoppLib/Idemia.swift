@@ -58,14 +58,21 @@ class Idemia: CardCommandsInternal {
         self.reader = reader
     }
 
+    required init?(reader: CardReader, aid: Bytes) {
+        guard aid == Idemia.kAID else {
+            return nil
+        }
+        self.reader = reader
+    }
+
     // MARK: - Public Data
 
     func readPublicData() async throws -> MoppLibPersonalData {
-        _ = try select(file: Idemia.kAID)
-        _ = try select(p1: 0x01, file: [0x50, 0x00])
+        _ = try await select(file: Idemia.kAID)
+        _ = try await select(p1: 0x01, file: [0x50, 0x00])
         var personalData = MoppLibPersonalData()
         for recordNr: UInt8 in 1...8 {
-            let data = try readFile(p1: 0x02, file: [0x50, recordNr])
+            let data = try await readFile(p1: 0x02, file: [0x50, recordNr])
             let record = String(data: data, encoding: .utf8) ?? "-"
             switch recordNr {
             case 1: personalData.surname = record
@@ -91,23 +98,23 @@ class Idemia: CardCommandsInternal {
     }
 
     func readAuthenticationCertificate() async throws -> Data {
-        _ = try select(file: Idemia.kAID)
-        return try readFile(p1: 0x09, file: [0xAD, 0xF1, 0x34, 0x01])
+        _ = try await select(file: Idemia.kAID)
+        return try await readFile(p1: 0x09, file: [0xAD, 0xF1, 0x34, 0x01])
     }
 
     func readSignatureCertificate() async throws -> Data {
-        _ = try select(file: Idemia.kAID)
-        return try readFile(p1: 0x09, file: [0xAD, 0xF2, 0x34, 0x1F])
+        _ = try await select(file: Idemia.kAID)
+        return try await readFile(p1: 0x09, file: [0xAD, 0xF2, 0x34, 0x1F])
     }
 
     // MARK: - PIN & PUK Management
 
     func readCodeCounterRecord(_ type: CodeType) async throws -> UInt8 {
-        _ = try select(file: type.aid)
+        _ = try await select(file: type.aid)
         let ref = type.pinRef & ~0x80
-        let data = try reader.sendAPDU(ins: 0xCB, p1: 0x3F, p2: 0xFF, data:
+        let data = try await reader.sendAPDU(ins: 0xCB, p1: 0x3F, p2: 0xFF, data:
             [0x4D, 0x08, 0x70, 0x06, 0xBF, 0x81, ref, 0x02, 0xA0, 0x80], le: 0x00)
-        if let info = TLV(from: Data(data)), info.tag == 0x70,
+        if let info = TLV(from: data), info.tag == 0x70,
            let tag = TLV(from: info.value), tag.tag == 0xBF8100 | UInt32(ref),
            let a0 = TLV(from: tag.value), a0.tag == 0xA0 {
             for record in TLV.sequenceOfRecords(from: a0.value) ?? [] where record.tag == 0x9B {
@@ -117,50 +124,50 @@ class Idemia: CardCommandsInternal {
         return 0
     }
 
-    func changeCode(_ type: CodeType, to code: String, verifyCode: String) throws {
-        _ = try select(file: type.aid)
-        try changeCode(type.pinRef, to: code, verifyCode: verifyCode)
+    func changeCode(_ type: CodeType, to code: String, verifyCode: String) async throws {
+        _ = try await select(file: type.aid)
+        try await changeCode(type.pinRef, to: code, verifyCode: verifyCode)
     }
 
-    func verifyCode(_ type: CodeType, code: String) throws {
-        try verifyCode(type.pinRef, code: code)
+    func verifyCode(_ type: CodeType, code: String) async throws {
+        try await verifyCode(type.pinRef, code: code)
     }
 
-    func unblockCode(_ type: CodeType, puk: String, newCode: String) throws {
+    func unblockCode(_ type: CodeType, puk: String, newCode: String) async throws {
         guard type != .puk else {
             throw MoppLibError.Code.general
         }
-        try verifyCode(.puk, code: puk)
+        try await verifyCode(.puk, code: puk)
         if type == .pin2 {
-            _ = try select(file: type.aid)
+            _ = try await select(file: type.aid)
         }
-        try unblockCode(type.pinRef, puk: nil, newCode: newCode)
+        try await unblockCode(type.pinRef, puk: nil, newCode: newCode)
     }
 
     // MARK: - Authentication & Signing
 
-    func authenticate(for hash: Data, withPin1 pin1: String) throws -> Data {
-        _ = try select(file: Idemia.kAID_Oberthur)
-        try verifyCode(.pin1, code: pin1)
-        try setSecEnv(mode: 0xA4, algo: [0xFF, 0x20, 0x08, 0x00], keyRef: Idemia.AUTH_KEY)
+    func authenticate(for hash: Data, withPin1 pin1: String) async throws -> Data {
+        _ = try await select(file: Idemia.kAID_Oberthur)
+        try await verifyCode(.pin1, code: pin1)
+        try await setSecEnv(mode: 0xA4, algo: [0xFF, 0x20, 0x08, 0x00], keyRef: Idemia.AUTH_KEY)
         var paddedHash = Data(repeating: 0x00, count: max(48, hash.count) - hash.count)
         paddedHash.append(hash)
-        return Data(try reader.sendAPDU(ins: 0x88, data: paddedHash, le: 0x00))
+        return try await reader.sendAPDU(ins: 0x88, data: paddedHash, le: 0x00)
     }
 
-    func calculateSignature(for hash: Data, withPin2 pin2: String) throws -> Data {
-        _ = try select(file: Idemia.kAID_QSCD)
-        try verifyCode(.pin2, code: pin2)
-        try setSecEnv(mode: 0xB6, algo: [0xFF, 0x15, 0x08, 0x00], keyRef: Idemia.SIGN_KEY)
+    func calculateSignature(for hash: Data, withPin2 pin2: String) async throws -> Data {
+        _ = try await select(file: Idemia.kAID_QSCD)
+        try await verifyCode(.pin2, code: pin2)
+        try await setSecEnv(mode: 0xB6, algo: [0xFF, 0x15, 0x08, 0x00], keyRef: Idemia.SIGN_KEY)
         var paddedHash = Data(repeating: 0x00, count: max(48, hash.count) - hash.count)
         paddedHash.append(hash)
-        return Data(try reader.sendAPDU(ins: 0x2A, p1: 0x9E, p2: 0x9A, data: paddedHash, le: 0x00))
+        return try await reader.sendAPDU(ins: 0x2A, p1: 0x9E, p2: 0x9A, data: paddedHash, le: 0x00)
     }
 
-    func decryptData(_ hash: Data, withPin1 pin1: String) throws -> Data {
-        _ = try select(file: Idemia.kAID_Oberthur)
-        try verifyCode(.pin1, code: pin1)
-        try setSecEnv(mode: 0xB8, algo: [0xFF, 0x30, 0x04, 0x00], keyRef: Idemia.AUTH_KEY)
-        return Data(try reader.sendAPDU(ins: 0x2A, p1: 0x80, p2: 0x86, data: [0x00] + hash, le: 0x00))
+    func decryptData(_ hash: Data, withPin1 pin1: String) async throws -> Data {
+        _ = try await select(file: Idemia.kAID_Oberthur)
+        try await verifyCode(.pin1, code: pin1)
+        try await setSecEnv(mode: 0xB8, algo: [0xFF, 0x30, 0x04, 0x00], keyRef: Idemia.AUTH_KEY)
+        return try await reader.sendAPDU(ins: 0x2A, p1: 0x80, p2: 0x86, data: [0x00] + hash, le: 0x00)
     }
 }
