@@ -30,7 +30,6 @@
 		4E0F09ED2D76F6C0003F24B9 /* MoppLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF15038F2AC5CFFA007222B2 /* MoppLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E0F09EE2D76F6C4003F24B9 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF1503A02AC5D01A007222B2 /* SkSigningLib.framework */; };
 		4E0F09EF2D76F6C4003F24B9 /* SkSigningLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF1503A02AC5D01A007222B2 /* SkSigningLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4E167D872B6D346F001B74A1 /* digidocpp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E167D862B6D346F001B74A1 /* digidocpp.framework */; };
 		4E167D882B6D346F001B74A1 /* digidocpp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E167D862B6D346F001B74A1 /* digidocpp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E59080024B0F914001B23A6 /* SmartIDEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5907FF24B0F914001B23A6 /* SmartIDEditViewController.swift */; };
 		4E59080224B258C7001B23A6 /* SmartIDChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59080124B258C6001B23A6 /* SmartIDChallengeViewController.swift */; };
@@ -236,7 +235,6 @@
 		DFC2ADC329437790008A1CD2 /* Accessibility.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFC2ADC129437790008A1CD2 /* Accessibility.storyboard */; };
 		DFC2ADC6294377AC008A1CD2 /* AccessibilityViewTextType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC2ADC5294377AC008A1CD2 /* AccessibilityViewTextType.swift */; };
 		DFC2ADC8294377BF008A1CD2 /* PersonalCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC2ADC7294377BF008A1CD2 /* PersonalCodeValidator.swift */; };
-		DFCFADD62B682193007F556A /* SignatureUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCFADD52B682193007F556A /* SignatureUtil.swift */; };
 		DFD176CB23F1B78000E2CC52 /* MimeTypeDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176CA23F1B78000E2CC52 /* MimeTypeDecoder.swift */; };
 		DFD176D423F427AD00E2CC52 /* TSLVersionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */; };
 		DFD176D523F427AD00E2CC52 /* TSLUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD176D323F427AD00E2CC52 /* TSLUpdater.swift */; };
@@ -552,7 +550,6 @@
 		DFC2ADC129437790008A1CD2 /* Accessibility.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Accessibility.storyboard; sourceTree = "<group>"; };
 		DFC2ADC5294377AC008A1CD2 /* AccessibilityViewTextType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessibilityViewTextType.swift; sourceTree = "<group>"; };
 		DFC2ADC7294377BF008A1CD2 /* PersonalCodeValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalCodeValidator.swift; sourceTree = "<group>"; };
-		DFCFADD52B682193007F556A /* SignatureUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureUtil.swift; sourceTree = "<group>"; };
 		DFD176CA23F1B78000E2CC52 /* MimeTypeDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeTypeDecoder.swift; sourceTree = "<group>"; };
 		DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLVersionChecker.swift; sourceTree = "<group>"; };
 		DFD176D323F427AD00E2CC52 /* TSLUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TSLUpdater.swift; sourceTree = "<group>"; };
@@ -597,7 +594,6 @@
 			files = (
 				4E0F09EC2D76F6C0003F24B9 /* MoppLib.framework in Frameworks */,
 				C55BB1CC2091BD2000618AC4 /* WebKit.framework in Frameworks */,
-				4E167D872B6D346F001B74A1 /* digidocpp.framework in Frameworks */,
 				DF1503A42AC5D163007222B2 /* ASN1Decoder in Frameworks */,
 				DF1503A62AC5D1B9007222B2 /* FirebaseCrashlytics in Frameworks */,
 				4E0F09EA2D76F6BD003F24B9 /* CryptoLib.framework in Frameworks */,
@@ -1184,7 +1180,6 @@
 				DF39505F2AD766DF005D96AC /* KeychainUtil.swift */,
 				DF7936332AE98AAD00441B41 /* AccessibilityUtil.swift */,
 				DFD54CF629D1CBAF00CD92C7 /* CertUtil.swift */,
-				DFCFADD52B682193007F556A /* SignatureUtil.swift */,
 				DF588B052BB3074A00FCDC14 /* ProxySettingsUtil.swift */,
 				DF2BCCCF2C35DB5D004B95E2 /* EncryptedDataUtil.swift */,
 			);
@@ -1637,7 +1632,6 @@
 				C593D9F4208F3526000B3BF6 /* SettingsChoiceView.swift in Sources */,
 				C5CF5EEC2017E4CC008FBBD6 /* FileImportProgressViewController.swift in Sources */,
 				C5D057042024B5B700875F44 /* MoppModalViewController.swift in Sources */,
-				DFCFADD62B682193007F556A /* SignatureUtil.swift in Sources */,
 				C5FA0BEE20A19E4200A208E5 /* JailbreakViewController.swift in Sources */,
 				C50DCD111FC82F9E00D48E16 /* UINib+Additions.swift in Sources */,
 				DF7936342AE98AAD00441B41 /* AccessibilityUtil.swift in Sources */,
@@ -1761,7 +1755,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.shareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = $SHARE_EXTENSION_PROVISIONING_PROFILE;
 				PROVISIONING_PROFILE_SPECIFIER = $SHARE_EXTENSION_PROVISIONING_PROFILE;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1899,13 +1892,7 @@
 				DEFAULT_CENTRAL_CONFIGURATION_TSL_URL = "https://ec.europa.eu/tools/lotl/eu-lotl.xml";
 				DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL = 4;
 				DEFAULT_CENTRAL_CONFIGURATION_URL = "https://id.eesti.ee";
-				DIGIDOCPP_PATH = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
-				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DIGIDOCPP_PATH)/lib",
-				);
-				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
+				DIGIDOCPP_PATH = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.$(PLATFORM_NAME)";
 				GOOGLE_CONF_REQUIRED = NO;
 				INFOPLIST_FILE = MoppApp/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
@@ -1935,13 +1922,7 @@
 				DEFAULT_CENTRAL_CONFIGURATION_TSL_URL = "https://ec.europa.eu/tools/lotl/eu-lotl.xml";
 				DEFAULT_CENTRAL_CONFIGURATION_UPDATE_INTERVAL = 4;
 				DEFAULT_CENTRAL_CONFIGURATION_URL = "https://id.eesti.ee";
-				DIGIDOCPP_PATH = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphoneos";
-				"DIGIDOCPP_PATH[sdk=iphonesimulator*]" = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.iphonesimulator";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DIGIDOCPP_PATH)/lib",
-				);
-				GCC_PREFIX_HEADER = MoppApp/PrefixHeader.pch;
+				DIGIDOCPP_PATH = "$(SRCROOT)/../MoppLib/MoppLib/libdigidocpp/libdigidocpp.$(PLATFORM_NAME)";
 				GOOGLE_CONF_REQUIRED = YES;
 				INFOPLIST_FILE = MoppApp/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
@@ -1955,7 +1936,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = $APP_PROVISIONING_PROFILE;
 				PROVISIONING_PROFILE_SPECIFIER = $APP_PROVISIONING_PROFILE;
 				SWIFT_OBJC_BRIDGING_HEADER = "MoppApp/MoppApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
