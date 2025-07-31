@@ -101,13 +101,15 @@ public class OpenLdap {
             .replacingOccurrences(of: ")", with: "\\)")
             .replacingOccurrences(of: "*", with: "\\*")
 
-        let filter = if isPersonalCode(escapedIdentityCode) {
-            "(serialNumber=\(secureLdap ? "PNOEE-" : "")\(escapedIdentityCode))"
-        } else if escapedIdentityCode.count > 4 && escapedIdentityCode.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil {
-            "(serialNumber=\(escapedIdentityCode))"
-        } else {
-            "(cn=*\(escapedIdentityCode)*)"
+        let isDigitOnly = escapedIdentityCode.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
+        let length = escapedIdentityCode.count
+
+        var filter: String = switch (isDigitOnly, length) {
+        case (true, 8): "(serialNumber=\(escapedIdentityCode))"
+        case (true, 11): "(serialNumber=PNOEE-\(escapedIdentityCode))"
+        default: "(cn=*\(escapedIdentityCode)*)"
         }
+
         var msgId: Int32 = 0
         print("Searching from LDAP. Url: \(url) \(filter)")
         var attr = Array("userCertificate;binary".utf8CString)
@@ -213,6 +215,7 @@ public class OpenLdap {
                type != .ESealType || !x509.extendedKeyUsage.contains(OID.clientAuth.rawValue),
                type != .MobileIDType && type != .UnknownType {
                 let cn = x509.subject(oid: OID.commonName)?.joined(separator: ",") ?? ""
+                let serialNumber = x509.subject(oid: OID.serialNumber)?.joined(separator: ",") ?? ""
                 let split = cn.split(separator: ",").map { String($0) }
                 let addressee = Addressee()
                 if split.count == 3 {
@@ -222,6 +225,7 @@ public class OpenLdap {
                 } else {
                     addressee.identifier = cn
                 }
+                addressee.serialNumber = serialNumber
                 addressee.cert = data
                 addressee.validTo = x509.notAfter ?? Date()
                 result.append(addressee)

@@ -26,6 +26,7 @@
 @property (nonatomic, strong) NSString *givenName;
 @property (nonatomic, strong) NSString *surname;
 @property (nonatomic, strong) NSString *identifier;
+@property (nonatomic, strong) NSString *serialNumber;
 @property (nonatomic, strong) NSData *cert;
 @property (nonatomic, strong) NSDate *validTo;
 
