@@ -104,16 +104,10 @@ public class OpenLdap {
         let isDigitOnly = escapedIdentityCode.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
         let length = escapedIdentityCode.count
 
-        let filter: String
-
-        if !isDigitOnly || (length != 8 && length != 11) {
-            filter = "(cn=*\(escapedIdentityCode)*)"
-        } else if length == 8 {
-            filter = "(serialNumber=\(escapedIdentityCode))"
-        } else if length == 11 && isPersonalCode(escapedIdentityCode) {
-            filter = "(serialNumber=\(secureLdap ? "PNOEE-" : "")\(escapedIdentityCode))"
-        } else {
-            filter = "(cn=*\(escapedIdentityCode)*)"
+        var filter: String = switch (isDigitOnly, length) {
+        case (true, 8): "(serialNumber=\(escapedIdentityCode))"
+        case (true, 11): "(serialNumber=PNOEE-\(escapedIdentityCode))"
+        default: "(cn=*\(escapedIdentityCode)*)"
         }
 
         var msgId: Int32 = 0
