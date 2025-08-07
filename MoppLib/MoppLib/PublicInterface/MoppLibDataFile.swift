@@ -1,5 +1,5 @@
 //
-//  MoppLibContainer.h
+//  MoppLibDataFile.swift
 //  MoppLib
 //
 /*
@@ -21,25 +21,19 @@
  *
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
 
-@interface MoppLibContainer : NSObject
+@objcMembers
+public class MoppLibDataFile : NSObject {
+    public let fileName: String
+    public let mediaType: String
+    public let fileId: String
+    public let fileSize: CUnsignedLong
 
-@property (strong, nonatomic) NSString *fileName;
-@property (strong, nonatomic) NSString *filePath;
-@property (strong, nonatomic) NSArray *dataFiles;
-@property (strong, nonatomic) NSArray *signatures;
-@property (strong, nonatomic) NSArray *timestampTokens;
-
-- (BOOL)isSigned;
-- (BOOL)isEmpty;
-- (BOOL)isDdoc;
-- (BOOL)isBdoc;
-- (BOOL)isAsice;
-- (BOOL)isAsics;
-- (BOOL)isSignable;
-- (BOOL)isLegacy;
-
-- (NSString *)fileNameWithoutExtension;
-- (NSString *)getNextSignatureId;
-@end
+    public init(fileName: String, mediaType: String, fileId: String, fileSize: CUnsignedLong) {
+        self.fileName = fileName
+        self.mediaType = mediaType
+        self.fileId = fileId
+        self.fileSize = fileSize
+    }
+}

@@ -50,16 +50,6 @@ class MoppDateFormatter {
             result.doesRelativeDateFormatting = false
         return result
     }()
-    var yyyyMMddTHHmmssZDateFormatter: DateFormatter = {
-        let result = DateFormatter()
-            result.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        return result
-    }()
-    var ddMMyyyyHHmmssZDateFormatter: DateFormatter = {
-        let result = DateFormatter()
-            result.dateFormat = "dd.MM.yyyy HH:mm:ss Z"
-        return result
-    }()
     var fullDateFormatter: DateFormatter = {
         let result = DateFormatter()
             result.dateFormat = "EEEE, d MMMM yyyy HH:mm:ss Z"
@@ -142,34 +132,20 @@ class MoppDateFormatter {
         return dateFormatter.string(from: date)
     }
     
-    func getDateTimeInUTCTimeZone(dateString: String) -> String {
-        let currentDateStringDateFormatter: DateFormatter = yyyyMMddTHHmmssZDateFormatter
-        
-        let formattedDateFormatter: DateFormatter = ddMMyyyyHHmmssZDateFormatter
+    func getDateTimeInUTCTimeZone(date: Date?) -> String {
+        guard let date = date else { return "" }
+        let formattedDateFormatter = DateFormatter()
         formattedDateFormatter.timeZone = TimeZone.init(identifier: "UTC")
         formattedDateFormatter.dateFormat = "dd.MM.yyyy HH:mm:ss Z"
-        
-        if let utcDate = currentDateStringDateFormatter.date(from: dateString) {
-            return formattedDateFormatter.string(from: utcDate)
-        } else {
-            printLog("Unable to format date string")
-            return dateString
-        }
+        return formattedDateFormatter.string(from: date)
     }
     
-    func getDateTimeInCurrentTimeZone(dateString: String) -> String {
-        let currentDateStringDateFormatter: DateFormatter = yyyyMMddTHHmmssZDateFormatter
-        
-        let formattedDateFormatter: DateFormatter = ddMMyyyyHHmmssZDateFormatter
+    func getDateTimeInCurrentTimeZone(date: Date?) -> String {
+        guard let date = date else { return "" }
+        let formattedDateFormatter: DateFormatter = DateFormatter()
         formattedDateFormatter.timeZone = TimeZone.autoupdatingCurrent
         formattedDateFormatter.dateFormat = "dd.MM.yyyy HH:mm:ss Z"
-        
-        if let utcDate = currentDateStringDateFormatter.date(from: dateString) {
-            return formattedDateFormatter.string(from: utcDate)
-        } else {
-            printLog("Unable to format date string")
-            return dateString
-        }
+        return formattedDateFormatter.string(from: date)
     }
     
     func getFullDateTimeInCurrentTimeZone(date: Date?) -> String? {
