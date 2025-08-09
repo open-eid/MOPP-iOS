@@ -33,7 +33,7 @@ extension AddresseeActions {
 
     func determineName(addressee: Addressee) -> String {
         if addressee.givenName == nil {
-            return addressee.identifier
+            return "\(addressee.identifier ?? ""), \(addressee.serialNumber ?? "")"
         } else {
             return "\(addressee.surname.uppercased()), \(addressee.givenName.uppercased()), \(addressee.identifier.uppercased())"
         }
