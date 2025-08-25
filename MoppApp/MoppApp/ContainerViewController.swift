@@ -22,8 +22,6 @@
  */
 
 import Foundation
-import MoppLib
-import CryptoLib
 
 protocol ContainerViewControllerDelegate: AnyObject {
     func getDataFileCount() -> Int
@@ -51,7 +49,7 @@ protocol SigningContainerViewControllerDelegate: AnyObject {
 
 protocol CryptoContainerViewControllerDelegate: AnyObject {
     func addAddressees()
-    func getAddressee(index: Int) -> Any
+    func getAddressee(index: Int) -> Addressee
     func getAddresseeCount() -> Int
     func removeSelectedAddressee(index: Int)
     func getContainer() -> CryptoContainer
@@ -684,7 +682,7 @@ extension ContainerViewController : UITableViewDataSource {
             cell.delegate = self
             let isStatePreviewOrOpened = state == .opened || state == .preview
             let isRemoveButtonHidden = !isAsicContainer && isStatePreviewOrOpened
-            cell.populate(addressee: cryptoContainerViewDelegate.getAddressee(index: indexPath.row) as! Addressee,
+            cell.populate(addressee: cryptoContainerViewDelegate.getAddressee(index: indexPath.row),
                           index: row,
                           showRemoveButton: !isRemoveButtonHidden)
             cell.accessibilityUserInputLabels = [""]
@@ -880,10 +878,9 @@ extension ContainerViewController : ContainerHeaderDelegate {
     }
 
     private func cdocContainerExists(container: CryptoContainer?) -> Bool {
-        guard let cryptoContainer: CryptoContainer = container,
-              let cryptoContainerFilePath = cryptoContainer.filePath,
-              !(cryptoContainerFilePath as String).isEmpty,
-              URL(fileURLWithPath: cryptoContainerFilePath as String).pathExtension == ContainerFormatCdoc else {
+        guard let cryptoContainer = container,
+              !cryptoContainer.filePath.isEmpty,
+              URL(fileURLWithPath: cryptoContainer.filePath).pathExtension == ContainerFormatCdoc else {
             return false
         }
 
@@ -972,8 +969,8 @@ extension ContainerViewController : ContainerHeaderDelegate {
                     self.infoAlert(message: L(.containerErrorMessageFailedContainerNameChange))
                     return
                 }
-                cryptoContainer.filename = newContainerPath.lastPathComponent as NSString
-                cryptoContainer.filePath = newContainerPath.path as NSString
+                cryptoContainer.filename = newContainerPath.lastPathComponent
+                cryptoContainer.filePath = newContainerPath.path
             }
 
             printLog("File renaming successful")
