@@ -12,6 +12,9 @@
 		399C01E620BC17A10056D7AC /* MoppLibCryptoActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39DFDA6320C81F5D00D0D134 /* CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 399C01E420BC13320056D7AC /* CryptoLib.framework */; };
 		4E0053842D7DEE8B00B1AFE5 /* CardCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5463DA4A1E12927A008A1714 /* CardCommands.swift */; };
+		4E098E8D2DCE2CCA001C012D /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 4E098E8C2DCE2CCA001C012D /* BigInt */; };
+		4E23C1732DCE1A7800FA4F3F /* CardReaderNFC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23C1722DCE1A7100FA4F3F /* CardReaderNFC.swift */; };
+		4E24A7192DCE292800DF2CF4 /* SwiftECC in Frameworks */ = {isa = PBXBuildFile; productRef = 4E24A7182DCE292800DF2CF4 /* SwiftECC */; };
 		4E63A77B2AEA7C5A00CEE392 /* digidocpp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E63A77A2AEA7C5A00CEE392 /* digidocpp.framework */; };
 		4E7C7A082D76F0E800D7343C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E7C7A072D76F0E800D7343C /* UIKit.framework */; };
 		4ECA56E22DAF8A4600ABE34C /* Thales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECA56E12DAF8A4600ABE34C /* Thales.swift */; };
@@ -50,6 +53,7 @@
 		399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibCryptoActions.h; sourceTree = "<group>"; };
 		399C01E220BC11C20056D7AC /* MoppLibCryptoActions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoppLibCryptoActions.m; sourceTree = "<group>"; };
 		399C01E420BC13320056D7AC /* CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E23C1722DCE1A7100FA4F3F /* CardReaderNFC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardReaderNFC.swift; sourceTree = "<group>"; };
 		4E63A77A2AEA7C5A00CEE392 /* digidocpp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = digidocpp.framework; path = "$(DIGIDOCPP_PATH)/lib/digidocpp.framework"; sourceTree = "<absolute>"; };
 		4E7C7A072D76F0E800D7343C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4ECA56E12DAF8A4600ABE34C /* Thales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thales.swift; sourceTree = "<group>"; };
@@ -95,9 +99,11 @@
 				39DFDA6320C81F5D00D0D134 /* CryptoLib.framework in Frameworks */,
 				4E7C7A082D76F0E800D7343C /* UIKit.framework in Frameworks */,
 				C5F462A8209727E8001B7D59 /* CoreBluetooth.framework in Frameworks */,
+				4E098E8D2DCE2CCA001C012D /* BigInt in Frameworks */,
 				4E63A77B2AEA7C5A00CEE392 /* digidocpp.framework in Frameworks */,
 				C54EA73020499DFC0039AC78 /* ExternalAccessory.framework in Frameworks */,
 				C5AAAF8220C9621D0087D6DA /* libiRockey301_ccid.a in Frameworks */,
+				4E24A7192DCE292800DF2CF4 /* SwiftECC in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,6 +148,7 @@
 				C54EA737204D91730039AC78 /* MoppLibCardReaderManager.swift */,
 				54DC0DC31E0BCC2A00C62B3D /* CardReader.swift */,
 				C54EA731204D5E860039AC78 /* CardReaderiR301.swift */,
+				4E23C1722DCE1A7100FA4F3F /* CardReaderNFC.swift */,
 				C54EA6EE2049630F0039AC78 /* bR301 */,
 			);
 			name = CardReaders;
@@ -282,6 +289,8 @@
 			);
 			mainGroup = E4250CDD1E09695100530370;
 			packageReferences = (
+				4E24A7172DCE292800DF2CF4 /* XCRemoteSwiftPackageReference "SwiftECC" */,
+				4E098E8B2DCE2CCA001C012D /* XCRemoteSwiftPackageReference "BigInt" */,
 			);
 			productRefGroup = E4250CE81E09695100530370 /* Products */;
 			projectDirPath = "";
@@ -323,6 +332,7 @@
 				54DC0E021E0D48C900C62B3D /* MoppLibError.swift in Sources */,
 				E42B08C61E1F11B900EA24A3 /* MoppLibDataFile.m in Sources */,
 				C54EA738204D91730039AC78 /* MoppLibCardReaderManager.swift in Sources */,
+				4E23C1732DCE1A7800FA4F3F /* CardReaderNFC.swift in Sources */,
 				4ECA56E22DAF8A4600ABE34C /* Thales.swift in Sources */,
 				54D164781E9269C50069C725 /* MoppLibContainerActions.mm in Sources */,
 			);
@@ -533,6 +543,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4E098E8B2DCE2CCA001C012D /* XCRemoteSwiftPackageReference "BigInt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/leif-ibsen/BigInt";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.21.0;
+			};
+		};
+		4E24A7172DCE292800DF2CF4 /* XCRemoteSwiftPackageReference "SwiftECC" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/leif-ibsen/SwiftECC";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4E098E8C2DCE2CCA001C012D /* BigInt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E098E8B2DCE2CCA001C012D /* XCRemoteSwiftPackageReference "BigInt" */;
+			productName = BigInt;
+		};
+		4E24A7182DCE292800DF2CF4 /* SwiftECC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E24A7172DCE292800DF2CF4 /* XCRemoteSwiftPackageReference "SwiftECC" */;
+			productName = SwiftECC;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E4250CDE1E09695100530370 /* Project object */;
 }

@@ -398,7 +398,7 @@ class IdCardViewController : MoppViewController {
                     roleData: DefaultsHelper.isRoleAndAddressEnabled ? RoleAndAddressUtil.getSavedRoleInfo() : nil,
                     sendDiagnostics: .Devices
                 )
-                let signature = try cardCommands.calculateSignature(for: dataToSign, withPin2: pin)
+                let signature = try await cardCommands.calculateSignature(for: dataToSign, withPin2: pin)
                 try MoppLibContainerActions.isSignatureValid(signature)
                 await MainActor.run {
                     self.dismiss(animated: false) {

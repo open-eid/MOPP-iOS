@@ -27,7 +27,7 @@
 
 @implementation NSData (std_vector)
 + (instancetype)dataFromVectorNoCopy:(const std::vector<unsigned char>&)data {
-    return data.empty() ? nil : [NSData dataWithBytesNoCopy:(void *)data.data() length:data.size() freeWhenDone:0];
+    return data.empty() ? nil : [NSData dataWithBytesNoCopy:(void *)data.data() length:data.size() freeWhenDone:NO];
 }
 
 - (std::vector<unsigned char>)toVector {
@@ -60,15 +60,10 @@ NSError* SmartCardTokenWrapper::lastError() const
 
 std::vector<uchar> SmartCardTokenWrapper::cert() const
 {
-    __block NSData *result;
-    dispatch_semaphore_t signal = dispatch_semaphore_create(0);
-    [token->smartTokenClass getCertificateWithCompletionHandler:^(NSData *data, NSError *error) {
-        result = data;
-        token->error = error;
-        dispatch_semaphore_signal(signal);
-    }];
-    dispatch_semaphore_wait(signal, DISPATCH_TIME_FOREVER);
-    return [result toVector];
+    NSError *error = nil;
+    auto result = [[token->smartTokenClass getCertificateAndReturnError:&error] toVector];
+    token->error = error;
+    return result;
 }
 
 std::vector<uchar> SmartCardTokenWrapper::decrypt(const std::vector<uchar> &data) const

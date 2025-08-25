@@ -22,6 +22,7 @@
  */
 
 import iR301
+import CoreNFC
 
 public protocol MoppLibCardReaderManagerDelegate: AnyObject {
     func moppLibCardReaderStatusDidChange(_ status: MoppLibCardReaderStatus)
@@ -45,6 +46,17 @@ public class MoppLibCardReaderManager {
     private var status: MoppLibCardReaderStatus = .Initial
 
     private init() {
+    }
+
+    static public func connectToCard(_ tag: NFCISO7816Tag, CAN: String) async throws -> CardCommands {
+        let reader = try await CardReaderNFC(tag, CAN: CAN)
+        guard let aid = Bytes(hex: tag.initialSelectedAID) else {
+            throw MoppLibError.Code.cardNotFound
+        }
+        guard let cardCommands: CardCommands = Idemia(reader: reader, aid: aid) ?? Thales(reader: reader, aid: aid) else {
+            throw MoppLibError.Code.cardNotFound
+        }
+        return cardCommands
     }
 
     public func startDiscoveringReaders() {
@@ -91,12 +103,11 @@ private class ReaderInterfaceHandler: NSObject, ReaderInterfaceDelegate {
 
     func cardInterfaceDidDetach(_ attached: Bool) {
         print("ID-CARD: Card (interface) attached: \(attached)")
-        guard attached, let reader = CardReaderiR301(contextHandle: MoppLibCardReaderManager.shared.handle) else {
-            return MoppLibCardReaderManager.shared.updateStatus(.ReaderConnected)
-        }
         do {
-            let atr = try reader.powerOnCard()
-            if let handler: CardCommands = Idemia(reader: reader, atr: atr) ?? (try? Thales(reader: reader, atr: atr)) {
+            guard attached, let reader = try CardReaderiR301(contextHandle: MoppLibCardReaderManager.shared.handle) else {
+                return MoppLibCardReaderManager.shared.updateStatus(.ReaderConnected)
+            }
+            if let handler: CardCommands = Idemia(reader: reader, atr: reader.atr) ?? (try? Thales(reader: reader, atr: reader.atr)) {
                 MoppLibCardReaderManager.shared.updateStatus(.CardConnected(handler))
             }
         } catch {
