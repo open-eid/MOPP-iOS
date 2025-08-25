@@ -21,8 +21,6 @@
  *
  */
 
-import UIKit
-import MoppLib
 import SkSigningLib
 
 class SigningContainerViewController : ContainerViewController, SigningActions {
@@ -31,12 +29,12 @@ class SigningContainerViewController : ContainerViewController, SigningActions {
     var notificationMessages: [NotificationMessage] = []
     var invalidSignaturesCount: Int {
         if container == nil { return 0 }
-        return (container.signatures as! [MoppLibSignature]).filter { (MoppLibSignatureStatus.Invalid == $0.status) }.count
+        return container.signatures.filter { (MoppLibSignatureStatus.Invalid == $0.status) }.count
     }
     
     var unknownSignaturesCount: Int {
         if container == nil { return 0 }
-        return (container.signatures as! [MoppLibSignature]).filter { (MoppLibSignatureStatus.UnknownStatus == $0.status) }.count
+        return container.signatures.filter { (MoppLibSignatureStatus.UnknownStatus == $0.status) }.count
     }
     
    override class func instantiate() -> SigningContainerViewController {
@@ -97,14 +95,10 @@ extension SigningContainerViewController : SigningContainerViewControllerDelegat
         removeContainerSignature(signatureIndex: index)
     }
     
-    func getSignature(index: Int) -> Any {
+    func getSignature(index: Int) -> MoppLibSignature {
         return container.signatures[index]
     }
-    
-    func getTimestampToken(index: Int) -> Any {
-        return container.timestampTokens[index]
-    }
-    
+
     func startSigning() {
         startSigningProcess()
     }
@@ -116,22 +110,15 @@ extension SigningContainerViewController : SigningContainerViewControllerDelegat
         return container.signatures.count
     }
     
-    func getTimestampTokensCount() -> Int {
-        if isContainerEmpty() {
-            return 0
-        }
-        return container.timestampTokens.count
-    }
-    
     func isContainerSignable() -> Bool {
         if isContainerEmpty() {
             return true
         }
-        return container.isSignable()
+        return container.isSignable
     }
     
     func isCades() -> Bool {
-        return SignatureUtil.isCades(signatures: container.signatures)
+        container.isCades
     }
 }
 
@@ -144,7 +131,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
             self.infoAlert(message: "File not found in container")
             return
         }
-        
+
         if containerFileCount == 1 {
             confirmDeleteAlert(message: L(.lastDatafileRemoveConfirmMessage)) { [weak self] (alertAction) in
                 if alertAction == .cancel {
@@ -165,35 +152,30 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                 }
             }
         }
-        
-        confirmDeleteAlert(
-            message: L(.datafileRemoveConfirmMessage),
-            confirmCallback: { [weak self] (alertAction) in
-                if alertAction == .cancel {
-                    UIAccessibility.post(notification: .layoutChanged, argument: L(.dataFileRemovalCancelled))
-                } else if alertAction == .confirm {
-                    self?.notificationMessages = []
-                    self?.updateState(.loading)
-                    MoppLibContainerActions.sharedInstance().removeDataFileFromContainer(
-                        withPath: self?.containerPath,
-                        at: UInt(index),
-                        success: { [weak self] container in
-                            self?.updateState((self?.isCreated ?? false) ? .created : .opened)
-                            self?.container.dataFiles.remove(at: index)
-                            if UIAccessibility.isVoiceOverRunning {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                    UIAccessibility.post(notification: .screenChanged, argument: L(.dataFileRemoved))
-                                }
-                            }
-                            self?.reloadData()
-                        },
-                        failure: { [weak self] error in
-                            self?.updateState((self?.isCreated ?? false) ? .created : .opened)
-                            self?.reloadData()
-                            self?.infoAlert(message: L(.dataFileRemovalFailed))
-                        })
+
+        confirmDeleteAlert(message: L(.datafileRemoveConfirmMessage)) { [weak self] alertAction in
+            guard alertAction == .confirm,
+                let containerPath = self?.containerPath else {
+                return UIAccessibility.post(notification: .layoutChanged, argument: L(.dataFileRemovalCancelled))
+            }
+            self?.notificationMessages = []
+            self?.updateState(.loading)
+            MoppLibContainerActions.removeDataFileFromContainer(withPath: containerPath, at: UInt(index)) { [weak self] error in
+                guard let self else { return }
+                guard error == nil else {
+                    self.showLoading(show: false)
+                    return self.infoAlert(message: L(.dataFileRemovalFailed))
                 }
-            })
+                self.updateState(self.isCreated ? .created : .opened)
+                self.container.dataFiles.remove(at: index)
+                self.reloadData()
+                if UIAccessibility.isVoiceOverRunning {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        UIAccessibility.post(notification: .screenChanged, argument: L(.dataFileRemoved))
+                    }
+                }
+            }
+        }
     }
     
     func saveDataFile(name: String?, containerPath: String?) {
@@ -219,10 +201,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
     }
     
     func getDataFileDisplayName(index: Int) -> String? {
-        guard let dataFile = container.dataFiles[index] as? MoppLibDataFile else {
-            return nil
-        }
-        return (dataFile.fileName as String)
+        container.dataFiles[index].fileName
     }
     
     func getContainer() -> MoppLibContainer {
@@ -234,7 +213,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
     }
     
     func getDataFileRelativePath(index: Int) -> String {
-        return (container.dataFiles as! [MoppLibDataFile])[index].fileName
+        container.dataFiles[index].fileName
     }
     
     func getDataFileCount() -> Int {
@@ -246,26 +225,38 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
     }
     
     func isContainerEmpty() -> Bool {
-        if container == nil {
-            return true
-        }
-        return false
+        container == nil
     }
     
     func openContainer(afterSignatureCreated: Bool = false) {
         if state != .loading { return }
         let isPDF = containerPath.filenameComponents().ext.lowercased() == ContainerFormatPDF
         forcePDFContentPreview = isPDF
-        MoppLibContainerActions.sharedInstance().openContainer(withPath: containerPath, success: { [weak self] container in
-            guard let container = container else {
+        MoppLibContainerActions.openContainer(withPath: containerPath) { [weak self] container, error in
+
+            if let error {
+                let nserror = error as NSError
+                var message = nserror.localizedDescription
+                switch nserror {
+                case .general:
+                    message = L(.fileImportOpenExistingFailedAlertMessage, [self?.containerPath.substr(fromLast: "/") ?? String()])
+                case .noInternetConnection:
+                    message = L(.noConnectionMessage)
+                case .invalidProxySettings:
+                    message = L(.proxyUnableToConnectToService)
+                default: break
+                }
+                self?.infoAlert(message: message) { _ in
+                    _ = self?.navigationController?.popViewController(animated: true)
+                }
                 return
             }
-            
+
             guard let strongSelf = self else { return }
             
             strongSelf.notificationMessages = []
             
-            if afterSignatureCreated && container.isSignable() && !strongSelf.isForPreview {
+            if afterSignatureCreated && container!.isSignable && !strongSelf.isForPreview {
                 let signingSuccessNotification = NotificationMessage(isSuccess: true, text: L(.containerDetailsSigningSuccess))
                 if !strongSelf.notificationMessages.contains(where: { $0 == signingSuccessNotification }) {
                     strongSelf.notificationMessages.append(signingSuccessNotification)
@@ -288,7 +279,6 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
             if !strongSelf.notificationMessages.isEmpty {
                 strongSelf.reloadNotifications()
             }
-            strongSelf.sortSignatures()
             // State cannot change if back button is pressed
             if(strongSelf.landingViewController.isAlreadyInMainPage == false){
                 strongSelf.updateState((self?.isCreated ?? false) ? .created : .opened)
@@ -301,24 +291,7 @@ extension SigningContainerViewController : ContainerViewControllerDelegate {
                 strongSelf.startSigningWhenOpened = false
                 strongSelf.startSigningProcess()
             }
-            
-            }, failure: { [weak self] error in
-                
-                let nserror = error! as NSError
-                var message = nserror.localizedDescription
-                switch nserror {
-                case .general:
-                    message = L(.fileImportOpenExistingFailedAlertMessage, [self?.containerPath.substr(fromLast: "/") ?? String()])
-                case .noInternetConnection:
-                    message = L(.noConnectionMessage)
-                case .invalidProxySettings:
-                    message = L(.proxyUnableToConnectToService)
-                default: break
-                }
-                self?.infoAlert(message: message, dismissCallback: { _ in
-                    _ = self?.navigationController?.popViewController(animated: true)
-                });
-        })
+        }
     }
     
     @objc func didFinishAnnouncement(_ notification: Notification) {

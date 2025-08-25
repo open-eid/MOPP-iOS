@@ -73,7 +73,20 @@ extension String {
             ext == ContainerFormatAsiceShort    ||
             ext == ContainerFormatAsicsShort
     }
-    
+
+    var pathExtension: String {
+        (self as NSString).pathExtension.lowercased()
+    }
+
+    var isAsicsContainer: Bool {
+        let ext = pathExtension
+        return ext == ContainerFormatAsics || ext == ContainerFormatAsicsShort
+    }
+
+    var isDdocContainer: Bool {
+        pathExtension == ContainerFormatDdoc
+    }
+
     var isPdfContainerExtension: Bool {
         return self.lowercased() == ContainerFormatPDF
     }
