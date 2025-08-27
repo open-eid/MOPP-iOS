@@ -57,8 +57,8 @@ public class SmartToken: AbstractSmartToken {
         self.pin1 = pin1
     }
 
-    public func getCertificate() throws -> Data {
-        try blocking { try await self.card.readAuthenticationCertificate() }
+    public func getCertificate() async throws -> Data {
+        try await self.card.readAuthenticationCertificate()
     }
 
     public func decrypt(_ data: Data) throws -> Data {

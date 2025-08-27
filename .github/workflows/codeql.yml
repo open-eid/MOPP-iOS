@@ -20,8 +20,8 @@ jobs:
       with:
         submodules: recursive
 
-    - name: Change default Xcode
-      run: sudo xcode-select -s /Applications/Xcode_16.2.app
+    - name: Install FlatBuffers
+      run: brew install flatbuffers
 
     # Creating sample files needed to build, but not needed for CodeQL.
     # .plist files need a sample structure to avoid error: "unable to read input file as a property list"
@@ -48,7 +48,7 @@ jobs:
 
     - name: Build
       working-directory: ${{ github.workspace }}/MoppApp
-      run: xcodebuild -scheme MoppApp -configuration Release GOOGLE_CONF_REQUIRED=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CURRENT_PROJECT_VERSION=${{ github.run_number }}
+      run: DEVELOPER_DIR=/Applications/Xcode_16.2.app xcodebuild -scheme MoppApp -configuration Release GOOGLE_CONF_REQUIRED=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_ALLOWED=NO CURRENT_PROJECT_VERSION=${{ github.run_number }}
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
