@@ -41,7 +41,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DFF6A54C27E14C180055F8D5"
+               BlueprintIdentifier = "4E7C98C02E5EF08500D51D9E"
                BuildableName = "MoppAppTests.xctest"
                BlueprintName = "MoppAppTests"
                ReferencedContainer = "container:MoppApp.xcodeproj">

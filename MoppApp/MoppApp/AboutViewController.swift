@@ -53,9 +53,7 @@ class AboutViewController: MoppViewController, UITableViewDataSource, UITableVie
         LibraryInfo(name: "OpenLDAP", license: "The OpenLDAP Public License", licenseURL: "https://www.openldap.org/software/release/license.html"),
         LibraryInfo(name: "ACS ACR3901U", license: "User terms and conditions", licenseURL: "https://www.acs.com.hk/en/"),
         LibraryInfo(name: "Feitian R301/iR301U", license: "User terms and conditions", licenseURL: "https://www.ftsafe.com/"),
-        LibraryInfo(name: "SwiftyRSA", license: "The MIT License (MIT)", licenseURL: "https://github.com/TakeScoop/SwiftyRSA/blob/master/LICENSE"),
         LibraryInfo(name: "swift-sh", license: "Unlicense (Public Domain)", licenseURL: "https://github.com/mxcl/swift-sh/blob/master/LICENSE.md"),
-        LibraryInfo(name: "SwCrypt", license: "MIT License", licenseURL: "https://github.com/soyersoyer/SwCrypt/blob/master/LICENSE.md"),
         LibraryInfo(name: "ZipFoundation", license: "MIT License", licenseURL: "https://github.com/weichsel/ZIPFoundation/blob/main/LICENSE"),
         LibraryInfo(name: "mid-rest-java-client", license: "MIT License", licenseURL: "https://github.com/SK-EID/mid-rest-java-client/blob/master/LICENSE"),
         LibraryInfo(name: "ILPDFKit", license: "MIT License", licenseURL: "https://github.com/derekblair/ILPDFKit/blob/master/LICENSE")

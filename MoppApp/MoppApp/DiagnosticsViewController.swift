@@ -225,10 +225,10 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     }
 
     private func configurationToUI() {
-        let decodedConf = getMoppConfiguration()
+        let decodedConf = Configuration.getConfiguration()
 
         configURL.text = formatString(text: "CONFIG_URL:", additionalText: decodedConf.METAINF.URL)
-        tslURL.text = formatString(text: "TSL_URL:", additionalText: "\(getMoppConfiguration().TSLURL) \(formatLOTLVersion(version: getLOTLVersion()))")
+        tslURL.text = formatString(text: "TSL_URL:", additionalText: "\(decodedConf.TSLURL) \(formatLOTLVersion(version: getLOTLVersion()))")
         sivaURL.text = formatString(text: "SIVA_URL:", additionalText: DefaultsHelper.sivaUrl ?? decodedConf.SIVAURL)
         tsaURL.text = formatString(text: "TSA_URL:", additionalText: DefaultsHelper.timestampUrl ?? decodedConf.TSAURL)
         ldapPersonURL.text = formatString(text: "LDAP_PERSON_URL:", additionalText: decodedConf.LDAPPERSONURL)
@@ -282,15 +282,11 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         }
     }
 
-    private func getMoppConfiguration() -> MOPPConfiguration {
-        return Configuration.getConfiguration()
-    }
-
     private func getDecodedDefaultMoppConfiguration() throws -> DefaultMoppConfiguration {
         printLog("Decoding default configuration")
         do {
             let defaultConfigData = try String(contentsOfFile: Bundle.main.path(forResource: "defaultConfiguration", ofType: "json")!)
-            return try MoppConfigurationDecoder().decodeDefaultMoppConfiguration(configData: defaultConfigData)
+            return try DefaultMoppConfiguration(json: defaultConfigData)
         } catch {
             printLog("Unable to decode data: \(error.localizedDescription)")
             throw error

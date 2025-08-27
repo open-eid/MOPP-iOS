@@ -24,9 +24,16 @@
 import Foundation
 
 internal struct MOPPConfiguration: Decodable {
+    internal struct MetaInf: Decodable {
+        let URL: String
+        let DATE: String
+        let SERIAL: Int
+        let VER: Int
+    }
+
+    let METAINF: MetaInf
     let TSLURL: String
     let SIVAURL: String
-    let METAINF: MOPPMetaInf
     let TSAURL: String
     let LDAPPERSONURL: String
     let LDAPCORPURL: String
@@ -56,36 +63,20 @@ internal struct MOPPConfiguration: Decodable {
         case CERTBUNDLE = "CERT-BUNDLE"
     }
 
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        TSLURL = try container.decode(String.self, forKey: .TSLURL)
-        SIVAURL = try container.decode(String.self, forKey: .SIVAURL)
-        METAINF = try container.decode(MOPPMetaInf.self, forKey: .METAINF)
-        TSAURL = try container.decode(String.self, forKey: .TSAURL)
-        LDAPPERSONURL = try container.decode(String.self, forKey: .LDAPPERSONURL)
-        LDAPCORPURL = try container.decode(String.self, forKey: .LDAPCORPURL)
-        TSLCERTS = try container.decode([Data].self, forKey: .TSLCERTS)
-        LDAPCERTS = try container.decodeIfPresent([String].self, forKey: .LDAPCERTS) ?? []
-        OCSPISSUERS = try container.decode([String: String].self, forKey: .OCSPISSUERS)
-        MIDPROXYURL = try container.decode(String.self, forKey: .MIDPROXYURL)
-        MIDSKURL = try container.decode(String.self, forKey: .MIDSKURL)
-        SIDV2PROXYURL = try container.decode(String.self, forKey: .SIDV2PROXYURL)
-        SIDV2SKURL = try container.decode(String.self, forKey: .SIDV2SKURL)
-        CERTBUNDLE = try container.decode([Data].self, forKey: .CERTBUNDLE)
+    init(json: String) throws {
+        do {
+            self = try JSONDecoder().decode(MOPPConfiguration.self, from: Data(json.utf8))
+        } catch {
+            printLog("Error decoding data: \(error.localizedDescription)")
+            throw error
+        }
     }
-}
-
-internal struct MOPPMetaInf: Decodable {
-    let URL: String
-    let DATE: String
-    let SERIAL: Int
-    let VER: Int
 }
 
 
 public class Configuration {
     static var moppConfig: MOPPConfiguration?
-    
+
     static func getConfiguration() -> MOPPConfiguration {
         return moppConfig!
     }
@@ -99,20 +90,20 @@ internal struct DefaultMoppConfiguration: Codable {
     let VERSIONSERIAL: Int
     let TSLURL: String
     
-    private enum DefaultMoppConfigurationType: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case CENTRALCONFIGURATIONSERVICEURL = "centralConfigurationServiceUrl"
         case UPDATEINTERVAL = "updateInterval"
         case UPDATEDATE = "updateDate"
         case VERSIONSERIAL = "versionSerial"
         case TSLURL = "tslUrl"
     }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: DefaultMoppConfigurationType.self)
-        CENTRALCONFIGURATIONSERVICEURL = try container.decode(String.self, forKey: .CENTRALCONFIGURATIONSERVICEURL)
-        UPDATEINTERVAL = try container.decode(Int.self, forKey: .UPDATEINTERVAL)
-        UPDATEDATE = try container.decode(String.self, forKey: .UPDATEDATE)
-        VERSIONSERIAL = try container.decode(Int.self, forKey: .VERSIONSERIAL)
-        TSLURL = try container.decode(String.self, forKey: .TSLURL)
+
+    init(json: String) throws {
+        do {
+            self = try JSONDecoder().decode(DefaultMoppConfiguration.self, from: Data(json.utf8))
+        } catch {
+            printLog("Error decoding data: \(error.localizedDescription)")
+            throw error
+        }
     }
 }

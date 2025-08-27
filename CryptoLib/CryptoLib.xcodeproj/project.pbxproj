@@ -594,7 +594,7 @@
 			repositoryURL = "https://github.com/filom/ASN1Decoder";
 			requirement = {
 				kind = exactVersion;
-				version = 1.9.0;
+				version = 1.10.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
