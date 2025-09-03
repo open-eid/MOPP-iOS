@@ -109,7 +109,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             
             setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS, certBundle: decodedData.CERTBUNDLE)
             setMoppConfiguration(configuration: decodedData)
-            setupMoppLDAPConfiguration(ldapCerts: decodedData.LDAPCERTS, ldapPersonUrl: decodedData.LDAPPERSONURL, ldapCorpUrl: decodedData.LDAPCORPURL)
+            setupMoppLDAPConfiguration(configuration: decodedData)
         } catch {
             printLog("Unable to read file: \(error.localizedDescription)")
             fatalError("Unable to read default file(s)")
@@ -127,7 +127,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             let decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: cachedConfigData)
             setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS, certBundle: decodedData.CERTBUNDLE)
             setMoppConfiguration(configuration: decodedData)
-            setupMoppLDAPConfiguration(ldapCerts: decodedData.LDAPCERTS, ldapPersonUrl: decodedData.LDAPPERSONURL, ldapCorpUrl: decodedData.LDAPCORPURL)
+            setupMoppLDAPConfiguration(configuration: decodedData)
         } catch {
             printLog("Unable to read file: \(error.localizedDescription)")
             loadLocalConfiguration()
@@ -328,10 +328,10 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         MoppLibConfiguration.certBundle = certBundle
     }
 
-    private func setupMoppLDAPConfiguration(ldapCerts: [String], ldapPersonUrl: String, ldapCorpUrl: String) {
-        saveLdapCerts(ldapCerts: ldapCerts, overwrite: false)
-        MoppLdapConfiguration.ldapPersonURL = ldapPersonUrl
-        MoppLdapConfiguration.ldapCorpURL = ldapCorpUrl
+    private func setupMoppLDAPConfiguration(configuration: MOPPConfiguration) {
+        saveLdapCerts(ldapCerts: configuration.LDAPCERTS, overwrite: false)
+        MoppLdapConfiguration.ldapPersonURLS = configuration.LDAPPERSONURLS ?? [configuration.LDAPPERSONURL]
+        MoppLdapConfiguration.ldapCorpURL = configuration.LDAPCORPURL
     }
 
     private func isDateAfterInterval(updateDate: Date, interval: Int) -> Bool {
