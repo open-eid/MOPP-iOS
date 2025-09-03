@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Sh7-45-xtX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Sh7-45-xtX">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -197,13 +197,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DEFAULT CONTAINER TYPE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlZ-VA-EQr" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                    <rect key="frame" x="24" y="11" width="335" height="17.5"/>
+                                                    <rect key="frame" x="24" y="11" width="335" height="18"/>
                                                     <fontDescription key="fontDescription" name="RobotoCondensed-Regular" family="Roboto Condensed" pointSize="15"/>
                                                     <color key="textColor" name="MoppLabel"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SsO-W3-Uvi" customClass="SettingsChoiceView" customModule="MoppApp" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="32.5" width="343" height="44"/>
+                                                    <rect key="frame" x="16" y="33" width="343" height="44"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="S6z-Zi-ic2">
                                                             <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
@@ -426,7 +426,7 @@
                                                     <rect key="frame" x="16" y="16" width="343" height="157"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ask role and address on every signing" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIb-F5-EYi" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="70" width="255" height="17.5"/>
+                                                            <rect key="frame" x="0.0" y="69.5" width="254.5" height="18"/>
                                                             <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
                                                             <color key="textColor" name="MoppText"/>
                                                             <nil key="highlightedColor"/>
@@ -461,13 +461,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MOBIIL-ID TELEFONINUMBER" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Rs-Nu-cOi" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="11" width="343" height="17.5"/>
+                                                    <rect key="frame" x="16" y="11" width="343" height="18"/>
                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
                                                     <color key="textColor" name="MoppText"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Riigikood ja telefoninumber" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z7D-ta-nx1" customClass="SettingsTextField" customModule="MoppApp" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="32.5" width="343" height="55"/>
+                                                    <rect key="frame" x="16" y="33" width="343" height="55"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="55" id="L44-FB-3Jm"/>
                                                     </constraints>
@@ -592,7 +592,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Valid until:" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fa4-Hc-omF" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="27.5" width="77.5" height="22.5"/>
+                                                                    <rect key="frame" x="0.0" y="27.5" width="80.5" height="22.5"/>
                                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                                                     <color key="textColor" name="MoppText"/>
                                                                     <nil key="highlightedColor"/>
@@ -704,7 +704,7 @@
                                                     <rect key="frame" x="16" y="0.0" width="339" height="137"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Default Title Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000149011612" translatesAutoresizingMaskIntoConstraints="NO" id="zXA-MT-z1o" userLabel="Use Default Title Label" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="13.5" width="151.5" height="110"/>
+                                                            <rect key="frame" x="0.0" y="13.5" width="152" height="110"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="151.5" id="0sB-Mq-nLc"/>
                                                             </constraints>
@@ -1149,7 +1149,7 @@
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Valid until:" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQ7-FA-t1k" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                                                <rect key="frame" x="0.0" y="25" width="77.5" height="20"/>
+                                                                                <rect key="frame" x="0.0" y="25" width="80.5" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                                                                 <color key="textColor" name="MoppText"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1317,7 +1317,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Diagnostics" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vsg-kH-FdR" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                <rect key="frame" x="59" y="47" width="242" height="24.5"/>
+                                <rect key="frame" x="59" y="47" width="242" height="25"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" staticText="YES" header="YES"/>
                                 </accessibility>
@@ -1397,12 +1397,6 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9t3-M4-dAz" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                <rect key="frame" x="359" y="211.5" width="0.0" height="0.0"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0hB-g9-5sw" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="227.5" width="343" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -1410,6 +1404,12 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="f4s-I6-A2B" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
+                                                <rect key="frame" x="16" y="211.5" width="343" height="0.0"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="iyw-DG-d2n" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="219.5" width="343" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <nil key="textColor"/>
@@ -1557,7 +1557,7 @@
                                             <constraint firstAttribute="trailing" secondItem="mys-OT-GnR" secondAttribute="trailing" constant="16" id="0gj-pC-ylw"/>
                                             <constraint firstItem="TtS-74-evo" firstAttribute="top" secondItem="FTH-Gd-mCL" secondAttribute="bottom" constant="25" id="0iY-dT-um8"/>
                                             <constraint firstItem="fvG-yT-5Nl" firstAttribute="top" secondItem="ruH-oH-HXZ" secondAttribute="bottom" constant="8" id="1HS-qF-wnh"/>
-                                            <constraint firstItem="0hB-g9-5sw" firstAttribute="top" secondItem="f4s-I6-A2B" secondAttribute="bottom" constant="8" id="2RL-H9-4n8"/>
+                                            <constraint firstItem="iyw-DG-d2n" firstAttribute="top" secondItem="f4s-I6-A2B" secondAttribute="bottom" constant="8" id="2RL-H9-4n8"/>
                                             <constraint firstItem="2nF-ky-2K3" firstAttribute="leading" secondItem="P3E-QG-6de" secondAttribute="leading" constant="16" id="2S0-zA-POc"/>
                                             <constraint firstItem="fvG-yT-5Nl" firstAttribute="leading" secondItem="P3E-QG-6de" secondAttribute="leading" constant="16" id="41X-aB-LWL"/>
                                             <constraint firstItem="uS5-R8-DDB" firstAttribute="leading" secondItem="P3E-QG-6de" secondAttribute="leading" constant="16" id="4ZK-L0-0fm"/>
@@ -1568,9 +1568,9 @@
                                             <constraint firstAttribute="trailing" secondItem="0IR-hS-aJO" secondAttribute="trailing" constant="16" id="8hB-sT-BT7"/>
                                             <constraint firstAttribute="trailing" secondItem="rKh-CI-9bU" secondAttribute="trailing" constant="16" id="8l7-E3-6xN"/>
                                             <constraint firstAttribute="trailing" secondItem="B71-Bc-rYA" secondAttribute="trailing" constant="16" id="97p-mT-QpP"/>
+                                            <constraint firstItem="0hB-g9-5sw" firstAttribute="top" secondItem="iyw-DG-d2n" secondAttribute="bottom" constant="8" id="9sM-p1-7El"/>
                                             <constraint firstAttribute="trailing" secondItem="l32-s5-RMt" secondAttribute="trailing" constant="16" id="Aup-8M-Tz3"/>
                                             <constraint firstAttribute="bottom" secondItem="rPU-tI-Tha" secondAttribute="bottom" constant="144" id="Di9-Rt-ma9"/>
-                                            <constraint firstItem="f4s-I6-A2B" firstAttribute="top" secondItem="9t3-M4-dAz" secondAttribute="bottom" constant="8" id="EHS-fS-te8"/>
                                             <constraint firstItem="dyA-bc-5kH" firstAttribute="leading" secondItem="P3E-QG-6de" secondAttribute="leading" constant="16" id="EvG-SD-Z2F"/>
                                             <constraint firstItem="FTH-Gd-mCL" firstAttribute="leading" secondItem="P3E-QG-6de" secondAttribute="leading" constant="16" id="FQW-Ko-nM7"/>
                                             <constraint firstItem="ICY-hq-vOj" firstAttribute="top" secondItem="lJS-SP-IrB" secondAttribute="bottom" constant="8" id="FsI-uf-aOg"/>
@@ -1587,7 +1587,6 @@
                                             <constraint firstItem="P1z-q0-IiU" firstAttribute="leading" secondItem="P3E-QG-6de" secondAttribute="leading" constant="16" id="QDj-Ny-Ted"/>
                                             <constraint firstItem="dyA-bc-5kH" firstAttribute="top" secondItem="nTe-hi-UFW" secondAttribute="bottom" constant="8" id="QhH-Rz-ohN"/>
                                             <constraint firstItem="2nF-ky-2K3" firstAttribute="top" secondItem="8If-1L-pXu" secondAttribute="bottom" constant="25" id="R2F-NX-O0Y"/>
-                                            <constraint firstItem="9t3-M4-dAz" firstAttribute="top" secondItem="yx1-Am-F1U" secondAttribute="bottom" constant="8" id="SGG-8m-zat"/>
                                             <constraint firstAttribute="trailing" secondItem="2nF-ky-2K3" secondAttribute="trailing" constant="32" id="SKr-Os-7iP"/>
                                             <constraint firstAttribute="trailing" secondItem="i5p-YP-xGx" secondAttribute="trailing" constant="16" id="SPl-Ra-dV6"/>
                                             <constraint firstAttribute="trailing" secondItem="FTH-Gd-mCL" secondAttribute="trailing" constant="16" id="Swg-3j-iF0"/>
@@ -1603,7 +1602,9 @@
                                             <constraint firstItem="l32-s5-RMt" firstAttribute="leading" secondItem="P3E-QG-6de" secondAttribute="leading" constant="16" id="YSJ-Yr-sEj"/>
                                             <constraint firstItem="rtH-xs-Nm6" firstAttribute="leading" secondItem="P3E-QG-6de" secondAttribute="leading" constant="16" id="YYW-zP-R44"/>
                                             <constraint firstItem="mys-OT-GnR" firstAttribute="leading" secondItem="P3E-QG-6de" secondAttribute="leading" constant="16" id="Z30-7c-JHA"/>
+                                            <constraint firstItem="iyw-DG-d2n" firstAttribute="leading" secondItem="P3E-QG-6de" secondAttribute="leading" constant="16" id="a0W-hN-AVq"/>
                                             <constraint firstAttribute="trailing" secondItem="nTe-hi-UFW" secondAttribute="trailing" constant="16" id="aXO-pG-Gp6"/>
+                                            <constraint firstAttribute="trailing" secondItem="iyw-DG-d2n" secondAttribute="trailing" constant="16" id="b1s-qn-IKj"/>
                                             <constraint firstAttribute="trailing" secondItem="yx1-Am-F1U" secondAttribute="trailing" constant="16" id="blL-XA-lwQ"/>
                                             <constraint firstItem="ruH-oH-HXZ" firstAttribute="leading" secondItem="P3E-QG-6de" secondAttribute="leading" constant="16" id="cnc-BZ-MpT"/>
                                             <constraint firstAttribute="trailing" secondItem="pEs-3R-bW3" secondAttribute="trailing" constant="16" id="eRS-Ec-rlO"/>
@@ -1620,7 +1621,6 @@
                                             <constraint firstItem="axW-Sz-ktm" firstAttribute="top" secondItem="dyA-bc-5kH" secondAttribute="bottom" constant="8" id="hw6-2U-dsO"/>
                                             <constraint firstItem="mys-OT-GnR" firstAttribute="top" secondItem="pEs-3R-bW3" secondAttribute="bottom" constant="8" id="iGV-4w-eFe"/>
                                             <constraint firstItem="9M0-ZI-Vph" firstAttribute="leading" secondItem="P3E-QG-6de" secondAttribute="leading" constant="16" id="jbJ-bV-6kc"/>
-                                            <constraint firstAttribute="trailing" secondItem="9t3-M4-dAz" secondAttribute="trailing" constant="16" id="jek-cJ-Uv6"/>
                                             <constraint firstItem="0IR-hS-aJO" firstAttribute="leading" secondItem="P3E-QG-6de" secondAttribute="leading" constant="16" id="jjQ-dh-LXH"/>
                                             <constraint firstItem="8If-1L-pXu" firstAttribute="leading" secondItem="P3E-QG-6de" secondAttribute="leading" constant="16" id="kOK-90-cC6"/>
                                             <constraint firstItem="lJS-SP-IrB" firstAttribute="top" secondItem="GoO-ax-djg" secondAttribute="bottom" constant="8" id="lMH-rn-onY"/>
@@ -1638,7 +1638,7 @@
                                             <constraint firstItem="i5p-YP-xGx" firstAttribute="top" secondItem="uS5-R8-DDB" secondAttribute="bottom" constant="8" id="tbg-Oo-aei"/>
                                             <constraint firstAttribute="trailing" secondItem="lJS-SP-IrB" secondAttribute="trailing" constant="16" id="umb-gd-EBZ"/>
                                             <constraint firstItem="v3j-1F-BkV" firstAttribute="top" secondItem="l32-s5-RMt" secondAttribute="bottom" constant="8" id="wEg-ps-YGb"/>
-                                            <constraint firstItem="f4s-I6-A2B" firstAttribute="top" secondItem="yx1-Am-F1U" secondAttribute="bottom" constant="16" id="wG3-9g-s4H"/>
+                                            <constraint firstItem="f4s-I6-A2B" firstAttribute="top" secondItem="yx1-Am-F1U" secondAttribute="bottom" constant="8" id="wG3-9g-s4H"/>
                                             <constraint firstItem="f4s-I6-A2B" firstAttribute="leading" secondItem="P3E-QG-6de" secondAttribute="leading" constant="16" id="wPi-pn-qrd"/>
                                             <constraint firstItem="pEs-3R-bW3" firstAttribute="top" secondItem="i5p-YP-xGx" secondAttribute="bottom" constant="8" id="wec-dG-yA8"/>
                                             <constraint firstAttribute="trailing" secondItem="P1z-q0-IiU" secondAttribute="trailing" constant="16" id="wuG-hW-cUI"/>
@@ -1684,6 +1684,7 @@
                         <outlet property="lastCheckDate" destination="8If-1L-pXu" id="8s8-0P-Yov"/>
                         <outlet property="ldapCorpURL" destination="0hB-g9-5sw" id="u0g-EP-F7s"/>
                         <outlet property="ldapPersonURL" destination="f4s-I6-A2B" id="bYT-7L-p2d"/>
+                        <outlet property="ldapPersonURLS" destination="iyw-DG-d2n" id="ogD-Iz-hFB"/>
                         <outlet property="librariesLabel" destination="Nul-b2-VU3" id="DyP-2S-Av0"/>
                         <outlet property="librariesTitleLabel" destination="B71-Bc-rYA" id="ZUW-GI-nVa"/>
                         <outlet property="metaDate" destination="l32-s5-RMt" id="f2D-xr-JVa"/>
@@ -2004,10 +2005,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="305" height="557"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sEx-cL-4L9" userLabel="ContentView">
-                                                <rect key="frame" x="0.0" y="0.0" width="305" height="980.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="305" height="981"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iiw-YR-wVb">
-                                                        <rect key="frame" x="16" y="20" width="273" height="952.5"/>
+                                                        <rect key="frame" x="16" y="20" width="273" height="953"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yaL-UI-neS">
                                                                 <rect key="frame" x="0.0" y="0.0" width="273" height="25"/>
@@ -2261,13 +2262,13 @@
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URi-bc-L8p" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="635" width="273" height="17.5"/>
+                                                                <rect key="frame" x="0.0" y="635" width="273" height="18"/>
                                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
                                                                 <color key="textColor" name="MoppError"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S7R-9w-LnW" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="667.5" width="273" height="20"/>
+                                                                <rect key="frame" x="0.0" y="668" width="273" height="20"/>
                                                                 <accessibility key="accessibilityConfiguration">
                                                                     <bool key="isElement" value="NO"/>
                                                                 </accessibility>
@@ -2276,7 +2277,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="awC-RF-Mrr" customClass="SettingsTextField" customModule="MoppApp" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="697.5" width="273" height="55"/>
+                                                                <rect key="frame" x="0.0" y="698" width="273" height="55"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="55" id="Ecf-tv-Oio"/>
                                                                 </constraints>
@@ -2284,7 +2285,7 @@
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yuA-9N-MjC" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="772.5" width="273" height="20"/>
+                                                                <rect key="frame" x="0.0" y="773" width="273" height="20"/>
                                                                 <accessibility key="accessibilityConfiguration">
                                                                     <bool key="isElement" value="NO"/>
                                                                 </accessibility>
@@ -2293,7 +2294,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k3b-wv-0rQ" customClass="SettingsTextField" customModule="MoppApp" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="802.5" width="273" height="55"/>
+                                                                <rect key="frame" x="0.0" y="803" width="273" height="55"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="55" id="774-bx-rgH"/>
                                                                 </constraints>
@@ -2301,7 +2302,7 @@
                                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                             </textField>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3hy-3p-Ywl">
-                                                                <rect key="frame" x="0.0" y="882.5" width="273" height="20"/>
+                                                                <rect key="frame" x="0.0" y="883" width="273" height="20"/>
                                                                 <subviews>
                                                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check connection" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hof-rn-3Pd" customClass="ScaledLabel" customModule="MoppApp" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="273" height="20"/>
