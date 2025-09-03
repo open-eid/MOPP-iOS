@@ -80,7 +80,6 @@
 		4E17B8342D64A0FD0063C5BF /* X509CertificateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = X509CertificateType.swift; sourceTree = "<group>"; };
 		4E3681D72D40EAAD00D76DAB /* OpenLdap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLdap.swift; sourceTree = "<group>"; };
 		4E3681DA2D40EAE800D76DAB /* MoppLdapConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoppLdapConfiguration.swift; sourceTree = "<group>"; };
-		4E3AFF7D2D67D45800666AC7 /* openldap.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = openldap.modulemap; sourceTree = "<group>"; };
 		4E8990852D710DBC0010CA1F /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		4ED24ECB2D4F799800855FC3 /* build-openldap.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "build-openldap.sh"; sourceTree = "<group>"; };
 		DFA40D2E2ADF635F003EF945 /* 3513523f.0 */ = {isa = PBXFileReference; lastKnownFileType = text; path = 3513523f.0; sourceTree = "<group>"; };
@@ -104,11 +103,8 @@
 		39231FA020AB1C6C00E1E2B4 = {
 			isa = PBXGroup;
 			children = (
-				DFC7CA442AE010C9009D85FF /* 9f4c149e.0 */,
-				DFA40D2E2ADF635F003EF945 /* 3513523f.0 */,
 				4E01B4A62AEFDD3B00941723 /* build-cdoc.sh */,
 				4ED24ECB2D4F799800855FC3 /* build-openldap.sh */,
-				4E3AFF7D2D67D45800666AC7 /* openldap.modulemap */,
 				39231FAC20AB1C6C00E1E2B4 /* CryptoLib */,
 				39231FAB20AB1C6C00E1E2B4 /* Products */,
 				D5B2B96758D5CBE2A4F80170 /* Frameworks */,
@@ -126,6 +122,8 @@
 		39231FAC20AB1C6C00E1E2B4 /* CryptoLib */ = {
 			isa = PBXGroup;
 			children = (
+				DFC7CA442AE010C9009D85FF /* 9f4c149e.0 */,
+				DFA40D2E2ADF635F003EF945 /* 3513523f.0 */,
 				39E2B4CB20AD7A3400CA74A8 /* Ldap */,
 				39E414E020AC5C9300141574 /* XmlParser */,
 				39852A4120AB2418004CB100 /* Decrypt.h */,
