@@ -21,9 +21,7 @@
  *
  */
 
-import Foundation
 import SkSigningLib
-import CryptoLib
 
 protocol ContainerActions {
     func openExistingContainer(with url: URL, cleanup: Bool, isEmptyFileImported: Bool, isSendingToSivaAgreed: Bool)
@@ -209,40 +207,36 @@ extension ContainerActions where Self: UIViewController {
 
     func openContainer(url: URL, newFilePath: String, fileName: String, landingViewController: LandingViewController, navController: UINavigationController?, isEmptyFileImported: Bool, isSendingToSivaAgreed: Bool, failure: @escaping ((_ error: NSError?) -> Void)) {
         SiVaUtil.setIsSentToSiva(isSent: isSendingToSivaAgreed)
-        MoppLibContainerActions.sharedInstance().openContainer(withPath: newFilePath,
-            success: { (_ container: MoppLibContainer?) -> Void in
-                if container == nil {
-                    // Remove invalid container. Probably ddoc.
-                    MoppFileManager.shared.removeFile(withName: fileName)
-                    failure(nil)
-                    return
-                }
-
-                // If file to open is PDF and there is no signatures then create new container
-                let isPDF = url.pathExtension.lowercased() == ContainerFormatPDF
-                if isPDF && container!.signatures.isEmpty {
-                    landingViewController.createNewContainer(with: url, dataFilePaths: [newFilePath], isEmptyFileImported: isEmptyFileImported)
-                    return
-                }
-
-                var containerViewController: ContainerViewController? = ContainerViewController.instantiate()
-                    containerViewController?.containerPath = newFilePath
-                    containerViewController?.forcePDFContentPreview = isPDF
-                    containerViewController?.isSendingToSivaAgreed = isSendingToSivaAgreed
-
-                landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
-                    if let containerVC = containerViewController {
-                        navController?.pushViewController(containerVC, animated: true)
-                        containerViewController = nil
-                    }
-                })
-
-            },
-            failure: { error in
-                guard let nsError = error as NSError? else { failure(nil); return }
-                failure(nsError)
+        MoppLibContainerActions.openContainer(withPath: newFilePath) { container, error in
+            if let error {
+                return failure(error as NSError)
             }
-        )
+            if container == nil {
+                // Remove invalid container. Probably ddoc.
+                MoppFileManager.shared.removeFile(withName: fileName)
+                failure(nil)
+                return
+            }
+
+            // If file to open is PDF and there is no signatures then create new container
+            let isPDF = url.pathExtension.lowercased() == ContainerFormatPDF
+            if isPDF && container!.signatures.isEmpty {
+                landingViewController.createNewContainer(with: url, dataFilePaths: [newFilePath], isEmptyFileImported: isEmptyFileImported)
+                return
+            }
+
+            var containerViewController: ContainerViewController? = ContainerViewController.instantiate()
+                containerViewController?.containerPath = newFilePath
+                containerViewController?.forcePDFContentPreview = isPDF
+                containerViewController?.isSendingToSivaAgreed = isSendingToSivaAgreed
+
+            landingViewController.importProgressViewController.dismissRecursively(animated: false) {
+                if let containerVC = containerViewController {
+                    navController?.pushViewController(containerVC, animated: true)
+                    containerViewController = nil
+                }
+            }
+        }
     }
 
     func addDataFilesToContainer(dataFilePaths: [String]) {
@@ -252,12 +246,10 @@ extension ContainerActions where Self: UIViewController {
 
         if landingViewController.containerType == .asic {
             let containerViewController = topSigningViewController as? ContainerViewController
-            let containerPath = containerViewController!.containerPath
-            MoppLibContainerActions.sharedInstance().addDataFilesToContainer(
-                withPath: containerPath,
-                withDataFilePaths: dataFilePaths,
-                success: { container in
-                    landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: { [weak self] in
+            guard let containerPath = containerViewController!.containerPath else { return } // FIXME: error?
+            MoppLibContainerActions.addDataFilesToContainer(withPath: containerPath, withDataFilePaths: dataFilePaths) { error in
+                if error == nil {
+                    landingViewController.importProgressViewController.dismissRecursively(animated: false) { [weak self] in
                         if UIAccessibility.isVoiceOverRunning && dataFilePaths.count == 1 {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                 UIAccessibility.post(notification: .announcement, argument: L(.dataFileAdded))
@@ -268,11 +260,9 @@ extension ContainerActions where Self: UIViewController {
                             }
                         }
                         self?.refreshContainer(containerViewController: containerViewController)
-                    })
-                },
-                failure: { error in
-                    landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: { [weak self] in
-                        guard let nsError = error as NSError? else { return }
+                    }
+                } else if let nsError = error as NSError? {
+                    landingViewController.importProgressViewController.dismissRecursively(animated: false) { [weak self] in
                         if nsError == .duplicatedFilename {
                             DispatchQueue.main.async {
                                 self?.infoAlert(message: L(.containerDetailsFileAlreadyExists))
@@ -281,9 +271,9 @@ extension ContainerActions where Self: UIViewController {
                             self?.errorAlertWithLink(message: MessageUtil.generateDetailedErrorMessage(error: nsError))
                         }
                         self?.refreshContainer(containerViewController: containerViewController)
-                    })
+                    }
                 }
-            )
+            }
         } else {
             let containerViewController = topSigningViewController as? CryptoContainerViewController
             dataFilePaths.forEach {
@@ -369,31 +359,18 @@ extension ContainerActions where Self: UIViewController {
             }
         }
         if landingViewController.containerType == .asic {
-            MoppLibContainerActions.sharedInstance().createContainer(
-                withPath: containerPath,
-                withDataFilePaths: containerFilePaths,
-                success: { container in
+            MoppLibContainerActions.createContainer(withPath: containerPath, withDataFilePaths: containerFilePaths) { error in
+                if error == nil {
                     if cleanUpDataFilesInDocumentsFolder {
                         cleanUpDataFilesInDocumentsFolderCode()
                     }
-                    if container == nil {
-
-                        landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: nil)
-
-                        let alert = UIAlertController(title: L(.fileImportCreateNewFailedAlertTitle), message: L(.fileImportCreateNewFailedAlertMessage, [fileName]), preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: L(.actionOk), style: .default, handler: nil))
-
-                        landingViewController.present(alert, animated: true)
-                        return
-                    }
-
                     let containerViewController = SigningContainerViewController.instantiate()
                     containerViewController.containerPath = containerPath
 
                     containerViewController.isCreated = true
                     containerViewController.startSigningWhenOpened = startSigningWhenCreated
 
-                    landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
+                    landingViewController.importProgressViewController.dismissRecursively(animated: false) {
                         if containerFilePaths.count == 1 {
                             self.handleFileAddedAccessibility(viewController: self.getTopViewController())
                             UIAccessibility.post(notification: .announcement, argument: L(.dataFileAdded))
@@ -405,16 +382,16 @@ extension ContainerActions where Self: UIViewController {
                         if isEmptyFileImported {
                             containerViewController.showErrorMessage(message: L(.fileImportFailedEmptyFile))
                         }
-                    })
+                    }
 
-            }, failure: { error in
-                if cleanUpDataFilesInDocumentsFolder {
-                    cleanUpDataFilesInDocumentsFolderCode()
+                } else {
+                    if cleanUpDataFilesInDocumentsFolder {
+                        cleanUpDataFilesInDocumentsFolderCode()
+                    }
+                    landingViewController.importProgressViewController.dismiss(animated: false, completion: nil)
+                    MoppFileManager.shared.removeFile(withPath: filePath)
                 }
-                landingViewController.importProgressViewController.dismiss(animated: false, completion: nil)
-                MoppFileManager.shared.removeFile(withPath: filePath)
             }
-            )
         } else {
             let containerViewController = CryptoContainerViewController.instantiate()
             let container = CryptoContainer(filename: containerFilename as NSString, filePath: containerPath as NSString)
