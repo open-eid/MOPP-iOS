@@ -35,10 +35,11 @@ internal struct MOPPConfiguration: Decodable {
     let TSLURL: String
     let SIVAURL: String
     let TSAURL: String
-    let LDAPPERSONURL: String
-    let LDAPCORPURL: String
+    let LDAPPERSONURL: URL
+    let LDAPPERSONURLS: [URL]?
+    let LDAPCORPURL: URL
+    let LDAPCERTS: [Data]
     let TSLCERTS: [Data]
-    let LDAPCERTS: [String]
     let OCSPISSUERS: [String: String]
     let MIDPROXYURL: String
     let MIDSKURL: String
@@ -52,9 +53,10 @@ internal struct MOPPConfiguration: Decodable {
         case METAINF = "META-INF"
         case TSAURL = "TSA-URL"
         case LDAPPERSONURL = "LDAP-PERSON-URL"
+        case LDAPPERSONURLS = "LDAP-PERSON-URLS"
         case LDAPCORPURL = "LDAP-CORP-URL"
-        case TSLCERTS = "TSL-CERTS"
         case LDAPCERTS = "LDAP-CERTS"
+        case TSLCERTS = "TSL-CERTS"
         case OCSPISSUERS = "OCSP-URL-ISSUER"
         case MIDPROXYURL = "MID-PROXY-URL"
         case MIDSKURL = "MID-SK-URL"
