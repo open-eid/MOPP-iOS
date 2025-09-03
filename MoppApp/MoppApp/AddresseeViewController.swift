@@ -104,7 +104,7 @@ class AddresseeViewController : MoppViewController {
             await MainActor.run {
                 self.showLoading(show: false)
 
-                guard !result.addressees.isEmpty else {
+                guard !result.addressees.isEmpty || result.totalAddressees >= 50 else {
                     self.infoAlert(message: "\(L(.cryptoEmptyLdapLabel))")
                     return
                 }

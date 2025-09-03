@@ -23,6 +23,22 @@
 import LDAP
 import ASN1Decoder
 
+enum SearchType {
+    case personalCode
+    case registryCode
+    case other
+}
+
+func searchType(identityCode: String) -> SearchType {
+    let isDigitOnly = identityCode.allSatisfy({ $0.isNumber })
+
+    switch (isDigitOnly, identityCode.count) {
+    case (true, 11): return .personalCode
+    case (true, 8): return .registryCode
+    default: return .other
+    }
+}
+
 public class OpenLdap {
     typealias LDAP = OpaquePointer
     typealias LDAPMessage = OpaquePointer
@@ -40,7 +56,10 @@ public class OpenLdap {
         case decipherOnly = 8
     }
 
-    static public func search(identityCode: String) -> (addressees: [Addressee], totalAddressees: Int) {
+    static public func search(identityCode: String) -> (
+        addressees: [Addressee],
+        totalAddressees: Int
+    ) {
         var filePath: String? = nil
         if let libraryPath = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first {
             let ldapCertFilePath = libraryPath.appendingPathComponent("LDAPCerts/ldapCerts.pem").path
@@ -52,7 +71,7 @@ public class OpenLdap {
             }
         }
 
-        if isPersonalCode(identityCode) {
+        if searchType(identityCode: identityCode) == SearchType.personalCode {
             print("Searching with personal code from LDAP")
             return search(identityCode: identityCode, url: MoppLdapConfiguration.ldapPersonURL, certificatePath: filePath)
         } else {
@@ -101,13 +120,17 @@ public class OpenLdap {
             .replacingOccurrences(of: ")", with: "\\)")
             .replacingOccurrences(of: "*", with: "\\*")
 
-        let filter = if isPersonalCode(escapedIdentityCode) {
-            "(serialNumber=\(secureLdap ? "PNOEE-" : "")\(escapedIdentityCode))"
-        } else if escapedIdentityCode.count > 4 && escapedIdentityCode.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil {
+        let type = searchType(identityCode: escapedIdentityCode)
+
+        let filter: String = switch type {
+        case .registryCode:
             "(serialNumber=\(escapedIdentityCode))"
-        } else {
+        case .personalCode:
+            "(serialNumber=PNOEE-\(escapedIdentityCode))"
+        case .other:
             "(cn=*\(escapedIdentityCode)*)"
         }
+
         var msgId: Int32 = 0
         print("Searching from LDAP. Url: \(url) \(filter)")
         var attr = Array("userCertificate;binary".utf8CString)
@@ -161,10 +184,6 @@ public class OpenLdap {
         return true
     }
 
-    static private func isPersonalCode(_ inputString: String) -> Bool {
-        return inputString.count == 11 && inputString.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
-    }
-
     static private func attributes(ldap: LDAP, msg: LDAPMessage) -> [Addressee] {
         var result = [Addressee]()
         var message = ldap_first_message(ldap, msg)
@@ -213,6 +232,7 @@ public class OpenLdap {
                type != .ESealType || !x509.extendedKeyUsage.contains(OID.clientAuth.rawValue),
                type != .MobileIDType && type != .UnknownType {
                 let cn = x509.subject(oid: OID.commonName)?.joined(separator: ",") ?? ""
+                let serialNumber = x509.subject(oid: OID.serialNumber)?.joined(separator: ",") ?? ""
                 let split = cn.split(separator: ",").map { String($0) }
                 let addressee = Addressee()
                 if split.count == 3 {
@@ -222,6 +242,7 @@ public class OpenLdap {
                 } else {
                     addressee.identifier = cn
                 }
+                addressee.serialNumber = serialNumber
                 addressee.cert = data
                 addressee.validTo = x509.notAfter ?? Date()
                 result.append(addressee)
