@@ -24,6 +24,6 @@
 import Foundation
 
 public struct MoppLdapConfiguration {
-    static public var ldapPersonURL = "ldaps://esteid.ldap.sk.ee"
-    static public var ldapCorpURL = "ldaps://k3.ldap.sk.ee"
+    static public var ldapPersonURLS = [URL(string: "ldaps://esteid.ldap.sk.ee")!]
+    static public var ldapCorpURL = URL(string: "ldaps://k3.ldap.sk.ee")!
 }

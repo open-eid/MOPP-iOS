@@ -24,12 +24,20 @@
 import Foundation
 
 internal struct MOPPConfiguration: Decodable {
+    internal struct MetaInf: Decodable {
+        let URL: String
+        let DATE: String
+        let SERIAL: Int
+        let VER: Int
+    }
+
+    let METAINF: MetaInf
     let TSLURL: String
     let SIVAURL: String
-    let METAINF: MOPPMetaInf
     let TSAURL: String
-    let LDAPPERSONURL: String
-    let LDAPCORPURL: String
+    let LDAPPERSONURL: URL
+    let LDAPPERSONURLS: [URL]?
+    let LDAPCORPURL: URL
     let TSLCERTS: [Data]
     let LDAPCERTS: [String]
     let OCSPISSUERS: [String: String]
@@ -45,6 +53,7 @@ internal struct MOPPConfiguration: Decodable {
         case METAINF = "META-INF"
         case TSAURL = "TSA-URL"
         case LDAPPERSONURL = "LDAP-PERSON-URL"
+        case LDAPPERSONURLS = "LDAP-PERSON-URLS"
         case LDAPCORPURL = "LDAP-CORP-URL"
         case TSLCERTS = "TSL-CERTS"
         case LDAPCERTS = "LDAP-CERTS"
@@ -55,31 +64,6 @@ internal struct MOPPConfiguration: Decodable {
         case SIDV2SKURL = "SIDV2-SK-URL"
         case CERTBUNDLE = "CERT-BUNDLE"
     }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        TSLURL = try container.decode(String.self, forKey: .TSLURL)
-        SIVAURL = try container.decode(String.self, forKey: .SIVAURL)
-        METAINF = try container.decode(MOPPMetaInf.self, forKey: .METAINF)
-        TSAURL = try container.decode(String.self, forKey: .TSAURL)
-        LDAPPERSONURL = try container.decode(String.self, forKey: .LDAPPERSONURL)
-        LDAPCORPURL = try container.decode(String.self, forKey: .LDAPCORPURL)
-        TSLCERTS = try container.decode([Data].self, forKey: .TSLCERTS)
-        LDAPCERTS = try container.decodeIfPresent([String].self, forKey: .LDAPCERTS) ?? []
-        OCSPISSUERS = try container.decode([String: String].self, forKey: .OCSPISSUERS)
-        MIDPROXYURL = try container.decode(String.self, forKey: .MIDPROXYURL)
-        MIDSKURL = try container.decode(String.self, forKey: .MIDSKURL)
-        SIDV2PROXYURL = try container.decode(String.self, forKey: .SIDV2PROXYURL)
-        SIDV2SKURL = try container.decode(String.self, forKey: .SIDV2SKURL)
-        CERTBUNDLE = try container.decode([Data].self, forKey: .CERTBUNDLE)
-    }
-}
-
-internal struct MOPPMetaInf: Decodable {
-    let URL: String
-    let DATE: String
-    let SERIAL: Int
-    let VER: Int
 }
 
 

@@ -1,4 +1,4 @@
-: ${OPENLDAP:=openldap-2.6.9}
+: ${OPENLDAP:=openldap-2.6.10}
 : ${IPHONEOS_DEPLOYMENT_TARGET:="13.0"}
 : ${ARCHS:="arm64"}
 : ${PREFIX=${BUILT_PRODUCTS_DIR}/openldap}
