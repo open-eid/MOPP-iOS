@@ -25,9 +25,9 @@ import SkSigningLib
 class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
     static let shared: NFCSignature = NFCSignature()
     var session: NFCTagReaderSession?
-    var CAN: String?
-    var PIN: String?
-    var containerPath: String?
+    var CAN: String!
+    var PIN: String!
+    var containerPath: String!
     var roleInfo: MoppLibRoleAddressData?
     var invalidateWithError: Bool = false
 

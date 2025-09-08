@@ -187,13 +187,11 @@ class MoppFileManager {
             contents: fileContents,
             attributes: [FileAttributeKey.protectionKey: FileProtectionType.complete])
         
-        MoppLibContainerActions.sharedInstance().openContainer(
-            withPath: filePath,
-            success: { (_ container: MoppLibContainer?) in
-                NotificationCenter.default.post(name: .containerChangedNotificationName, object: nil, userInfo: [kKeyContainerNew: container!])
-            },
-            failure: { (_ error: Error?) -> Void in
-            })
+        MoppLibContainerActions.openContainer(withPath: filePath) { container, error in
+            if let container {
+                NotificationCenter.default.post(name: .containerChangedNotificationName, object: nil, userInfo: [kKeyContainerNew: container])
+            }
+        }
     }
     
     func saveFile(fileURL: URL, _ folderName: String, completionHandler: @escaping (Bool, URL?) -> Void) {
@@ -271,15 +269,15 @@ class MoppFileManager {
         let fileExtension = URL(fileURLWithPath: containerPath).pathExtension
         
         if fileExtension.isAsicContainerExtension {
-            MoppLibContainerActions.sharedInstance()?.container(containerPath, saveDataFile: fileName, to: saveTempFileToLocation, success: {
-                printLog("Successfully saved \(fileName) to 'Saved Files' directory")
-                completionHandler(true, saveTempFileToLocation)
-                return
-            }, failure: { (error) in
-                printLog("Failed to save file. Error: \(error?.localizedDescription ?? "No error to display")")
-                completionHandler(false, nil)
-                return
-            })
+            MoppLibContainerActions.container(containerPath, saveDataFile: fileName, to: saveTempFileToLocation) { error in
+                if let error {
+                    printLog("Failed to save file. Error: \(error.localizedDescription)")
+                    completionHandler(false, nil)
+                } else {
+                    printLog("Successfully saved \(fileName) to 'Saved Files' directory")
+                    completionHandler(true, saveTempFileToLocation)
+                }
+            }
         } else {
             let fileUrl: URL = URL(fileURLWithPath: tempDir.appendingPathComponent(fileName).path)
             do {
@@ -289,7 +287,6 @@ class MoppFileManager {
             } catch let error {
                 printLog("Failed to save file. Error: \(error.localizedDescription)")
                 completionHandler(false, nil)
-                return
             }
         }
     }
@@ -329,12 +326,9 @@ class MoppFileManager {
     
     func removeFilesFromSharedFolder() {
         let sharedDocumentsPaths = sharedDocumentPaths()
-        if sharedDocumentsPaths != nil {
-            let sharedFiles = sharedDocumentsPaths.compactMap { URL(fileURLWithPath: $0) }
-            
-            for sharedFile: URL in sharedFiles {
-                removeFile(withPath: sharedFile.path)
-            }
+        let sharedFiles = sharedDocumentsPaths.compactMap { URL(fileURLWithPath: $0) }
+        for sharedFile: URL in sharedFiles {
+            removeFile(withPath: sharedFile.path)
         }
     }
 

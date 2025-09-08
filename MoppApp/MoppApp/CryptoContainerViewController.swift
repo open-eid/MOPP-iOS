@@ -112,7 +112,7 @@ extension CryptoContainerViewController : AddresseeViewControllerDelegate {
 extension CryptoContainerViewController : ContainerViewControllerDelegate {
     
     func removeDataFile(index: Int) {
-        let containerFileCount: Int = self.getContainer().dataFiles.count
+        let containerFileCount: Int = container.dataFiles.count
         guard containerFileCount > 0 else {
             printLog("No files in container")
             self.infoAlert(message: "File not found in container")
@@ -124,8 +124,7 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
                 if alertAction == .cancel {
                     UIAccessibility.post(notification: .layoutChanged, argument: L(.dataFileRemovalCancelled))
                 } else if alertAction == .confirm {
-                    let cryptoContainer: CryptoContainer? = self?.getContainer()
-                    let isDeleted: Bool = ContainerRemovalActions.shared.removeCdocContainer(cryptoContainer: cryptoContainer)
+                    let isDeleted: Bool = ContainerRemovalActions.shared.removeCdocContainer(cryptoContainer: self?.container)
                     if !isDeleted {
                         self?.infoAlert(message: L(.dataFileRemovalFailed))
                         return
