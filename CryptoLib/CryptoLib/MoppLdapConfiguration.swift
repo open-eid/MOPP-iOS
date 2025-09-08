@@ -1,6 +1,7 @@
 //
-//  CdocInfo.m
+//  MoppLdapConfiguration.swift
 //  CryptoLib
+//
 /*
  * Copyright 2017 - 2024 Riigi Infosüsteemi Amet
  *
@@ -20,8 +21,12 @@
  *
  */
 
-#import <Foundation/Foundation.h>
-#import "CdocInfo.h"
+import Foundation
 
-@implementation CdocInfo
-@end
+public struct MoppLdapConfiguration {
+    static public var ldapPersonURLS = [URL(string: "ldaps://esteid.ldap.sk.ee")!]
+    static public var ldapCorpURL = URL(string: "ldaps://k3.ldap.sk.ee")!
+    static public var ldapCertsPath: String? {
+        FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first?.appendingPathComponent("LDAPCerts/ldapCerts.pem").path
+    }
+}

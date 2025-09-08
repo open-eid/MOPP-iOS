@@ -55,6 +55,7 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
     @IBOutlet weak var sivaURL: UILabel!
     @IBOutlet weak var tsaURL: UILabel!
     @IBOutlet weak var ldapPersonURL: UILabel!
+    @IBOutlet weak var ldapPersonURLS: UILabel!
     @IBOutlet weak var ldapCorpURL: UILabel!
     @IBOutlet weak var mobileIdURL: UILabel!
     @IBOutlet weak var mobileIdSKURL: UILabel!
@@ -231,8 +232,9 @@ class DiagnosticsViewController: MoppViewController, UIDocumentPickerDelegate {
         tslURL.text = formatString(text: "TSL_URL:", additionalText: "\(decodedConf.TSLURL) \(formatLOTLVersion(version: getLOTLVersion()))")
         sivaURL.text = formatString(text: "SIVA_URL:", additionalText: DefaultsHelper.sivaUrl ?? decodedConf.SIVAURL)
         tsaURL.text = formatString(text: "TSA_URL:", additionalText: DefaultsHelper.timestampUrl ?? decodedConf.TSAURL)
-        ldapPersonURL.text = formatString(text: "LDAP_PERSON_URL:", additionalText: decodedConf.LDAPPERSONURL)
-        ldapCorpURL.text = formatString(text: "LDAP_CORP_URL:", additionalText: decodedConf.LDAPCORPURL)
+        ldapPersonURL.text = formatString(text: "LDAP_PERSON_URL:", additionalText: decodedConf.LDAPPERSONURL.absoluteString)
+        ldapPersonURLS.text = formatString(text: "LDAP_PERSON_URLS:", additionalText: decodedConf.LDAPPERSONURLS?.map { $0.absoluteString }.joined(separator: ", ") ?? "")
+        ldapCorpURL.text = formatString(text: "LDAP_CORP_URL:", additionalText: decodedConf.LDAPCORPURL.absoluteString)
         mobileIdURL.text = formatString(text: "MID-PROXY-URL: ", additionalText: decodedConf.MIDPROXYURL)
         mobileIdSKURL.text = formatString(text: "MID-SK-URL: ", additionalText: decodedConf.MIDSKURL)
         smartIdV2URL.text = formatString(text: "SIDV2-PROXY-URL: ", additionalText: decodedConf.SIDV2PROXYURL)
