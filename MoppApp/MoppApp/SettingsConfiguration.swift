@@ -53,7 +53,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         if let cachedData = getConfigurationFromCache(forKey: "config") as? String {
             var decodedData: MOPPConfiguration? = nil
             do {
-                decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: cachedData)
+                decodedData = try MOPPConfiguration(json: cachedData)
             } catch {
                 printLog("Unable to decode data: \(error.localizedDescription)")
                 loadLocalConfiguration()
@@ -103,12 +103,12 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         do {
             let localConfigData = try String(contentsOfFile: Bundle.main.path(forResource: "config", ofType: "json")!)
             let localSignature = try String(contentsOfFile: Bundle.main.path(forResource: "signature", ofType: "rsa")!)
-            let decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: localConfigData)
+            let decodedData = try MOPPConfiguration(json: localConfigData)
             setAllConfigurationToCache(configData: localConfigData, signature: localSignature, initialUpdateDate: MoppDateFormatter().stringToDate(dateString: getDefaultMoppConfiguration().UPDATEDATE), versionSerial: decodedData.METAINF.SERIAL)
             setConfigurationToCache("", forKey: "lastUpdateDateCheck")
-            
+
+            Configuration.moppConfig = decodedData
             setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS, certBundle: decodedData.CERTBUNDLE)
-            setMoppConfiguration(configuration: decodedData)
             setupMoppLDAPConfiguration(ldapCerts: decodedData.LDAPCERTS, ldapPersonUrl: decodedData.LDAPPERSONURL, ldapCorpUrl: decodedData.LDAPCORPURL)
         } catch {
             printLog("Unable to read file: \(error.localizedDescription)")
@@ -122,11 +122,11 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
             let localPublicKey = try String(contentsOfFile: Bundle.main.path(forResource: "publicKey", ofType: "pub")!)
             let cachedSignature = getConfigurationFromCache(forKey: "signature") as! String
 
-            _ = try SignatureVerifier().isSignatureCorrect(configData: trim(text: cachedConfigData)!, publicKey: localPublicKey, signature: cachedSignature)
+            _ = try SignatureVerifier.isSignatureCorrect(configData: cachedConfigData, publicKey: localPublicKey, signature: cachedSignature)
 
-            let decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: cachedConfigData)
+            let decodedData = try MOPPConfiguration(json: cachedConfigData)
+            Configuration.moppConfig = decodedData
             setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS, certBundle: decodedData.CERTBUNDLE)
-            setMoppConfiguration(configuration: decodedData)
             setupMoppLDAPConfiguration(ldapCerts: decodedData.LDAPCERTS, ldapPersonUrl: decodedData.LDAPPERSONURL, ldapCorpUrl: decodedData.LDAPCORPURL)
         } catch {
             printLog("Unable to read file: \(error.localizedDescription)")
@@ -136,7 +136,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     
     private func setupCentralConfiguration(centralConfig: String, centralSignature: String, decodedData: MOPPConfiguration) {
         setAllConfigurationToCache(configData: centralConfig, signature: centralSignature, versionSerial: decodedData.METAINF.SERIAL)
-        setMoppConfiguration(configuration: decodedData)
+        Configuration.moppConfig = decodedData
         setupMoppConfiguration(sivaUrl: decodedData.SIVAURL, tslUrl: decodedData.TSLURL, tslCerts: decodedData.TSLCERTS, tsaUrl: decodedData.TSAURL, ocspIssuers: decodedData.OCSPISSUERS, certBundle: decodedData.CERTBUNDLE)
         saveLdapCerts(ldapCerts: decodedData.LDAPCERTS, overwrite: true)
         NotificationCenter.default.post(name: SettingsConfiguration.isCentralConfigurationLoaded, object: nil, userInfo: ["isLoaded": true])
@@ -168,7 +168,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                     self.handleCacheConfiguration()
                     return
                 }
-                if SignatureVerifier().hasSignatureChanged(oldSignature: cachedSignature!, newSignature: centralSignature) {
+                if SignatureVerifier.hasSignatureChanged(oldSignature: cachedSignature!, newSignature: centralSignature) {
                     self.getFetchedData(fromUrl: "\(self.getDefaultMoppConfiguration().CENTRALCONFIGURATIONSERVICEURL)/config.json") { (centralConfig, configError) in
                         if let confError = configError {
                             printLog(confError.localizedDescription)
@@ -179,8 +179,8 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
                             return
                         }
                         do {
-                            _ = try SignatureVerifier().isSignatureCorrect(configData: self.trim(text: centralConfig)!, publicKey: localPublicKey, signature: centralSignature)
-                            let decodedData = try MoppConfigurationDecoder().decodeMoppConfiguration(configData: centralConfig)
+                            _ = try SignatureVerifier.isSignatureCorrect(configData: centralConfig, publicKey: localPublicKey, signature: centralSignature)
+                            let decodedData = try MOPPConfiguration(json: centralConfig)
                             self.setupCentralConfiguration(centralConfig: centralConfig, centralSignature: centralSignature, decodedData: decodedData)
                         }
                         catch {
@@ -200,7 +200,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     internal func getDefaultMoppConfiguration() -> DefaultMoppConfiguration {
         do {
             let defaultConfigData = try String(contentsOfFile: Bundle.main.path(forResource: "defaultConfiguration", ofType: "json")!)
-            return try MoppConfigurationDecoder().decodeDefaultMoppConfiguration(configData: defaultConfigData)
+            return try DefaultMoppConfiguration(json: defaultConfigData)
         } catch {
             printLog("Unable to decode data: \(error.localizedDescription)")
             fatalError("Unable to decode default MOPP configuration!")
@@ -309,10 +309,6 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
         self.setConfigurationToCache(versionSerial, forKey: "versionSerial")
     }
 
-    private func setMoppConfiguration(configuration: MOPPConfiguration) -> Void {
-        Configuration.moppConfig = configuration
-    }
-
     private func setupMoppConfiguration(sivaUrl: String, tslUrl: String, tslCerts: [Data], tsaUrl: String, ocspIssuers: [String: String], certBundle: [Data]) -> Void {
         MoppLibConfiguration.sivaURL = sivaUrl
         if let fileName = DefaultsHelper.sivaCertFileName {
@@ -336,10 +332,6 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
 
     private func isDateAfterInterval(updateDate: Date, interval: Int) -> Bool {
         return Calendar.current.date(byAdding: .day, value: interval, to: updateDate)! < Date()
-    }
-
-    private func trim(text: String?) -> String? {
-        return text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
 
     func saveLdapCerts(ldapCerts: [String], overwrite: Bool) {

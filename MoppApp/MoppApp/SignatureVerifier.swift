@@ -21,42 +21,42 @@
  *
  */
 
-import SwiftyRSA
+import Security
 
 class SignatureVerifier {
     
-    func isSignatureCorrect(configData: String, publicKey: String, signature: String) throws {
-        guard let data = Data(base64Encoded: removeHeaderAndFooterFromRSACertificate(certificate: publicKey)) else { return }
-        
-        do {
-            let confData = try ClearMessage(string: configData, using: .utf8)
-            let signatureBase64 = try Signature(base64Encoded: removeAllWhitespace(data: signature))
-            let isVerificationSuccessful: Bool = try confData.verify(with: PublicKey(data: data), signature: signatureBase64, digestType: .sha512)
-            
-            if isVerificationSuccessful == false {
-                printLog("Signature verification unsuccessful")
-                throw Exception("Signature verification unsuccessful")
-            }
-            
-        } catch {
-            throw error
+    static func isSignatureCorrect(configData: String, publicKey: String, signature: String) throws {
+        guard let sigData = fromBase64(signature) else {
+            throw Exception("Invalid signature")
+        }
+        guard let pubKey = fromBase64(publicKey
+            .replacingOccurrences(of: "-----BEGIN RSA PUBLIC KEY-----", with: "")
+            .replacingOccurrences(of: "-----END RSA PUBLIC KEY-----", with: "")) else {
+            throw Exception("Invalid public key")
+        }
+        let parameters: [CFString: Any] = [
+            kSecAttrKeyType: kSecAttrKeyTypeRSA,
+            kSecAttrKeyClass: kSecAttrKeyClassPublic,
+            kSecReturnPersistentRef: false
+        ]
+        var error: Unmanaged<CFError>?
+        guard let key = SecKeyCreateWithData(pubKey as CFData, parameters as CFDictionary, &error) else {
+            printLog("Failed to create key: \(error!.takeRetainedValue())")
+            throw Exception("Failed to create key: \(error!.takeRetainedValue())")
+        }
+        let algorithm: SecKeyAlgorithm = .rsaSignatureMessagePKCS1v15SHA512
+        let result = SecKeyVerifySignature(key, algorithm, Data(configData.utf8) as CFData, sigData as CFData, &error)
+        if !result {
+            print("Verification error: \(error!.takeRetainedValue())")
+            throw Exception("Signature verification unsuccessful")
         }
     }
-    
-    func hasSignatureChanged(oldSignature: String, newSignature: String) -> Bool {
-        return removeAllWhitespace(data: oldSignature) != removeAllWhitespace(data: newSignature)
+
+    static func hasSignatureChanged(oldSignature: String, newSignature: String) -> Bool {
+        fromBase64(oldSignature) != fromBase64(newSignature)
     }
-    
-    private func removeHeaderAndFooterFromRSACertificate(certificate: String) -> String {
-        let header = "-----BEGIN RSA PUBLIC KEY-----"
-        let footer = "-----END RSA PUBLIC KEY-----"
-        let cleanCert = removeAllWhitespace(data: certificate.replacingOccurrences(of: header, with: "")
-            .replacingOccurrences(of: footer, with: ""))
-        
-        return cleanCert
-    }
-    
-    private func removeAllWhitespace(data: String) -> String {
-        return data.filter { !" \n\t\r".contains($0) }
+
+    static private func fromBase64(_ input: String) -> Data? {
+        Data(base64Encoded: input, options: .ignoreUnknownCharacters)
     }
 }

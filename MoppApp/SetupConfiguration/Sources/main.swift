@@ -1,6 +1,7 @@
 #!/usr/bin/swift sh
 
 import Foundation
+import Security
 
 // MARK: - Settings Configuration
 
@@ -16,7 +17,7 @@ class SettingsConfiguration {
         self.configTslUrl = args.indices.contains(3) ? args[3] : "https://ec.europa.eu/tools/lotl/eu-lotl.xml"
     }
 
-    func setupConfiguration() async throws {
+    func setupConfiguration() throws {
         log("Starting configuration setup...")
 
         log("Config Base URL: \(configBaseUrl)")
@@ -24,19 +25,22 @@ class SettingsConfiguration {
         log("Config TSL URL: \(configTslUrl)")
 
         log("1 / 4 - Downloading configuration data...")
-        let configData = try await fetchData(from: "\(configBaseUrl)/config.json")
-        let publicKey = try await fetchData(from: "\(configBaseUrl)/config.pub")
-        let signature = try await fetchData(from: "\(configBaseUrl)/config.rsa")
+        let configData = try fetchData(from: "\(configBaseUrl)/config.json")
+        let publicKey = try fetchData(from: "\(configBaseUrl)/config.pub")
+        let signature = try fetchData(from: "\(configBaseUrl)/config.rsa")
 
         log("2 / 4 - Verifying signature...")
         try verifySignature(configData: configData, publicKey: publicKey, signature: signature)
 
         log("3 / 4 -  Creating default configuration file...")
-        let decodedData = try decodeMoppConfiguration(configData: configData)
+        let decodedData = MOPPConfiguration(json: configData)
         let defaultConfiguration = createDefaultConfiguration(versionSerial: decodedData.METAINF.SERIAL)
 
         log("4 / 4 - Saving and moving files...")
-        try saveAndMoveConfigurationFiles(configData: configData, publicKey: publicKey, signature: signature, defaultConfiguration: defaultConfiguration)
+        try saveFile(named: "config.json", content: configData)
+        try saveFile(named: "publicKey.pub", content: publicKey)
+        try saveFile(named: "signature.rsa", content: signature)
+        try saveFile(named: "defaultConfiguration.json", content: defaultConfiguration)
 
         log("Default configuration initialized successfully!")
     }
@@ -45,12 +49,9 @@ class SettingsConfiguration {
 // MARK: - Network Functions
 
 extension SettingsConfiguration {
-    private func fetchData(from urlString: String) async throws -> String {
+    private func fetchData(from urlString: String) throws -> String {
         guard let url = URL(string: urlString) else { throw ConfigurationError.invalidURL }
-
-        let (data, _) = try await URLSession.shared.data(from: url)
-        guard let stringData = String(data: data, encoding: .utf8) else { throw ConfigurationError.invalidData }
-
+        guard let stringData = try? String(contentsOf: url, encoding: .utf8) else { throw ConfigurationError.invalidData }
         return stringData
     }
 }
@@ -59,8 +60,31 @@ extension SettingsConfiguration {
 
 extension SettingsConfiguration {
     private func verifySignature(configData: String, publicKey: String, signature: String) throws {
-        // Placeholder for actual verification logic
         guard !configData.isEmpty, !publicKey.isEmpty, !signature.isEmpty else {
+            throw ConfigurationError.signatureVerificationFailed
+        }
+        guard let pubKey = Data(base64Encoded: publicKey
+            .replacingOccurrences(of: "-----BEGIN RSA PUBLIC KEY-----", with: "")
+            .replacingOccurrences(of: "-----END RSA PUBLIC KEY-----", with: ""), options: .ignoreUnknownCharacters) else {
+            throw ConfigurationError.signatureVerificationFailed
+        }
+        guard let sigData = Data(base64Encoded: signature, options: .ignoreUnknownCharacters) else {
+            throw ConfigurationError.signatureVerificationFailed
+        }
+        let parameters: [CFString: Any] = [
+            kSecAttrKeyType: kSecAttrKeyTypeRSA,
+            kSecAttrKeyClass: kSecAttrKeyClassPublic,
+            kSecReturnPersistentRef: false
+        ]
+        var error: Unmanaged<CFError>?
+        guard let key = SecKeyCreateWithData(pubKey as CFData, parameters as CFDictionary, &error) else {
+            log("Key importing failed \(error?.takeRetainedValue().localizedDescription ?? "")")
+            throw ConfigurationError.signatureVerificationFailed
+        }
+        let algorithm: SecKeyAlgorithm = .rsaSignatureMessagePKCS1v15SHA512
+        let result = SecKeyVerifySignature(key, algorithm, Data(configData.utf8) as CFData, sigData as CFData, &error)
+        if !result {
+            log("Signature verifying failed \(error?.takeRetainedValue().localizedDescription ?? "")")
             throw ConfigurationError.signatureVerificationFailed
         }
         log("Signature verified successfully!")
@@ -82,58 +106,33 @@ extension SettingsConfiguration {
         """
     }
 
-    private func saveAndMoveConfigurationFiles(configData: String, publicKey: String, signature: String, defaultConfiguration: String) throws {
-        let files = [
-            ("config.json", configData),
-            ("publicKey.pub", publicKey),
-            ("signature.rsa", signature),
-            ("defaultConfiguration.json", defaultConfiguration)
-        ]
-
-        for (fileName, content) in files {
-            try saveFile(named: fileName, content: content)
-        }
-    }
-
     private func saveFile(named fileName: String, content: String) throws {
-        let directory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-        let fileURL = directory.appendingPathComponent(fileName)
-
-        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
-
+        let fileURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath).appendingPathComponent(fileName)
         try content.write(to: fileURL, atomically: true, encoding: .utf8)
         log("File saved: \(fileURL.path)")
     }
 }
 
-extension SettingsConfiguration {
-    func decodeMoppConfiguration(configData: String) throws -> MOPPConfiguration {
-          do {
-              return try JSONDecoder().decode(MOPPConfiguration.self, from: configData.data(using: .utf8)!)
-          } catch {
-              fatalError("Error decoding data: \(error.localizedDescription)")
-          }
-      }
+struct MOPPConfiguration: Codable {
+    struct MetaInf: Codable {
+        let URL: String
+        let DATE: String
+        let SERIAL: Int
+        let VER: Int
+    }
+    let METAINF: MetaInf
 
-      struct MOPPConfiguration: Codable {
-          let METAINF: MOPPMetaInf
+    private enum CodingKeys: String, CodingKey {
+        case METAINF = "META-INF"
+    }
 
-          private enum MOPPConfigurationType: String, CodingKey {
-              case METAINF = "META-INF"
-          }
-
-          init(from decoder: Decoder) throws {
-              let container = try decoder.container(keyedBy: MOPPConfigurationType.self)
-              METAINF = try container.decode(MOPPMetaInf.self, forKey: .METAINF)
-          }
-      }
-
-      struct MOPPMetaInf: Codable {
-          let URL: String
-          let DATE: String
-          let SERIAL: Int
-          let VER: Int
-      }
+    init(json: String) {
+        do {
+            self = try JSONDecoder().decode(MOPPConfiguration.self, from: json.data(using: .utf8)!)
+        } catch {
+            fatalError("Error decoding data: \(error.localizedDescription)")
+        }
+    }
 }
 
 // MARK: - Error Handling
@@ -152,4 +151,4 @@ func log(_ message: String) {
 
 // MARK: - Run Script
 
-try await SettingsConfiguration().setupConfiguration()
+try SettingsConfiguration().setupConfiguration()

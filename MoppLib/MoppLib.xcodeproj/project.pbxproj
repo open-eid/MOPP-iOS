@@ -290,7 +290,6 @@
 			mainGroup = E4250CDD1E09695100530370;
 			packageReferences = (
 				4E24A7172DCE292800DF2CF4 /* XCRemoteSwiftPackageReference "SwiftECC" */,
-				4E098E8B2DCE2CCA001C012D /* XCRemoteSwiftPackageReference "BigInt" */,
 			);
 			productRefGroup = E4250CE81E09695100530370 /* Products */;
 			projectDirPath = "";

@@ -30,12 +30,12 @@
 		4E0F09ED2D76F6C0003F24B9 /* MoppLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF15038F2AC5CFFA007222B2 /* MoppLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E0F09EE2D76F6C4003F24B9 /* SkSigningLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF1503A02AC5D01A007222B2 /* SkSigningLib.framework */; };
 		4E0F09EF2D76F6C4003F24B9 /* SkSigningLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF1503A02AC5D01A007222B2 /* SkSigningLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4E167D872B6D346F001B74A1 /* digidocpp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E167D862B6D346F001B74A1 /* digidocpp.framework */; };
 		4E167D882B6D346F001B74A1 /* digidocpp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E167D862B6D346F001B74A1 /* digidocpp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4E59080024B0F914001B23A6 /* SmartIDEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5907FF24B0F914001B23A6 /* SmartIDEditViewController.swift */; };
 		4E59080224B258C7001B23A6 /* SmartIDChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59080124B258C6001B23A6 /* SmartIDChallengeViewController.swift */; };
 		4E59080424B2E295001B23A6 /* SmartIDSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59080324B2E295001B23A6 /* SmartIDSignature.swift */; };
 		4E6E1D9B2AAB493A008B3E74 /* NFCEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E1D9A2AAB493A008B3E74 /* NFCEditViewController.swift */; };
+		4E7C98CC2E5EF0B100D51D9E /* RoleDetailsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF6A55627E14D3B0055F8D5 /* RoleDetailsViewControllerTests.swift */; };
 		4EE56D232AB0561C002648EE /* NFCSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE56D222AB0561C002648EE /* NFCSignature.swift */; };
 		540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.swift */; };
 		547BDF251E8BEFA30093931F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
@@ -163,12 +163,8 @@
 		C5FA0BE920A1930400A208E5 /* MoppApp+Jailbreak.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0BE820A1930400A208E5 /* MoppApp+Jailbreak.swift */; };
 		C5FA0BEC20A19AE100A208E5 /* Jailbreak.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5FA0BEB20A19AE100A208E5 /* Jailbreak.storyboard */; };
 		C5FA0BEE20A19E4200A208E5 /* JailbreakViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5FA0BED20A19E4200A208E5 /* JailbreakViewController.swift */; };
-		DF0075C223324AC600BAB3DE /* MoppConfigurationDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */; };
 		DF0C2B3F29150EAB007E1745 /* ScaledLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0C2B3E29150EAB007E1745 /* ScaledLabel.swift */; };
-		DF1503A42AC5D163007222B2 /* ASN1Decoder in Frameworks */ = {isa = PBXBuildFile; productRef = DF1503A32AC5D163007222B2 /* ASN1Decoder */; };
 		DF1503A62AC5D1B9007222B2 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = DF1503A52AC5D1B9007222B2 /* FirebaseCrashlytics */; };
-		DF1503A82AC5D1DB007222B2 /* SwiftyRSA in Frameworks */ = {isa = PBXBuildFile; productRef = DF1503A72AC5D1DB007222B2 /* SwiftyRSA */; };
-		DF1503A92AC5D1DB007222B2 /* SwiftyRSA in Embed Frameworks */ = {isa = PBXBuildFile; productRef = DF1503A72AC5D1DB007222B2 /* SwiftyRSA */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		DF1503AB2AC5D1E5007222B2 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = DF1503AA2AC5D1E5007222B2 /* ZIPFoundation */; };
 		DF17ABCE29C0F86E009711DF /* BarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF17ABCD29C0F86E009711DF /* BarButton.swift */; };
 		DF24E9D62AD5ECFB00471FFA /* DiagnosticError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFEEFCCD29AD062C0013E66B /* DiagnosticError.swift */; };
@@ -268,6 +264,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4E7C98C52E5EF08500D51D9E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4250CBB1E0968D200530370 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E4250CC21E0968D200530370;
+			remoteInfo = MoppApp;
+		};
 		54A4182D1E83FAD200559E2B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E4250CBB1E0968D200530370 /* Project object */;
@@ -320,7 +323,6 @@
 				4E0F09ED2D76F6C0003F24B9 /* MoppLib.framework in Embed Frameworks */,
 				4E167D882B6D346F001B74A1 /* digidocpp.framework in Embed Frameworks */,
 				4E0F09EB2D76F6BD003F24B9 /* CryptoLib.framework in Embed Frameworks */,
-				DF1503A92AC5D1DB007222B2 /* SwiftyRSA in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,6 +352,7 @@
 		4E59080124B258C6001B23A6 /* SmartIDChallengeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartIDChallengeViewController.swift; sourceTree = "<group>"; };
 		4E59080324B2E295001B23A6 /* SmartIDSignature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartIDSignature.swift; sourceTree = "<group>"; };
 		4E6E1D9A2AAB493A008B3E74 /* NFCEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFCEditViewController.swift; sourceTree = "<group>"; };
+		4E7C98C12E5EF08500D51D9E /* MoppAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoppAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EE56D222AB0561C002648EE /* NFCSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCSignature.swift; sourceTree = "<group>"; };
 		540786E81E1A76640016ABA7 /* UITextView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Additions.swift"; sourceTree = "<group>"; };
 		54825EF41E1CFE9600253FF0 /* Date+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Additions.swift"; sourceTree = "<group>"; };
@@ -481,7 +484,6 @@
 		C5FA0BE820A1930400A208E5 /* MoppApp+Jailbreak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoppApp+Jailbreak.swift"; sourceTree = "<group>"; };
 		C5FA0BEB20A19AE100A208E5 /* Jailbreak.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Jailbreak.storyboard; sourceTree = "<group>"; };
 		C5FA0BED20A19E4200A208E5 /* JailbreakViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JailbreakViewController.swift; sourceTree = "<group>"; };
-		DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoppConfigurationDecoder.swift; sourceTree = "<group>"; };
 		DF0C2B3E29150EAB007E1745 /* ScaledLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaledLabel.swift; sourceTree = "<group>"; };
 		DF1503882AC5CFFA007222B2 /* MoppLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MoppLib.xcodeproj; path = ../MoppLib/MoppLib.xcodeproj; sourceTree = "<group>"; };
 		DF1503942AC5D011007222B2 /* CryptoLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CryptoLib.xcodeproj; path = ../CryptoLib/CryptoLib.xcodeproj; sourceTree = "<group>"; };
@@ -596,11 +598,8 @@
 			files = (
 				4E0F09EC2D76F6C0003F24B9 /* MoppLib.framework in Frameworks */,
 				C55BB1CC2091BD2000618AC4 /* WebKit.framework in Frameworks */,
-				4E167D872B6D346F001B74A1 /* digidocpp.framework in Frameworks */,
-				DF1503A42AC5D163007222B2 /* ASN1Decoder in Frameworks */,
 				DF1503A62AC5D1B9007222B2 /* FirebaseCrashlytics in Frameworks */,
 				4E0F09EA2D76F6BD003F24B9 /* CryptoLib.framework in Frameworks */,
-				DF1503A82AC5D1DB007222B2 /* SwiftyRSA in Frameworks */,
 				4E0F09EE2D76F6C4003F24B9 /* SkSigningLib.framework in Frameworks */,
 				DF1503AB2AC5D1E5007222B2 /* ZIPFoundation in Frameworks */,
 			);
@@ -1066,6 +1065,7 @@
 			children = (
 				E4250CC31E0968D200530370 /* MoppApp.app */,
 				54A418241E83FAD200559E2B /* shareExtension.appex */,
+				4E7C98C12E5EF08500D51D9E /* MoppAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1148,7 +1148,6 @@
 				DFD176D223F427AD00E2CC52 /* TSLVersionChecker.swift */,
 				DFD176CA23F1B78000E2CC52 /* MimeTypeDecoder.swift */,
 				DFBF242C23DB0923008DD8D0 /* LOTLDecoder.swift */,
-				DF0075C123324AC600BAB3DE /* MoppConfigurationDecoder.swift */,
 				E42B08AD1E1EFC1800EA24A3 /* DateFormatter.swift */,
 				E42B08B01E1F049B00EA24A3 /* FileManager.swift */,
 				E4C53F4A1E30D03500F209BE /* DefaultsHelper.swift */,
@@ -1204,6 +1203,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4E7C98C02E5EF08500D51D9E /* MoppAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E7C98C72E5EF08500D51D9E /* Build configuration list for PBXNativeTarget "MoppAppTests" */;
+			buildPhases = (
+				4E7C98BD2E5EF08500D51D9E /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4E7C98C62E5EF08500D51D9E /* PBXTargetDependency */,
+			);
+			name = MoppAppTests;
+			packageProductDependencies = (
+			);
+			productName = MoppAppTests;
+			productReference = 4E7C98C12E5EF08500D51D9E /* MoppAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		54A418231E83FAD200559E2B /* shareExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 54A418321E83FAD200559E2B /* Build configuration list for PBXNativeTarget "shareExtension" */;
@@ -1240,9 +1257,7 @@
 			);
 			name = MoppApp;
 			packageProductDependencies = (
-				DF1503A32AC5D163007222B2 /* ASN1Decoder */,
 				DF1503A52AC5D1B9007222B2 /* FirebaseCrashlytics */,
-				DF1503A72AC5D1DB007222B2 /* SwiftyRSA */,
 				DF1503AA2AC5D1E5007222B2 /* ZIPFoundation */,
 			);
 			productName = MoppApp;
@@ -1256,10 +1271,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1620;
+				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1620;
 				ORGANIZATIONNAME = "Riigi Infosüsteemi Amet";
 				TargetAttributes = {
+					4E7C98C02E5EF08500D51D9E = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = E4250CC21E0968D200530370;
+					};
 					54A418231E83FAD200559E2B = {
 						CreatedOnToolsVersion = 8.2.1;
 						LastSwiftMigration = 0900;
@@ -1293,9 +1312,7 @@
 			mainGroup = E4250CBA1E0968D200530370;
 			packageReferences = (
 				DF1503792AC5CCE7007222B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				DF15037C2AC5CD32007222B2 /* XCRemoteSwiftPackageReference "SwiftyRSA" */,
 				DF15037F2AC5CD8D007222B2 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
-				DF1503822AC5CDBC007222B2 /* XCRemoteSwiftPackageReference "ASN1Decoder" */,
 			);
 			productRefGroup = E4250CC41E0968D200530370 /* Products */;
 			projectDirPath = "";
@@ -1317,6 +1334,7 @@
 			targets = (
 				E4250CC21E0968D200530370 /* MoppApp */,
 				54A418231E83FAD200559E2B /* shareExtension */,
+				4E7C98C02E5EF08500D51D9E /* MoppAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1359,57 +1377,57 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				39CDA7EA20ADBCEC006E2E9F /* Crypto.storyboard in Resources */,
-				C50DCCED1FC5741900D48E16 /* RobotoCondensed-Bold.ttf in Resources */,
-				C50DCCF71FC5741900D48E16 /* Roboto-LightItalic.ttf in Resources */,
-				C5FA0BEC20A19AE100A208E5 /* Jailbreak.storyboard in Resources */,
-				C56C620B201A255900CCC2A5 /* RecentContainers.storyboard in Resources */,
-				C50DCCEC1FC5741900D48E16 /* Roboto-CondensedItalic.ttf in Resources */,
-				C54EA6E320372F490039AC78 /* SigningElements.xib in Resources */,
-				C50DCCF31FC5741900D48E16 /* Roboto-BoldItalic.ttf in Resources */,
-				C50DCCF81FC5741900D48E16 /* Roboto-Regular.ttf in Resources */,
-				C50DCCF41FC5741900D48E16 /* Roboto-Condensed.ttf in Resources */,
-				C50DCCEB1FC5741900D48E16 /* Roboto-Light.ttf in Resources */,
-				C52E82761FC1D3DD0074B280 /* Menu.storyboard in Resources */,
-				C50DCCEF1FC5741900D48E16 /* Roboto-MediumItalic.ttf in Resources */,
-				DFB1D5EB2ACAFE1B00FDC7B8 /* GoogleService-Info.plist in Resources */,
-				C50DCCF11FC5741900D48E16 /* RobotoCondensed-LightItalic.ttf in Resources */,
-				C50DCCEA1FC5741900D48E16 /* Roboto-Thin.ttf in Resources */,
-				DFF3C3BE2332355D0079458A /* signature.rsa in Resources */,
-				C54BB10D1FBD8CE900A274F6 /* Signing.storyboard in Resources */,
-				C50DCCF51FC5741900D48E16 /* Roboto-BoldCondensed.ttf in Resources */,
-				C50DCCFB1FC5741900D48E16 /* Roboto-BlackItalic.ttf in Resources */,
-				DFF3C3BD2332355D0079458A /* config.json in Resources */,
-				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
 				54A5729F1E82AC760099BFAF /* AppStore.plist in Resources */,
-				C50DCCF61FC5741900D48E16 /* Roboto-BoldCondensedItalic.ttf in Resources */,
-				DFA56CF42AF009E5007D7F7E /* RadioButton.xib in Resources */,
-				DFA5821A264AAB6600564971 /* digidoc_76.png in Resources */,
-				C593D9EC208F19D7000B3BF6 /* Settings.storyboard in Resources */,
-				DFA5821B264AAB6600564971 /* digidoc_1024.png in Resources */,
-				C50DCCF21FC5741900D48E16 /* RobotoCondensed-Regular.ttf in Resources */,
-				C537AE7820063E48009037E5 /* LandingElements.xib in Resources */,
-				C54BB1091FBD8CC600A274F6 /* MyeID.storyboard in Resources */,
-				39F8EFE720D263B5001BCF73 /* TokenFlow.storyboard in Resources */,
-				C50DCD1D1FD1579700D48E16 /* RecentContainersElements.xib in Resources */,
-				C50DCD011FC6E97400D48E16 /* Container.storyboard in Resources */,
-				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
-				54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */,
-				DFC2ADC329437790008A1CD2 /* Accessibility.storyboard in Resources */,
-				C50DCCFC1FC5741900D48E16 /* RobotoCondensed-BoldItalic.ttf in Resources */,
-				C50DCCEE1FC5741900D48E16 /* RobotoCondensed-Light.ttf in Resources */,
-				C50DCCE71FC5741900D48E16 /* Roboto-ThinItalic.ttf in Resources */,
-				C50DCD031FC7117700D48E16 /* ContainerElements.xib in Resources */,
+				DFB1D5EB2ACAFE1B00FDC7B8 /* GoogleService-Info.plist in Resources */,
 				DFF3C3BF2332355D0079458A /* defaultConfiguration.json in Resources */,
-				C50DCCF91FC5741900D48E16 /* Roboto-Bold.ttf in Resources */,
+				DFF3C3BD2332355D0079458A /* config.json in Resources */,
+				DFF3C3BE2332355D0079458A /* signature.rsa in Resources */,
 				DFF3C3BC2332355D0079458A /* publicKey.pub in Resources */,
-				C50DCCE91FC5741900D48E16 /* RobotoCondensed-Italic.ttf in Resources */,
-				C50DCCFA1FC5741900D48E16 /* Roboto-Black.ttf in Resources */,
-				C50DCCF01FC5741900D48E16 /* Roboto-Medium.ttf in Resources */,
-				C50DCCE81FC5741900D48E16 /* Roboto-Italic.ttf in Resources */,
-				C506EC7E1FB9D5A000E07226 /* Assets.xcassets in Resources */,
-				C50DCD221FD69A8500D48E16 /* CustomElements.xib in Resources */,
 				DF900C972386768F00887385 /* tslFiles.bundle in Resources */,
+				DFC2ADC329437790008A1CD2 /* Accessibility.storyboard in Resources */,
+				C50DCD011FC6E97400D48E16 /* Container.storyboard in Resources */,
+				C50DCD031FC7117700D48E16 /* ContainerElements.xib in Resources */,
+				39CDA7EA20ADBCEC006E2E9F /* Crypto.storyboard in Resources */,
+				C50DCD221FD69A8500D48E16 /* CustomElements.xib in Resources */,
+				C5FA0BEC20A19AE100A208E5 /* Jailbreak.storyboard in Resources */,
+				54DC0DBF1E0BC0CD00C62B3D /* Landing.storyboard in Resources */,
+				C537AE7820063E48009037E5 /* LandingElements.xib in Resources */,
+				E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */,
+				C52E82761FC1D3DD0074B280 /* Menu.storyboard in Resources */,
+				C54BB1091FBD8CC600A274F6 /* MyeID.storyboard in Resources */,
+				DFA56CF42AF009E5007D7F7E /* RadioButton.xib in Resources */,
+				C56C620B201A255900CCC2A5 /* RecentContainers.storyboard in Resources */,
+				C50DCD1D1FD1579700D48E16 /* RecentContainersElements.xib in Resources */,
+				C593D9EC208F19D7000B3BF6 /* Settings.storyboard in Resources */,
+				C54EA6E320372F490039AC78 /* SigningElements.xib in Resources */,
+				C54BB10D1FBD8CE900A274F6 /* Signing.storyboard in Resources */,
+				39F8EFE720D263B5001BCF73 /* TokenFlow.storyboard in Resources */,
+				E4250D0F1E0AA8E500530370 /* Localizable.strings in Resources */,
+				DFA5821A264AAB6600564971 /* digidoc_76.png in Resources */,
+				DFA5821B264AAB6600564971 /* digidoc_1024.png in Resources */,
+				C506EC7E1FB9D5A000E07226 /* Assets.xcassets in Resources */,
+				C50DCCFA1FC5741900D48E16 /* Roboto-Black.ttf in Resources */,
+				C50DCCFB1FC5741900D48E16 /* Roboto-BlackItalic.ttf in Resources */,
+				C50DCCF91FC5741900D48E16 /* Roboto-Bold.ttf in Resources */,
+				C50DCCF51FC5741900D48E16 /* Roboto-BoldCondensed.ttf in Resources */,
+				C50DCCF61FC5741900D48E16 /* Roboto-BoldCondensedItalic.ttf in Resources */,
+				C50DCCF31FC5741900D48E16 /* Roboto-BoldItalic.ttf in Resources */,
+				C50DCCF41FC5741900D48E16 /* Roboto-Condensed.ttf in Resources */,
+				C50DCCEC1FC5741900D48E16 /* Roboto-CondensedItalic.ttf in Resources */,
+				C50DCCE81FC5741900D48E16 /* Roboto-Italic.ttf in Resources */,
+				C50DCCEB1FC5741900D48E16 /* Roboto-Light.ttf in Resources */,
+				C50DCCF71FC5741900D48E16 /* Roboto-LightItalic.ttf in Resources */,
+				C50DCCF01FC5741900D48E16 /* Roboto-Medium.ttf in Resources */,
+				C50DCCEF1FC5741900D48E16 /* Roboto-MediumItalic.ttf in Resources */,
+				C50DCCF81FC5741900D48E16 /* Roboto-Regular.ttf in Resources */,
+				C50DCCEA1FC5741900D48E16 /* Roboto-Thin.ttf in Resources */,
+				C50DCCE71FC5741900D48E16 /* Roboto-ThinItalic.ttf in Resources */,
+				C50DCCED1FC5741900D48E16 /* RobotoCondensed-Bold.ttf in Resources */,
+				C50DCCFC1FC5741900D48E16 /* RobotoCondensed-BoldItalic.ttf in Resources */,
+				C50DCCE91FC5741900D48E16 /* RobotoCondensed-Italic.ttf in Resources */,
+				C50DCCEE1FC5741900D48E16 /* RobotoCondensed-Light.ttf in Resources */,
+				C50DCCF11FC5741900D48E16 /* RobotoCondensed-LightItalic.ttf in Resources */,
+				C50DCCF21FC5741900D48E16 /* RobotoCondensed-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1483,6 +1501,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4E7C98BD2E5EF08500D51D9E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E7C98CC2E5EF0B100D51D9E /* RoleDetailsViewControllerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		54A418201E83FAD200559E2B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1523,7 +1549,6 @@
 				DFBDF20627E0AC7D00A5CF3C /* RoleDetailsViewController.swift in Sources */,
 				C5AA42C7207F51EB0031F3AA /* MyeIDChangeCodesViewController.swift in Sources */,
 				C50DCD241FD69B0C00D48E16 /* SpinnerView.swift in Sources */,
-				DF0075C223324AC600BAB3DE /* MoppConfigurationDecoder.swift in Sources */,
 				C52E827E1FC1DBFE0074B280 /* MoppViewController.swift in Sources */,
 				DF50BBCF2AF06A0800C1A7D0 /* SivaChoiceTapGestureRecognizer.swift in Sources */,
 				C5E7D08D2031B1040081416F /* NativeShare.swift in Sources */,
@@ -1690,6 +1715,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4E7C98C62E5EF08500D51D9E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E4250CC21E0968D200530370 /* MoppApp */;
+			targetProxy = 4E7C98C52E5EF08500D51D9E /* PBXContainerItemProxy */;
+		};
 		54A4182E1E83FAD200559E2B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 54A418231E83FAD200559E2B /* shareExtension */;
@@ -1719,6 +1749,38 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4E7C98C82E5EF08500D51D9E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.MoppAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoppApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MoppApp";
+			};
+			name = Debug;
+		};
+		4E7C98C92E5EF08500D51D9E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.MoppAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoppApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MoppApp";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		54A418301E83FAD200559E2B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1826,6 +1888,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1883,6 +1947,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -1916,8 +1981,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MoppApp/MoppApp-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1954,7 +2017,6 @@
 				PROVISIONING_PROFILE = $APP_PROVISIONING_PROFILE;
 				PROVISIONING_PROFILE_SPECIFIER = $APP_PROVISIONING_PROFILE;
 				SWIFT_OBJC_BRIDGING_HEADER = "MoppApp/MoppApp-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1962,6 +2024,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4E7C98C72E5EF08500D51D9E /* Build configuration list for PBXNativeTarget "MoppAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E7C98C82E5EF08500D51D9E /* Debug */,
+				4E7C98C92E5EF08500D51D9E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		54A418321E83FAD200559E2B /* Build configuration list for PBXNativeTarget "shareExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2000,14 +2071,6 @@
 				version = 10.18.0;
 			};
 		};
-		DF15037C2AC5CD32007222B2 /* XCRemoteSwiftPackageReference "SwiftyRSA" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/TakeScoop/SwiftyRSA";
-			requirement = {
-				kind = exactVersion;
-				version = 1.8.0;
-			};
-		};
 		DF15037F2AC5CD8D007222B2 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/weichsel/ZIPFoundation";
@@ -2016,31 +2079,13 @@
 				version = 0.9.17;
 			};
 		};
-		DF1503822AC5CDBC007222B2 /* XCRemoteSwiftPackageReference "ASN1Decoder" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/filom/ASN1Decoder";
-			requirement = {
-				kind = exactVersion;
-				version = 1.9.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DF1503A32AC5D163007222B2 /* ASN1Decoder */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DF1503822AC5CDBC007222B2 /* XCRemoteSwiftPackageReference "ASN1Decoder" */;
-			productName = ASN1Decoder;
-		};
 		DF1503A52AC5D1B9007222B2 /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DF1503792AC5CCE7007222B2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
-		};
-		DF1503A72AC5D1DB007222B2 /* SwiftyRSA */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DF15037C2AC5CD32007222B2 /* XCRemoteSwiftPackageReference "SwiftyRSA" */;
-			productName = SwiftyRSA;
 		};
 		DF1503AA2AC5D1E5007222B2 /* ZIPFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
