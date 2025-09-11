@@ -40,8 +40,6 @@
 		E4250CEC1E09695100530370 /* MoppLib.h in Headers */ = {isa = PBXBuildFile; fileRef = E4250CEA1E09695100530370 /* MoppLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E42B08B61E1F0B3B00EA24A3 /* MoppLibContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B08B41E1F0B3B00EA24A3 /* MoppLibContainer.swift */; };
 		E42B08C61E1F11B900EA24A3 /* MoppLibDataFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B08C41E1F11B900EA24A3 /* MoppLibDataFile.swift */; };
-		E42B08CD1E1F136A00EA24A3 /* MoppLibDigidocManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E42B08CB1E1F136A00EA24A3 /* MoppLibDigidocManager.h */; };
-		E42B08CE1E1F136A00EA24A3 /* MoppLibDigidocManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = E42B08CC1E1F136A00EA24A3 /* MoppLibDigidocManager.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,8 +76,6 @@
 		E4250CEA1E09695100530370 /* MoppLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLib.h; sourceTree = "<group>"; };
 		E42B08B41E1F0B3B00EA24A3 /* MoppLibContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoppLibContainer.swift; sourceTree = "<group>"; };
 		E42B08C41E1F11B900EA24A3 /* MoppLibDataFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoppLibDataFile.swift; sourceTree = "<group>"; };
-		E42B08CB1E1F136A00EA24A3 /* MoppLibDigidocManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoppLibDigidocManager.h; sourceTree = "<group>"; };
-		E42B08CC1E1F136A00EA24A3 /* MoppLibDigidocManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MoppLibDigidocManager.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,23 +97,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		54D164741E9269520069C725 /* PublicInterface */ = {
-			isa = PBXGroup;
-			children = (
-				54D1647D1E926BA00069C725 /* ResponseObjects */,
-				E4250CEA1E09695100530370 /* MoppLib.h */,
-				DFF3C3A823322E0C0079458A /* MoppLibConfiguration.swift */,
-				54E1DB5B1E44A9060060A250 /* MoppLibManager.swift */,
-				54D164751E9269C50069C725 /* MoppLibContainerActions.h */,
-				54D164761E9269C50069C725 /* MoppLibContainerActions.mm */,
-				399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */,
-				399C01E220BC11C20056D7AC /* MoppLibCryptoActions.m */,
-				54DC0E001E0D48C900C62B3D /* MoppLibError.swift */,
-			);
-			name = PublicInterface;
-			path = MoppLib/PublicInterface;
-			sourceTree = "<group>";
-		};
 		54D1647D1E926BA00069C725 /* ResponseObjects */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,7 +159,6 @@
 		E4250CDD1E09695100530370 = {
 			isa = PBXGroup;
 			children = (
-				54D164741E9269520069C725 /* PublicInterface */,
 				E4250CE91E09695100530370 /* MoppLib */,
 				E4250CE81E09695100530370 /* Products */,
 				A80A16CFB65AE0AF2A553445 /* Frameworks */,
@@ -200,9 +178,16 @@
 			children = (
 				54DC0DC21E0BCBB400C62B3D /* CardReaders */,
 				54DC0DFA1E0D195200C62B3D /* CardActions */,
+				54D1647D1E926BA00069C725 /* ResponseObjects */,
+				E4250CEA1E09695100530370 /* MoppLib.h */,
+				DFF3C3A823322E0C0079458A /* MoppLibConfiguration.swift */,
+				54D164751E9269C50069C725 /* MoppLibContainerActions.h */,
+				54D164761E9269C50069C725 /* MoppLibContainerActions.mm */,
+				399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */,
+				399C01E220BC11C20056D7AC /* MoppLibCryptoActions.m */,
+				54DC0E001E0D48C900C62B3D /* MoppLibError.swift */,
+				54E1DB5B1E44A9060060A250 /* MoppLibManager.swift */,
 				39266A5220CFC0F4002E3F23 /* SmartToken.swift */,
-				E42B08CB1E1F136A00EA24A3 /* MoppLibDigidocManager.h */,
-				E42B08CC1E1F136A00EA24A3 /* MoppLibDigidocManager.mm */,
 			);
 			path = MoppLib;
 			sourceTree = "<group>";
@@ -218,7 +203,6 @@
 				C5AAAF8820CAA4240087D6DA /* wintypes.h in Headers */,
 				C5AAAF8A20CAA4790087D6DA /* ft301u.h in Headers */,
 				399C01E620BC17A10056D7AC /* MoppLibCryptoActions.h in Headers */,
-				E42B08CD1E1F136A00EA24A3 /* MoppLibDigidocManager.h in Headers */,
 				54D164771E9269C50069C725 /* MoppLibContainerActions.h in Headers */,
 				E4250CEC1E09695100530370 /* MoppLib.h in Headers */,
 				C5AAAF8420CAA3D00087D6DA /* ReaderInterface.h in Headers */,
@@ -291,7 +275,6 @@
 				4ECAD7B42D7DAFA800B02E0F /* CardReader.swift in Sources */,
 				DFBDF1FA27DA44FD00A5CF3C /* MoppLibRoleAddressData.swift in Sources */,
 				54E1DB5D1E44A9060060A250 /* MoppLibManager.swift in Sources */,
-				E42B08CE1E1F136A00EA24A3 /* MoppLibDigidocManager.mm in Sources */,
 				E42B08B61E1F0B3B00EA24A3 /* MoppLibContainer.swift in Sources */,
 				4EAE02FF2E02A2590061C4EB /* MoppLibSignature.swift in Sources */,
 				399C01E320BC11C20056D7AC /* MoppLibCryptoActions.m in Sources */,
