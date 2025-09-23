@@ -20,10 +20,13 @@
 
 import SkSigningLib
 import CryptoKit
+import ActivityKit
 
 class SmartIDSignature {
 
     static let shared: SmartIDSignature = SmartIDSignature()
+
+    private var activity: Activity<WidgetExtensionAttributes>?
 
     func createSmartIDSignature(country: String, nationalIdentityNumber: String, containerPath: String, hashType: String, roleData: MoppLibRoleAddressData?) -> Void {
         let baseUrl = DefaultsHelper.rpUuid.isEmpty ? Configuration.getConfiguration().SIDV2PROXYURL : Configuration.getConfiguration().SIDV2SKURL
@@ -49,6 +52,7 @@ class SmartIDSignature {
         getCertificate(baseUrl: baseUrl, country: country, nationalIdentityNumber: nationalIdentityNumber, requestParameters: certparams, containerPath: containerPath, roleData: roleData, trustedCertificates: certBundle, errorHandler: errorHandler) { documentNumber, hash in
             let signparams = SIDSignatureRequestParameters(relyingPartyName: kRelyingPartyName, relyingPartyUUID: uuid, hash: hash, hashType: hashType, allowedInteractionsOrder: SIDSignatureRequestAllowedInteractionsOrder(type: "confirmationMessageAndVerificationCodeChoice", displayText: "\(L(.simToolkitSignDocumentTitle).asUnicode) \(FileUtil.getSignDocumentFileName(containerPath: containerPath).asUnicode)"))
             self.getSignature(baseUrl: baseUrl, documentNumber: documentNumber, allowedInteractionsOrder: signparams, trustedCertificates: certBundle, errorHandler: errorHandler) { signatureValue in
+                self.endLiveActivity()
                 if !RequestCancel.shared.isRequestCancelled() {
                     self.validateSignature(signatureValue: signatureValue)
                     UIApplication.shared.endBackgroundTask(backgroundTask)
@@ -109,6 +113,7 @@ class SmartIDSignature {
             case .success(let response):
                 printLog("Received Signature (session ID): \(response.sessionID)")
                 self.getSessionStatus(baseUrl: baseUrl, sessionId: response.sessionID, trustedCertificates: trustedCertificates) { result in
+                    self.endLiveActivity()
                     switch result {
                     case .success(let sessionStatus):
                         guard let signatureValue = sessionStatus.signature?.value else {
@@ -196,6 +201,14 @@ class SmartIDSignature {
         let digest = sha256(data: hash)
         let code = UInt16(digest[digest.count - 2]) << 8 | UInt16(digest[digest.count - 1])
         let challengeId = String(format: "%04d", (code % 10000))
+
+        if ActivityAuthorizationInfo().areActivitiesEnabled {
+            activity = try? Activity.request(
+                attributes: WidgetExtensionAttributes(),
+                contentState: WidgetExtensionAttributes.ContentState(code: challengeId),
+                pushType: nil
+            )
+        }
         DispatchQueue.main.async {
             NotificationCenter.default.post(
                 name: .createSignatureNotificationName,
@@ -209,5 +222,11 @@ class SmartIDSignature {
     private func sha256(data: Data) -> Data {
         let hashed = SHA256.hash(data: data)
         return Data(hashed)
+    }
+
+    private func endLiveActivity() {
+        guard let activity else { return }
+        Task { await activity.end() }
+        self.activity = nil
     }
 }
