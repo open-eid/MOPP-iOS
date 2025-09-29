@@ -113,30 +113,34 @@ struct FileUtil {
                 }
             }
         }
-        
-        // Check if file is opened from iCloud
-        if isFileFromiCloud(fileURL: currentURL) {
-            if !isFileDownloadedFromiCloud(fileURL: currentURL) {
-                printLog("File '\(currentURL.lastPathComponent)' from iCloud is not downloaded. Downloading...")
-                
-                var fileLocationURL: URL? = nil
 
-                downloadFileFromiCloud(fileURL: currentURL) { downloadedFileUrl in
-                    if let fileUrl = downloadedFileUrl {
-                        printLog("File '\(currentURL.lastPathComponent)' downloaded from iCloud")
-                        fileLocationURL = fileUrl
-                    } else {
-                        printLog("Unable to download file '\(currentURL.lastPathComponent)' from iCloud")
-                        return
+        if isFileInsideMailFolder(currentURL) {
+            return currentURL
+        } else {
+            // Check if file is opened from iCloud
+            if isFileFromiCloud(fileURL: currentURL) {
+                if !isFileDownloadedFromiCloud(fileURL: currentURL) {
+                    printLog("File '\(currentURL.lastPathComponent)' from iCloud is not downloaded. Downloading...")
+
+                    var fileLocationURL: URL? = nil
+
+                    downloadFileFromiCloud(fileURL: currentURL) { downloadedFileUrl in
+                        if let fileUrl = downloadedFileUrl {
+                            printLog("File '\(currentURL.lastPathComponent)' downloaded from iCloud")
+                            fileLocationURL = fileUrl
+                        } else {
+                            printLog("Unable to download file '\(currentURL.lastPathComponent)' from iCloud")
+                            return
+                        }
                     }
+                    return fileLocationURL
+                } else {
+                    printLog("File '\(currentURL.lastPathComponent)' from iCloud is already downloaded")
+                    return url
                 }
-                return fileLocationURL
-            } else {
-                printLog("File '\(currentURL.lastPathComponent)' from iCloud is already downloaded")
-                return url
             }
         }
-        
+
         return nil
     }
 
@@ -186,5 +190,35 @@ struct FileUtil {
             printLog("Unable to start iCloud file '\(fileURL.lastPathComponent)' download: \(error.localizedDescription)")
             completion(nil)
         }
+    }
+
+    static func isFileInsideMailFolder(_ url: URL) -> Bool {
+        let mailFolderPath = FilePath(stringLiteral: "/var/mobile/Library/Mail").lexicallyNormalized()
+        let filePath = FilePath(stringLiteral: url.path).lexicallyNormalized()
+
+        if filePath == mailFolderPath {
+            printLog("File '\(url.lastPathComponent)' is from Mail app")
+            return true
+        }
+
+        if filePath.starts(with: mailFolderPath) {
+            let mailPathString = mailFolderPath.string
+            let filePathString = filePath.string
+
+            if filePathString.count == mailPathString.count {
+                printLog("File '\(url.lastPathComponent)' is from Mail app")
+                return true
+            }
+
+            let index = filePathString.index(filePathString.startIndex, offsetBy: mailPathString.count)
+            if filePathString[index] == "/" {
+                printLog("File '\(url.lastPathComponent)' is from Mail app")
+                return true
+            }
+        }
+
+        printLog("File '\(url.lastPathComponent)' is NOT from Mail app")
+
+        return false
     }
 }
