@@ -85,11 +85,16 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
             } catch {
                 return setSessionMessage(L(.nfcUnableConnect), invalidate: true)
             }
+            setSessionMessage(L(.nfcAuth))
+            let cardCommands: CardCommands
             do {
-                setSessionMessage(L(.nfcAuth))
-                guard let cardCommands = try? await MoppLibCardReaderManager.connectToCard(tag, CAN: CAN!) else {
-                    return setSessionMessage(L(.nfcAuthFailed), invalidate: true)
-                }
+                cardCommands = try await MoppLibCardReaderManager.connectToCard(tag, CAN: CAN!)
+            } catch MoppLibError.Code.wrongCan {
+                return setSessionMessage(L(.nfcSignFailedWrongCan), invalidate: true)
+            } catch {
+                return setSessionMessage(L(.nfcAuthFailed), invalidate: true)
+            }
+            do {
                 printLog("Mutual authentication successful")
                 setSessionMessage(L(.nfcReadingCert))
                 let cert = try await cardCommands.readSignatureCertificate()
@@ -132,10 +137,6 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 case 1: setSessionMessage(L(.wrongPin2Single), invalidate: true)
                 default: setSessionMessage(L(.nfcWrongPin2, [attemptsLeft]), invalidate: true)
                 }
-
-            } catch MoppLibError.Code.wrongCan {
-                printLog("\nRIA.NFC - CAN error")
-                setSessionMessage(L(.nfcSignFailedWrongCan), invalidate: true)
             } catch {
                 printLog("\nRIA.NFC - Error \(error.localizedDescription)")
                 ErrorUtil.generateError(signingError: error, signingType: SigningType.nfc)
