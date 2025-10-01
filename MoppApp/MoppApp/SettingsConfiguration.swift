@@ -310,18 +310,18 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     }
 
     private func setupMoppConfiguration(configuration: MOPPConfiguration) -> Void {
-        MoppLibConfiguration.sivaURL = configuration.SIVAURL
+        MoppLibManager.sivaURL = configuration.SIVAURL
         if let fileName = DefaultsHelper.sivaCertFileName {
-            MoppLibConfiguration.sivaCert = CertUtil.getCertFile(folder: "siva-cert", fileName: fileName)
+            MoppLibManager.sivaCert = CertUtil.getCertFile(folder: "siva-cert", fileName: fileName)
         }
-        MoppLibConfiguration.tslURL = configuration.TSLURL
-        MoppLibConfiguration.tslCerts = configuration.TSLCERTS
-        MoppLibConfiguration.tsaURL = configuration.TSAURL
+        MoppLibManager.tslURL = configuration.TSLURL
+        MoppLibManager.tslCerts = configuration.TSLCERTS
+        MoppLibManager.tsaURL = configuration.TSAURL
         if let fileName = DefaultsHelper.tsaCertFileName {
-            MoppLibConfiguration.tsaCert = CertUtil.getCertFile(folder: "tsa-cert", fileName: fileName)
+            MoppLibManager.tsaCert = CertUtil.getCertFile(folder: "tsa-cert", fileName: fileName)
         }
-        MoppLibConfiguration.ocspIssuers = configuration.OCSPISSUERS
-        MoppLibConfiguration.certBundle = configuration.CERTBUNDLE
+        MoppLibManager.ocspIssuers = configuration.OCSPISSUERS
+        MoppLibManager.certBundle = configuration.CERTBUNDLE
     }
 
     private func isDateAfterInterval(updateDate: Date, interval: Int) -> Bool {
