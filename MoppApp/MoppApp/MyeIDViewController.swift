@@ -55,6 +55,7 @@ class MyeIDViewController : MoppViewController {
             let statusVC = children.first as? MyeIDStatusViewController
                 statusVC?.state = .readerNotFound
 
+            didRestartReader = false
             MoppLibCardReaderManager.shared.startDiscoveringReaders()
         } else {
             changingCodesVCPresented = false
@@ -151,6 +152,9 @@ extension MyeIDViewController: MyeIDInfoManagerDelegate {
         if success {
             let infoViewController = createInfoViewController()
             _ = showViewController(infoViewController)
+            if !infoManager.pin2Active {
+                errorAlertWithLink(message: L(.pin2LockedAlert))
+            }
         } else {
             if didRestartReader {
                 printLog("ID-CARD: My eID. Reader already restarted")

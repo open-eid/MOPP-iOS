@@ -161,11 +161,11 @@ class MyeIDInfoViewController: MoppViewController {
 
 extension MyeIDInfoViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return infoManager.personalInfo.items.count
+        return infoManager.personalInfo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = infoManager.personalInfo.items[indexPath.row]
+        let item = infoManager.personalInfo[indexPath.row]
         let cell = tableView.dequeueReusableCell(withType: MyeIDInfoCell.self, for: indexPath)!
             cell.infoManager = infoManager
         if item.type == .expiryDate {
@@ -182,7 +182,7 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
     func numberOfContentCells(in segment: Int) -> Int {
         switch segments[segment] {
         case .info:
-            return infoManager.personalInfo.items.count
+            return infoManager.personalInfo.count
         case .changePins:
             return infoManager.pinPukCell.items.count
         case .margin:
@@ -198,7 +198,7 @@ extension MyeIDInfoViewController: MyeIDInfoViewControllerUIDelegate {
         let segment = segments[indexPath.section]
         switch segment {
         case .info:
-            let item = infoManager.personalInfo.items[indexPath.row]
+            let item = infoManager.personalInfo[indexPath.row]
             let cell = ui.tableView.dequeueReusableCell(withType: MyeIDInfoCell.self, for: indexPath)!
                 cell.infoManager = infoManager
             if item.type == .expiryDate {

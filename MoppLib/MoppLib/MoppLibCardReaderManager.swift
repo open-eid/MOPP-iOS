@@ -21,7 +21,7 @@
  *
  */
 
-import iR301
+internal import iR301
 import CoreNFC
 
 public protocol MoppLibCardReaderManagerDelegate: AnyObject {
@@ -43,7 +43,14 @@ public class MoppLibCardReaderManager {
     public weak var delegate: MoppLibCardReaderManagerDelegate?
     fileprivate var handle: SCARDCONTEXT = 0
     private var handler = ReaderInterfaceHandler()
-    private var status: MoppLibCardReaderStatus = .Initial
+    fileprivate var status = MoppLibCardReaderStatus.Initial {
+        didSet {
+            let status = self.status
+            DispatchQueue.main.async {
+                self.delegate?.moppLibCardReaderStatusDidChange(status)
+            }
+        }
+    }
 
     private init() {
     }
@@ -61,30 +68,23 @@ public class MoppLibCardReaderManager {
 
     public func startDiscoveringReaders() {
         guard handle == 0 else {
-            print("ID-CARD: Reader discovery is already running")
+            printLog("ID-CARD: Reader discovery is already running")
             return
         }
-        print("ID-CARD: Starting reader discovery")
-        updateStatus(status)
+        printLog("ID-CARD: Starting reader discovery")
+        status = .Initial
         SCardEstablishContext(DWORD(SCARD_SCOPE_SYSTEM), nil, nil, &handle)
-        print("ID-CARD: Started reader discovery: \(handle)")
+        printLog("ID-CARD: Started reader discovery: \(handle)")
     }
 
     public func stopDiscoveringReaders(with status: MoppLibCardReaderStatus = .Initial) {
-        print("ID-CARD: Stopping reader discovery")
+        printLog("ID-CARD: Stopping reader discovery")
         self.status = status
         FtDidEnterBackground(1)
         SCardCancel(handle)
         SCardReleaseContext(handle)
-        print("ID-CARD: Stopped reader discovery with status: \(handle)")
+        printLog("ID-CARD: Stopped reader discovery with status: \(handle)")
         handle = 0
-    }
-
-    fileprivate func updateStatus(_ status: MoppLibCardReaderStatus) {
-        self.status = status
-        DispatchQueue.main.async {
-            self.delegate?.moppLibCardReaderStatusDidChange(status)
-        }
     }
 }
 
@@ -97,22 +97,22 @@ private class ReaderInterfaceHandler: NSObject, ReaderInterfaceDelegate {
     }
 
     func readerInterfaceDidChange(_ attached: Bool, bluetoothID: String?) {
-        print("ID-CARD attached: \(attached)")
-        MoppLibCardReaderManager.shared.updateStatus(attached ? .ReaderConnected : .ReaderNotConnected)
+        printLog("ID-CARD attached: \(attached)")
+        MoppLibCardReaderManager.shared.status = attached ? .ReaderConnected : .ReaderNotConnected
     }
 
     func cardInterfaceDidDetach(_ attached: Bool) {
-        print("ID-CARD: Card (interface) attached: \(attached)")
+        printLog("ID-CARD: Card (interface) attached: \(attached)")
         do {
             guard attached, let reader = try CardReaderiR301(contextHandle: MoppLibCardReaderManager.shared.handle) else {
-                return MoppLibCardReaderManager.shared.updateStatus(.ReaderConnected)
+                return MoppLibCardReaderManager.shared.status = .ReaderConnected
             }
             if let handler: CardCommands = Idemia(reader: reader, atr: reader.atr) ?? (try? Thales(reader: reader, atr: reader.atr)) {
-                MoppLibCardReaderManager.shared.updateStatus(.CardConnected(handler))
+                MoppLibCardReaderManager.shared.status = .CardConnected(handler)
             }
         } catch {
-            print("ID-CARD: Unable to power on card")
-            MoppLibCardReaderManager.shared.updateStatus(.ReaderProcessFailed)
+            printLog("ID-CARD: Unable to power on card")
+            MoppLibCardReaderManager.shared.status = .ReaderProcessFailed
         }
     }
 
@@ -121,6 +121,13 @@ private class ReaderInterfaceHandler: NSObject, ReaderInterfaceDelegate {
     }
 
     func findPeripheralReader(_ readerName: String) {
-        print("ID-CARD: Reader name: \(readerName)")
+        printLog("ID-CARD: Reader name: \(readerName)")
+    }
+}
+
+func printLog(_ message: String, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
+    if MoppLibManager.isDebugMode || MoppLibManager.isLoggingEnabled {
+        NSLog("\(Date().ISO8601Format()) \(message)\n" +
+              "\tFile: \((file as NSString).lastPathComponent), function: \(function), line: \(line)")
     }
 }

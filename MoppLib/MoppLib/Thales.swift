@@ -102,15 +102,22 @@ class Thales: CardCommandsInternal {
     }
 
     // MARK: - PIN & PUK Management
-    func readCodeCounterRecord(_ type: CodeType) async throws -> UInt8 {
+    func readCodeCounterRecord(_ type: CodeType) async throws -> (retryCount: UInt8, pinActive: Bool) {
         let data = try await reader.sendAPDU(ins: 0xCB, p1: 0x00, p2: 0xFF, data:
             [0xA0, 0x03, 0x83, 0x01, type.pinRef], le: 0)
-        if let info = TLV(from: data), info.tag == 0xA0 {
-            for record in TLV.sequenceOfRecords(from: info.value) ?? [] where record.tag == 0xdf21 {
-                return record.value[0]
+        var retryCount: UInt8 = 0
+        var pinActive = true
+        if let info = TLV(from: data), info.tag == 0xA0,
+           let records = TLV.sequenceOfRecords(from: info.value) {
+            for record in records {
+                switch record.tag {
+                case 0xdf21: retryCount = record.value[0]
+                case 0xdf2f: pinActive = record.value[0] == 0x01
+                default: break
+                }
             }
         }
-        return 0
+        return (retryCount, pinActive)
     }
 
     func changeCode(_ type: CodeType, to code: String, verifyCode: String) async throws {
@@ -141,11 +148,11 @@ class Thales: CardCommandsInternal {
     }
 
     func authenticate(for hash: Data, withPin1 pin1: String) async throws -> Data {
-        return try await sign(type: .pin1, pin: pin1, keyRef: Thales.AUTH_KEY, hash: hash)
+        try await sign(type: .pin1, pin: pin1, keyRef: Thales.AUTH_KEY, hash: hash)
     }
 
     func calculateSignature(for hash: Data, withPin2 pin2: String) async throws -> Data {
-        return try await sign(type: .pin2, pin: pin2, keyRef: Thales.SIGN_KEY, hash: hash)
+        try await sign(type: .pin2, pin: pin2, keyRef: Thales.SIGN_KEY, hash: hash)
     }
 
     func decryptData(_ hash: Data, withPin1 pin1: String) async throws -> Data {

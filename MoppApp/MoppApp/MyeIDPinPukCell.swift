@@ -30,7 +30,8 @@ class MyeIDPinPukCell: UITableViewCell {
     var kind: MyeIDInfoManager.PinPukCell.Kind!
     var actionType: MyeIDChangeCodesModel.ActionType?
     var cellInfo: MyeIDInfoManager.PinPukCell.Info?
-    
+    var url: URL?
+
     @IBOutlet weak var certInfoView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var certInfoLabel: UILabel!
@@ -77,18 +78,9 @@ class MyeIDPinPukCell: UITableViewCell {
         case .pin2:
             actionType = .unblockPin2
         case .puk:
-            var url: URL!
-            let appLanguageID = DefaultsHelper.moppLanguageID
-            if appLanguageID  == "et" {
-                url = URL(string: "https://www.politsei.ee/et/juhend/id-kaardi-taotlemine-taeiskasvanule/id-kaardi-kasutaja-meelespea")
+            if let url {
+                MoppApp.instance.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             }
-            else if appLanguageID == "ru" {
-                url = URL(string: "https://www.politsei.ee/ru/instruktsii/hodataystvo-o-vydache-id-karty-vzroslomu/pamyatka-dlya-polzovatelya-id-karti")
-            }
-            else {
-                url = URL(string: "https://www.politsei.ee/en/instructions/applying-for-an-id-card-for-an-adult/reminders-for-id-card-holders")
-            }
-            MoppApp.instance.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
         }
         
         if let actionType = actionType {
@@ -181,14 +173,18 @@ class MyeIDPinPukCell: UITableViewCell {
         else if kind == .puk {
             if pukBlocked {
                 showLink(true)
+                url = URL(string: L(.myEidHowToGetCodesUrl))
                 linkLabel.attributedText = NSAttributedString(string: L(.myEidHowToGetCodesMessage), attributes: [.underlineStyle : NSUnderlineStyle.single.rawValue])
                 linkButton.accessibilityLabel = L(.myEidHowToGetCodesMessage)
                 showErrorLabel(true, with: L(.myEidInfoPukBlockedMessage))
                 showChangeButton(false)
                 button.backgroundColor = UIColor.moppDescriptiveText
             } else {
-                showLink(false)
-                showErrorLabel(false)
+                showLink(!infoManager.canChangePUK)
+                url = URL(string: L(.myEidChangeNotAvailableUrl))
+                linkLabel.attributedText = NSAttributedString(string: L(.errorAlertOpenLink), attributes: [.underlineStyle : NSUnderlineStyle.single.rawValue])
+                linkButton.accessibilityLabel = L(.errorAlertOpenLink)
+                showErrorLabel(!infoManager.canChangePUK, with: L(.myEidChangeNotAvailableText), color: UIColor.moppLabel)
                 showChangeButton(infoManager.canChangePUK && (authCertValid || signCertValid), with: pinPukCellInfo.buttonText)
                 populateForWillDisplayCell(pinPukCellInfo: pinPukCellInfo)
                 button.backgroundColor = UIColor.moppBase
@@ -199,8 +195,7 @@ class MyeIDPinPukCell: UITableViewCell {
     }
     
     func populateForWillDisplayCell(pinPukCellInfo: MyeIDInfoManager.PinPukCell.Info) {
-        if var certInfoText = pinPukCellInfo.certInfoText {
-            if !infoManager.canChangePUK { certInfoText += "\n" + L(.myEidChangeNotAvailableText) }
+        if let certInfoText = pinPukCellInfo.certInfoText {
             certInfoLabel.text = certInfoText
             certInfoLabel.accessibilityLabel = certInfoText
         } else {
@@ -227,9 +222,10 @@ class MyeIDPinPukCell: UITableViewCell {
         linkLabel.attributedText = nil
     }
     
-    func showErrorLabel(_ show:Bool, with text:String? = nil) {
+    func showErrorLabel(_ show:Bool, with text:String? = nil, color:UIColor = UIColor.moppError) {
         errorLabel.attributedText = nil
         errorLabel.text = show ? text : nil
+        errorLabel.textColor = color
         errorLabel.accessibilityLabel = show ? text : nil
         errorLabel.isHidden = !show
     }

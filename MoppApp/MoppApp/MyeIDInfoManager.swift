@@ -64,33 +64,29 @@ class MyeIDInfoManager {
         return dateFormatter
     }()
 
-    struct PersonalInfo {
-        enum ItemType {
-            case myeID
-            case givenNames
-            case surname
-            case personalCode
-            case citizenship
-            case documentNumber
-            case expiryDate
+    enum PersonalInfo {
+        case myeID
+        case givenNames
+        case surname
+        case personalCode
+        case citizenship
+        case documentNumber
+        case expiryDate
 
-            var itemTitle: String {
-                switch self {
-                case .myeID:         L(.myEidInfoMyEid)
-                case .givenNames:    L(.myEidInfoItemGivenNames)
-                case .surname:       L(.myEidInfoItemSurname)
-                case .personalCode:  L(.myEidInfoItemPersonalCode)
-                case .citizenship:   L(.myEidInfoItemCitizenship)
-                case .documentNumber: L(.myEidInfoItemDocumentNumber)
-                case .expiryDate:    L(.myEidInfoItemExpiryDate)
-                }
+        var itemTitle: String {
+            switch self {
+            case .myeID:         L(.myEidInfoMyEid)
+            case .givenNames:    L(.myEidInfoItemGivenNames)
+            case .surname:       L(.myEidInfoItemSurname)
+            case .personalCode:  L(.myEidInfoItemPersonalCode)
+            case .citizenship:   L(.myEidInfoItemCitizenship)
+            case .documentNumber: L(.myEidInfoItemDocumentNumber)
+            case .expiryDate:    L(.myEidInfoItemExpiryDate)
             }
         }
-
-        var items: [(type: ItemType, value: String)] = []
     }
 
-    var personalInfo = PersonalInfo()
+    var personalInfo = [(type: PersonalInfo, value: String)]()
 
     struct PinPukCell {
         enum Kind {
@@ -144,6 +140,7 @@ class MyeIDInfoManager {
     
     var pinPukCell = PinPukCell()
     var canChangePUK = true
+    var pin2Active = true
 
     struct RetryCounts {
         var pin1:Int = 0
@@ -196,9 +193,9 @@ class MyeIDInfoManager {
                 let personalData = try await cardCommands.readPublicData()
                 let authCertData = try await cardCommands.readAuthenticationCertificate()
                 let signCertData = try await cardCommands.readSignatureCertificate()
-                let pin1RetryCount = try await cardCommands.readCodeCounterRecord(.pin1)
-                let pin2RetryCount = try await cardCommands.readCodeCounterRecord(.pin2)
-                let pukRetryCount = try await cardCommands.readCodeCounterRecord(.puk)
+                let (pin1RetryCount, _) = try await cardCommands.readCodeCounterRecord(.pin1)
+                let (pin2RetryCount, pin2Active) = try await cardCommands.readCodeCounterRecord(.pin2)
+                let (pukRetryCount, _) = try await cardCommands.readCodeCounterRecord(.puk)
 
                 guard let self else { return }
 
@@ -209,7 +206,8 @@ class MyeIDInfoManager {
                 self.retryCounts.pin1 = Int(pin1RetryCount)
                 self.retryCounts.pin2 = Int(pin2RetryCount)
                 self.retryCounts.puk  = Int(pukRetryCount)
-                self.personalInfo.items = [
+                self.pin2Active = pin2Active
+                self.personalInfo = [
                     (type: .myeID, value: self.authCertData?.certType().organizationDisplayString ?? .init()),
                     (type: .givenNames, value: personalData.givenNames),
                     (type: .surname, value: personalData.surname),
