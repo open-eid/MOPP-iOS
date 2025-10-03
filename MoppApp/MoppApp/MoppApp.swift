@@ -324,6 +324,10 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
 
                 do {
                     guard let validUrl = FileUtil.getValidPath(url: newUrl) else {
+                        topViewController
+                            .showErrorMessage(
+                                message: L(.fileImportNewFileOpeningFailedAlertMessage, [newUrl.lastPathComponent])
+                            )
                         return false
                     }
                     let newData: Data? = try Data(contentsOf: validUrl)
