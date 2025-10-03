@@ -168,7 +168,11 @@ class CardReaderNFC: CardReader {
         if let data = apdu.data, !data.isEmpty {
             let iv = try AES.CBC(key: ksEnc).encrypt(SSC)
             let enc_data = try AES.CBC(key: ksEnc, iv: iv).encrypt(data.addPadding())
-            DO87 = TLV(tag: 0x87, bytes: [0x01] + enc_data).data
+            if apdu.instructionCode & 0x01 == 0 {
+                DO87 = TLV(tag: 0x87, bytes: [0x01] + enc_data).data
+            } else {
+                DO87 = TLV(tag: 0x85, bytes: enc_data).data
+            }
         } else {
             DO87 = Data()
         }
@@ -190,30 +194,30 @@ class CardReaderNFC: CardReader {
         var tlvMac: TKTLVRecord?
         for tlv in TLV.sequenceOfRecords(from: response) ?? [] {
             switch tlv.tag {
-            case 0x87: tlvEnc = tlv
+            case 0x85, 0x87: tlvEnc = tlv
             case 0x99: tlvRes = tlv
             case 0x8E: tlvMac = tlv
             default: printLog("Unknown tag")
             }
         }
-        guard tlvRes != nil else {
+        guard let tlvRes else {
             throw MoppLibError.error(message: "Missing RES tag")
         }
-        guard tlvMac != nil else {
+        guard let tlvMac else {
             throw MoppLibError.error(message: "Missing MAC tag")
         }
-        let K = SSC.increment() + (tlvEnc?.data ?? Data()) + tlvRes!.data
-        if try Data(AES.CMAC(key: ksMac).authenticate(bytes: K.addPadding())) != tlvMac!.value {
+        let K = SSC.increment() + (tlvEnc?.data ?? Data()) + tlvRes.data
+        if try Data(AES.CMAC(key: ksMac).authenticate(bytes: K.addPadding())) != tlvMac.value {
             throw MoppLibError.error(message: "Invalid MAC value")
         }
-        guard tlvEnc != nil else {
-            printLog("Plain <: \(tlvRes!.value.hex)")
-            return (.init(), UInt16(tlvRes!.value[0], tlvRes!.value[1]))
+        guard let tlvEnc else {
+            printLog("Plain <: \(tlvRes.value.hex)")
+            return (.init(), UInt16(tlvRes.value[0], tlvRes.value[1]))
         }
         let iv = try AES.CBC(key: ksEnc).encrypt(SSC)
-        let responseData = try (try AES.CBC(key: ksEnc, iv: iv).decrypt(tlvEnc!.value[1...])).removePadding()
-        printLog("Plain <:  \(responseData.hex) \(tlvRes!.value.hex)")
-        return (Bytes(responseData), UInt16(tlvRes!.value[0], tlvRes!.value[1]))
+        let responseData = try (try AES.CBC(key: ksEnc, iv: iv).decrypt(tlvEnc.tag == 0x85 ? tlvEnc.value : tlvEnc.value[1...])).removePadding()
+        printLog("Plain <:  \(responseData.hex) \(tlvRes.value.hex)")
+        return (Bytes(responseData), UInt16(tlvRes.value[0], tlvRes.value[1]))
     }
 
     // MARK: - Utils

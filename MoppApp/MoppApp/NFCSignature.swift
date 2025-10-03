@@ -89,13 +89,21 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
             let cardCommands: CardCommands
             do {
                 cardCommands = try await MoppLibCardReaderManager.connectToCard(tag, CAN: CAN!)
+                printLog("Mutual authentication successful")
             } catch MoppLibError.Code.wrongCan {
                 return setSessionMessage(L(.nfcSignFailedWrongCan), invalidate: true)
             } catch {
                 return setSessionMessage(L(.nfcAuthFailed), invalidate: true)
             }
             do {
-                printLog("Mutual authentication successful")
+                let (retryCount, pinActive) = try await cardCommands.readCodeCounterRecord(.pin2)
+                if retryCount == 0 {
+                    throw MoppLibError.Code.pinBlocked
+                }
+                if !pinActive {
+                    throw MoppLibError.Code.pinLocked
+                }
+
                 setSessionMessage(L(.nfcReadingCert))
                 let cert = try await cardCommands.readSignatureCertificate()
                 guard let expireDate = try? X509Certificate(der: cert).notAfter else {
@@ -129,14 +137,6 @@ class NFCSignature : NSObject, NFCTagReaderSessionDelegate {
                 }
                 setSessionMessage(L(.nfcSignDone))
                 session.invalidate()
-            } catch let error as NSError where error == .wrongPin {
-                let attemptsLeft = error.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as! Int
-                printLog("\nRIA.NFC - PinError count \(attemptsLeft)")
-                switch attemptsLeft {
-                case 0: setSessionMessage(L(.pin2BlockedAlert), invalidate: true)
-                case 1: setSessionMessage(L(.wrongPin2Single), invalidate: true)
-                default: setSessionMessage(L(.nfcWrongPin2, [attemptsLeft]), invalidate: true)
-                }
             } catch {
                 printLog("\nRIA.NFC - Error \(error.localizedDescription)")
                 ErrorUtil.generateError(signingError: error, signingType: SigningType.nfc)

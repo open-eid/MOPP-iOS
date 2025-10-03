@@ -255,8 +255,6 @@
 "nfc-pin-locked" = "PIN2 on blokeeritud";
 "nfc-cert-parse-failed" = "Viga sertifikaadi parsimisel";
 "nfc-cert-expired" = "Aegunud sertifikaati ei saa kasutada allkirjastamiseks";
-"nfc-wrong-pin2" = "Vale PIN2. Katseid jäänud: %d";
-"nfc-wrong-pin1" = "Vale PIN1. Katseid jäänud: %d";
 "nfc-can-info" = "NFC allkirjastamisel kasutatakse CAN numbrit. Mitmekordsel CANi valesti sisestamisel võib NFC lukustuda. https://www.id.ee/artikkel/digiallkirjastamine-ria-digidoc-mobiilirakenduses/";
 "role-and-address" = "Roll ja aadress";
 "role-and-address-title" = "Sisesta oma roll ja aadress";
@@ -298,6 +296,7 @@
 "card-reader-state-initial" = "Ühenda kaardilugeja nutiseadmega ja sisesta ID-kaart lugejasse.";
 "pin2-textfield-label" = "Sisesta PIN2";
 "pin1-textfield-label" = "Sisesta PIN1";
+"pin2-locked-alert" = "ID-kaardiga allkirjastamine blokeeritud, allkirjastamiseks tuleb PIN2-koodi muuta. https://www.id.ee/artikkel/id-kaardi-pin-ja-puk-koodide-muutmine/";
 "pin2-blocked-alert" = "PIN2 on blokeeritud";
 "pin1-blocked-alert" = "PIN1 on blokeeritud";
 "generic-error-message" = "Midagi läks valesti. Palun proovi uuesti.";
@@ -373,7 +372,7 @@
 
 "my-eid-change-code-title" = "%@-koodi vahetus";
 "my-eid-unblock-code-title" = "%@ lahti blokeerimine";
-"my-eid-change-not-available-text" = "Lugejas oleval ID-kaardil ei saa PUK-koodi muuta";
+"my-eid-change-not-available-text" = "Tuvastatud ID-kaardil ei ole võimalik PUK-koodi muuta. Kui oled unustanud enda ID-kaardi PUK-koodi, siis saad sa seda vaadata Politsei- ja Piirivalveameti iseteenindusest.\nLisainfo: https://www.id.ee/artikkel/pin-ja-puk-koodid-soovitused-turvalisuse-tagamiseks/";
 "my-eid-current-code-label" = "KEHTIV %@-KOOD";
 "my-eid-new-code-label" = "UUS %@-KOOD (vähemalt %i sümbolit)";
 "my-eid-new-code-again-label" = "UUS %@-KOOD UUESTI";
