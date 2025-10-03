@@ -27,12 +27,6 @@
 @class MoppLibSignature;
 @class MoppLibRoleAddressData;
 
-#if DEBUG
-#define printLog(...) NSLog(__VA_ARGS__)
-#else
-#define printLog(...)
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^CompletionBlock)(NSError * _Nullable error);
@@ -56,15 +50,6 @@ typedef NS_ENUM(NSInteger, SendDiagnostics);
  * @param completion       Block to be called on  of action. Includes container data as MoppLibContainer on success or on failure error.
  */
 + (void)openContainerWithPath:(NSString *)containerPath completion:(void (^)(MoppLibContainer * _Nullable container, NSError * _Nullable error))completion;
-
-/**
- * Opens container at specified path.
- *
- * @param containerPath         Path to container.
- * @return MoppLibContainer      Successful completion of action. Includes container data as MoppLibContainer.
- * @param error                          Error when opening container.
- */
-+ (MoppLibContainer * _Nullable)openContainerWithPath:(NSString *)containerPath error:(NSError **)error;
 
 /**
  * Creates container on specified path.
@@ -96,7 +81,7 @@ typedef NS_ENUM(NSInteger, SendDiagnostics);
 /**
  * Removes signature from container.
  *
- * @param moppSignature   Signature that will be removed.
+ * @param moppSignature    Signature that will be removed.
  * @param containerPath    Path to container that will be modified.
  * @param completion       Block to be called  completion of action. On failure includes error.
  */
@@ -106,12 +91,30 @@ typedef NS_ENUM(NSInteger, SendDiagnostics);
  * Saves file included in container to specified path. required for viewing file contents.
  *
  * @param containerPath    Path to container.
- * @param fileName    Name of a file that will be saved.
+ * @param fileName         Name of a file that will be saved.
  * @param completion       Block to be called  completion of action. On failure includes error.
  */
 + (void)container:(NSString *)containerPath saveDataFile:(NSString *)fileName to:(NSString *)path completion:(CompletionBlock)completion;
 
+/**
+ * Prepares signature value that can be signed with private key.
+ *
+ * @param cert             Certificate that will be used for signing.
+ * @param containerPath    Path to container that will be signed.
+ * @param roleData         Role address data that will be included in signature. Can be nil.
+ * @param sendDiagnostics  Diagnostic information sending option.
+ * @param error            Error returned on failure.
+ * @return                 Signature value that can be signed with private key.
+ */
 + (NSData * _Nullable)prepareSignature:(NSData *)cert containerPath:(NSString *)containerPath roleData:(MoppLibRoleAddressData * _Nullable)roleData sendDiagnostics:(SendDiagnostics)sendDiagnostics error:(NSError **)error;
+
+/**
+ * Sets signature value that was signed with private key to container and finalizes signing.
+ *
+ * @param signatureValue   Signature value that was signed with private key.
+ * @param error            Error returned on failure.
+ * @return                 YES on success, NO on failure.
+ */
 + (BOOL)isSignatureValid:(NSData * _Nonnull)signatureValue error:(NSError**)error;
 
 @end
