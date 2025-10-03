@@ -23,22 +23,6 @@
 import LDAP
 import ASN1Decoder
 
-enum SearchType {
-    case personalCode
-    case registryCode
-    case other
-}
-
-func searchType(identityCode: String) -> SearchType {
-    let isDigitOnly = identityCode.allSatisfy({ $0.isNumber })
-
-    switch (isDigitOnly, identityCode.count) {
-    case (true, 11): return .personalCode
-    case (true, 8): return .registryCode
-    default: return .other
-    }
-}
-
 public class OpenLdap {
     typealias LDAP = OpaquePointer
     typealias LDAPMessage = OpaquePointer
@@ -56,13 +40,26 @@ public class OpenLdap {
         case decipherOnly = 8
     }
 
+    enum SearchType {
+        case personalCode
+        case registryCode
+        case other
+
+        init(identityCode: String) {
+            self = switch (identityCode.allSatisfy({ $0.isNumber }), identityCode.count) {
+            case (true, 11): .personalCode
+            case (true, 8): .registryCode
+            default: .other
+            }
+        }
+    }
+
     static public func search(identityCode: String) -> (
         addressees: [Addressee],
-        totalAddressees: Int
+        tooManyResults: Bool
     ) {
         var filePath: String? = nil
-        if let libraryPath = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first {
-            let ldapCertFilePath = libraryPath.appendingPathComponent("LDAPCerts/ldapCerts.pem").path
+        if let ldapCertFilePath = MoppLdapConfiguration.ldapCertsPath {
             if FileManager.default.fileExists(atPath: ldapCertFilePath) {
                 filePath = ldapCertFilePath
             } else {
@@ -71,18 +68,27 @@ public class OpenLdap {
             }
         }
 
-        if searchType(identityCode: identityCode) == SearchType.personalCode {
+        if SearchType(identityCode: identityCode) == SearchType.personalCode {
             print("Searching with personal code from LDAP")
-            return search(identityCode: identityCode, url: MoppLdapConfiguration.ldapPersonURL, certificatePath: filePath)
+            var result = [Addressee]()
+            var tooManyResults = false
+            for url in MoppLdapConfiguration.ldapPersonURLS {
+                let (addresses, found) = search(identityCode: identityCode, url: url, certificatePath: filePath)
+                result.append(contentsOf: addresses)
+                if found >= 50 {
+                    tooManyResults = true
+                }
+            }
+            return (result, tooManyResults)
         } else {
             print("Searching with corporation keyword from LDAP")
-            return search(identityCode: identityCode, url: MoppLdapConfiguration.ldapCorpURL, certificatePath: filePath)
+            let (addresses, found) = search(identityCode: identityCode, url: MoppLdapConfiguration.ldapCorpURL, certificatePath: filePath)
+            return (addresses, found >= 50)
         }
     }
 
-    static private func search(identityCode: String, url: String, certificatePath: String?) -> (addressees: [Addressee], totalAddressees: Int) {
-        let secureLdap = url.lowercased().hasPrefix("ldaps")
-        if secureLdap {
+    static private func search(identityCode: String, url: URL, certificatePath: String?) -> (addressees: [Addressee], totalAddressees: Int) {
+        if url.scheme?.lowercased() == "ldaps" {
             if let certificatePath = certificatePath, !certificatePath.isEmpty {
                 guard setLdapOption(option: LDAP_OPT_X_TLS_CACERTFILE, value: certificatePath) else { return ([], 0) }
             } else {
@@ -98,7 +104,16 @@ public class OpenLdap {
         }
 
         var ldap: LDAP?
-        var ldapReturnCode = ldap_initialize(&ldap, url)
+        let host: String
+        if var components = URLComponents(url: url, resolvingAgainstBaseURL: false) {
+            components.path = ""
+            components.query = nil
+            components.fragment = nil
+            host = components.string!
+        } else {
+            host = url.absoluteString
+        }
+        var ldapReturnCode = ldap_initialize(&ldap, host)
         defer {
             if let ldap = ldap { ldap_destroy(ldap) }
         }
@@ -120,7 +135,7 @@ public class OpenLdap {
             .replacingOccurrences(of: ")", with: "\\)")
             .replacingOccurrences(of: "*", with: "\\*")
 
-        let type = searchType(identityCode: escapedIdentityCode)
+        let type = SearchType(identityCode: escapedIdentityCode)
 
         let filter: String = switch type {
         case .registryCode:
@@ -131,13 +146,19 @@ public class OpenLdap {
             "(cn=*\(escapedIdentityCode)*)"
         }
 
+        var dn = url.path
+        if dn.isEmpty {
+            dn = "c=EE"
+        } else {
+            dn.remove(at: dn.startIndex)
+        }
+        print("Searching from LDAP. Url: \(url) \(dn) \(filter)")
         var msgId: Int32 = 0
-        print("Searching from LDAP. Url: \(url) \(filter)")
         var attr = Array("userCertificate;binary".utf8CString)
         ldapReturnCode = attr.withUnsafeMutableBufferPointer { attr in
             var attrs = [attr.baseAddress, nil]
             return attrs.withUnsafeMutableBufferPointer { attrs in
-                ldap_search_ext(ldap, "c=EE", LDAP_SCOPE_SUBTREE, filter, attrs.baseAddress, 0, nil, nil, nil, 0, &msgId)
+                ldap_search_ext(ldap, dn, LDAP_SCOPE_SUBTREE, filter, attrs.baseAddress, 0, nil, nil, nil, 0, &msgId)
             }
         }
 
