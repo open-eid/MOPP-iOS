@@ -30,7 +30,7 @@ extern "C" {
 # ifndef OPENSSL_SYS_iOS
 #  define OPENSSL_SYS_iOS 1
 # endif
-# define OPENSSL_CONFIGURED_API 30000
+# define OPENSSL_CONFIGURED_API 30500
 # ifndef OPENSSL_RAND_SEED_OS
 #  define OPENSSL_RAND_SEED_OS
 # endif
@@ -43,14 +43,20 @@ extern "C" {
 # ifndef OPENSSL_NO_AFALGENG
 #  define OPENSSL_NO_AFALGENG
 # endif
+# ifndef OPENSSL_NO_APPS
+#  define OPENSSL_NO_APPS
+# endif
 # ifndef OPENSSL_NO_ASAN
 #  define OPENSSL_NO_ASAN
 # endif
-# ifndef OPENSSL_NO_ASM
-#  define OPENSSL_NO_ASM
-# endif
 # ifndef OPENSSL_NO_ASYNC
 #  define OPENSSL_NO_ASYNC
+# endif
+# ifndef OPENSSL_NO_BROTLI
+#  define OPENSSL_NO_BROTLI
+# endif
+# ifndef OPENSSL_NO_BROTLI_DYNAMIC
+#  define OPENSSL_NO_BROTLI_DYNAMIC
 # endif
 # ifndef OPENSSL_NO_CAPIENG
 #  define OPENSSL_NO_CAPIENG
@@ -60,6 +66,9 @@ extern "C" {
 # endif
 # ifndef OPENSSL_NO_CRYPTO_MDEBUG_BACKTRACE
 #  define OPENSSL_NO_CRYPTO_MDEBUG_BACKTRACE
+# endif
+# ifndef OPENSSL_NO_DEMOS
+#  define OPENSSL_NO_DEMOS
 # endif
 # ifndef OPENSSL_NO_DEVCRYPTOENG
 #  define OPENSSL_NO_DEVCRYPTOENG
@@ -76,6 +85,12 @@ extern "C" {
 # ifndef OPENSSL_NO_EXTERNAL_TESTS
 #  define OPENSSL_NO_EXTERNAL_TESTS
 # endif
+# ifndef OPENSSL_NO_FIPS_JITTER
+#  define OPENSSL_NO_FIPS_JITTER
+# endif
+# ifndef OPENSSL_NO_FIPS_POST
+#  define OPENSSL_NO_FIPS_POST
+# endif
 # ifndef OPENSSL_NO_FIPS_SECURITYCHECKS
 #  define OPENSSL_NO_FIPS_SECURITYCHECKS
 # endif
@@ -84,6 +99,15 @@ extern "C" {
 # endif
 # ifndef OPENSSL_NO_FUZZ_LIBFUZZER
 #  define OPENSSL_NO_FUZZ_LIBFUZZER
+# endif
+# ifndef OPENSSL_NO_H3DEMO
+#  define OPENSSL_NO_H3DEMO
+# endif
+# ifndef OPENSSL_NO_HQINTEROP
+#  define OPENSSL_NO_HQINTEROP
+# endif
+# ifndef OPENSSL_NO_JITTER
+#  define OPENSSL_NO_JITTER
 # endif
 # ifndef OPENSSL_NO_KTLS
 #  define OPENSSL_NO_KTLS
@@ -100,6 +124,9 @@ extern "C" {
 # ifndef OPENSSL_NO_PADLOCKENG
 #  define OPENSSL_NO_PADLOCKENG
 # endif
+# ifndef OPENSSL_NO_PIE
+#  define OPENSSL_NO_PIE
+# endif
 # ifndef OPENSSL_NO_RC5
 #  define OPENSSL_NO_RC5
 # endif
@@ -112,8 +139,14 @@ extern "C" {
 # ifndef OPENSSL_NO_SSL3_METHOD
 #  define OPENSSL_NO_SSL3_METHOD
 # endif
+# ifndef OPENSSL_NO_SSLKEYLOG
+#  define OPENSSL_NO_SSLKEYLOG
+# endif
 # ifndef OPENSSL_NO_TESTS
 #  define OPENSSL_NO_TESTS
+# endif
+# ifndef OPENSSL_NO_TFO
+#  define OPENSSL_NO_TFO
 # endif
 # ifndef OPENSSL_NO_TRACE
 #  define OPENSSL_NO_TRACE
@@ -133,6 +166,21 @@ extern "C" {
 # ifndef OPENSSL_NO_WEAK_SSL_CIPHERS
 #  define OPENSSL_NO_WEAK_SSL_CIPHERS
 # endif
+# ifndef OPENSSL_NO_WINSTORE
+#  define OPENSSL_NO_WINSTORE
+# endif
+# ifndef OPENSSL_NO_ZLIB
+#  define OPENSSL_NO_ZLIB
+# endif
+# ifndef OPENSSL_NO_ZLIB_DYNAMIC
+#  define OPENSSL_NO_ZLIB_DYNAMIC
+# endif
+# ifndef OPENSSL_NO_ZSTD
+#  define OPENSSL_NO_ZSTD
+# endif
+# ifndef OPENSSL_NO_ZSTD_DYNAMIC
+#  define OPENSSL_NO_ZSTD_DYNAMIC
+# endif
 # ifndef OPENSSL_NO_DYNAMIC_ENGINE
 #  define OPENSSL_NO_DYNAMIC_ENGINE
 # endif
@@ -145,14 +193,20 @@ extern "C" {
  * The following are cipher-specific, but are part of the public API.
  */
 # if !defined(OPENSSL_SYS_UEFI)
-#  define BN_LLONG
+#  undef BN_LLONG
 /* Only one for the following should be defined */
-#  undef SIXTY_FOUR_BIT_LONG
+#  define SIXTY_FOUR_BIT_LONG
 #  undef SIXTY_FOUR_BIT
-#  define THIRTY_TWO_BIT
+#  undef THIRTY_TWO_BIT
 # endif
 
-# define RC4_INT unsigned char
+# define RC4_INT unsigned int
+
+# if defined(OPENSSL_NO_COMP) || (defined(OPENSSL_NO_BROTLI) && defined(OPENSSL_NO_ZSTD) && defined(OPENSSL_NO_ZLIB))
+#  define OPENSSL_NO_COMP_ALG
+# else
+#  undef  OPENSSL_NO_COMP_ALG
+# endif
 
 # ifdef  __cplusplus
 }
