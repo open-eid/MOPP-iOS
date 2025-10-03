@@ -101,23 +101,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		54D164741E9269520069C725 /* PublicInterface */ = {
-			isa = PBXGroup;
-			children = (
-				54D1647D1E926BA00069C725 /* ResponseObjects */,
-				E4250CEA1E09695100530370 /* MoppLib.h */,
-				DFF3C3A823322E0C0079458A /* MoppLibConfiguration.swift */,
-				54E1DB5B1E44A9060060A250 /* MoppLibManager.swift */,
-				54D164751E9269C50069C725 /* MoppLibContainerActions.h */,
-				54D164761E9269C50069C725 /* MoppLibContainerActions.mm */,
-				399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */,
-				399C01E220BC11C20056D7AC /* MoppLibCryptoActions.m */,
-				54DC0E001E0D48C900C62B3D /* MoppLibError.swift */,
-			);
-			name = PublicInterface;
-			path = MoppLib/PublicInterface;
-			sourceTree = "<group>";
-		};
 		54D1647D1E926BA00069C725 /* ResponseObjects */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,7 +163,6 @@
 		E4250CDD1E09695100530370 = {
 			isa = PBXGroup;
 			children = (
-				54D164741E9269520069C725 /* PublicInterface */,
 				E4250CE91E09695100530370 /* MoppLib */,
 				E4250CE81E09695100530370 /* Products */,
 				A80A16CFB65AE0AF2A553445 /* Frameworks */,
@@ -200,9 +182,18 @@
 			children = (
 				54DC0DC21E0BCBB400C62B3D /* CardReaders */,
 				54DC0DFA1E0D195200C62B3D /* CardActions */,
-				39266A5220CFC0F4002E3F23 /* SmartToken.swift */,
+				54D1647D1E926BA00069C725 /* ResponseObjects */,
+				E4250CEA1E09695100530370 /* MoppLib.h */,
+				DFF3C3A823322E0C0079458A /* MoppLibConfiguration.swift */,
+				54D164751E9269C50069C725 /* MoppLibContainerActions.h */,
+				54D164761E9269C50069C725 /* MoppLibContainerActions.mm */,
+				399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */,
+				399C01E220BC11C20056D7AC /* MoppLibCryptoActions.m */,
 				E42B08CB1E1F136A00EA24A3 /* MoppLibDigidocManager.h */,
 				E42B08CC1E1F136A00EA24A3 /* MoppLibDigidocManager.mm */,
+				54DC0E001E0D48C900C62B3D /* MoppLibError.swift */,
+				54E1DB5B1E44A9060060A250 /* MoppLibManager.swift */,
+				39266A5220CFC0F4002E3F23 /* SmartToken.swift */,
 			);
 			path = MoppLib;
 			sourceTree = "<group>";
@@ -458,7 +449,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
-				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/MoppLib/bR301";
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/MoppLib/bR301 $(BUILT_PRODUCTS_DIR)/openldap/include";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -483,7 +474,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
-				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/MoppLib/bR301";
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/MoppLib/bR301 $(BUILT_PRODUCTS_DIR)/openldap/include";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

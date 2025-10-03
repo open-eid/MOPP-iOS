@@ -26,7 +26,7 @@ import SwiftECC
 import BigInt
 
 func printLog(_ message: String, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
-    if true || MoppLibConfiguration.isDebugMode || MoppLibConfiguration.isLoggingEnabled {
+    if MoppLibConfiguration.isDebugMode || MoppLibConfiguration.isLoggingEnabled {
         NSLog("\(Date().ISO8601Format()) \(message)\n" +
               "\tFile: \((file as NSString).lastPathComponent), function: \(function), line: \(line)")
     }

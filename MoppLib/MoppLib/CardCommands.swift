@@ -175,7 +175,7 @@ extension CardCommandsInternal {
             case 0x9000: return
             case 0x6A80: // New pin is invalid
                 throw MoppLibError.Code.pinMatchesOldCode
-            case 0x63C0, 0x6983: // Authentication method blocked
+            case 0x63C0, 0x6983, 0x6984: // Authentication method blocked
                 throw MoppLibError.Code.pinBlocked
             case let sw? where (sw.uint16Value & 0xFFF0) == 0x63C0: // For pin codes this means verification failed due to wrong pin
                 throw MoppLibError.wrongPinError(withRetryCount: Int(sw.uint16Value & 0x000F)) // Last char in trailer holds retry count

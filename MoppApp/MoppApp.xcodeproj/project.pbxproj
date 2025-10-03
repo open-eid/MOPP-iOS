@@ -1969,6 +1969,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INCLUDE_PATHS = "$(BUILT_PRODUCTS_DIR)/openldap/include $(PROJECT_DIR)/../MoppLib/MoppLib/bR301";
 				SWIFT_OBJC_BRIDGING_HEADER = "MoppApp/MoppApp-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1998,6 +1999,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = $APP_PROVISIONING_PROFILE;
+				SWIFT_INCLUDE_PATHS = "$(BUILT_PRODUCTS_DIR)/openldap/include $(PROJECT_DIR)/../MoppLib/MoppLib/bR301";
 				SWIFT_OBJC_BRIDGING_HEADER = "MoppApp/MoppApp-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

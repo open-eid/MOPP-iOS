@@ -85,7 +85,7 @@ class SiVaUtil {
                 
                 let hasDictionary = CGPDFArrayGetDictionary(pdfAnnots, index, &pdfDictionary)
                 
-                guard let annotDictionary: CGPDFArrayRef = pdfDictionary else { return false }
+                guard let annotDictionary = pdfDictionary else { return false }
                 
                 if hasDictionary {
                     var type: UnsafePointer<CChar>?
@@ -95,7 +95,7 @@ class SiVaUtil {
                         var vArray: CGPDFDictionaryRef?
                         CGPDFDictionaryGetDictionary(annotDictionary, "V", &vArray);
                         
-                        guard let vInfo: CGPDFArrayRef = vArray else { return false }
+                        guard let vInfo = vArray else { return false }
                         
                         var filterChar: UnsafePointer<CChar>?
                         CGPDFDictionaryGetName(vInfo, "Filter", &filterChar)
