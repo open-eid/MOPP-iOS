@@ -37,13 +37,20 @@ extension X509Certificate {
         if let ext = extensionObject(oid: OID.certificatePolicies) as? X509Certificate.CertificatePoliciesExtension {
             for policy in ext.policies ?? [] {
                 switch policy.oid {
-                case let oid where oid.starts(with: "1.3.6.1.4.1.10015.1.1"),
-                     let oid where oid.starts(with: "1.3.6.1.4.1.51361.1.1.1"):
-                    return .IDCardType
-                case let oid where oid.starts(with: "1.3.6.1.4.1.10015.1.2"),
-                     let oid where oid.starts(with: "1.3.6.1.4.1.51361.1.1"),
-                     let oid where oid.starts(with: "1.3.6.1.4.1.51455.1.1"):
+                case let oid where oid.starts(with: "1.3.6.1.4.1.51361.1.1.3"),
+                    let oid where oid.starts(with: "1.3.6.1.4.1.51361.1.1.4"),
+                    let oid where oid.starts(with: "1.3.6.1.4.1.51361.2.1.6"),
+                    let oid where oid.contains("1.3.6.1.4.1.51361.2.1.6"): // Test OID
                     return .DigiIDType
+                case let oid where oid.starts(with: "1.3.6.1.4.1.51361.1.1"),
+                    let oid where oid.starts(with: "1.3.6.1.4.1.51361.1.2"), // Test OID
+                    let oid where oid.starts(with: "1.3.6.1.4.1.51361.2.1"),
+                    let oid where oid.contains("1.3.6.1.4.1.51361.2.1"), // Test OID
+                    let oid where oid.starts(with: "1.3.6.1.4.1.51455.1.1"),
+                    let oid where oid.starts(with: "1.3.6.1.4.1.51455.1.2"), // Test OID
+                    let oid where oid.starts(with: "1.3.6.1.4.1.51455.2.1"),
+                    let oid where oid.contains("1.3.6.1.4.1.51455.2.1"): // Test OID
+                    return .IDCardType
                 case let oid where oid.starts(with: "1.3.6.1.4.1.10015.1.3"),
                      let oid where oid.starts(with: "1.3.6.1.4.1.10015.11.1"):
                     return .MobileIDType
