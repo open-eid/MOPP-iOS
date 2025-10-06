@@ -34,8 +34,6 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     var tempUrl: URL?
     var downloadCompletion: (() -> Void)? = nil
     var window: UIWindow?
-    var currentElement:String = ""
-    var documentFormat:String = ""
     var downloadTask: URLSessionTask?
     var isInvalidFileInList: Bool = false
 
@@ -521,14 +519,8 @@ class MoppApp: UIApplication, URLSessionDelegate, URLSessionDownloadDelegate {
     }
 
     func isXmlExtensionFileCdoc(with url: URL) -> Bool {
-        let parser = XMLParser(contentsOf: url)
-        parser?.delegate = self;
-        parser?.parse()
-        if documentFormat.hasPrefix("ENCDOC-XML|1.") {
-            documentFormat = ""
-            return true
-        }
-        return false
+        guard let cdocInfo = try? CdocInfo(cdoc1Path: url.path) else { return false }
+        return cdocInfo.format.hasPrefix("ENCDOC-XML|1.")
     }
 
     func convertViewToImage(with view: UIView) -> UIImage? {
