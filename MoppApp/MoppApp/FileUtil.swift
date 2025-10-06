@@ -25,26 +25,26 @@ import Foundation
 import System
 
 struct FileUtil {
-    
+
     static let fileNamePrefix = "newFile"
     static let defaultFileExtension = "txt"
-    
+
     static func getSignDocumentFileName(containerPath: String) -> String {
         guard !containerPath.isEmpty else { return "" }
         let fileURL: URL? = URL(fileURLWithPath: containerPath)
         if let fileURL = fileURL {
             let fileName = fileURL.deletingPathExtension().lastPathComponent.sanitize()
             let fileExtension = fileURL.pathExtension
-            
+
             if fileName.count <= 6 {
                 return "\(fileName).\(fileExtension)"
             }
-            
+
             return "\(fileName.prefix(3))...\(fileName.suffix(3)).\(fileExtension)"
         }
         return ""
     }
-    
+
     static func getFileName(currentFileName: String) -> String {
         if currentFileName.isEmpty {
             return fileNamePrefix
@@ -53,89 +53,76 @@ struct FileUtil {
             guard let fileExtension = url?.pathExtension else { return fileNamePrefix }
             return fileNamePrefix + fileExtension
         }
-        
+
         return currentFileName
     }
-    
+
     static func addDefaultExtension(url: URL) -> URL {
         if !url.pathExtension.isEmpty {
             return url
         }
         return url.appendingPathExtension(defaultFileExtension)
     }
-    
-    static func getValidPath(url: URL) -> URL? {
-        let directories: [FileManager.SearchPathDirectory] = [
-            .applicationDirectory,
-            .documentDirectory,
-            .downloadsDirectory,
-            .userDirectory,
-            .libraryDirectory,
-            .allLibrariesDirectory
-        ]
-        
-        let currentURL = URL(fileURLWithPath: url.path).resolvingSymlinksInPath()
-        let currentURLPath = currentURL.path
-        
-        for directory in directories {
-            guard let directoryURL = FileManager.default.urls(for: directory, in: .userDomainMask).first else {
-                continue
-            }
-            
-            guard let subdirectoryURLs = try? FileManager.default.contentsOfDirectory(at: directoryURL, includingPropertiesForKeys: nil, options: .skipsHiddenFiles) else {
-                continue
-            }
-            
-            for subdirectoryURL in subdirectoryURLs {
-                let resolvedSubdirectoryURL = subdirectoryURL.resolvingSymlinksInPath()
-                let resolvedSubdirectoryPath = resolvedSubdirectoryURL.path
-                
-                if FilePath(stringLiteral: currentURLPath).lexicallyNormalized().starts(with: FilePath(stringLiteral: resolvedSubdirectoryPath)) ||
-                    FilePath(stringLiteral: currentURLPath).lexicallyNormalized().starts(with: FilePath(stringLiteral: FileManager.default.temporaryDirectory.resolvingSymlinksInPath().path)) {
-                    return currentURL
-                }
-            }
-            
-            // Check if file is opened externally (outside of application)
-            if let appGroupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ee.ria.digidoc.ios") {
-                let resolvedAppGroupURL = appGroupURL.resolvingSymlinksInPath()
-                
-                let normalizedURL = FilePath(stringLiteral: currentURLPath).lexicallyNormalized()
-                
-                let resolvedAppGroupFilePath = FilePath(stringLiteral: resolvedAppGroupURL.deletingLastPathComponent().path)
 
-                if normalizedURL != nil && resolvedAppGroupFilePath != nil {
-                    let isFromAppGroup = normalizedURL.starts(with: resolvedAppGroupFilePath)
-                    
-                    if isFromAppGroup {
-                        return url
-                    }
+    static func getValidPath(url: URL) -> URL? {
+        let resolvedURL = url.resolvingSymlinksInPath().standardizedFileURL
+        let filePath = FilePath(resolvedURL.path).lexicallyNormalized()
+
+        let containerBasePaths = [
+            URL(fileURLWithPath: "/private/var/mobile/Containers/Data/Application/"),
+            URL(fileURLWithPath: "/var/mobile/Containers/Data/Application/")
+        ]
+
+        for containerBasePath in containerBasePaths {
+            let appContainerPath = FilePath(containerBasePath
+                .resolvingSymlinksInPath()
+                .standardizedFileURL.path)
+                .lexicallyNormalized()
+
+            if filePath.starts(with: appContainerPath) {
+                return resolvedURL
+            }
+        }
+
+        // Check if file is opened externally (outside of application)
+        if let appGroupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.ee.ria.digidoc.ios") {
+            let resolvedAppGroupURL = appGroupURL.resolvingSymlinksInPath()
+
+            let normalizedURL = URL(fileURLWithPath: String(decoding: filePath))
+
+            let resolvedAppGroupFilePath = FilePath(stringLiteral: resolvedAppGroupURL.deletingLastPathComponent().path)
+
+            if normalizedURL != nil && resolvedAppGroupFilePath != nil {
+                let isFromAppGroup = filePath.starts(with: resolvedAppGroupFilePath)
+
+                if isFromAppGroup {
+                    return normalizedURL
                 }
             }
         }
 
-        if isFileInsideMailFolder(currentURL) {
-            return currentURL
+        if isFileInsideMailFolder(resolvedURL) {
+            return resolvedURL
         } else {
             // Check if file is opened from iCloud
-            if isFileFromiCloud(fileURL: currentURL) {
-                if !isFileDownloadedFromiCloud(fileURL: currentURL) {
-                    printLog("File '\(currentURL.lastPathComponent)' from iCloud is not downloaded. Downloading...")
+            if isFileFromiCloud(fileURL: resolvedURL) {
+                if !isFileDownloadedFromiCloud(fileURL: resolvedURL) {
+                    printLog("File '\(resolvedURL.lastPathComponent)' from iCloud is not downloaded. Downloading...")
 
                     var fileLocationURL: URL? = nil
 
-                    downloadFileFromiCloud(fileURL: currentURL) { downloadedFileUrl in
+                    downloadFileFromiCloud(fileURL: resolvedURL) { downloadedFileUrl in
                         if let fileUrl = downloadedFileUrl {
-                            printLog("File '\(currentURL.lastPathComponent)' downloaded from iCloud")
+                            printLog("File '\(resolvedURL.lastPathComponent)' downloaded from iCloud")
                             fileLocationURL = fileUrl
                         } else {
-                            printLog("Unable to download file '\(currentURL.lastPathComponent)' from iCloud")
+                            printLog("Unable to download file '\(resolvedURL.lastPathComponent)' from iCloud")
                             return
                         }
                     }
                     return fileLocationURL
                 } else {
-                    printLog("File '\(currentURL.lastPathComponent)' from iCloud is already downloaded")
+                    printLog("File '\(resolvedURL.lastPathComponent)' from iCloud is already downloaded")
                     return url
                 }
             }
@@ -154,7 +141,7 @@ struct FileUtil {
         } catch {
             printLog("Unable to check iCloud file '\(fileURL.lastPathComponent)' status: \(error.localizedDescription)")
         }
-        
+
         return false
     }
 
@@ -170,7 +157,7 @@ struct FileUtil {
         } catch {
             printLog("Unable to check iCloud file '\(fileURL.lastPathComponent)' download status: \(error.localizedDescription)")
         }
-        
+
         return false
     }
 
