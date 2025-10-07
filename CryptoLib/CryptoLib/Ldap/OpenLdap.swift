@@ -55,8 +55,8 @@ public class OpenLdap {
 
         var filter: String {
             switch self {
-            case .registryCode(let code): "(serialNumber=\(escape(code))"
-            case .personalCode(let code): "(serialNumber=PNOEE-\(escape(code))"
+            case .registryCode(let code): "(serialNumber=\(escape(code)))"
+            case .personalCode(let code): "(serialNumber=PNOEE-\(escape(code)))"
             case .other(let cn): "(cn=*\(escape(cn))*)"
             }
         }
