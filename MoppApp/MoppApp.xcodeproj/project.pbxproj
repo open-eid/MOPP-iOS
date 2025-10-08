@@ -248,9 +248,9 @@
 		DFF3C3B22332314A0079458A /* RuntimeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3B02332314A0079458A /* RuntimeError.swift */; };
 		DFF3C3B32332314A0079458A /* SignatureVerifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3B12332314A0079458A /* SignatureVerifier.swift */; };
 		DFF3C3B5233231F20079458A /* Notification+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3B4233231F20079458A /* Notification+Additions.swift */; };
-		DFF3C3BC2332355D0079458A /* publicKey.pub in Resources */ = {isa = PBXBuildFile; fileRef = DFF3C3B82332355C0079458A /* publicKey.pub */; };
+		DFF3C3BC2332355D0079458A /* publicKey.ecpub in Resources */ = {isa = PBXBuildFile; fileRef = DFF3C3B82332355C0079458A /* publicKey.ecpub */; };
 		DFF3C3BD2332355D0079458A /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = DFF3C3B92332355C0079458A /* config.json */; };
-		DFF3C3BE2332355D0079458A /* signature.rsa in Resources */ = {isa = PBXBuildFile; fileRef = DFF3C3BA2332355C0079458A /* signature.rsa */; };
+		DFF3C3BE2332355D0079458A /* signature.ecc in Resources */ = {isa = PBXBuildFile; fileRef = DFF3C3BA2332355C0079458A /* signature.ecc */; };
 		DFF3C3BF2332355D0079458A /* defaultConfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = DFF3C3BB2332355D0079458A /* defaultConfiguration.json */; };
 		E4250CCB1E0968D200530370 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4250CCA1E0968D200530370 /* AppDelegate.swift */; };
 		E4250D0A1E0AA7AF00530370 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E4250D091E0AA7AF00530370 /* LaunchScreen.xib */; };
@@ -570,9 +570,9 @@
 		DFF3C3B02332314A0079458A /* RuntimeError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuntimeError.swift; sourceTree = "<group>"; };
 		DFF3C3B12332314A0079458A /* SignatureVerifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureVerifier.swift; sourceTree = "<group>"; };
 		DFF3C3B4233231F20079458A /* Notification+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notification+Additions.swift"; sourceTree = "<group>"; };
-		DFF3C3B82332355C0079458A /* publicKey.pub */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = publicKey.pub; path = MoppApp/publicKey.pub; sourceTree = "<group>"; };
+		DFF3C3B82332355C0079458A /* publicKey.ecpub */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = publicKey.ecpub; path = MoppApp/publicKey.ecpub; sourceTree = "<group>"; };
 		DFF3C3B92332355C0079458A /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = MoppApp/config.json; sourceTree = "<group>"; };
-		DFF3C3BA2332355C0079458A /* signature.rsa */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = signature.rsa; path = MoppApp/signature.rsa; sourceTree = "<group>"; };
+		DFF3C3BA2332355C0079458A /* signature.ecc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = signature.ecc; path = MoppApp/signature.ecc; sourceTree = "<group>"; };
 		DFF3C3BB2332355D0079458A /* defaultConfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = defaultConfiguration.json; path = MoppApp/defaultConfiguration.json; sourceTree = "<group>"; };
 		DFF6A55627E14D3B0055F8D5 /* RoleDetailsViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleDetailsViewControllerTests.swift; sourceTree = "<group>"; };
 		E4250CC31E0968D200530370 /* MoppApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoppApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1048,8 +1048,8 @@
 				DFB1D5EA2ACAFE1B00FDC7B8 /* GoogleService-Info.plist */,
 				DFF3C3B92332355C0079458A /* config.json */,
 				DFF3C3BB2332355D0079458A /* defaultConfiguration.json */,
-				DFF3C3B82332355C0079458A /* publicKey.pub */,
-				DFF3C3BA2332355C0079458A /* signature.rsa */,
+				DFF3C3B82332355C0079458A /* publicKey.ecpub */,
+				DFF3C3BA2332355C0079458A /* signature.ecc */,
 				E4250CC51E0968D200530370 /* MoppApp */,
 				54A418251E83FAD200559E2B /* shareExtension */,
 				DFF6A54E27E14C180055F8D5 /* MoppAppTests */,
@@ -1378,8 +1378,8 @@
 				DFB1D5EB2ACAFE1B00FDC7B8 /* GoogleService-Info.plist in Resources */,
 				DFF3C3BF2332355D0079458A /* defaultConfiguration.json in Resources */,
 				DFF3C3BD2332355D0079458A /* config.json in Resources */,
-				DFF3C3BE2332355D0079458A /* signature.rsa in Resources */,
-				DFF3C3BC2332355D0079458A /* publicKey.pub in Resources */,
+				DFF3C3BE2332355D0079458A /* signature.ecc in Resources */,
+				DFF3C3BC2332355D0079458A /* publicKey.ecpub in Resources */,
 				DF900C972386768F00887385 /* tslFiles.bundle in Resources */,
 				DFC2ADC329437790008A1CD2 /* Accessibility.storyboard in Resources */,
 				C50DCD011FC6E97400D48E16 /* Container.storyboard in Resources */,
