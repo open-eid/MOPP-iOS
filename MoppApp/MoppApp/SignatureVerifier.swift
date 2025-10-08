@@ -21,7 +21,7 @@
  *
  */
 
-import Security
+import CryptoKit
 
 class SignatureVerifier {
     
@@ -30,24 +30,28 @@ class SignatureVerifier {
             throw Exception("Invalid signature")
         }
         guard let pubKey = fromBase64(publicKey
-            .replacingOccurrences(of: "-----BEGIN RSA PUBLIC KEY-----", with: "")
-            .replacingOccurrences(of: "-----END RSA PUBLIC KEY-----", with: "")) else {
+            .replacingOccurrences(of: "-----BEGIN PUBLIC KEY-----", with: "")
+            .replacingOccurrences(of: "-----END PUBLIC KEY-----", with: "")) else {
             throw Exception("Invalid public key")
         }
-        let parameters: [CFString: Any] = [
-            kSecAttrKeyType: kSecAttrKeyTypeRSA,
-            kSecAttrKeyClass: kSecAttrKeyClassPublic,
-            kSecReturnPersistentRef: false
-        ]
-        var error: Unmanaged<CFError>?
-        guard let key = SecKeyCreateWithData(pubKey as CFData, parameters as CFDictionary, &error) else {
-            printLog("Failed to create key: \(error!.takeRetainedValue())")
-            throw Exception("Failed to create key: \(error!.takeRetainedValue())")
+        let result: Bool
+        switch pubKey.count {
+        case 80...100:
+            let key = try P256.Signing.PublicKey(derRepresentation: pubKey)
+            let sig = try P256.Signing.ECDSASignature(derRepresentation: sigData)
+            result = key.isValidSignature(sig, for: Data(configData.utf8))
+        case 110...130:
+            let key = try P384.Signing.PublicKey(derRepresentation: pubKey)
+            let sig = try P384.Signing.ECDSASignature(derRepresentation: sigData)
+            result = key.isValidSignature(sig, for: Data(configData.utf8))
+        case 150...170:
+            let key = try P521.Signing.PublicKey(derRepresentation: pubKey)
+            let sig = try P521.Signing.ECDSASignature(derRepresentation: sigData)
+            result = key.isValidSignature(sig, for: Data(configData.utf8))
+        default:
+            throw Exception("Unknown key size")
         }
-        let algorithm: SecKeyAlgorithm = .rsaSignatureMessagePKCS1v15SHA512
-        let result = SecKeyVerifySignature(key, algorithm, Data(configData.utf8) as CFData, sigData as CFData, &error)
         if !result {
-            print("Verification error: \(error!.takeRetainedValue())")
             throw Exception("Signature verification unsuccessful")
         }
     }
