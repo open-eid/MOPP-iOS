@@ -255,8 +255,6 @@
 "nfc-pin-locked" = "PIN2 заблокирован";
 "nfc-cert-parse-failed" = "Ошибка при анализе сертификата";
 "nfc-cert-expired" = "Сертификат с истекшим сроком действия не может быть использован для подписи";
-"nfc-wrong-pin2" = "Неверный PIN2-код. Оставшиеся попытки: %d";
-"nfc-wrong-pin1" = "Неверный PIN1-код. Оставшиеся попытки: %d";
 "nfc-can-info" = "При подписании через NFC используется номер CAN. NFC может заблокироваться, если CAN введен неправильно несколько раз. https://www.id.ee/ru/artikkel/czifrovoe-podpisanie-v-mobilnom-prilozhenii-ria-digidoc/";
 "role-and-address" = "Роль и адрес";
 "role-and-address-title" = "Введите свою роль и адрес";
@@ -303,6 +301,7 @@
 "wrong-pin1-single" = "Неверный PIN1. У Вас осталась 1 попытка до блокировки Вашего PIN1.";
 "pin2-textfield-label" = "Введите PIN2";
 "pin1-textfield-label" = "Введите PIN1";
+"pin2-locked-alert" = "Подписание с помощью ID-карты ещё невозможно. Чтобы подписывать, необходимо изменить PIN2. https://www.id.ee/ru/artikkel/poryadok-izmeneniya-pin-kodov-i-puk-koda-id-karty/";
 "pin2-blocked-alert" = "PIN2 заблокирован";
 "pin1-blocked-alert" = "PIN1 заблокирован";
 "generic-error-message" = "Что-то пошло не так. Пожалуйста, попробуйте снова.";
@@ -373,7 +372,7 @@
 
 "my-eid-change-code-title" = "Изменить %@";
 "my-eid-unblock-code-title" = "Разблокировать %@";
-"my-eid-change-not-available-text" = "Невозможно изменить PUK-код ID-карты, находящейся в считывателе";
+"my-eid-change-not-available-text" = "PUK-код не может быть изменён на обнаруженной ID-карте. Если вы забыли PUK-код своей ID-карты, вы можете посмотреть его на портале Департамента полиции и погранохраны.\nДополнительная информация: https://www.id.ee/en/article/pin-and-puk-codes-security-recommendations/";
 "my-eid-current-code-label" = "ДЕЙСТВУЮЩИЙ %@-КОД";
 "my-eid-new-code-label" = "НОВЫЙ %@-КОД (не меньше %i символов)";
 "my-eid-new-code-again-label" = "ПОВТОРИТЬ НОВЫЙ %@-КОД";

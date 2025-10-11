@@ -196,9 +196,9 @@ class MyeIDInfoManager {
                 let personalData = try await cardCommands.readPublicData()
                 let authCertData = try await cardCommands.readAuthenticationCertificate()
                 let signCertData = try await cardCommands.readSignatureCertificate()
-                let pin1RetryCount = try await cardCommands.readCodeCounterRecord(.pin1)
-                let pin2RetryCount = try await cardCommands.readCodeCounterRecord(.pin2)
-                let pukRetryCount = try await cardCommands.readCodeCounterRecord(.puk)
+                let (pin1RetryCount, pin1Active) = try await cardCommands.readCodeCounterRecord(.pin1)
+                let (pin2RetryCount, pin2Active) = try await cardCommands.readCodeCounterRecord(.pin2)
+                let (pukRetryCount, _) = try await cardCommands.readCodeCounterRecord(.puk)
 
                 guard let self else { return }
 

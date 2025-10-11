@@ -45,6 +45,7 @@ public class MoppLibError: NSObject {
         case cardNotFound = 10002 // Reader is connected, but card is not detected
         case wrongPin = 10004 // Provided pin is wrong
         case wrongCan = 10003
+        case pinLocked = 10015 // PIN needs to be activated
         case pinBlocked = 10016 // User did not provide pin for action that required authentication
         case pinMatchesOldCode = 10019 // New pin must be different from old pin or puk
 
@@ -66,6 +67,7 @@ public class MoppLibError: NSObject {
             case .cardNotFound: "ID card could not be detected in reader."
             case .wrongPin: "Wrong PIN entered"
             case .wrongCan: "Wrong CAN entered"
+            case .pinLocked: "PIN locked"
             case .pinBlocked: "PIN blocked"
             case .pinMatchesOldCode: "New PIN must be different from old PIN."
             }

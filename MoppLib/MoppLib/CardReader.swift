@@ -63,7 +63,7 @@ extension CardReader {
      * - Returns: The full response data returned by the card (excluding the status word).
      */
     func sendAPDU(cls: UInt8 = 0x00, ins: UInt8, p1: UInt8 = 0x00, p2: UInt8 = 0x00,
-                  data: (any RangeReplaceableCollection<UInt8>)? = nil, le: UInt8? = nil) async throws -> Data {
+                  data: (any Collection<UInt8>)? = nil, le: UInt8? = nil) async throws -> Data {
         var apdu: Bytes = switch (data, le) {
         case (nil, nil): [cls, ins, p1, p2]
         case (nil, _): [cls, ins, p1, p2, le!]

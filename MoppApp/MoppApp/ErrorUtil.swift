@@ -42,6 +42,15 @@ class ErrorUtil {
             generateError(signingError: .noResponseError)
         case .pinBlocked:
             generateError(signingError: L(.pin2BlockedAlert))
+        case .pinLocked:
+            generateError(signingError: L(.pin2LockedAlert))
+        case .wrongPin:
+            let attemptsLeft = nsError.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as! Int
+            switch attemptsLeft {
+            case 0: generateError(signingError: L(.pin2BlockedAlert))
+            case 1: generateError(signingError: L(.wrongPin2Single))
+            default: generateError(signingError: L(.wrongPin2, [attemptsLeft]))
+            }
         case .readerProcessFailed:
             generateError(signingError: .empty, details: L(.cardReaderStateReaderProcessFailed))
         default:
@@ -49,17 +58,17 @@ class ErrorUtil {
         }
     }
 
-    static func generateError(signingError: SigningError, details: String = "") -> Void {
+    static func generateError(signingError: SigningError, details: String = "") {
         let error = NSError(domain: "SkSigningLib", code: 10, userInfo: [NSLocalizedDescriptionKey: signingError, NSLocalizedFailureReasonErrorKey: details])
-        return self.errorResult(error: error)
+        errorResult(error: error)
     }
     
-    static func generateError(signingError: String, details: String = "") -> Void {
+    static func generateError(signingError: String, details: String = "") {
         let error = NSError(domain: "SkSigningLib", code: 10, userInfo: [NSLocalizedDescriptionKey: signingError, NSLocalizedFailureReasonErrorKey: details])
-        return self.errorResult(error: error)
+        errorResult(error: error)
     }
     
-    static func errorResult(error: Error) -> Void {
+    static func errorResult(error: Error) {
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorKey: error])
         }

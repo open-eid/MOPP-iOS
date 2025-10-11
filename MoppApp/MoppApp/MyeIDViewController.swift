@@ -55,6 +55,7 @@ class MyeIDViewController : MoppViewController {
             let statusVC = children.first as? MyeIDStatusViewController
                 statusVC?.state = .readerNotFound
 
+            didRestartReader = false
             MoppLibCardReaderManager.shared.startDiscoveringReaders()
         } else {
             changingCodesVCPresented = false
