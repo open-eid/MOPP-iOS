@@ -58,17 +58,17 @@ class ErrorUtil {
         }
     }
 
-    static func generateError(signingError: SigningError, details: String = "") -> Void {
+    static func generateError(signingError: SigningError, details: String = "") {
         let error = NSError(domain: "SkSigningLib", code: 10, userInfo: [NSLocalizedDescriptionKey: signingError, NSLocalizedFailureReasonErrorKey: details])
-        return self.errorResult(error: error)
+        errorResult(error: error)
     }
     
-    static func generateError(signingError: String, details: String = "") -> Void {
+    static func generateError(signingError: String, details: String = "") {
         let error = NSError(domain: "SkSigningLib", code: 10, userInfo: [NSLocalizedDescriptionKey: signingError, NSLocalizedFailureReasonErrorKey: details])
-        return self.errorResult(error: error)
+        errorResult(error: error)
     }
     
-    static func errorResult(error: Error) -> Void {
+    static func errorResult(error: Error) {
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .errorNotificationName, object: nil, userInfo: [kErrorKey: error])
         }
