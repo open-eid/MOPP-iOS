@@ -76,7 +76,7 @@
 "crypto-view-begin-label" = "Krüpteerimiseks või dekrüpteerimiseks vali fail";
 "crypto-view-begin-label-accessibility" = "Vali fail krüpteerimiseks või dekrüpteerimiseks";
 "crypto-view-begin-button" = "VALI FAIL";
-"crypto-empty-ldap-label" = "Isikul või asutusel puudub kehtiv sertifikaat. \nKrüpteerimiseks on vaja kehtivat sertikaati.\nKüsimuste korral pöördu id.ee";
+"crypto-empty-ldap-label" = "Isikul või asutusel puudub kehtiv sertifikaat. \nKrüpteerimiseks on vaja kehtivat sertifikaati.\nKüsimuste korral pöördu id.ee";
 "crypto-too-many-results-ldap-label" = "Sinu otsitud nimi andis liiga palju vastuseid, palun täpsusta otsingut.";
 "crypto-ldap-search-placeholder" = "Sisesta isikukood, asutus või registrikood";
 "crypto-encryption-error-text" = "Midagi läks krüpteerimisel valesti";
