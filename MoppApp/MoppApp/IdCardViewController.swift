@@ -45,6 +45,7 @@ class IdCardViewController : MoppViewController {
 
     var isActionDecryption = false
     var containerPath: String!
+    var addressees = [Addressee]()
     var cardCommands: CardCommands?
     weak var decryptDelegate: IdCardDecryptViewControllerDelegate?
     weak var keyboardDelegate: IdCardSignViewKeyboardDelegate? = nil
@@ -249,6 +250,10 @@ class IdCardViewController : MoppViewController {
                           let expiryDate = try? X509Certificate(der: cert).notAfter,
                           expiryDate < Date.now {
                     self.titleLabel.text = L(.nfcCertExpired)
+                    pinHidden = true
+                } else if self.isActionDecryption, let cert = self.cert,
+                          !self.addressees.contains(where: { $0.cert == cert }) {
+                    self.titleLabel.text = L(.decryptionWrongCard)
                     pinHidden = true
                 } else {
                     self.titleLabel.text = L(self.isActionDecryption ? .cardReaderStateReadyForPin1 : .cardReaderStateReadyForPin2, [fullname, personalCode])

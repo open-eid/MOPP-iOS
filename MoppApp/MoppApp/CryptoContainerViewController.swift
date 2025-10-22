@@ -28,7 +28,6 @@ class CryptoContainerViewController : ContainerViewController, CryptoActions {
 
     var container: CryptoContainer!
     weak var delegate: AddresseeViewControllerDelegate?
-    var isContainerEncrypted = false
     override class func instantiate() -> CryptoContainerViewController {
         return UIStoryboard.container.instantiateViewController(of: CryptoContainerViewController.self)
     }
@@ -38,10 +37,8 @@ class CryptoContainerViewController : ContainerViewController, CryptoActions {
     }
     
     func reloadCryptoData() {
-        
-        self.isEncrypted = isContainerEncrypted
-        
-        if container != nil && container.addressees.count > 0 && (state == .opened || isContainerEncrypted) {
+
+        if container != nil && container.addressees.count > 0 && (state == .opened || isEncrypted) {
             self.sections = ContainerViewController.sectionsEncrypted
         } else if container != nil && container.addressees.count > 0 {
             self.sections = ContainerViewController.sectionsWithAddresses
@@ -222,7 +219,7 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
                     self.state = .opened
                     
                     self.container = container
-                    self.isDecrypted = false
+                    self.isEncrypted = true
                     self.reloadCryptoData()
             },
                 failure: { _ in

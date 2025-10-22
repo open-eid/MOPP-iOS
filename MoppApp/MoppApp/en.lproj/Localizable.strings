@@ -309,6 +309,7 @@
 "pin2-blocked-alert" = "PIN2 has been blocked";
 "pin1-blocked-alert" = "PIN1 has been blocked";
 "generic-error-message" = "Something went wrong. Please try again.";
+"decryption-wrong-card" = "Unable to decrypt with this card";
 "decryption-error-message" = "Something went wrong with decryption. Please try again.";
 "signing-aborted-message" = "Signing process aborted";
 "my-eid-status-reader-not-found" = "Connect your card reader to your smart device and insert ID-card into the reader.";

@@ -23,7 +23,6 @@
 
 import Foundation
 
-@objcMembers
 public class MoppLibContainer: NSObject {
 
     public var fileName: String = ""
@@ -35,6 +34,7 @@ public class MoppLibContainer: NSObject {
         super.init()
     }
 
+    @objc
     public init(fileName: String, filePath: String, dataFiles: [MoppLibDataFile], signatures: [MoppLibSignature]) {
         self.fileName = fileName
         self.filePath = filePath

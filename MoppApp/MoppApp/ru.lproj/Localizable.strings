@@ -310,6 +310,7 @@
 "pin2-blocked-alert" = "PIN2 заблокирован";
 "pin1-blocked-alert" = "PIN1 заблокирован";
 "generic-error-message" = "Что-то пошло не так. Пожалуйста, попробуйте снова.";
+"decryption-wrong-card" = "Невозможно расшифровать с данной картой";
 "decryption-error-message" = "Что-то пошло не так с дешифрованием. Пожалуйста, попробуйте снова.";
 "signing-aborted-message" = "Процесс подписания прерван";
 "my-eid-status-reader-not-found" = "Подключите считыватель карты и вставьте в него Вашу ID-карту.";

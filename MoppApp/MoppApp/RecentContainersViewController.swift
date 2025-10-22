@@ -253,7 +253,7 @@ extension RecentContainersViewController : UITableViewDelegate {
                             cryptoContainer.state = .opened
 
                             cryptoContainer.container = container
-                            cryptoContainer.isContainerEncrypted = true
+                            cryptoContainer.isEncrypted = true
 
                             navController = (LandingViewController.shared.viewController(for: .cryptoTab) as? UINavigationController)!
                             navController.pushViewController(cryptoContainer, animated: true)

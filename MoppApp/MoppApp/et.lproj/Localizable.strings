@@ -305,6 +305,7 @@
 "pin2-blocked-alert" = "PIN2 on blokeeritud";
 "pin1-blocked-alert" = "PIN1 on blokeeritud";
 "generic-error-message" = "Midagi läks valesti. Palun proovi uuesti.";
+"decryption-wrong-card" = "Kasutatud kaart ei ole adressaatide hulgas";
 "decryption-error-message" = "Midagi läks dekrüpteerimisel valesti. Palun proovi uuesti.";
 "signing-error-too-many-requests" = "Sinu %@ tasuta allkirjade kuulimiit on ületatud. https://www.id.ee/artikkel/asutustele-kus-allkirjastatakse-digidoc4-kliendi-kaudu-suuremates-kogustes-dokumente/";
 "id-card-conditional-speech" = "ID-kaardi";

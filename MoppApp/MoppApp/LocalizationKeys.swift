@@ -240,6 +240,7 @@ enum LocKey : String
     case pin2BlockedAlert = "pin2-blocked-alert"
     case pin1BlockedAlert = "pin1-blocked-alert"
     case genericErrorMessage = "generic-error-message"
+    case decryptionWrongCard = "decryption-wrong-card"
     case decryptionErrorMessage = "decryption-error-message"
     case signingErrorTooManyRequests = "signing-error-too-many-requests"
     case idCardConditionalSpeech = "id-card-conditional-speech"

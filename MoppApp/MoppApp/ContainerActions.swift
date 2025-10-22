@@ -190,7 +190,7 @@ extension ContainerActions where Self: UIViewController {
                     containerViewController.containerPath = newFilePath
                     containerViewController.state = .opened
                     containerViewController.container = container
-                    containerViewController.isContainerEncrypted = true
+                    containerViewController.isEncrypted = true
                     landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
                         navController?.pushViewController(containerViewController, animated: true)
                     })
