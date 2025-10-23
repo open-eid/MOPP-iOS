@@ -110,15 +110,15 @@ struct DigiDocConf final: public digidoc::ConfCurrent {
     }
 
     std::string TSLUrl() const final {
-        if (MoppLibConfiguration.tslURL) {
-            return MoppLibConfiguration.tslURL.UTF8String;
+        if (MoppLibManager.tslURL) {
+            return MoppLibManager.tslURL.UTF8String;
         }
         return digidoc::ConfCurrent::TSLUrl();
     }
 
     std::vector<digidoc::X509Cert> TSLCerts() const final {
-        if (MoppLibConfiguration.tslCerts) {
-            return toX509Certs(MoppLibConfiguration.tslCerts);
+        if (MoppLibManager.tslCerts) {
+            return toX509Certs(MoppLibManager.tslCerts);
         }
         return digidoc::ConfCurrent::TSLCerts();
     }
@@ -127,15 +127,15 @@ struct DigiDocConf final: public digidoc::ConfCurrent {
         if (NSString *tsaUrl = [NSUserDefaults.standardUserDefaults stringForKey:@"kTimestampUrlKey"]; tsaUrl.length != 0) {
             return tsaUrl.UTF8String;
         }
-        if (MoppLibConfiguration.tsaURL.UTF8String) {
-            return MoppLibConfiguration.tsaURL.UTF8String;
+        if (MoppLibManager.tsaURL.UTF8String) {
+            return MoppLibManager.tsaURL.UTF8String;
         }
         return digidoc::ConfCurrent::TSUrl();
     }
 
     std::vector<digidoc::X509Cert> TSCerts() const final {
-        if (MoppLibConfiguration.certBundle || MoppLibConfiguration.tsaCert) {
-            return toX509Certs(MoppLibConfiguration.certBundle, MoppLibConfiguration.tsaCert);
+        if (MoppLibManager.certBundle || MoppLibManager.tsaCert) {
+            return toX509Certs(MoppLibManager.certBundle, MoppLibManager.tsaCert);
         }
         return digidoc::ConfCurrent::TSCerts();
     }
@@ -144,22 +144,22 @@ struct DigiDocConf final: public digidoc::ConfCurrent {
         if (NSString *sivaUrl = [NSUserDefaults.standardUserDefaults stringForKey:@"kSivaUrl"]; sivaUrl.length != 0) {
             return sivaUrl.UTF8String;
         }
-        if (MoppLibConfiguration.sivaURL) {
-            return MoppLibConfiguration.sivaURL.UTF8String;
+        if (MoppLibManager.sivaURL) {
+            return MoppLibManager.sivaURL.UTF8String;
         }
         return digidoc::ConfCurrent::verifyServiceUri();
     }
 
     std::vector<digidoc::X509Cert> verifyServiceCerts() const final {
-        if (MoppLibConfiguration.certBundle || MoppLibConfiguration.sivaCert) {
-            return toX509Certs(MoppLibConfiguration.certBundle, MoppLibConfiguration.sivaCert);
+        if (MoppLibManager.certBundle || MoppLibManager.sivaCert) {
+            return toX509Certs(MoppLibManager.certBundle, MoppLibManager.sivaCert);
         }
         return digidoc::ConfCurrent::verifyServiceCerts();
     }
 
     std::string ocsp(const std::string &issuer) const final {
         NSString *ocspIssuer = [NSString stringWithUTF8String:issuer.c_str()];
-        if (NSString *url = MoppLibConfiguration.ocspIssuers[ocspIssuer]) {
+        if (NSString *url = MoppLibManager.ocspIssuers[ocspIssuer]) {
             return url.UTF8String;
         }
         return digidoc::ConfCurrent::ocsp(issuer);
@@ -225,7 +225,7 @@ struct DigiDocConf final: public digidoc::ConfCurrent {
     }
 
     int logLevel() const final {
-        if (MoppLibConfiguration.isDebugMode || MoppLibConfiguration.isLoggingEnabled) {
+        if (MoppLibManager.isDebugMode || MoppLibManager.isLoggingEnabled) {
             return 4;
         } else {
             return 0;
@@ -233,7 +233,7 @@ struct DigiDocConf final: public digidoc::ConfCurrent {
     }
 
     std::string logFile() const final {
-        if (!MoppLibConfiguration.isDebugMode && !MoppLibConfiguration.isLoggingEnabled) {
+        if (!MoppLibManager.isDebugMode && !MoppLibManager.isLoggingEnabled) {
             return {};
         }
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);

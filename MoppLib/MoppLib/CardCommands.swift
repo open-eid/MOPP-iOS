@@ -66,7 +66,7 @@ public protocol CardCommands: AnyObject {
      * - Throws: An error if the operation fails.
      * - Returns: The remaining attempts as an `NSNumber`.
      */
-    func readCodeCounterRecord(_ type: CodeType) async throws -> UInt8
+    func readCodeCounterRecord(_ type: CodeType) async throws -> (retryCount: UInt8, pinActive: Bool)
 
     /**
      * Changes the PIN or PUK code.

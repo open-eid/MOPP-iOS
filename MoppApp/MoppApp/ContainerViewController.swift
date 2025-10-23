@@ -66,7 +66,6 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
     var forcePDFContentPreview: Bool = false
     var startSigningWhenOpened = false
     var isEncrypted = false
-    var isDecrypted = false
     let landingViewController = LandingViewController.shared!
     var isAsicContainer = LandingViewController.shared.containerType == .asic
     var isEmptyFileWarningSet = false
@@ -264,10 +263,10 @@ class ContainerViewController : MoppViewController, ContainerActions, PreviewAct
                     }
                 }
                 else if !isForPreview {
-                    if isDecrypted {
-                        tabButtons = []
-                    } else {
+                    if isEncrypted {
                         tabButtons = [.shareButton, .signButton, .decryptButton]
+                    } else {
+                        tabButtons = []
                     }
                     setupNavigationItemForPushedViewController(title: L(.containerDecryptionTitle))
                 } else {
@@ -562,8 +561,8 @@ extension ContainerViewController : UITableViewDataSource {
             cell.accessibilityUserInputLabels = ["\(L(.voiceControlFileRow)) \(row + 1)"]
 
             let isStatePreviewOrOpened = state == .opened || state == .preview
-            let isEncryptedDataFiles = !isAsicContainer && isStatePreviewOrOpened && !isDecrypted
-            
+            let isEncryptedDataFiles = !isAsicContainer && isStatePreviewOrOpened && isEncrypted
+
             cell.accessibilityTraits = UIAccessibilityTraits.button
             if !isEncryptedDataFiles {
                 cell.accessibilityUserInputLabels = ["\(L(.voiceControlFileRow)) \(row + 1)"]
@@ -576,11 +575,11 @@ extension ContainerViewController : UITableViewDataSource {
 
             if isAsicsContainer() && !asicsDataFiles.isEmpty && asicsDataFiles.count >= indexPath.row {
                 dataFileName = asicsDataFiles[indexPath.row].fileName
-                tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: asicsNestedContainerPath, isShareButtonNeeded: isDecrypted)
+                tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: asicsNestedContainerPath, isShareButtonNeeded: !isEncrypted)
             } else {
                 dataFileName = containerViewDelegate.getDataFileDisplayName(index: indexPath.row) ?? unnamedDataFile
                 if !isEncryptedDataFiles {
-                    tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: isDecrypted)
+                    tapGesture = getPreviewTapGesture(dataFile: dataFileName, containerPath: containerViewDelegate.getContainerPath(), isShareButtonNeeded: !isEncrypted)
                 }
             }
 
@@ -620,8 +619,8 @@ extension ContainerViewController : UITableViewDataSource {
                 (signingContainerViewDelegate.getSignaturesCount() == 0 && signingContainerViewDelegate.isContainerSignable())
                 isDownloadButtonShown = true
             } else {
-                isRemoveButtonShown = !isEncrypted || isDecrypted
-                isDownloadButtonShown = !isForPreview && (isDecrypted || (state != .opened))
+                isRemoveButtonShown = !isEncrypted
+                isDownloadButtonShown = !isForPreview && (!isEncrypted || (state != .opened))
                 cell.isDownloadButtonRefreshed = false
                 isCryptoDocument = true
             }
@@ -644,7 +643,7 @@ extension ContainerViewController : UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withType: ContainerHeaderCell.self, for: indexPath)!
             cell.delegate = self
             let isEditingButtonShown: Bool = !isForPreview && (state == .opened || state == .created) &&
-                (isSignaturesEmpty && !isEncrypted && !isDecrypted)
+                (isSignaturesEmpty && !isEncrypted)
             let containerPath = isAsicContainer ? self.containerViewDelegate.getContainerPath() : String(self.cryptoContainerViewDelegate.getContainer().filePath)
             cell.populate(name: containerViewDelegate.getContainerFilename(), isEditButtonEnabled: isEditingButtonShown,
             containerPath: URL(fileURLWithPath: containerPath))
@@ -807,7 +806,7 @@ extension ContainerViewController : UITableViewDataSource {
 
         tapGesture.dataFile = dataFile
         tapGesture.containerFilePath = containerViewDelegate.getContainerPath()
-        tapGesture.isShareButtonNeeded = isDecrypted
+        tapGesture.isShareButtonNeeded = !isEncrypted
 
         return tapGesture
     }
@@ -825,39 +824,13 @@ extension ContainerViewController : ContainerFileDelegate {
 
 extension ContainerViewController : ContainerHeaderDelegate {
 
-    private func getNewContainerUrlPath(isContainerCdoc: Bool, asicContainer: MoppLibContainer?, cdocContainer: CryptoContainer?, newContainerName: String, containerExtension: String) -> URL? {
-        var newContainerPath: URL? = URL(string: "")
-        if let signingContainer = asicContainer, !isContainerCdoc {
-            newContainerPath = URL(fileURLWithPath: signingContainer.filePath as String)
-        } else if let cryptoContainer = cdocContainer, isContainerCdoc {
-            newContainerPath = URL(fileURLWithPath: cryptoContainer.filePath as String)
-        }
-
-        guard let containerPath = newContainerPath else { return nil }
-
-        return containerPath.deletingLastPathComponent().appendingPathComponent(newContainerName).appendingPathExtension(containerExtension)
-    }
-
     func editContainerName(completion: @escaping (_ fileName: String) -> Void) {
-
-        var currentFileName: String = ""
-        var containerExtension: String = ""
-
-        let asicContainer: MoppLibContainer? = self.containerViewDelegate?.getContainer()
-        let cdocContainer: CryptoContainer? = self.cryptoContainerViewDelegate?.getContainer()
-
-        if let signingContainer = asicContainer, !signingContainer.filePath.isCdocContainerExtension {
-            currentFileName = URL(fileURLWithPath: signingContainer.filePath).deletingPathExtension().lastPathComponent
-            containerExtension = URL(fileURLWithPath: signingContainer.filePath).pathExtension
-        } else if let cryptoContainer = cdocContainer, cryptoContainer.filePath.pathExtension == ContainerFormatCdoc {
-            currentFileName = URL(fileURLWithPath: cryptoContainer.filePath as String).deletingPathExtension().lastPathComponent
-            containerExtension = URL(fileURLWithPath: (cryptoContainer.filePath as String)).pathExtension
-        }
+        let url = URL(fileURLWithPath: containerPath)
+        let containerExtension = url.pathExtension
 
         guard !containerExtension.isEmpty else {
             printLog("Failed to get container extension")
-            self.infoAlert(message: L(.containerErrorMessageFailedContainerNameChange))
-            return
+            return infoAlert(message: L(.containerErrorMessageFailedContainerNameChange))
         }
 
         let changeContainerNameController = UIAlertController(title: L(.containerEditNameButton), message: nil, preferredStyle: .alert)
@@ -873,19 +846,13 @@ extension ContainerViewController : ContainerHeaderDelegate {
         let okButton = UIAlertAction(title: L(.actionOk), style: UIAlertAction.Style.default) { (action: UIAlertAction) in
             guard let textFields = changeContainerNameController.textFields, textFields.count != 0, let textFieldText = textFields[0].text else {
                 printLog("Failed to find textfield")
-                self.infoAlert(message: L(.containerErrorMessageFailedContainerNameChange))
-                return
+                return self.infoAlert(message: L(.containerErrorMessageFailedContainerNameChange))
             }
 
-            let isContainerCdoc: Bool = containerExtension == ContainerFormatCdoc
-
-            guard let newContainerPath: URL = self.getNewContainerUrlPath(isContainerCdoc: isContainerCdoc, asicContainer: asicContainer, cdocContainer: cdocContainer, newContainerName: textFieldText, containerExtension: containerExtension), newContainerPath.isFileURL else {
-                printLog("Failed to get container path")
-                self.infoAlert(message: L(.containerErrorMessageFailedContainerNameChange))
-                return
+            let newContainerPath = url.deletingLastPathComponent().appendingPathComponent(textFieldText).appendingPathExtension(containerExtension)
+            guard url != newContainerPath else {
+                return completion(url.lastPathComponent)
             }
-            
-            if asicContainer?.filePath != newContainerPath.path {
 
             // Remove existing file
             if MoppFileManager.shared.fileExists(newContainerPath.path) {
@@ -893,19 +860,18 @@ extension ContainerViewController : ContainerHeaderDelegate {
             }
 
             // Rename / save file
-            if !isContainerCdoc {
-                guard let signingContainer = asicContainer, MoppFileManager.shared.moveFile(withPath: signingContainer.filePath, toPath: newContainerPath.path, overwrite: true) else {
+            if containerExtension != ContainerFormatCdoc {
+                guard let signingContainer = self.containerViewDelegate?.getContainer(),
+                      MoppFileManager.shared.moveFile(withPath: signingContainer.filePath, toPath: newContainerPath.path, overwrite: true) else {
                     printLog("Failed to change asic file properties")
-                    self.infoAlert(message: L(.containerErrorMessageFailedContainerNameChange))
-                    return
+                    return self.infoAlert(message: L(.containerErrorMessageFailedContainerNameChange))
                 }
                 signingContainer.fileName = newContainerPath.lastPathComponent
                 signingContainer.filePath = newContainerPath.path
             } else {
-                guard let cryptoContainer = cdocContainer else {
+                guard let cryptoContainer = self.cryptoContainerViewDelegate?.getContainer() else {
                     printLog("Failed to change cdoc file properties")
-                    self.infoAlert(message: L(.containerErrorMessageFailedContainerNameChange))
-                    return
+                    return self.infoAlert(message: L(.containerErrorMessageFailedContainerNameChange))
                 }
                 cryptoContainer.filename = newContainerPath.lastPathComponent as NSString
                 cryptoContainer.filePath = newContainerPath.path as NSString
@@ -922,27 +888,20 @@ extension ContainerViewController : ContainerHeaderDelegate {
             self.containerPath = newContainerPath.path
             self.tableView.reloadData()
 
-            return completion(newContainerPath.lastPathComponent)
-            } else {
-                return completion(URL(string: asicContainer?.filePath ?? "")?.lastPathComponent ?? "")
-            }
+            completion(newContainerPath.lastPathComponent)
         }
 
         changeContainerNameController.addAction(okButton)
 
         changeContainerNameController.addTextField { (textField: UITextField) in
-            textField.text = currentFileName
+            textField.text = url.deletingPathExtension().lastPathComponent
             NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { (notification) in
                 guard let inputText = textField.text else {
                     printLog("Failed to get textfield's text")
                     self.infoAlert(message: L(.containerErrorMessageFailedContainerNameChange))
                     return
                 }
-                if inputText.count == 0 || inputText.starts(with: ".") {
-                     okButton.isEnabled = false
-                 } else {
-                     okButton.isEnabled = true
-                 }
+                okButton.isEnabled = inputText.count > 0 && !inputText.starts(with: ".")
              }
          }
 

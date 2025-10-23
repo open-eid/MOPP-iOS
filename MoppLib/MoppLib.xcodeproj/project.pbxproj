@@ -36,7 +36,6 @@
 		C5E41C5E2180602B00D79B54 /* Idemia.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E41C5C2180602B00D79B54 /* Idemia.swift */; };
 		C5F462A8209727E8001B7D59 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */; };
 		DFBDF1FA27DA44FD00A5CF3C /* MoppLibRoleAddressData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBDF1F927DA44FD00A5CF3C /* MoppLibRoleAddressData.swift */; };
-		DFF3C3AA23322E0D0079458A /* MoppLibConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3C3A823322E0C0079458A /* MoppLibConfiguration.swift */; };
 		E4250CEC1E09695100530370 /* MoppLib.h in Headers */ = {isa = PBXBuildFile; fileRef = E4250CEA1E09695100530370 /* MoppLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E42B08B61E1F0B3B00EA24A3 /* MoppLibContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B08B41E1F0B3B00EA24A3 /* MoppLibContainer.swift */; };
 		E42B08C61E1F11B900EA24A3 /* MoppLibDataFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42B08C41E1F11B900EA24A3 /* MoppLibDataFile.swift */; };
@@ -71,7 +70,6 @@
 		C5E41C5C2180602B00D79B54 /* Idemia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Idemia.swift; sourceTree = "<group>"; };
 		C5F462A7209727E8001B7D59 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		DFBDF1F927DA44FD00A5CF3C /* MoppLibRoleAddressData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoppLibRoleAddressData.swift; sourceTree = "<group>"; };
-		DFF3C3A823322E0C0079458A /* MoppLibConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoppLibConfiguration.swift; sourceTree = "<group>"; };
 		E4250CE71E09695100530370 /* MoppLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MoppLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4250CEA1E09695100530370 /* MoppLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLib.h; sourceTree = "<group>"; };
 		E42B08B41E1F0B3B00EA24A3 /* MoppLibContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoppLibContainer.swift; sourceTree = "<group>"; };
@@ -180,7 +178,6 @@
 				54DC0DFA1E0D195200C62B3D /* CardActions */,
 				54D1647D1E926BA00069C725 /* ResponseObjects */,
 				E4250CEA1E09695100530370 /* MoppLib.h */,
-				DFF3C3A823322E0C0079458A /* MoppLibConfiguration.swift */,
 				54D164751E9269C50069C725 /* MoppLibContainerActions.h */,
 				54D164761E9269C50069C725 /* MoppLibContainerActions.mm */,
 				399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */,
@@ -282,7 +279,6 @@
 				39266A5320CFC0F4002E3F23 /* SmartToken.swift in Sources */,
 				C54EA732204D5E860039AC78 /* CardReaderiR301.swift in Sources */,
 				545111731E13BBA800296B80 /* MoppLibPersonalData.swift in Sources */,
-				DFF3C3AA23322E0D0079458A /* MoppLibConfiguration.swift in Sources */,
 				54DC0E021E0D48C900C62B3D /* MoppLibError.swift in Sources */,
 				E42B08C61E1F11B900EA24A3 /* MoppLibDataFile.swift in Sources */,
 				C54EA738204D91730039AC78 /* MoppLibCardReaderManager.swift in Sources */,
@@ -424,7 +420,6 @@
 		E4250CF01E09695100530370 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEFINES_MODULE = YES;
 				DIGIDOCPP_PATH = "$(SRCROOT)/MoppLib/libdigidocpp/libdigidocpp.$(PLATFORM_NAME)";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -449,7 +444,6 @@
 		E4250CF11E09695100530370 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEFINES_MODULE = YES;
 				DIGIDOCPP_PATH = "$(SRCROOT)/MoppLib/libdigidocpp/libdigidocpp.$(PLATFORM_NAME)";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;

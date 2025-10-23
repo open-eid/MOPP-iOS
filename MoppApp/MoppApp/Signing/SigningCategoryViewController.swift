@@ -97,7 +97,7 @@ class SigningCategoryViewController: MoppViewController {
             kind: .timestamp,
             title: L(.settingsTimestampUrlTitle),
             placeholderText: NSAttributedString(string: L(.settingsTimestampUrlPlaceholder), attributes: [NSAttributedString.Key.foregroundColor: UIColor.moppText]),
-            value: DefaultsHelper.timestampUrl ?? MoppLibConfiguration.tsaURL!
+            value: DefaultsHelper.timestampUrl ?? MoppLibManager.tsaURL!
         ),
         Field(
             id: .useDefault,

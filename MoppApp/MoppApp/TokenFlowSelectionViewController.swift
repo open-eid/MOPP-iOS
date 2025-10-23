@@ -54,7 +54,8 @@ class TokenFlowSelectionViewController : MoppViewController {
     weak var nfcEditViewControllerDelegate: NFCEditViewControllerDelegate!
 
     var containerPath: String!
-    
+    var addressees = [Addressee]()
+
     var isSwitchingBlockedByTransition: Bool = false
     
     var viewAccessibilityElements: [UIView] = []
@@ -189,6 +190,7 @@ extension TokenFlowSelectionViewController {
         case .idCard:
             let idCardSignVC = UIStoryboard.tokenFlow.instantiateViewController(of: IdCardViewController.self)
             idCardSignVC.containerPath = containerPath
+            idCardSignVC.addressees = addressees
             centerLandscapeCSTR.isActive = false
             if isFlowForDecrypting {
                 idCardSignVC.isActionDecryption = true

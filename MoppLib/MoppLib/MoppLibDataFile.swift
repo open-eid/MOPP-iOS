@@ -23,13 +23,13 @@
 
 import Foundation
 
-@objcMembers
 public class MoppLibDataFile : NSObject {
     public let fileName: String
     public let mediaType: String
     public let fileId: String
     public let fileSize: CUnsignedLong
 
+    @objc
     public init(fileName: String, mediaType: String, fileId: String, fileSize: CUnsignedLong) {
         self.fileName = fileName
         self.mediaType = mediaType

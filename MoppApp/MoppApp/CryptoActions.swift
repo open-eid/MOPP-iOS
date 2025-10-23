@@ -39,7 +39,7 @@ extension CryptoActions where Self: CryptoContainerViewController {
                 success: {
                     self.isCreated = false
                     self.isForPreview = false
-                    self.isContainerEncrypted = true
+                    self.isEncrypted = true
                     self.state = .loading
                     self.containerViewDelegate.openContainer(afterSignatureCreated: true)
                     UIAccessibility.post(notification: UIAccessibility.Notification.screenChanged, argument: L(.cryptoEncryptionSuccess))
@@ -68,6 +68,7 @@ extension CryptoActions where Self: CryptoContainerViewController {
         
         decryptSelectionVC.idCardDecryptViewControllerDelegate = self
         decryptSelectionVC.containerPath = containerPath
+        decryptSelectionVC.addressees = container.addressees
         decryptSelectionVC.isFlowForDecrypting = true
         LandingViewController.shared.present(decryptSelectionVC, animated: false, completion: nil)
     }
@@ -76,42 +77,37 @@ extension CryptoActions where Self: CryptoContainerViewController {
 extension CryptoContainerViewController : IdCardDecryptViewControllerDelegate {
     
     func idCardDecryptDidFinished(success: Bool, dataFiles: [String:Data], error: Error?) {
-        if success {
-            container.dataFiles.removeAllObjects()
-            for (filename, data) in dataFiles {
-                let cryptoDataFile = CryptoDataFile()
-                cryptoDataFile.filename = filename
-                guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: cryptoDataFile.filename) else {
-                    dismiss(animated: false)
-                    infoAlert(message: L(.decryptionErrorMessage))
-                    return
-                }
-                cryptoDataFile.filePath = destinationPath
-                container.dataFiles.add(cryptoDataFile)
-                MoppFileManager.shared.createFile(atPath: destinationPath, contents: data)
-            }
-            
-            self.isCreated = false
-            self.isForPreview = false
-            self.dismiss(animated: false)
-            self.isDecrypted = true
-            self.isContainerEncrypted = false
-            
-            let decryptionSuccess = NotificationMessage(isSuccess: true, text: L(.containerDetailsDecryptionSuccess))
-            if !self.notifications.contains(where: { $0 == decryptionSuccess }) {
-                self.notifications.append(decryptionSuccess)
-            }
-            UIAccessibility.post(notification: .screenChanged, argument: L(.containerDetailsDecryptionSuccess))
-            
-            self.reloadCryptoData()
-        } else {
-            self.dismiss(animated: false)
+        dismiss(animated: false)
+        guard success else {
             if let nsError = error as NSError?,
                nsError == .pinBlocked {
-                errorAlertWithLink(message: L(.pin1BlockedAlert))
+                return errorAlertWithLink(message: L(.pin1BlockedAlert))
             } else {
-                infoAlert(message: L(.decryptionErrorMessage))
+                return infoAlert(message: L(.decryptionErrorMessage))
             }
         }
+        container.dataFiles.removeAllObjects()
+        for (filename, data) in dataFiles {
+            let cryptoDataFile = CryptoDataFile()
+            cryptoDataFile.filename = filename
+            guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: cryptoDataFile.filename) else {
+                return infoAlert(message: L(.decryptionErrorMessage))
+            }
+            cryptoDataFile.filePath = destinationPath
+            container.dataFiles.add(cryptoDataFile)
+            MoppFileManager.shared.createFile(atPath: destinationPath, contents: data)
+        }
+
+        self.isCreated = false
+        self.isForPreview = false
+        self.isEncrypted = false
+
+        let decryptionSuccess = NotificationMessage(isSuccess: true, text: L(.containerDetailsDecryptionSuccess))
+        if !self.notifications.contains(where: { $0 == decryptionSuccess }) {
+            self.notifications.append(decryptionSuccess)
+        }
+        UIAccessibility.post(notification: .screenChanged, argument: L(.containerDetailsDecryptionSuccess))
+
+        self.reloadCryptoData()
     }
 }

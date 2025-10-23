@@ -33,8 +33,25 @@ import UIKit
 
 public class MoppLibManager: NSObject {
     @objc static public let shared = MoppLibManager()
-    public var isConnected: Bool = false
+
+    @objc static public var sivaURL: String?
+    @objc static public var sivaCert: URL?
+    @objc static public var tslURL: String?
+    @objc static public var tslCerts: [Data]?
+    @objc static public var tsaURL: String?
+    @objc static public var tsaCert: URL?
+    @objc static public var ocspIssuers: [String: String]?
+    @objc static public var certBundle: [Data]?
     @objc public var validateOnline = true
+
+    @objc static public var isDebugMode: Bool {
+        UserDefaults.standard.bool(forKey: "isDebugMode")
+    }
+    @objc static public var isLoggingEnabled: Bool {
+        UserDefaults.standard.bool(forKey: "kIsFileLoggingEnabled")
+    }
+
+    public var isConnected: Bool = false
 
     private let monitor = NWPathMonitor()
     private let queue = DispatchQueue.global(qos: .background)
