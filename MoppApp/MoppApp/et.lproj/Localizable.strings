@@ -359,7 +359,9 @@
 "my-eid-unblock-pin1-button-title" = "TÜHISTA BLOKEERING";
 "my-eid-unblock-pin2-button-title" = "TÜHISTA BLOKEERING";
 "my-eid-how-to-get-codes-message" = "Uue PUK-koodi saamiseks külasta klienditeeninduspunkti, kust saad uue koodiümbriku uute koodidega.";
+"my-eid-how-to-get-new-card-message" = "Uue PUK-koodi saamiseks tuleb taotleda uus dokument.";
 "my-eid-how-to-get-codes-url" = "https://www.politsei.ee/et/juhend/id-kaardi-taotlemine-taeiskasvanule/id-kaardi-kasutaja-meelespea";
+"my-eid-how-to-get-new-card-url" = "https://www.politsei.ee/et/juhend/id-kaardi-taotlemine-taeiskasvanule/";
 "my-eid-code-changed-success-message" = "%@ MUUDETUD";
 "my-eid-code-unblocked-success-message" = "%@ BLOKEERING TÜHISTATUD";
 "my-eid-wrong-code-message" = "Vale %@-kood. Saad veel proovida 2 korda.";

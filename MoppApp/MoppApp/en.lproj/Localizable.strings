@@ -358,7 +358,9 @@
 "my-eid-unblock-pin1-button-title" = "UNBLOCK";
 "my-eid-unblock-pin2-button-title" = "UNBLOCK";
 "my-eid-how-to-get-codes-message" = "Please visit the service center to obtain new codes.";
+"my-eid-how-to-get-new-card-message" = "A new document must be requested to receive the new PUK code.";
 "my-eid-how-to-get-codes-url" = "https://www.politsei.ee/en/instructions/applying-for-an-id-card-for-an-adult/reminders-for-id-card-holders";
+"my-eid-how-to-get-new-card-url" = "https://www.politsei.ee/en/instructions/applying-for-an-id-card-for-an-adult";
 "my-eid-code-changed-success-message" = "%@ CHANGED";
 "my-eid-code-unblocked-success-message" = "%@ UNBLOCKED";
 "my-eid-wrong-code-message" = "Wrong %@ code. You can try 2 more times.";

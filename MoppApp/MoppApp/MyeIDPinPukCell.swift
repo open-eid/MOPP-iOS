@@ -173,9 +173,9 @@ class MyeIDPinPukCell: UITableViewCell {
         else if kind == .puk {
             if pukBlocked {
                 showLink(true)
-                url = URL(string: L(.myEidHowToGetCodesUrl))
-                linkLabel.attributedText = NSAttributedString(string: L(.myEidHowToGetCodesMessage), attributes: [.underlineStyle : NSUnderlineStyle.single.rawValue])
-                linkButton.accessibilityLabel = L(.myEidHowToGetCodesMessage)
+                url = URL(string: L(infoManager.canChangePUK ? .myEidHowToGetCodesUrl : .myEidHowToGetNewCardUrl))
+                linkLabel.attributedText = NSAttributedString(string: L(infoManager.canChangePUK ? .myEidHowToGetCodesMessage : .myEidHowToGetNewCardMessage), attributes: [.underlineStyle : NSUnderlineStyle.single.rawValue])
+                linkButton.accessibilityLabel = L(infoManager.canChangePUK ? .myEidHowToGetCodesMessage : .myEidHowToGetNewCardMessage)
                 showErrorLabel(true, with: L(.myEidInfoPukBlockedMessage))
                 showChangeButton(false)
                 button.backgroundColor = UIColor.moppDescriptiveText

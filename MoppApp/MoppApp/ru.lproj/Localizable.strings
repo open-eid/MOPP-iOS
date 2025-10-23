@@ -359,7 +359,9 @@
 "my-eid-unblock-pin1-button-title" = "РАЗБЛОКИРОВАТЬ";
 "my-eid-unblock-pin2-button-title" = "РАЗБЛОКИРОВАТЬ";
 "my-eid-how-to-get-codes-message" = "Для получения нового PUK-кода для своей ID-карты, посетите центр обслуживания, где вы сможете получить конверт с кодами.";
+"my-eid-how-to-get-new-card-message" = "Для получения нового PUK-кода необходимо оформить новую ID-карту.";
 "my-eid-how-to-get-codes-url" = "https://www.politsei.ee/ru/instruktsii/hodataystvo-o-vydache-id-karty-vzroslomu/pamyatka-dlya-polzovatelya-id-karti";
+"my-eid-how-to-get-new-card-url" = "https://www.politsei.ee/ru/instruktsii/hodataystvo-o-vydache-id-karty-vzroslomu";
 "my-eid-code-changed-success-message" = "%@ ИЗМЕНЕНО";
 "my-eid-code-unblocked-success-message" = "%@ РАЗБЛОКИРОВАН";
 "my-eid-wrong-code-message" = "Неверный %@-код. Вы можете попробовать ещё 2 раз.";
