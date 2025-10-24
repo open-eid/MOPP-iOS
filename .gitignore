@@ -34,5 +34,5 @@ xcuserdata
 MoppApp/GoogleService-Info.plist
 MoppApp/MoppApp/config.json
 MoppApp/MoppApp/defaultConfiguration.json
-MoppApp/MoppApp/publicKey.pub
-MoppApp/MoppApp/signature.rsa
+MoppApp/MoppApp/publicKey.ecpub
+MoppApp/MoppApp/signature.ecc

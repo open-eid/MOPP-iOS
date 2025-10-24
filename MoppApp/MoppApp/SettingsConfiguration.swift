@@ -102,7 +102,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     internal func loadLocalConfiguration() {
         do {
             let localConfigData = try String(contentsOfFile: Bundle.main.path(forResource: "config", ofType: "json")!)
-            let localSignature = try String(contentsOfFile: Bundle.main.path(forResource: "signature", ofType: "rsa")!)
+            let localSignature = try String(contentsOfFile: Bundle.main.path(forResource: "signature", ofType: "ecc")!)
             let decodedData = try MOPPConfiguration(json: localConfigData)
             setAllConfigurationToCache(configData: localConfigData, signature: localSignature, initialUpdateDate: MoppDateFormatter().stringToDate(dateString: getDefaultMoppConfiguration().UPDATEDATE), versionSerial: decodedData.METAINF.SERIAL)
             setConfigurationToCache("", forKey: "lastUpdateDateCheck")
@@ -119,7 +119,7 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     internal func loadCachedConfiguration() {
         do {
             let cachedConfigData = getConfigurationFromCache(forKey: "config") as! String
-            let localPublicKey = try String(contentsOfFile: Bundle.main.path(forResource: "publicKey", ofType: "pub")!)
+            let localPublicKey = try String(contentsOfFile: Bundle.main.path(forResource: "publicKey", ofType: "ecpub")!)
             let cachedSignature = getConfigurationFromCache(forKey: "signature") as! String
 
             _ = try SignatureVerifier.isSignatureCorrect(configData: cachedConfigData, publicKey: localPublicKey, signature: cachedSignature)
@@ -152,14 +152,14 @@ class SettingsConfiguration: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     internal func loadCentralConfiguration(completionHandler: @escaping (Error) -> () = { _ in }) {
         do {
             let cachedSignature = getConfigurationFromCache(forKey: "signature") as? String
-            let localPublicKey = try String(contentsOfFile: Bundle.main.path(forResource: "publicKey", ofType: "pub")!)
-            
+            let localPublicKey = try String(contentsOfFile: Bundle.main.path(forResource: "publicKey", ofType: "ecpub")!)
+
             if isInitialSetup() {
                 setConfigurationToCache(true, forKey: "isCentralConfigurationLoaded")
                 loadCachedConfiguration()
             }
             
-            getFetchedData(fromUrl: "\(getDefaultMoppConfiguration().CENTRALCONFIGURATIONSERVICEURL)/config.rsa") { (centralSignature, signatureError) in
+            getFetchedData(fromUrl: "\(getDefaultMoppConfiguration().CENTRALCONFIGURATIONSERVICEURL)/config.ecc") { (centralSignature, signatureError) in
                 if let error = signatureError {
                     printLog(error.localizedDescription)
                     return completionHandler(error)
