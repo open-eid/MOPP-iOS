@@ -29,22 +29,22 @@
 
 @implementation Decrypt
 
-+ (NSMutableDictionary *)decryptFile:(NSString *)fullPath withToken:(id<AbstractSmartToken>)smartToken error:(NSError**)error {
++ (NSDictionary<NSString*,NSData*> *)decryptFile:(NSString *)fullPath withToken:(id<AbstractSmartToken>)smartToken error:(NSError**)error {
 
     std::string encodedFullPath = std::string([fullPath UTF8String]);
     CDOCReader cdocReader(encodedFullPath);
     SmartCardTokenWrapper token(smartToken);
 
-    NSMutableDictionary *response = [NSMutableDictionary new];
     std::vector<unsigned char> decryptedData = cdocReader.decryptData(&token);
     *error = token.lastError();
-    if (decryptedData.empty()){
-        return response;
+    if (*error != nil){
+        return nil;
     }
     NSData *decrypted = [NSData dataWithBytes:decryptedData.data() length:decryptedData.size()];
     std::string filename = cdocReader.fileName();
     std::string mimetype = cdocReader.mimeType();
 
+    NSMutableDictionary<NSString*,NSData*> *response = [NSMutableDictionary new];
     NSString *nsFilename = [NSString stringWithCString:filename.c_str() encoding: NSUTF8StringEncoding];
     if ([[nsFilename pathExtension] isEqualToString: @"ddoc"]){
         NSXMLParser *parser = [[NSXMLParser alloc] initWithData:decrypted];

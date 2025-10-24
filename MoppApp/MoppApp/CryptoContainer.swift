@@ -28,7 +28,7 @@ class CryptoContainer {
     
     var filename: NSString!
     var filePath: NSString!
-    var dataFiles: NSMutableArray = []
+    var dataFiles: [CryptoDataFile] = []
     var addressees: [Addressee] = []
     
     init(filename: NSString, filePath: NSString){

@@ -29,7 +29,7 @@
 
 @implementation Encrypt
 
-- (BOOL)encryptFile: (NSString *)fullPath withDataFiles :(NSArray *) dataFiles withAddressees: (NSArray *) addressees {
++ (BOOL)encryptFile: (NSString *)fullPath withDataFiles :(NSArray<CryptoDataFile*> *) dataFiles withAddressees: (NSArray<Addressee*> *) addressees {
 
     std::string encodedFullPath = std::string([fullPath UTF8String]);
 
@@ -43,9 +43,7 @@
     for (Addressee *addressee in addressees) {
         NSData *cert = addressee.cert;
         unsigned char *buffer = reinterpret_cast<unsigned char*>(const_cast<void*>(cert.bytes));
-        std::vector<unsigned char> result = std::vector<unsigned char>(buffer, buffer + cert.length);
-        
-        cdocWriter.addRecipient(std::move(result));
+        cdocWriter.addRecipient(std::vector<unsigned char>(buffer, buffer + cert.length));
     }
 
     return cdocWriter.encrypt();

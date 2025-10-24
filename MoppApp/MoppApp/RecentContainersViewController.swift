@@ -247,7 +247,7 @@ extension RecentContainersViewController : UITableViewDelegate {
                         path.path as String?,
                         success: { cdocInfo in
                             let cryptoContainer = (containerViewController as! CryptoContainerViewController)
-                            container.addressees = cdocInfo.addressees as? [Addressee] ?? []
+                            container.addressees = cdocInfo.addressees
                             container.dataFiles = cdocInfo.dataFiles
                             cryptoContainer.containerPath = path.path as String?
                             cryptoContainer.state = .opened

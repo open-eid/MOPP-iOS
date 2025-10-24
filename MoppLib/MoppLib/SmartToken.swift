@@ -49,16 +49,18 @@ func blocking<T>(_ body: @escaping @Sendable () async throws -> T) throws -> T {
 }
 
 public class SmartToken: AbstractSmartToken {
-    let pin1: String
     let card: CardCommands
+    let pin1: String
+    let cert: Data
 
-    public init(card: CardCommands, pin1: String) {
+    public init(card: CardCommands, pin1: String, cert: Data) {
         self.card = card
         self.pin1 = pin1
+        self.cert = cert
     }
 
     public func getCertificate() throws -> Data {
-        try blocking { try await self.card.readAuthenticationCertificate() }
+        cert
     }
 
     public func decrypt(_ data: Data) throws -> Data {

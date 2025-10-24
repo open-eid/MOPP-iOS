@@ -21,11 +21,11 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "CryptoDataFile.h"
-#import "Addressee.h"
+
+@class Addressee;
+@class CryptoDataFile;
 
 @interface CdocInfo : NSObject
-@property (nonatomic, strong) NSMutableArray<Addressee *> *addressees;
-@property (nonatomic, strong) NSMutableArray<CryptoDataFile *> *dataFiles;
-
+@property (nonatomic, strong) NSArray<Addressee *> *addressees;
+@property (nonatomic, strong) NSArray<CryptoDataFile *> *dataFiles;
 @end

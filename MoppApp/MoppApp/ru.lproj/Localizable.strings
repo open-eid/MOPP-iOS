@@ -307,8 +307,6 @@
 "pin1-textfield-label" = "Введите PIN1";
 "pin2-locked-alert" = "Подписание данной ID-картой ещё невозможно. Чтобы подписывать, необходимо изменить PIN2. https://www.id.ee/ru/artikkel/poryadok-izmeneniya-pin-kodov-i-puk-koda-id-karty/";
 "pin-blocked-alert" = "PIN-код заблокирован. Разблокируйте PIN-код, чтобы снова его использовать. https://www.id.ee/ru/artikkel/poryadok-izmeneniya-pin-kodov-i-puk-koda-id-karty/";
-"pin2-blocked-alert" = "PIN2 заблокирован";
-"pin1-blocked-alert" = "PIN1 заблокирован";
 "generic-error-message" = "Что-то пошло не так. Пожалуйста, попробуйте снова.";
 "decryption-wrong-card" = "Невозможно расшифровать с данной картой";
 "decryption-error-message" = "Что-то пошло не так с дешифрованием. Пожалуйста, попробуйте снова.";

@@ -22,6 +22,9 @@
 
 #import <Foundation/Foundation.h>
 
+@class Addressee;
+@class CryptoDataFile;
+
 @interface Encrypt : NSObject
-- (BOOL)encryptFile: (NSString *)fullPath withDataFiles :(NSArray *) dataFiles withAddressees: (NSArray *) addressees;
++ (BOOL)encryptFile: (NSString * _Nonnull)fullPath withDataFiles :(NSArray<CryptoDataFile*> * _Nonnull) dataFiles withAddressees: (NSArray<Addressee*> * _Nonnull) addressees;
 @end
