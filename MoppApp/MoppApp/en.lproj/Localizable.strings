@@ -306,8 +306,6 @@
 "pin1-textfield-label" = "Enter PIN1";
 "pin2-locked-alert" = "Signing with the ID-card isn't possible yet. PIN2 code must be changed in order to sign. https://www.id.ee/en/article/changing-id-card-pin-codes-and-puk-code/";
 "pin-blocked-alert" = "PIN is blocked. Unblock to use the PIN again. https://www.id.ee/en/article/changing-id-card-pin-codes-and-puk-code/";
-"pin2-blocked-alert" = "PIN2 has been blocked";
-"pin1-blocked-alert" = "PIN1 has been blocked";
 "generic-error-message" = "Something went wrong. Please try again.";
 "decryption-wrong-card" = "Unable to decrypt with this card";
 "decryption-error-message" = "Something went wrong with decryption. Please try again.";

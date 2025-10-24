@@ -77,7 +77,7 @@ std::vector<uchar> SmartCardTokenWrapper::decrypt(const std::vector<uchar> &data
 std::vector<uchar> SmartCardTokenWrapper::derive(const std::vector<uchar> &publicKey) const
 {
     NSError *error = nil;
-    auto result = [[token->smartTokenClass decrypt:[NSData dataFromVectorNoCopy:publicKey] error:&error] toVector];
+    auto result = [[token->smartTokenClass derive:[NSData dataFromVectorNoCopy:publicKey] error:&error] toVector];
     token->error = error;
     return result;
 }

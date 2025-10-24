@@ -146,7 +146,7 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
                     strongSelf.updateState(.loading)
                     strongSelf.updateState((self?.isCreated)! ? .created : .opened)
                     if strongSelf.container.dataFiles.count > index {
-                        strongSelf.container.dataFiles.removeObject(at: index)
+                        strongSelf.container.dataFiles.remove(at: index)
                     } else {
                         self?.infoAlert(message: L(.dataFileRemovalFailed))
                         return

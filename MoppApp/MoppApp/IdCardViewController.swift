@@ -242,7 +242,11 @@ class IdCardViewController : MoppViewController {
                 }
                 guard retryCount > 0 else {
                     return self.dismiss(animated: true) {
-                        ErrorUtil.generateError(signingError: L(.pinBlockedAlert))
+                        if self.isActionDecryption {
+                            self.decryptDelegate?.idCardDecryptDidFinished(success: false, dataFiles: .init(), error: MoppLibError.Code.pinBlocked)
+                        } else {
+                            ErrorUtil.generateError(signingError: L(.pinBlockedAlert))
+                        }
                     }
                 }
                 let pinHidden: Bool
@@ -265,10 +269,10 @@ class IdCardViewController : MoppViewController {
                 self.pinTextFieldTitleLabel.isHidden = pinHidden
                 self.pinTextFieldTitleLabel.text = switch (self.isActionDecryption, retryCount) {
                 case (true, 2): L(.wrongPin1msg, [retryCount])
-                case (true, 1): L(.wrongPin1Single)
+                case (true, 1): L(.wrongPin1SingleMsg)
                 case (true, _): L(.pin1TextfieldLabel)
                 case (false, 2): L(.wrongPin2msg, [retryCount])
-                case (false, 1): L(.wrongPin2Single)
+                case (false, 1): L(.wrongPin2SingleMsg)
                 case (false, _): L(.pin2TextfieldLabel)
                 }
                 self.pinTextFieldTitleLabel.textColor = retryCount == 3 ? UIColor.moppText : UIColor.moppError
@@ -368,31 +372,30 @@ class IdCardViewController : MoppViewController {
 
         state = .tokenActionInProcess
         if isActionDecryption {
-            guard let cardCommands else {
+            guard let cardCommands, let containerPath, let cert else {
                 decryptDelegate?.idCardDecryptDidFinished(success: false, dataFiles: .init(), error: MoppLibError.Code.cardNotFound)
                 return
             }
-            MoppLibCryptoActions.decryptData(
-                containerPath, with: SmartToken(card: cardCommands, pin1: pin),
-                success: { [weak self] decryptedData in
-                    self?.decryptDelegate?.idCardDecryptDidFinished(success: true, dataFiles: decryptedData, error: nil)
-                },
-                failure: { [weak self] error in
-                    if let nsError = error as NSError?,
-                       nsError == .wrongPin {
-                        DispatchQueue.main.async {
-                            self?.pinAttemptsLeft = (nsError.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as? NSNumber)?.uintValue ?? 0
-                            self?.state = .wrongPin
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            self?.dismiss(animated: false) {
-                                self?.decryptDelegate?.idCardDecryptDidFinished(success: false, dataFiles: .init(), error: error)
-                            }
+            Task.detached(priority: .background) { [weak self] in
+                do {
+                    let response = try Decrypt.decryptFile(containerPath, with: SmartToken(card: cardCommands, pin1: pin, cert: cert))
+                    guard response.count > 0 else { throw MoppLibError.Code.general }
+                    guard let self else { return }
+                    await MainActor.run {
+                        self.decryptDelegate?.idCardDecryptDidFinished(success: true, dataFiles: response, error: nil)
+                    }
+                } catch let error as NSError {
+                    guard let self else { return }
+                    await MainActor.run {
+                        if error == .wrongPin {
+                            self.pinAttemptsLeft = (error.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as? NSNumber)?.uintValue ?? 0
+                            self.state = .wrongPin
+                        } else {
+                            self.decryptDelegate?.idCardDecryptDidFinished(success: false, dataFiles: .init(), error: error as NSError)
                         }
                     }
                 }
-            )
+            }
         } else if DefaultsHelper.isRoleAndAddressEnabled {
             let roleAndAddressView = UIStoryboard.tokenFlow.instantiateViewController(of: RoleAndAddressViewController.self)
             roleAndAddressView.modalPresentationStyle = .overCurrentContext

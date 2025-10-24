@@ -23,8 +23,6 @@
 
 #import "MoppLibCryptoActions.h"
 
-#import <CryptoLib/Encrypt.h>
-#import <CryptoLib/Decrypt.h>
 #import <CryptoLib/CdocParser.h>
 #import <MoppLib/MoppLib-Swift.h>
 
@@ -40,33 +38,6 @@
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             error == nil ? success(response) : failure(error);
-        });
-    });
-}
-
-+ (void)decryptData:(NSString *)fullPath withToken:(id<AbstractSmartToken>)token success:(DecryptedDataBlock)success failure:(FailureBlock)failure {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSError *error = nil;
-        NSMutableDictionary *response = [Decrypt decryptFile:fullPath withToken:token error:&error];
-        if(error == nil && response.count == 0) {
-            error = [MoppLibError error:MoppLibErrorCodeGeneral];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            error == nil ? success(response) : failure(error);
-        });
-    });
-}
-
-+ (void)encryptData:(NSString *)fullPath withDataFiles:(NSArray*)dataFiles withAddressees:(NSArray*)addressees success:(VoidBlock)success failure:(FailureBlock)failure {
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        Encrypt *encrypter = [[Encrypt alloc] init];
-        NSError *error = nil;
-        if (![encrypter encryptFile:fullPath withDataFiles:dataFiles withAddressees:addressees]) {
-            error = [MoppLibError error:MoppLibErrorCodeGeneral];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            error == nil ? success() : failure(error);
         });
     });
 }

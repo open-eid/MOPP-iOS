@@ -288,7 +288,7 @@ extension ContainerActions where Self: UIViewController {
                 dataFile.filename = filename as String?
                 dataFile.filePath = $0
 
-                containerViewController?.container.dataFiles.add(dataFile)
+                containerViewController?.container.dataFiles.append(dataFile)
             }
 
             landingViewController.importProgressViewController.dismissRecursively(animated: false, completion: {
@@ -313,14 +313,7 @@ extension ContainerActions where Self: UIViewController {
     }
 
     private func isDuplicatedFilename(container: CryptoContainer, filename: NSString) -> Bool {
-        for dataFile in container.dataFiles {
-            if let strongDataFile = dataFile as? CryptoDataFile {
-                if strongDataFile.filename as NSString == filename {
-                    return true
-                }
-            }
-        }
-        return false
+        container.dataFiles.contains { $0.filename as NSString == filename }
     }
 
     func createNewContainer(with url: URL, dataFilePaths: [String], isEmptyFileImported: Bool, startSigningWhenCreated: Bool = false, cleanUpDataFilesInDocumentsFolder: Bool = true) {
@@ -401,7 +394,7 @@ extension ContainerActions where Self: UIViewController {
                 let dataFile = CryptoDataFile.init()
                 dataFile.filename = FileUtil.getFileName(currentFileName: (dataFilePath as NSString).lastPathComponent)
                 dataFile.filePath = dataFilePath
-                container.dataFiles.add(dataFile)
+                container.dataFiles.append(dataFile)
             }
 
             containerViewController.container = container

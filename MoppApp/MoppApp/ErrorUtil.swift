@@ -41,13 +41,13 @@ class ErrorUtil {
         case .noInternetConnection:
             generateError(signingError: .noResponseError)
         case .pinBlocked:
-            generateError(signingError: L(.pin2BlockedAlert))
+            generateError(signingError: L(.pinBlockedAlert))
         case .pinLocked:
             generateError(signingError: L(.pin2LockedAlert))
         case .wrongPin:
             let attemptsLeft = nsError.userInfo[MoppLibError.kMoppLibUserInfoRetryCount] as! Int
             switch attemptsLeft {
-            case 0: generateError(signingError: L(.pin2BlockedAlert))
+            case 0: generateError(signingError: L(.pinBlockedAlert))
             case 1: generateError(signingError: L(.wrongPin2Single))
             default: generateError(signingError: L(.wrongPin2, [attemptsLeft]))
             }

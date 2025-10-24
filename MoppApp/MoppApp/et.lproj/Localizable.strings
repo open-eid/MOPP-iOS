@@ -302,8 +302,6 @@
 "pin1-textfield-label" = "Sisesta PIN1";
 "pin2-locked-alert" = "Selle ID-kaardiga allkirjastamine ei ole veel võimalik. Allkirjastamiseks tuleb PIN2-koodi muuta. https://www.id.ee/artikkel/id-kaardi-pin-ja-puk-koodide-muutmine/";
 "pin-blocked-alert" = "PIN on blokeeritud. Tühista blokeering, et PIN-i taas kasutada. https://www.id.ee/artikkel/id-kaardi-pin-ja-puk-koodide-muutmine/";
-"pin2-blocked-alert" = "PIN2 on blokeeritud";
-"pin1-blocked-alert" = "PIN1 on blokeeritud";
 "generic-error-message" = "Midagi läks valesti. Palun proovi uuesti.";
 "decryption-wrong-card" = "Kasutatud kaart ei ole adressaatide hulgas";
 "decryption-error-message" = "Midagi läks dekrüpteerimisel valesti. Palun proovi uuesti.";

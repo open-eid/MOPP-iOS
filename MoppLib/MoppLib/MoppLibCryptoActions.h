@@ -27,33 +27,9 @@
 @protocol AbstractSmartToken;
 
 typedef void (^FailureBlock)(NSError *error);
-typedef void (^VoidBlock)(void);
 typedef void (^CdocContainerBlock)(CdocInfo * _Nonnull cdocInfo);
-typedef void (^DecryptedDataBlock)(NSDictionary<NSString*,NSData*> * _Nonnull decryptedData);
 
 @interface MoppLibCryptoActions : NSObject
-
-    /**
-     * Encrypt data and create CDOC container.
-     *
-     * @param fullPath      Full path of encrypted file.
-     * @param dataFiles     Data files to be encrypted.
-     * @param addressees    Addressees of the encrypted file.
-     * @param success       Block to be called on successful completion of action.
-     * @param failure       Block to be called when action fails. Includes error.
-     */
-+ (void)encryptData:(NSString *)fullPath withDataFiles:(NSArray*)dataFiles withAddressees:(NSArray*)addressees success:(VoidBlock)success failure:(FailureBlock)failure;
-
-
-    /**
-     * Decrypt CDOC container and get data files.
-     *
-     * @param fullPath      Full path of encrypted file.
-     * @param token          SmartToken object.
-     * @param success       Block to be called on successful completion of action. Includes decrypted data as NSMutableDictionary.
-     * @param failure       Block to be called when action fails. Includes error.
-     */
-+ (void)decryptData:(NSString *)fullPath withToken:(id<AbstractSmartToken>)token success:(DecryptedDataBlock)success failure:(FailureBlock)failure;
 
 /**
  * Parse and get info of CDOC container.
@@ -63,4 +39,5 @@ typedef void (^DecryptedDataBlock)(NSDictionary<NSString*,NSData*> * _Nonnull de
  * @param failure       Block to be called when action fails. Includes error.
  */
 + (void)parseCdocInfo:(NSString *)fullPath success:(CdocContainerBlock)success failure:(FailureBlock)failure;
-    @end
+
+@end
