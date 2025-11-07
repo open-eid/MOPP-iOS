@@ -36,6 +36,13 @@
 		4E59080424B2E295001B23A6 /* SmartIDSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E59080324B2E295001B23A6 /* SmartIDSignature.swift */; };
 		4E6E1D9B2AAB493A008B3E74 /* NFCEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E6E1D9A2AAB493A008B3E74 /* NFCEditViewController.swift */; };
 		4E7C98CC2E5EF0B100D51D9E /* RoleDetailsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF6A55627E14D3B0055F8D5 /* RoleDetailsViewControllerTests.swift */; };
+		4EBDD5B02E82874A00D0E605 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBDD5AF2E82874A00D0E605 /* WidgetKit.framework */; };
+		4EBDD5B22E82874A00D0E605 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EBDD5B12E82874A00D0E605 /* SwiftUI.framework */; };
+		4EBDD5BF2E82874B00D0E605 /* WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4EBDD5AE2E82874A00D0E605 /* WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4EBDD5D02E8288BD00D0E605 /* WidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD5CC2E8288BD00D0E605 /* WidgetExtensionBundle.swift */; };
+		4EBDD5D12E8288BD00D0E605 /* WidgetExtensionLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD5CD2E8288BD00D0E605 /* WidgetExtensionLiveActivity.swift */; };
+		4EBDD5D52E82949400D0E605 /* WidgetExtensionAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD5D42E82949400D0E605 /* WidgetExtensionAttributes.swift */; };
+		4EBDD5D62E82949D00D0E605 /* WidgetExtensionAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBDD5D42E82949400D0E605 /* WidgetExtensionAttributes.swift */; };
 		4EE56D232AB0561C002648EE /* NFCSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE56D222AB0561C002648EE /* NFCSignature.swift */; };
 		540786E91E1A76640016ABA7 /* UITextView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540786E81E1A76640016ABA7 /* UITextView+Additions.swift */; };
 		547BDF251E8BEFA30093931F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E4250D0D1E0AA8E500530370 /* Localizable.strings */; };
@@ -270,6 +277,13 @@
 			remoteGlobalIDString = E4250CC21E0968D200530370;
 			remoteInfo = MoppApp;
 		};
+		4EBDD5BD2E82874B00D0E605 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4250CBB1E0968D200530370 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4EBDD5AD2E82874A00D0E605;
+			remoteInfo = WidgetExtensionExtension;
+		};
 		54A4182D1E83FAD200559E2B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E4250CBB1E0968D200530370 /* Project object */;
@@ -307,6 +321,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				4EBDD5BF2E82874B00D0E605 /* WidgetExtension.appex in Embed Foundation Extensions */,
 				54A4182F1E83FAD200559E2B /* shareExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -352,6 +367,13 @@
 		4E59080324B2E295001B23A6 /* SmartIDSignature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartIDSignature.swift; sourceTree = "<group>"; };
 		4E6E1D9A2AAB493A008B3E74 /* NFCEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFCEditViewController.swift; sourceTree = "<group>"; };
 		4E7C98C12E5EF08500D51D9E /* MoppAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoppAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EBDD5AE2E82874A00D0E605 /* WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		4EBDD5AF2E82874A00D0E605 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		4EBDD5B12E82874A00D0E605 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		4EBDD5CA2E8288BD00D0E605 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4EBDD5CC2E8288BD00D0E605 /* WidgetExtensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetExtensionBundle.swift; sourceTree = "<group>"; };
+		4EBDD5CD2E8288BD00D0E605 /* WidgetExtensionLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetExtensionLiveActivity.swift; sourceTree = "<group>"; };
+		4EBDD5D42E82949400D0E605 /* WidgetExtensionAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetExtensionAttributes.swift; sourceTree = "<group>"; };
 		4EE56D222AB0561C002648EE /* NFCSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCSignature.swift; sourceTree = "<group>"; };
 		540786E81E1A76640016ABA7 /* UITextView+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Additions.swift"; sourceTree = "<group>"; };
 		54825EF41E1CFE9600253FF0 /* Date+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Additions.swift"; sourceTree = "<group>"; };
@@ -590,6 +612,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4EBDD5AB2E82874A00D0E605 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EBDD5B22E82874A00D0E605 /* SwiftUI.framework in Frameworks */,
+				4EBDD5B02E82874A00D0E605 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E4250CC01E0968D200530370 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -641,6 +672,17 @@
 				DFBDF1F327D8DD4100A5CF3C /* RoleAndAddressViewController.swift */,
 			);
 			name = "Token flow";
+			sourceTree = "<group>";
+		};
+		4EBDD5CE2E8288BD00D0E605 /* WidgetExtension */ = {
+			isa = PBXGroup;
+			children = (
+				4EBDD5CA2E8288BD00D0E605 /* Info.plist */,
+				4EBDD5D42E82949400D0E605 /* WidgetExtensionAttributes.swift */,
+				4EBDD5CC2E8288BD00D0E605 /* WidgetExtensionBundle.swift */,
+				4EBDD5CD2E8288BD00D0E605 /* WidgetExtensionLiveActivity.swift */,
+			);
+			path = WidgetExtension;
 			sourceTree = "<group>";
 		};
 		540786E61E1A76280016ABA7 /* Extensions */ = {
@@ -1053,6 +1095,7 @@
 				E4250CC51E0968D200530370 /* MoppApp */,
 				54A418251E83FAD200559E2B /* shareExtension */,
 				DFF6A54E27E14C180055F8D5 /* MoppAppTests */,
+				4EBDD5CE2E8288BD00D0E605 /* WidgetExtension */,
 				E4250CC41E0968D200530370 /* Products */,
 				F9074FEF4DC2DB83A60B75B9 /* Frameworks */,
 			);
@@ -1064,6 +1107,7 @@
 				E4250CC31E0968D200530370 /* MoppApp.app */,
 				54A418241E83FAD200559E2B /* shareExtension.appex */,
 				4E7C98C12E5EF08500D51D9E /* MoppAppTests.xctest */,
+				4EBDD5AE2E82874A00D0E605 /* WidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1193,6 +1237,8 @@
 				DF1503882AC5CFFA007222B2 /* MoppLib.xcodeproj */,
 				4E167D862B6D346F001B74A1 /* digidocpp.framework */,
 				C55BB1CB2091BD2000618AC4 /* WebKit.framework */,
+				4EBDD5AF2E82874A00D0E605 /* WidgetKit.framework */,
+				4EBDD5B12E82874A00D0E605 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1217,6 +1263,24 @@
 			productName = MoppAppTests;
 			productReference = 4E7C98C12E5EF08500D51D9E /* MoppAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4EBDD5AD2E82874A00D0E605 /* WidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4EBDD5C32E82874B00D0E605 /* Build configuration list for PBXNativeTarget "WidgetExtension" */;
+			buildPhases = (
+				4EBDD5AA2E82874A00D0E605 /* Sources */,
+				4EBDD5AB2E82874A00D0E605 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = WidgetExtensionExtension;
+			productReference = 4EBDD5AE2E82874A00D0E605 /* WidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		54A418231E83FAD200559E2B /* shareExtension */ = {
 			isa = PBXNativeTarget;
@@ -1251,6 +1315,7 @@
 			);
 			dependencies = (
 				54A4182E1E83FAD200559E2B /* PBXTargetDependency */,
+				4EBDD5BE2E82874B00D0E605 /* PBXTargetDependency */,
 			);
 			name = MoppApp;
 			packageProductDependencies = (
@@ -1268,13 +1333,16 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1640;
+				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 1620;
 				ORGANIZATIONNAME = "Riigi Infosüsteemi Amet";
 				TargetAttributes = {
 					4E7C98C02E5EF08500D51D9E = {
 						CreatedOnToolsVersion = 16.4;
 						TestTargetID = E4250CC21E0968D200530370;
+					};
+					4EBDD5AD2E82874A00D0E605 = {
+						CreatedOnToolsVersion = 26.0;
 					};
 					54A418231E83FAD200559E2B = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1332,6 +1400,7 @@
 				E4250CC21E0968D200530370 /* MoppApp */,
 				54A418231E83FAD200559E2B /* shareExtension */,
 				4E7C98C02E5EF08500D51D9E /* MoppAppTests */,
+				4EBDD5AD2E82874A00D0E605 /* WidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1506,6 +1575,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4EBDD5AA2E82874A00D0E605 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4EBDD5D02E8288BD00D0E605 /* WidgetExtensionBundle.swift in Sources */,
+				4EBDD5D12E8288BD00D0E605 /* WidgetExtensionLiveActivity.swift in Sources */,
+				4EBDD5D52E82949400D0E605 /* WidgetExtensionAttributes.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		54A418201E83FAD200559E2B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1620,6 +1699,7 @@
 				C50DCD151FCC681100D48E16 /* ContainerSearchCell.swift in Sources */,
 				DF7F611926399B5400747B7D /* ContainerRemovalActions.swift in Sources */,
 				C55BB1CA2090C17F00618AC4 /* AboutViewController.swift in Sources */,
+				4EBDD5D62E82949D00D0E605 /* WidgetExtensionAttributes.swift in Sources */,
 				DF716E952B45CFE90004DCB6 /* SigningCategoryViewController.swift in Sources */,
 				DFF3C3B22332314A0079458A /* RuntimeError.swift in Sources */,
 				C5927FEB2078FD40003B7F41 /* MyeIDInfoViewControllerUI.swift in Sources */,
@@ -1716,6 +1796,11 @@
 			target = E4250CC21E0968D200530370 /* MoppApp */;
 			targetProxy = 4E7C98C52E5EF08500D51D9E /* PBXContainerItemProxy */;
 		};
+		4EBDD5BE2E82874B00D0E605 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4EBDD5AD2E82874A00D0E605 /* WidgetExtension */;
+			targetProxy = 4EBDD5BD2E82874B00D0E605 /* PBXContainerItemProxy */;
+		};
 		54A4182E1E83FAD200559E2B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 54A418231E83FAD200559E2B /* shareExtension */;
@@ -1773,6 +1858,50 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.MoppAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoppApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MoppApp";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4EBDD5C02E82874B00D0E605 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WidgetExtension;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.WidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+			};
+			name = Debug;
+		};
+		4EBDD5C12E82874B00D0E605 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WidgetExtension;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ee.ria.digidoc.WidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1876,7 +2005,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				MARKETING_VERSION = 2.9.1;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1936,7 +2065,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				MARKETING_VERSION = 2.9.1;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -2013,6 +2142,15 @@
 			buildConfigurations = (
 				4E7C98C82E5EF08500D51D9E /* Debug */,
 				4E7C98C92E5EF08500D51D9E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4EBDD5C32E82874B00D0E605 /* Build configuration list for PBXNativeTarget "WidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4EBDD5C02E82874B00D0E605 /* Debug */,
+				4EBDD5C12E82874B00D0E605 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
