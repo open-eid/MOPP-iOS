@@ -20,33 +20,57 @@
  *
  */
 
-
 #import "Encrypt.h"
-#import "Addressee.h"
-#import "CryptoDataFile.h"
+#import "Extensions.h"
 
-#import <cdoc/CdocWriter.h>
+#import <CryptoLib/CryptoLib-Swift.h>
+
+#include <cdoc/CDocWriter.h>
+#include <cdoc/Recipient.h>
 
 @implementation Encrypt
 
-+ (BOOL)encryptFile: (NSString *)fullPath withDataFiles :(NSArray<CryptoDataFile*> *) dataFiles withAddressees: (NSArray<Addressee*> *) addressees {
++ (void)encryptFile:(NSString *)fullPath withDataFiles:(NSArray<CryptoDataFile*> *)dataFiles withAddressees:(NSArray<Addressee*> *)addressees
+         completion:(void (^)(NSError*))completion {
+    std::unique_ptr<libcdoc::CDocWriter> writer(libcdoc::CDocWriter::createWriter(1, fullPath.UTF8String, nullptr, nullptr, nullptr));
 
-    std::string encodedFullPath = std::string([fullPath UTF8String]);
+    if (!writer) {
+        return completion([NSError cryptoError:@"Failed to create writer"]);
+    }
 
-    CDOCWriter cdocWriter(encodedFullPath, "http://www.w3.org/2009/xmlenc11#aes256-gcm");
+    if (writer->beginEncryption() != 0) {
+        return completion([NSError cryptoError:@"Failed to start encryption"]);
+    }
+
+    for (Addressee *addressee in addressees) {
+        if (writer->addRecipient(libcdoc::Recipient::makeCertificate({}, [addressee.data toVector])) != 0) {
+            return completion([NSError cryptoError:@"Failed to add recipien"]);
+        }
+    }
 
     for (CryptoDataFile *dataFile in dataFiles) {
-        std::string encodedDataFilePath = std::string([dataFile.filePath UTF8String]);
-        std::string encodedFilename = std::string([dataFile.filename UTF8String]);
-        cdocWriter.addFile(encodedFilename, "application/octet-stream", encodedDataFilePath);
-    }
-    for (Addressee *addressee in addressees) {
-        NSData *cert = addressee.cert;
-        unsigned char *buffer = reinterpret_cast<unsigned char*>(const_cast<void*>(cert.bytes));
-        cdocWriter.addRecipient(std::vector<unsigned char>(buffer, buffer + cert.length));
-    }
+        NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:dataFile.filePath];
+        if (!fileHandle) {
+            return completion([NSError cryptoError:[NSString stringWithFormat:@"Failed to open file at path: %@", dataFile.filePath]]);
+        }
 
-    return cdocWriter.encrypt();
+        if (writer->addFile(dataFile.filename.UTF8String, [fileHandle seekToEndOfFile]) != 0) {
+            [fileHandle closeFile];
+            return completion([NSError cryptoError:[NSString stringWithFormat:@"Failed to add file to container: %@", dataFile.filename]]);
+        }
+        [fileHandle seekToFileOffset:0];
+
+        NSUInteger blockSize = 1024 * 16;
+        NSData *data;
+        while ((data = [fileHandle readDataOfLength:blockSize]) && data.length > 0) {
+            if (writer->writeData(reinterpret_cast<const uint8_t*>(data.bytes), data.length) != 0) {
+                [fileHandle closeFile];
+                return completion([NSError cryptoError:[NSString stringWithFormat:@"Failed to write file to container: %@", dataFile.filename]]);
+            }
+        }
+        [fileHandle closeFile];
+    }
+    completion(writer->finishEncryption() == 0 ? nil : [NSError cryptoError:@"Failed to finish encryption"]);
 }
 
 @end

@@ -446,7 +446,7 @@ extension MyeIDInfoManager {
     }
 }
 
-extension X509Certificate.CertType {
+extension CertType {
     var organizationDisplayString: String {
         switch self {
         case .IDCardType:

@@ -25,6 +25,13 @@
 @class Addressee;
 @class CryptoDataFile;
 
-@interface Encrypt : NSObject
-+ (BOOL)encryptFile: (NSString * _Nonnull)fullPath withDataFiles :(NSArray<CryptoDataFile*> * _Nonnull) dataFiles withAddressees: (NSArray<Addressee*> * _Nonnull) addressees;
+NS_ASSUME_NONNULL_BEGIN
+
+@interface Encrypt: NSObject
+
++ (void)encryptFile:(NSString *)fullPath withDataFiles:(NSArray<CryptoDataFile*> *)dataFiles
+     withAddressees:(NSArray<Addressee*> *)addressees completion:(void (^)(NSError * _Nullable))completion;
+
 @end
+
+NS_ASSUME_NONNULL_END

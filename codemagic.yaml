@@ -62,7 +62,7 @@ workflows:
     scripts:
       - name: Setup dependencies
         script: |
-          brew install swift-sh
+          brew install swift-sh flatbuffers
       - *get_app_version
       - *get_google_services_plist
       - name: "Setup config and TSL files"
@@ -212,7 +212,7 @@ workflows:
     scripts:
       - name: Setup dependencies
         script: |
-          brew install swift-sh
+          brew install swift-sh flatbuffers
       - *get_app_version
       - *get_google_services_plist
       - name: "Setup config and TSL files"

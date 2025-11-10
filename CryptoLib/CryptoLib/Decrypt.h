@@ -23,7 +23,14 @@
 #import <Foundation/Foundation.h>
 
 @protocol AbstractSmartToken;
+@class CdocInfo;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface Decrypt : NSObject
-+ (NSDictionary<NSString*,NSData*> * _Nullable)decryptFile:(NSString * _Nonnull)fullPath withToken:(id<AbstractSmartToken> _Nonnull)smartToken error:(NSError * _Nullable * _Nullable)error;
++ (CdocInfo * _Nullable)cdocInfo:(NSString *)fullPath error:(NSError **)error;
++ (void)decryptFile:(NSString *)fullPath withToken:(id<AbstractSmartToken>)smartToken
+         completion:(void (^)(NSDictionary<NSString*,NSData*> * _Nullable, NSError * _Nullable))completion;
 @end
+
+NS_ASSUME_NONNULL_END

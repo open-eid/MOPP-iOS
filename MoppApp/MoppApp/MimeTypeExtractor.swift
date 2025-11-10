@@ -138,6 +138,9 @@ class MimeTypeExtractor {
     }
 
     public static func findDuplicateFilenames(in filePath: URL) -> [String] {
+        guard filePath.pathExtension.isAsicContainerExtension else {
+            return []
+        }
         var filenames = Set<String>()
         var duplicateFilenames = Set<String>()
 
