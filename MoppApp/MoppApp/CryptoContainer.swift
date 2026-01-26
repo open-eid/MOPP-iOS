@@ -21,20 +21,18 @@
  *
  */
 
-import Foundation
-import CryptoLib
-
 class CryptoContainer {
-    
-    var filename: NSString!
-    var filePath: NSString!
-    var dataFiles: [CryptoDataFile] = []
-    var addressees: [Addressee] = []
-    
-    init(filename: NSString, filePath: NSString){
+
+    var filename: String
+    var filePath: String
+    var dataFiles: [CryptoDataFile]
+    var addressees: [Addressee]
+
+    init(filename: String, filePath: String, cdocInfo: CdocInfo? = nil) {
         self.filename = filename
         self.filePath = filePath
+        self.dataFiles = cdocInfo?.dataFiles ?? []
+        self.addressees = cdocInfo?.addressees ?? []
     }
-    
 }
 

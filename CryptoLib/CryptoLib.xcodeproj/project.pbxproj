@@ -9,28 +9,22 @@
 /* Begin PBXBuildFile section */
 		39231FAF20AB1C6C00E1E2B4 /* CryptoLib.h in Headers */ = {isa = PBXBuildFile; fileRef = 39231FAD20AB1C6C00E1E2B4 /* CryptoLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39266A5120CFBDF8002E3F23 /* SmartCardTokenWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5020CFBDF8002E3F23 /* SmartCardTokenWrapper.mm */; };
-		39266A5D20CFDC59002E3F23 /* CdocParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5C20CFDC59002E3F23 /* CdocParser.m */; };
-		39266A5F20CFDCB9002E3F23 /* CdocInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5E20CFDCB9002E3F23 /* CdocInfo.m */; };
-		39266A6320CFE3D4002E3F23 /* CdocParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 39266A6220CFE3D4002E3F23 /* CdocParserDelegate.m */; };
-		39266A6420CFE63D002E3F23 /* CdocParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 39266A5B20CFDC41002E3F23 /* CdocParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		39266A6520CFE643002E3F23 /* CdocInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 39266A6020CFDCDF002E3F23 /* CdocInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		393B66E020DB94B4001DC89B /* cdoc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 393B66DF20DB94B4001DC89B /* cdoc.framework */; };
-		3960E50520C02E5900D4D2FC /* CryptoDataFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 3960E50420C02E5900D4D2FC /* CryptoDataFile.m */; };
-		3960E50620C044EE00D4D2FC /* CryptoDataFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 3960E50320C02DA400D4D2FC /* CryptoDataFile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39852A4B20AB2418004CB100 /* Decrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4120AB2418004CB100 /* Decrypt.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39852A4C20AB2418004CB100 /* Encrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4220AB2418004CB100 /* Encrypt.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		39852A5020AB2418004CB100 /* DdocParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4620AB2418004CB100 /* DdocParserDelegate.m */; };
 		39852A5120AB2418004CB100 /* SmartCardTokenWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4720AB2418004CB100 /* SmartCardTokenWrapper.h */; };
 		39852A5220AB2418004CB100 /* Decrypt.mm in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4820AB2418004CB100 /* Decrypt.mm */; };
 		39852A5320AB2418004CB100 /* Encrypt.mm in Sources */ = {isa = PBXBuildFile; fileRef = 39852A4920AB2418004CB100 /* Encrypt.mm */; };
-		39852A5420AB2418004CB100 /* DdocParserDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 39852A4A20AB2418004CB100 /* DdocParserDelegate.h */; };
-		39E2B4D920AD7A3400CA74A8 /* Addressee.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E2B4CF20AD7A3400CA74A8 /* Addressee.m */; };
-		39E2B4DF20AD7A3400CA74A8 /* Addressee.h in Headers */ = {isa = PBXBuildFile; fileRef = 39E2B4D520AD7A3400CA74A8 /* Addressee.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E0454632D3BE73D0013DF23 /* CryptoDataFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0454622D3BE73D0013DF23 /* CryptoDataFile.swift */; };
+		4E17B8322D6486040063C5BF /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E17B8302D6485750063C5BF /* libz.tbd */; };
 		4E17B8352D64A1080063C5BF /* X509CertificateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E17B8342D64A0FD0063C5BF /* X509CertificateType.swift */; };
+		4E276E042D81A61000D78F40 /* Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E276E032D81A60600D78F40 /* Extensions.h */; };
 		4E3681D92D40EAAD00D76DAB /* OpenLdap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3681D72D40EAAD00D76DAB /* OpenLdap.swift */; };
 		4E3681DB2D40EAE800D76DAB /* MoppLdapConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E3681DA2D40EAE800D76DAB /* MoppLdapConfiguration.swift */; };
 		4E8990862D710DC50010CA1F /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E8990852D710DBC0010CA1F /* libxml2.tbd */; };
 		4EAC69122D481D1C00A53079 /* ASN1Decoder in Frameworks */ = {isa = PBXBuildFile; productRef = 4EAC69112D481D1C00A53079 /* ASN1Decoder */; };
+		4EB03C7D2D3BE4FB00D5F9AC /* Addressee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB03C7C2D3BE4FB00D5F9AC /* Addressee.swift */; };
+		4EB03C7F2D3BE6F700D5F9AC /* CdocInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB03C7E2D3BE6F700D5F9AC /* CdocInfo.swift */; };
 		4EEE43222D7CF3C9003D0112 /* AbstractSmartToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5920CFD93E002E3F23 /* AbstractSmartToken.swift */; };
 		DFA40D2F2ADF635F003EF945 /* 3513523f.0 in Resources */ = {isa = PBXBuildFile; fileRef = DFA40D2E2ADF635F003EF945 /* 3513523f.0 */; };
 		DFC7CA452AE010C9009D85FF /* 9f4c149e.0 in Resources */ = {isa = PBXBuildFile; fileRef = DFC7CA442AE010C9009D85FF /* 9f4c149e.0 */; };
@@ -58,29 +52,22 @@
 		39231FAD20AB1C6C00E1E2B4 /* CryptoLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptoLib.h; sourceTree = "<group>"; };
 		39266A5020CFBDF8002E3F23 /* SmartCardTokenWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SmartCardTokenWrapper.mm; sourceTree = "<group>"; };
 		39266A5920CFD93E002E3F23 /* AbstractSmartToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractSmartToken.swift; sourceTree = "<group>"; };
-		39266A5B20CFDC41002E3F23 /* CdocParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CdocParser.h; sourceTree = "<group>"; };
-		39266A5C20CFDC59002E3F23 /* CdocParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CdocParser.m; sourceTree = "<group>"; };
-		39266A5E20CFDCB9002E3F23 /* CdocInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CdocInfo.m; sourceTree = "<group>"; };
-		39266A6020CFDCDF002E3F23 /* CdocInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CdocInfo.h; sourceTree = "<group>"; };
-		39266A6120CFE36A002E3F23 /* CdocParserDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CdocParserDelegate.h; sourceTree = "<group>"; };
-		39266A6220CFE3D4002E3F23 /* CdocParserDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CdocParserDelegate.m; sourceTree = "<group>"; };
 		393B66DF20DB94B4001DC89B /* cdoc.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = cdoc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3960E50320C02DA400D4D2FC /* CryptoDataFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptoDataFile.h; sourceTree = "<group>"; };
-		3960E50420C02E5900D4D2FC /* CryptoDataFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CryptoDataFile.m; sourceTree = "<group>"; };
 		39852A4120AB2418004CB100 /* Decrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decrypt.h; sourceTree = "<group>"; };
 		39852A4220AB2418004CB100 /* Encrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Encrypt.h; sourceTree = "<group>"; };
-		39852A4620AB2418004CB100 /* DdocParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DdocParserDelegate.m; sourceTree = "<group>"; };
 		39852A4720AB2418004CB100 /* SmartCardTokenWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmartCardTokenWrapper.h; sourceTree = "<group>"; };
 		39852A4820AB2418004CB100 /* Decrypt.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Decrypt.mm; sourceTree = "<group>"; };
 		39852A4920AB2418004CB100 /* Encrypt.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Encrypt.mm; sourceTree = "<group>"; };
-		39852A4A20AB2418004CB100 /* DdocParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DdocParserDelegate.h; sourceTree = "<group>"; };
-		39E2B4CF20AD7A3400CA74A8 /* Addressee.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Addressee.m; sourceTree = "<group>"; };
-		39E2B4D520AD7A3400CA74A8 /* Addressee.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Addressee.h; sourceTree = "<group>"; };
 		4E01B4A62AEFDD3B00941723 /* build-cdoc.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "build-cdoc.sh"; sourceTree = "<group>"; };
+		4E0454622D3BE73D0013DF23 /* CryptoDataFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoDataFile.swift; sourceTree = "<group>"; };
+		4E17B8302D6485750063C5BF /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		4E17B8342D64A0FD0063C5BF /* X509CertificateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = X509CertificateType.swift; sourceTree = "<group>"; };
+		4E276E032D81A60600D78F40 /* Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Extensions.h; sourceTree = "<group>"; };
 		4E3681D72D40EAAD00D76DAB /* OpenLdap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenLdap.swift; sourceTree = "<group>"; };
 		4E3681DA2D40EAE800D76DAB /* MoppLdapConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoppLdapConfiguration.swift; sourceTree = "<group>"; };
 		4E8990852D710DBC0010CA1F /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		4EB03C7C2D3BE4FB00D5F9AC /* Addressee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Addressee.swift; sourceTree = "<group>"; };
+		4EB03C7E2D3BE6F700D5F9AC /* CdocInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdocInfo.swift; sourceTree = "<group>"; };
 		4ED24ECB2D4F799800855FC3 /* build-openldap.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "build-openldap.sh"; sourceTree = "<group>"; };
 		DFA40D2E2ADF635F003EF945 /* 3513523f.0 */ = {isa = PBXFileReference; lastKnownFileType = text; path = 3513523f.0; sourceTree = "<group>"; };
 		DFC7CA442AE010C9009D85FF /* 9f4c149e.0 */ = {isa = PBXFileReference; lastKnownFileType = text; path = 9f4c149e.0; sourceTree = "<group>"; };
@@ -92,6 +79,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E8990862D710DC50010CA1F /* libxml2.tbd in Frameworks */,
+				4E17B8322D6486040063C5BF /* libz.tbd in Frameworks */,
 				4EAC69122D481D1C00A53079 /* ASN1Decoder in Frameworks */,
 				393B66E020DB94B4001DC89B /* cdoc.framework in Frameworks */,
 			);
@@ -124,54 +112,30 @@
 			children = (
 				DFC7CA442AE010C9009D85FF /* 9f4c149e.0 */,
 				DFA40D2E2ADF635F003EF945 /* 3513523f.0 */,
-				39E2B4CB20AD7A3400CA74A8 /* Ldap */,
-				39E414E020AC5C9300141574 /* XmlParser */,
+				39231FAD20AB1C6C00E1E2B4 /* CryptoLib.h */,
+				4E276E032D81A60600D78F40 /* Extensions.h */,
 				39852A4120AB2418004CB100 /* Decrypt.h */,
 				39852A4820AB2418004CB100 /* Decrypt.mm */,
 				39852A4220AB2418004CB100 /* Encrypt.h */,
 				39852A4920AB2418004CB100 /* Encrypt.mm */,
 				39852A4720AB2418004CB100 /* SmartCardTokenWrapper.h */,
 				39266A5020CFBDF8002E3F23 /* SmartCardTokenWrapper.mm */,
-				39266A5B20CFDC41002E3F23 /* CdocParser.h */,
-				39266A5C20CFDC59002E3F23 /* CdocParser.m */,
-				39231FAD20AB1C6C00E1E2B4 /* CryptoLib.h */,
 				39266A5920CFD93E002E3F23 /* AbstractSmartToken.swift */,
-				39E2B4D520AD7A3400CA74A8 /* Addressee.h */,
-				39E2B4CF20AD7A3400CA74A8 /* Addressee.m */,
-				3960E50320C02DA400D4D2FC /* CryptoDataFile.h */,
-				3960E50420C02E5900D4D2FC /* CryptoDataFile.m */,
-				39266A5E20CFDCB9002E3F23 /* CdocInfo.m */,
-				39266A6020CFDCDF002E3F23 /* CdocInfo.h */,
+				4E0454622D3BE73D0013DF23 /* CryptoDataFile.swift */,
+				4EB03C7C2D3BE4FB00D5F9AC /* Addressee.swift */,
+				4EB03C7E2D3BE6F700D5F9AC /* CdocInfo.swift */,
+				4E3681D72D40EAAD00D76DAB /* OpenLdap.swift */,
+				4E3681DA2D40EAE800D76DAB /* MoppLdapConfiguration.swift */,
 				4E17B8342D64A0FD0063C5BF /* X509CertificateType.swift */,
 			);
 			path = CryptoLib;
-			sourceTree = "<group>";
-		};
-		39E2B4CB20AD7A3400CA74A8 /* Ldap */ = {
-			isa = PBXGroup;
-			children = (
-				4E3681D72D40EAAD00D76DAB /* OpenLdap.swift */,
-				4E3681DA2D40EAE800D76DAB /* MoppLdapConfiguration.swift */,
-			);
-			name = Ldap;
-			path = CryptoLib/Ldap;
-			sourceTree = SOURCE_ROOT;
-		};
-		39E414E020AC5C9300141574 /* XmlParser */ = {
-			isa = PBXGroup;
-			children = (
-				39852A4A20AB2418004CB100 /* DdocParserDelegate.h */,
-				39852A4620AB2418004CB100 /* DdocParserDelegate.m */,
-				39266A6120CFE36A002E3F23 /* CdocParserDelegate.h */,
-				39266A6220CFE3D4002E3F23 /* CdocParserDelegate.m */,
-			);
-			path = XmlParser;
 			sourceTree = "<group>";
 		};
 		D5B2B96758D5CBE2A4F80170 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				4E8990852D710DBC0010CA1F /* libxml2.tbd */,
+				4E17B8302D6485750063C5BF /* libz.tbd */,
 				393B66DF20DB94B4001DC89B /* cdoc.framework */,
 			);
 			name = Frameworks;
@@ -184,15 +148,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39231FAF20AB1C6C00E1E2B4 /* CryptoLib.h in Headers */,
 				39852A4B20AB2418004CB100 /* Decrypt.h in Headers */,
 				39852A4C20AB2418004CB100 /* Encrypt.h in Headers */,
-				39852A5420AB2418004CB100 /* DdocParserDelegate.h in Headers */,
 				39852A5120AB2418004CB100 /* SmartCardTokenWrapper.h in Headers */,
-				39E2B4DF20AD7A3400CA74A8 /* Addressee.h in Headers */,
-				3960E50620C044EE00D4D2FC /* CryptoDataFile.h in Headers */,
-				39266A6520CFE643002E3F23 /* CdocInfo.h in Headers */,
-				39266A6420CFE63D002E3F23 /* CdocParser.h in Headers */,
-				39231FAF20AB1C6C00E1E2B4 /* CryptoLib.h in Headers */,
+				4E276E042D81A61000D78F40 /* Extensions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,14 +268,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EEE43222D7CF3C9003D0112 /* AbstractSmartToken.swift in Sources */,
-				39266A5F20CFDCB9002E3F23 /* CdocInfo.m in Sources */,
-				39266A6320CFE3D4002E3F23 /* CdocParserDelegate.m in Sources */,
-				39266A5D20CFDC59002E3F23 /* CdocParser.m in Sources */,
-				3960E50520C02E5900D4D2FC /* CryptoDataFile.m in Sources */,
-				39852A5020AB2418004CB100 /* DdocParserDelegate.m in Sources */,
+				4EB03C7D2D3BE4FB00D5F9AC /* Addressee.swift in Sources */,
 				4E17B8352D64A1080063C5BF /* X509CertificateType.swift in Sources */,
+				4EB03C7F2D3BE6F700D5F9AC /* CdocInfo.swift in Sources */,
 				39852A5220AB2418004CB100 /* Decrypt.mm in Sources */,
-				39E2B4D920AD7A3400CA74A8 /* Addressee.m in Sources */,
+				4E0454632D3BE73D0013DF23 /* CryptoDataFile.swift in Sources */,
 				39852A5320AB2418004CB100 /* Encrypt.mm in Sources */,
 				39266A5120CFBDF8002E3F23 /* SmartCardTokenWrapper.mm in Sources */,
 				4E3681D92D40EAAD00D76DAB /* OpenLdap.swift in Sources */,
@@ -375,7 +332,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_MODULE_VERIFIER = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -389,6 +346,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -432,7 +390,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_MODULE_VERIFIER = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -444,6 +402,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;

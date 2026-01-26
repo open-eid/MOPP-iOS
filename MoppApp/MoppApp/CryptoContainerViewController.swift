@@ -21,9 +21,6 @@
  *
  */
 
-import UIKit
-import CryptoLib
-
 class CryptoContainerViewController : ContainerViewController, CryptoActions {
 
     var container: CryptoContainer!
@@ -80,7 +77,7 @@ extension CryptoContainerViewController : CryptoContainerViewControllerDelegate 
         reloadCryptoData()
     }
     
-    func getAddressee(index: Int) -> Any {
+    func getAddressee(index: Int) -> Addressee {
         return container.addressees[index]
     }
     
@@ -183,13 +180,11 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
     }
     
     func getDataFileDisplayName(index: Int) -> String? {
-        guard let dataFile =  (container.dataFiles[index] as? CryptoDataFile) else {
-            return nil
-        }
+        let dataFile = container.dataFiles[index]
         if dataFile.filePath == nil {
             return dataFile.filename
         }
-        return (dataFile.filePath as NSString).lastPathComponent
+        return (dataFile.filePath! as NSString).lastPathComponent
     }
     
     func getContainer() -> MoppLibContainer {
@@ -208,27 +203,21 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
         
         if state != .loading { return }
         if container == nil {
-            let filePath = containerPath as NSString
-            let container = CryptoContainer(filename: filePath.lastPathComponent as NSString, filePath: filePath)
-            MoppLibCryptoActions.parseCdocInfo(
-                filePath as String?,
-                success: { cdocInfo in
-                    container.addressees = cdocInfo.addressees as? [Addressee] ?? []
-                    container.dataFiles = cdocInfo.dataFiles
-                    self.containerPath = filePath as String?
-                    self.state = .opened
-                    
-                    self.container = container
-                    self.isEncrypted = true
-                    self.reloadCryptoData()
-            },
-                failure: { _ in
-                    DispatchQueue.main.async {
-                        self.infoAlert(message: L(.fileImportOpenExistingFailedAlertMessage, [filePath.lastPathComponent]))
+            if let filePath = containerPath as? NSString {
+                Task(priority: .background) { [weak self] in
+                    let cdocInfo = try? Decrypt.cdocInfo(filePath as String)
+                    await MainActor.run {
+                        guard let self else { return }
+                        guard cdocInfo != nil else {
+                            return self.infoAlert(message: L(.fileImportOpenExistingFailedAlertMessage, [filePath.lastPathComponent]))
+                        }
+                        self.state = .opened
+                        self.container =  CryptoContainer(filename: filePath.lastPathComponent, filePath: filePath as String, cdocInfo: cdocInfo)
+                        self.isEncrypted = true
+                        self.reloadCryptoData()
                     }
                 }
-            )
-           
+            }
         }
         self.notifications = []
         self.updateState(self.isCreated ? .created : .opened)
@@ -239,7 +228,7 @@ extension CryptoContainerViewController : ContainerViewControllerDelegate {
     }
     
     func getDataFileRelativePath(index: Int) -> String {
-        return (container.dataFiles[index] as! CryptoDataFile).filename! as String
+        return container.dataFiles[index].filename
     }
     
     func isContainerEmpty() -> Bool {

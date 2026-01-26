@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		39266A5320CFC0F4002E3F23 /* SmartToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39266A5220CFC0F4002E3F23 /* SmartToken.swift */; };
-		399C01E320BC11C20056D7AC /* MoppLibCryptoActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 399C01E220BC11C20056D7AC /* MoppLibCryptoActions.m */; };
-		399C01E620BC17A10056D7AC /* MoppLibCryptoActions.h in Headers */ = {isa = PBXBuildFile; fileRef = 399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39DFDA6320C81F5D00D0D134 /* CryptoLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 399C01E420BC13320056D7AC /* CryptoLib.framework */; };
 		4E0053842D7DEE8B00B1AFE5 /* CardCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5463DA4A1E12927A008A1714 /* CardCommands.swift */; };
 		4E098E8D2DCE2CCA001C012D /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 4E098E8C2DCE2CCA001C012D /* BigInt */; };
@@ -43,8 +41,6 @@
 
 /* Begin PBXFileReference section */
 		39266A5220CFC0F4002E3F23 /* SmartToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartToken.swift; sourceTree = "<group>"; };
-		399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoppLibCryptoActions.h; sourceTree = "<group>"; };
-		399C01E220BC11C20056D7AC /* MoppLibCryptoActions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoppLibCryptoActions.m; sourceTree = "<group>"; };
 		399C01E420BC13320056D7AC /* CryptoLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CryptoLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E23C1722DCE1A7100FA4F3F /* CardReaderNFC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardReaderNFC.swift; sourceTree = "<group>"; };
 		4E63A77A2AEA7C5A00CEE392 /* digidocpp.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = digidocpp.framework; path = "$(DIGIDOCPP_PATH)/lib/digidocpp.framework"; sourceTree = "<absolute>"; };
@@ -180,8 +176,6 @@
 				E4250CEA1E09695100530370 /* MoppLib.h */,
 				54D164751E9269C50069C725 /* MoppLibContainerActions.h */,
 				54D164761E9269C50069C725 /* MoppLibContainerActions.mm */,
-				399C01E120BC0EF30056D7AC /* MoppLibCryptoActions.h */,
-				399C01E220BC11C20056D7AC /* MoppLibCryptoActions.m */,
 				54DC0E001E0D48C900C62B3D /* MoppLibError.swift */,
 				54E1DB5B1E44A9060060A250 /* MoppLibManager.swift */,
 				39266A5220CFC0F4002E3F23 /* SmartToken.swift */,
@@ -199,7 +193,6 @@
 				C5AAAF8620CAA3F00087D6DA /* winscard.h in Headers */,
 				C5AAAF8820CAA4240087D6DA /* wintypes.h in Headers */,
 				C5AAAF8A20CAA4790087D6DA /* ft301u.h in Headers */,
-				399C01E620BC17A10056D7AC /* MoppLibCryptoActions.h in Headers */,
 				54D164771E9269C50069C725 /* MoppLibContainerActions.h in Headers */,
 				E4250CEC1E09695100530370 /* MoppLib.h in Headers */,
 				C5AAAF8420CAA3D00087D6DA /* ReaderInterface.h in Headers */,
@@ -238,7 +231,7 @@
 				TargetAttributes = {
 					E4250CE61E09695100530370 = {
 						CreatedOnToolsVersion = 8.0;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 1620;
 					};
 				};
 			};
@@ -274,7 +267,6 @@
 				54E1DB5D1E44A9060060A250 /* MoppLibManager.swift in Sources */,
 				E42B08B61E1F0B3B00EA24A3 /* MoppLibContainer.swift in Sources */,
 				4EAE02FF2E02A2590061C4EB /* MoppLibSignature.swift in Sources */,
-				399C01E320BC11C20056D7AC /* MoppLibCryptoActions.m in Sources */,
 				C5E41C5E2180602B00D79B54 /* Idemia.swift in Sources */,
 				39266A5320CFC0F4002E3F23 /* SmartToken.swift in Sources */,
 				C54EA732204D5E860039AC78 /* CardReaderiR301.swift in Sources */,
@@ -294,6 +286,7 @@
 		E4250CED1E09695100530370 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -321,7 +314,6 @@
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -349,10 +341,12 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -360,6 +354,7 @@
 		E4250CEE1E09695100530370 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -387,7 +382,6 @@
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -408,10 +402,12 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

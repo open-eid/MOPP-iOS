@@ -22,22 +22,9 @@
  */
 
 #import "SmartCardTokenWrapper.h"
+#import "Extensions.h"
 
 #import <CryptoLib/CryptoLib-Swift.h>
-
-@implementation NSData (std_vector)
-+ (instancetype)dataFromVectorNoCopy:(const std::vector<unsigned char>&)data {
-    return data.empty() ? nil : [NSData dataWithBytesNoCopy:(void *)data.data() length:data.size() freeWhenDone:NO];
-}
-
-- (std::vector<unsigned char>)toVector {
-    if (self == nil) {
-        return {};
-    }
-    const auto *p = reinterpret_cast<const uint8_t*>(self.bytes);
-    return {p, std::next(p, self.length)};
-}
-@end
 
 struct SmartCardTokenWrapper::Private {
     id<AbstractSmartToken> smartTokenClass;
@@ -58,26 +45,26 @@ NSError* SmartCardTokenWrapper::lastError() const
     return token->error;
 }
 
-std::vector<uchar> SmartCardTokenWrapper::cert() const
+libcdoc::result_t SmartCardTokenWrapper::deriveECDH1(std::vector<uint8_t>& dst, const std::vector<uint8_t> &public_key, unsigned int idx)
 {
     NSError *error = nil;
-    auto result = [[token->smartTokenClass getCertificateAndReturnError:&error] toVector];
+    dst = [[token->smartTokenClass derive:[NSData dataFromVectorNoCopy:public_key] error:&error] toVector];
     token->error = error;
-    return result;
+    return dst.empty() ? libcdoc::CRYPTO_ERROR : libcdoc::OK;
 }
 
-std::vector<uchar> SmartCardTokenWrapper::decrypt(const std::vector<uchar> &data) const
+libcdoc::result_t SmartCardTokenWrapper::decryptRSA(std::vector<uint8_t>& dst, const std::vector<uint8_t>& data, bool oaep, unsigned int idx)
 {
     NSError *error = nil;
-    auto result = [[token->smartTokenClass derive:[NSData dataFromVectorNoCopy:data] error:&error] toVector];
+    dst = [[token->smartTokenClass decrypt:[NSData dataFromVectorNoCopy:data] error:&error] toVector];
     token->error = error;
-    return result;
+    return dst.empty() ? libcdoc::CRYPTO_ERROR : libcdoc::OK;
 }
 
-std::vector<uchar> SmartCardTokenWrapper::derive(const std::vector<uchar> &publicKey) const
+libcdoc::result_t SmartCardTokenWrapper::sign(std::vector<uint8_t> &dst, HashAlgorithm algorithm, const std::vector<uint8_t> &digest, unsigned int idx)
 {
     NSError *error = nil;
-    auto result = [[token->smartTokenClass derive:[NSData dataFromVectorNoCopy:publicKey] error:&error] toVector];
+    dst = [[token->smartTokenClass authenticate:[NSData dataFromVectorNoCopy:digest] error:&error] toVector];
     token->error = error;
-    return result;
+    return dst.empty() ? libcdoc::CRYPTO_ERROR : libcdoc::OK;
 }

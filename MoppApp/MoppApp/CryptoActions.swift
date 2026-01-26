@@ -20,8 +20,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  *
  */
+
 import Foundation
-import CryptoLib
 
 protocol CryptoActions {
     func startEncryptingProcess()
@@ -35,11 +35,13 @@ extension CryptoActions where Self: CryptoContainerViewController {
             return self.infoAlert(message: L(.cryptoNoAddresseesWarning))
         }
         Task.detached { [weak self] in
-            let result = Encrypt.encryptFile(container.filePath as String, with: container.dataFiles, with: container.addressees)
+            do {
+                    try await Encrypt.encryptFile(container.filePath, with: container.dataFiles, with: container.addressees)
+            } catch {
+                await self?.infoAlert(message: L(.cryptoEncryptionErrorText))
+            }
             guard let self else { return }
             await MainActor.run {
-                guard result else { return self.infoAlert(message: L(.cryptoEncryptionErrorText)) }
-
                 self.isCreated = false
                 self.isForPreview = false
                 self.isEncrypted = true
@@ -69,7 +71,7 @@ extension CryptoActions where Self: CryptoContainerViewController {
 }
 
 extension CryptoContainerViewController : IdCardDecryptViewControllerDelegate {
-    
+
     func idCardDecryptDidFinished(success: Bool, dataFiles: [String:Data], error: Error?) {
         dismiss(animated: false)
         guard success else {
@@ -85,10 +87,7 @@ extension CryptoContainerViewController : IdCardDecryptViewControllerDelegate {
             guard let destinationPath = MoppFileManager.shared.tempFilePath(withFileName: filename) else {
                 return infoAlert(message: L(.decryptionErrorMessage))
             }
-            let cryptoDataFile = CryptoDataFile()
-            cryptoDataFile.filename = filename
-            cryptoDataFile.filePath = destinationPath
-            container.dataFiles.append(cryptoDataFile)
+            container.dataFiles.append(CryptoDataFile(filename: filename, filePath: destinationPath))
             MoppFileManager.shared.createFile(atPath: destinationPath, contents: data)
         }
 

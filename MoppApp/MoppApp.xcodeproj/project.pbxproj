@@ -19,7 +19,6 @@
 		3921CAAD20B819B500BF3178 /* ContainerNoAddresseesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAAC20B819B500BF3178 /* ContainerNoAddresseesCell.swift */; };
 		3921CAAF20B826E700BF3178 /* AddresseeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3921CAAE20B826E700BF3178 /* AddresseeViewController.swift */; };
 		393B66BA20D7EC9D001DC89B /* WrapperUIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393B66B920D7EC9D001DC89B /* WrapperUIBarButtonItem.swift */; };
-		39487CBE210B18F90082D910 /* CdocParserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39487CBD210B18F90082D910 /* CdocParserDelegate.swift */; };
 		399C01EA20BD98730056D7AC /* ContainerFoundAddresseeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399C01E920BD98730056D7AC /* ContainerFoundAddresseeCell.swift */; };
 		39CDA7EA20ADBCEC006E2E9F /* Crypto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */; };
 		39CDA7EE20ADBE93006E2E9F /* CryptoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */; };
@@ -341,7 +340,6 @@
 		3921CAAC20B819B500BF3178 /* ContainerNoAddresseesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerNoAddresseesCell.swift; sourceTree = "<group>"; };
 		3921CAAE20B826E700BF3178 /* AddresseeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddresseeViewController.swift; sourceTree = "<group>"; };
 		393B66B920D7EC9D001DC89B /* WrapperUIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapperUIBarButtonItem.swift; sourceTree = "<group>"; };
-		39487CBD210B18F90082D910 /* CdocParserDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CdocParserDelegate.swift; sourceTree = "<group>"; };
 		399C01E920BD98730056D7AC /* ContainerFoundAddresseeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerFoundAddresseeCell.swift; sourceTree = "<group>"; };
 		39CDA7E920ADBCEB006E2E9F /* Crypto.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Crypto.storyboard; sourceTree = "<group>"; };
 		39CDA7ED20ADBE93006E2E9F /* CryptoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoViewController.swift; sourceTree = "<group>"; };
@@ -916,7 +914,6 @@
 				DFC18364261B387C0094E455 /* SaveableContainerActions.swift */,
 				C5E7D08C2031B1040081416F /* NativeShare.swift */,
 				C5A1D1CC2031D5B80024CD4C /* ContainerActions.swift */,
-				39487CBD210B18F90082D910 /* CdocParserDelegate.swift */,
 				DF7F611826399B5400747B7D /* ContainerRemovalActions.swift */,
 			);
 			name = Shared;
@@ -1612,7 +1609,6 @@
 				DFC2ADC229437790008A1CD2 /* AccessibilityViewController.swift in Sources */,
 				393B66BA20D7EC9D001DC89B /* WrapperUIBarButtonItem.swift in Sources */,
 				DFC2ADC6294377AC008A1CD2 /* AccessibilityViewTextType.swift in Sources */,
-				39487CBE210B18F90082D910 /* CdocParserDelegate.swift in Sources */,
 				DFD176D423F427AD00E2CC52 /* TSLVersionChecker.swift in Sources */,
 				DF4B8418284008CF005CB875 /* SignatureDetail.swift in Sources */,
 				DFBDF1F427D8DD4100A5CF3C /* RoleAndAddressViewController.swift in Sources */,
